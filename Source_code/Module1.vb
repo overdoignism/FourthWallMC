@@ -46,6 +46,8 @@ Module Module1
     Public MCServer_RAM_Peak As Long
     Public The_ProcessInstanceName As String
 
+    Public BurstMode As Boolean = False
+
     Public Origial_Path As String
 
     Public Sub Before_Save()

@@ -57,6 +57,7 @@ Partial Class Form1
         Me.COMState_Label = New System.Windows.Forms.Label()
         Me.ModeCBM_Button = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.BurstModeButton = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -66,7 +67,7 @@ Partial Class Form1
         'StartButton
         '
         Me.StartButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StartButton.Location = New System.Drawing.Point(12, 13)
+        Me.StartButton.Location = New System.Drawing.Point(12, 11)
         Me.StartButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(121, 58)
@@ -114,7 +115,7 @@ Partial Class Form1
         'SetupButton
         '
         Me.SetupButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SetupButton.Location = New System.Drawing.Point(12, 145)
+        Me.SetupButton.Location = New System.Drawing.Point(12, 139)
         Me.SetupButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.SetupButton.Name = "SetupButton"
         Me.SetupButton.Size = New System.Drawing.Size(121, 58)
@@ -184,7 +185,7 @@ Partial Class Form1
         'ExitButton
         '
         Me.ExitButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ExitButton.Location = New System.Drawing.Point(11, 626)
+        Me.ExitButton.Location = New System.Drawing.Point(11, 631)
         Me.ExitButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ExitButton.Name = "ExitButton"
         Me.ExitButton.Size = New System.Drawing.Size(121, 58)
@@ -195,7 +196,7 @@ Partial Class Form1
         'BackupButton
         '
         Me.BackupButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BackupButton.Location = New System.Drawing.Point(12, 79)
+        Me.BackupButton.Location = New System.Drawing.Point(12, 75)
         Me.BackupButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BackupButton.Name = "BackupButton"
         Me.BackupButton.Size = New System.Drawing.Size(121, 58)
@@ -207,7 +208,7 @@ Partial Class Form1
         '
         Me.KillTaskButton.Enabled = False
         Me.KillTaskButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KillTaskButton.Location = New System.Drawing.Point(11, 494)
+        Me.KillTaskButton.Location = New System.Drawing.Point(11, 503)
         Me.KillTaskButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.KillTaskButton.Name = "KillTaskButton"
         Me.KillTaskButton.Size = New System.Drawing.Size(121, 58)
@@ -218,7 +219,7 @@ Partial Class Form1
         'HelpButton
         '
         Me.HelpButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.HelpButton.Location = New System.Drawing.Point(11, 560)
+        Me.HelpButton.Location = New System.Drawing.Point(11, 567)
         Me.HelpButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.HelpButton.Name = "HelpButton"
         Me.HelpButton.Size = New System.Drawing.Size(121, 58)
@@ -242,7 +243,7 @@ Partial Class Form1
         '
         Me.ModeRC_Button.BackColor = System.Drawing.Color.White
         Me.ModeRC_Button.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ModeRC_Button.Location = New System.Drawing.Point(11, 296)
+        Me.ModeRC_Button.Location = New System.Drawing.Point(11, 227)
         Me.ModeRC_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ModeRC_Button.Name = "ModeRC_Button"
         Me.ModeRC_Button.Size = New System.Drawing.Size(121, 58)
@@ -331,7 +332,7 @@ Partial Class Form1
         '
         Me.ModeCFW_Button.BackColor = System.Drawing.Color.White
         Me.ModeCFW_Button.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ModeCFW_Button.Location = New System.Drawing.Point(11, 362)
+        Me.ModeCFW_Button.Location = New System.Drawing.Point(11, 290)
         Me.ModeCFW_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ModeCFW_Button.Name = "ModeCFW_Button"
         Me.ModeCFW_Button.Size = New System.Drawing.Size(121, 58)
@@ -375,7 +376,7 @@ Partial Class Form1
         '
         Me.ModeCBM_Button.BackColor = System.Drawing.Color.White
         Me.ModeCBM_Button.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ModeCBM_Button.Location = New System.Drawing.Point(12, 428)
+        Me.ModeCBM_Button.Location = New System.Drawing.Point(11, 354)
         Me.ModeCBM_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ModeCBM_Button.Name = "ModeCBM_Button"
         Me.ModeCBM_Button.Size = New System.Drawing.Size(121, 58)
@@ -398,12 +399,25 @@ Partial Class Form1
         Me.Panel1.Size = New System.Drawing.Size(1019, 36)
         Me.Panel1.TabIndex = 29
         '
+        'BurstModeButton
+        '
+        Me.BurstModeButton.BackColor = System.Drawing.Color.White
+        Me.BurstModeButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BurstModeButton.Location = New System.Drawing.Point(11, 418)
+        Me.BurstModeButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BurstModeButton.Name = "BurstModeButton"
+        Me.BurstModeButton.Size = New System.Drawing.Size(121, 58)
+        Me.BurstModeButton.TabIndex = 30
+        Me.BurstModeButton.Text = "Burst Mode"
+        Me.BurstModeButton.UseVisualStyleBackColor = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.ClientSize = New System.Drawing.Size(1177, 700)
+        Me.Controls.Add(Me.BurstModeButton)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ModeCBM_Button)
         Me.Controls.Add(Me.ModeCFW_Button)
@@ -421,8 +435,8 @@ Partial Class Form1
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.Name = "Form1"
-        Me.Text = "FourthWallMC v0.7 < You don't need to break it, we make window on the wall. >  By" &
-    " overdoingism Lab."
+        Me.Text = "FourthWallMC v0.71 < You don't need to break it, we make window on the wall. >  B" &
+    "y overdoingism Lab."
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
@@ -467,4 +481,5 @@ Partial Class Form1
     Friend WithEvents COMState_Label As Label
     Friend WithEvents ModeCBM_Button As Button
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents BurstModeButton As Button
 End Class

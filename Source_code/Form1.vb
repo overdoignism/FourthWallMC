@@ -3,7 +3,7 @@ Imports System.Text
 Imports System.Threading
 Imports System.Net
 Imports System.ComponentModel
-Imports System.Windows.Forms
+'Imports System.Windows.Forms
 Imports System.IO.Ports
 Imports System.Runtime.InteropServices
 Public Class Form1
@@ -23,6 +23,7 @@ Public Class Form1
     Const CM_FloodMode As String = "+"
     Const CM_ServerMode As String = "-"
     Const CM_W_SAY_CHG As String = "*"
+    Const CM_BurstMode As String = "/"
 
     Const WM_VSCROLL As Integer = 277
     Const SB_PAGEBOTTOM As Integer = 7
@@ -36,17 +37,20 @@ Public Class Form1
     Public Shared Get_Process_Error_String As String
     Public Shared ErrorHappend As Boolean
 
-    Public Shared Saved_String_Max As Integer = 127
+    Const Saved_String_Max As Integer = 127
     Public Shared Saved_String_IDX As Integer = 0
     Public Shared Saved_String(Saved_String_Max) As String
     Public Shared Show_String As String
-
     Private Delegate Sub UpdateUICB(ByVal MyText As String, ByVal c As Control)
-    Private Delegate Sub CMD_UpdateUICB(ByVal MyText As String, ByVal c As Control)
+    Public myStreamWriter As StreamWriter
+
+    Const CMD_Saved_String_Max As Integer = 127
+    Public Shared CMD_Saved_String_IDX As Integer = 0
+    Public Shared CMD_Saved_String(Saved_String_Max) As String
     Public Shared CMD_Show_String As String
+    Private Delegate Sub CMD_UpdateUICB(ByVal MyText As String, ByVal c As Control)
     Public CMD_myStreamWriter As StreamWriter
 
-    Public myStreamWriter As StreamWriter
     Public FthWallMC_Server As Integer = 0 '0 = Offline 1 = Trying 2= Online
     Public FthWallMC_Server_TcpListerner As Sockets.TcpListener
     Public FthWallMC_Server_Bypass As Integer
@@ -367,6 +371,16 @@ Public Class Form1
                                                 Man_ThisTime_W2Say = True
                                                 SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
 
+                                            Case CM_BurstMode + "0"
+
+                                                BurstMode = False
+                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
+
+                                            Case CM_BurstMode + "1"
+
+                                                BurstMode = True
+                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
+
                                             Case Else
                                                 ErrorType = 1
 
@@ -613,7 +627,6 @@ Public Class Form1
             End If
             '======================================
 
-
             '================Flood To CMD=============
             If Man_Flood_ToCMD Then
                 If Man_CMD_FDFilterList IsNot Nothing Then
@@ -629,8 +642,9 @@ Public Class Form1
             End If
             '======================================
 
-
             Dim Tmp_Index1, Tmp_Index2, Tmp_Index3 As Integer
+
+            '===================================== Console Text Buffer
 
             Saved_String(Saved_String_IDX) = Tmp_String_Org + vbNewLine
 
@@ -640,17 +654,28 @@ Public Class Form1
                 Saved_String_IDX += 1
             End If
 
-            Show_String = ""
+            '============================================ Console Text Buffer Show up
 
-            For Tmp_Index1 = Saved_String_IDX To Saved_String_Max
-                Show_String += Saved_String(Tmp_Index1)
-            Next
+            If Not BurstMode Then
 
-            For Tmp_Index1 = 0 To Saved_String_IDX - 1
-                Show_String += Saved_String(Tmp_Index1)
-            Next
+                Show_String = ""
 
-            UpdateUI(Show_String, MCS_Richtexbox)
+                For Tmp_Index1 = Saved_String_IDX To Saved_String_Max
+                    Show_String += Saved_String(Tmp_Index1)
+                Next
+
+                For Tmp_Index1 = 0 To Saved_String_IDX - 1
+                    Show_String += Saved_String(Tmp_Index1)
+                Next
+
+                BoxRefreshTimer.Enabled = False
+                UpdateUI(Show_String, MCS_Richtexbox)
+                BoxRefreshTimer.Enabled = True
+
+            End If
+            '=============================================
+
+
 
             Do 'ALL In Game Command Parsing In this Fake DO-LOOP
 
@@ -784,6 +809,16 @@ Public Class Form1
                                         Man_ThisTime_W2Say = True
                                 End Select
 
+
+                            Case CM_BurstMode 'BurstMode
+
+                                Select Case Val(Get_Message)
+                                    Case 0
+                                        BurstMode = False
+                                    Case 1
+                                        BurstMode = True
+                                End Select
+
                             Case Else
 
                                 Exit Do
@@ -802,8 +837,6 @@ Public Class Form1
 
                 Exit Do
             Loop
-
-            BoxRefreshTimer.Enabled = True
 
         End If
 
@@ -1000,25 +1033,55 @@ Public Class Form1
 
         If Not String.IsNullOrEmpty(outLine.Data) Then
 
-            Dim CMD_Get_String As String = outLine.Data
-            CMD_Show_String += CMD_Get_String + vbNewLine
+            Dim Tmp_String_Org As String = outLine.Data
+            Dim Tmp_Index1 As Integer
 
-            If CMD_Show_String.Length > 4096 Then
-                CMD_Show_String = CMD_Show_String.Substring(CMD_Show_String.Length - 4096, 4096)
+            '===================================== CMD Console Text Buffer
+
+            CMD_Saved_String(CMD_Saved_String_IDX) = Tmp_String_Org + vbNewLine
+
+            If CMD_Saved_String_IDX >= CMD_Saved_String_Max Then
+                CMD_Saved_String_IDX = 0
+            Else
+                CMD_Saved_String_IDX += 1
             End If
+
+            '===================================== CMD Console Text Buffer show up
+
+            If Not BurstMode Then
+
+                CMD_Show_String = ""
+
+                For Tmp_Index1 = Saved_String_IDX To CMD_Saved_String_Max
+                    CMD_Show_String += CMD_Saved_String(Tmp_Index1)
+                Next
+
+                For Tmp_Index1 = 0 To CMD_Saved_String_IDX - 1
+                    CMD_Show_String += CMD_Saved_String(Tmp_Index1)
+                Next
+
+
+                CMDBoxRefreshTimer.Enabled = False
+                CMD_UpdateUI(CMD_Show_String, CMD_Texbox)
+                CMDBoxRefreshTimer.Enabled = True
+
+            End If
+
+            '====================================
+
 
             If MC_Server_WorkState = 2 Then
 
                 '====================CMD foold to MC + injection
-                If Man_Use_InJ AndAlso CMD_Get_String.Substring(0, 1) = "'" Then
+                If Man_Use_InJ AndAlso Tmp_String_Org.Substring(0, 1) = "'" Then
 
-                    If CMD_Get_String.Length = 3 Then
+                    If Tmp_String_Org.Length = 3 Then
 
-                        Select Case CMD_Get_String.Substring(1, 1)
+                        Select Case Tmp_String_Org.Substring(1, 1)
 
                             Case CM_FloodMode
 
-                                Select Case CMD_Get_String.Substring(2, 1)
+                                Select Case Tmp_String_Org.Substring(2, 1)
                                     Case 0
                                         Man_Flood_ToCMD = False
                                     Case 1
@@ -1027,7 +1090,7 @@ Public Class Form1
 
                             Case CM_ServerMode
 
-                                Select Case CMD_Get_String.Substring(2, 1)
+                                Select Case Tmp_String_Org.Substring(2, 1)
                                     Case 0
                                         FthWallMC_Server_Bypass = 0
                                     Case 1
@@ -1038,34 +1101,42 @@ Public Class Form1
 
                             Case CM_W_SAY_CHG
 
-                                Select Case CMD_Get_String.Substring(2, 1)
+                                Select Case Tmp_String_Org.Substring(2, 1)
                                     Case 0
                                         Man_ThisTime_W2Say = False
                                     Case 1
                                         Man_ThisTime_W2Say = True
                                 End Select
 
+                            Case CM_BurstMode
+
+                                Select Case Tmp_String_Org.Substring(2, 1)
+                                    Case 0
+                                        BurstMode = False
+                                    Case 1
+                                        BurstMode = True
+                                End Select
+
                             Case Else
 
-                                Write_To_Console(CMD_Get_String.Substring(1))
+                                Write_To_Console(Tmp_String_Org.Substring(1))
 
                         End Select
 
                     Else
 
-                        Write_To_Console(CMD_Get_String.Substring(1))
+                        Write_To_Console(Tmp_String_Org.Substring(1))
 
                     End If
-
 
                 Else
 
                     If Not Man_Flood_ToCMD Then
 
                         If Man_ThisTime_W2Say Then
-                            Write_To_Console("say " + CMD_Get_String)
+                            Write_To_Console("say " + Tmp_String_Org)
                         Else
-                            Write_To_Console("w " + Man_Who_LastSending + " " + CMD_Get_String)
+                            Write_To_Console("w " + Man_Who_LastSending + " " + Tmp_String_Org)
                         End If
 
                     End If
@@ -1074,10 +1145,6 @@ Public Class Form1
                 '==============================================
 
             End If
-
-            CMDBoxRefreshTimer.Enabled = False
-            CMD_UpdateUI(CMD_Show_String, CMD_Texbox)
-            CMDBoxRefreshTimer.Enabled = True
 
         End If
 
@@ -1190,7 +1257,6 @@ Public Class Form1
                         ModeCBM_Button.Text = "CMD Back mode" + vbNewLine + """Say"""
                 End Select
 
-
             Case True
 
                 ModeCFW_Button.BackColor = Color.Pink
@@ -1203,6 +1269,18 @@ Public Class Form1
                     Case True
                         ModeCBM_Button.Text = "CMD Back mode" + vbNewLine + """Say"" (N/A)"
                 End Select
+
+        End Select
+
+        Select Case BurstMode
+
+            Case True
+                BurstModeButton.Text = "Burst Mode" + vbNewLine + "ON"
+                BurstModeButton.BackColor = Color.GreenYellow
+
+            Case False
+                BurstModeButton.Text = "Burst Mode" + vbNewLine + "OFF"
+                BurstModeButton.BackColor = Color.White
 
         End Select
 
@@ -1503,5 +1581,9 @@ Public Class Form1
 
     Private Sub MCS_Richtexbox_LinkClicked(sender As Object, e As LinkClickedEventArgs) Handles MCS_Richtexbox.LinkClicked
         System.Diagnostics.Process.Start(e.LinkText)
+    End Sub
+
+    Private Sub BurstModeButton_Click(sender As Object, e As EventArgs) Handles BurstModeButton.Click
+        BurstMode = Not BurstMode
     End Sub
 End Class
