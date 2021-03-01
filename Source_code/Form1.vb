@@ -69,8 +69,12 @@ Public Class Form1
 
     Dim Reciver_Data(0) As Byte
     Dim Reciver_str_Last As String
-
+    Dim ReallyClose As Boolean
     Dim LoadFont As Font
+
+    Dim Send2Recent(9) As String
+    Dim Send2Idx As Integer
+    Dim Send2IdxLast As Integer
 
     <DllImport("user32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
     Shared Function SendMessage(hWnd As IntPtr, wMsg As Integer, wParam As IntPtr, lParam As IntPtr) As Integer
@@ -675,8 +679,6 @@ Public Class Form1
             End If
             '=============================================
 
-
-
             Do 'ALL In Game Command Parsing In this Fake DO-LOOP
 
                 '================================================ Server state Detect
@@ -702,8 +704,6 @@ Public Class Form1
                 End If
 
                 '====================================================================
-
-
 
                 If MC_Server_WorkState = 2 Then
 
@@ -1030,7 +1030,6 @@ Public Class Form1
 
     Sub CMD_OutputHandler(sendingProcess As Object, outLine As DataReceivedEventArgs)
 
-
         If Not String.IsNullOrEmpty(outLine.Data) Then
 
             Dim Tmp_String_Org As String = outLine.Data
@@ -1068,7 +1067,6 @@ Public Class Form1
             End If
 
             '====================================
-
 
             If MC_Server_WorkState = 2 Then
 
@@ -1179,8 +1177,7 @@ Public Class Form1
     End Sub
 
     Private Sub Send2MCSButton_Click(sender As Object, e As EventArgs) Handles Send2MCSButton.Click
-        Write_To_Console(TextBox2.Text)
-        TextBox2.Text = ""
+        SendTo_MincraftServer()
     End Sub
 
 
@@ -1305,15 +1302,12 @@ Public Class Form1
 
                 StartButton.Enabled = True
                 BackupButton.Enabled = True
-                Send2MCSButton.Enabled = False
                 KillTaskButton.Enabled = False
-                TextBox2.Enabled = False
 
             Case 1
 
                 MCSState_Label.Text = "Minecraft Server: BUSY"
-                Send2MCSButton.Enabled = False
-                TextBox2.Enabled = False
+
                 If MCServer_BAT_Mode Then
                     CPUUsage_Label.Text = "CPU: " + "N/A (using BAT)"
                     MemUsage_Label.Text = "Mem: " + "N/A (using BAT)"
@@ -1322,8 +1316,6 @@ Public Class Form1
             Case 2
 
                 MCSState_Label.Text = "Minecraft Server: ON"
-                Send2MCSButton.Enabled = True
-                TextBox2.Enabled = True
 
                 Try
 
@@ -1366,16 +1358,68 @@ Public Class Form1
 
         End Select
 
+    End Sub
+    Public Sub SendTo_MincraftServer()
+
+        If MC_Server_WorkState <> 2 Then Exit Sub
+
+        Write_To_Console(MCS_ConsoleTextbox.Text)
+
+        Send2Recent(Send2IdxLast) = MCS_ConsoleTextbox.Text
+        Send2IdxLast += 1
+        If Send2IdxLast > 9 Then Send2IdxLast = 0
+        Send2Idx = Send2IdxLast
+
+        MCS_ConsoleTextbox.Text = ""
+
+    End Sub
+
+    Private Sub CloseForm(sender As Object, ByRef e As CancelEventArgs)
+
+        If MsgBox("Exit?", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
+            If MC_Server_WorkState <> 0 Then
+                If MsgBox("Some missions are still working, it's will make problem if force to exit. Sure? ", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
+                    ReallyClose = True
+                    Me.Close()
+                    End
+                End If
+            Else
+                ReallyClose = True
+                Me.Close()
+                End
+
+            End If
+        Else
+
+            If sender Is Me Then
+                e.Cancel = True
+            End If
+
+        End If
 
     End Sub
 
 
-    Private Sub TextBox2_KeyUp(sender As Object, e As KeyEventArgs) Handles TextBox2.KeyUp
+    Private Sub TextBox2_KeyUp(sender As Object, e As KeyEventArgs) Handles MCS_ConsoleTextbox.KeyUp
 
-        If e.KeyCode = Keys.Enter Then
-            Write_To_Console(TextBox2.Text)
-            TextBox2.Text = ""
-        End If
+        Select Case e.KeyCode
+
+            Case Keys.Enter
+                SendTo_MincraftServer()
+
+            Case Keys.Up
+
+                Send2Idx -= 1
+                If Send2Idx < 0 Then Send2Idx = 9
+                MCS_ConsoleTextbox.Text = Send2Recent(Send2Idx)
+
+            Case Keys.Down
+
+                Send2Idx += 1
+                If Send2Idx > 9 Then Send2Idx = 0
+                MCS_ConsoleTextbox.Text = Send2Recent(Send2Idx)
+
+        End Select
 
     End Sub
 
@@ -1399,19 +1443,8 @@ Public Class Form1
 
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
 
-        If MsgBox("Exit?", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
-            If MC_Server_WorkState <> 0 Then
-                If MsgBox("Some missions are still working, it's will make problem if force to exit. Sure? ", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
-                    Me.Close()
-                    End
-                End If
-            Else
-
-                Me.Close()
-                End
-
-            End If
-        End If
+        Dim e1 As New CancelEventArgs
+        CloseForm(sender, e1)
 
     End Sub
 
@@ -1433,6 +1466,7 @@ Public Class Form1
     End Sub
 
     Private Sub kill_task()
+
         If MC_IS_LAUNCHED Then
             If Not MC_Process.HasExited Then
                 MC_Process.Kill()
@@ -1444,6 +1478,7 @@ Public Class Form1
                 ZIP_Process.Kill()
             End If
         End If
+
     End Sub
 
     Private Sub ModeRC_Button_Click(sender As Object, e As EventArgs) Handles ModeRC_Button.Click
@@ -1477,7 +1512,6 @@ Public Class Form1
     End Sub
 
     Private Sub SP1Mon_Tick(sender As Object, e As EventArgs) Handles SP1Mon.Tick
-
 
         If Man_COM_Port.ToLower = "off" Then
             If SP1.IsOpen Then
@@ -1540,7 +1574,6 @@ Public Class Form1
             Exit Sub
         End If
 
-
         TmpIdx2 = UBound(Reciver_ReadySeand)
 
         If TmpIdx2 > 0 Then
@@ -1586,4 +1619,17 @@ Public Class Form1
     Private Sub BurstModeButton_Click(sender As Object, e As EventArgs) Handles BurstModeButton.Click
         BurstMode = Not BurstMode
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Form4.Show()
+    End Sub
+
+    Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+
+        If ReallyClose = False Then
+            CloseForm(sender, e)
+        End If
+
+    End Sub
+
 End Class

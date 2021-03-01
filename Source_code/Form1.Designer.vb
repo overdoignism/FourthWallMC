@@ -26,7 +26,7 @@ Partial Class Form1
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.StartButton = New System.Windows.Forms.Button()
         Me.Send2MCSButton = New System.Windows.Forms.Button()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.MCS_ConsoleTextbox = New System.Windows.Forms.TextBox()
         Me.MCS_Richtexbox = New System.Windows.Forms.RichTextBox()
         Me.SetupButton = New System.Windows.Forms.Button()
         Me.BoxRefreshTimer = New System.Windows.Forms.Timer(Me.components)
@@ -45,6 +45,7 @@ Partial Class Form1
         Me.ModeRC_Button = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.CMD_Texbox = New System.Windows.Forms.TextBox()
@@ -77,9 +78,8 @@ Partial Class Form1
         '
         'Send2MCSButton
         '
-        Me.Send2MCSButton.Enabled = False
         Me.Send2MCSButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Send2MCSButton.Location = New System.Drawing.Point(934, 571)
+        Me.Send2MCSButton.Location = New System.Drawing.Point(934, 572)
         Me.Send2MCSButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Send2MCSButton.Name = "Send2MCSButton"
         Me.Send2MCSButton.Size = New System.Drawing.Size(77, 29)
@@ -87,16 +87,16 @@ Partial Class Form1
         Me.Send2MCSButton.Text = "Send"
         Me.Send2MCSButton.UseVisualStyleBackColor = True
         '
-        'TextBox2
+        'MCS_ConsoleTextbox
         '
-        Me.TextBox2.BackColor = System.Drawing.Color.Black
-        Me.TextBox2.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.ForeColor = System.Drawing.Color.Silver
-        Me.TextBox2.Location = New System.Drawing.Point(6, 573)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(922, 26)
-        Me.TextBox2.TabIndex = 4
+        Me.MCS_ConsoleTextbox.BackColor = System.Drawing.Color.Black
+        Me.MCS_ConsoleTextbox.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MCS_ConsoleTextbox.ForeColor = System.Drawing.Color.Silver
+        Me.MCS_ConsoleTextbox.Location = New System.Drawing.Point(87, 574)
+        Me.MCS_ConsoleTextbox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.MCS_ConsoleTextbox.Name = "MCS_ConsoleTextbox"
+        Me.MCS_ConsoleTextbox.Size = New System.Drawing.Size(842, 26)
+        Me.MCS_ConsoleTextbox.TabIndex = 4
         '
         'MCS_Richtexbox
         '
@@ -264,8 +264,9 @@ Partial Class Form1
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TabPage1.Controls.Add(Me.Button1)
         Me.TabPage1.Controls.Add(Me.MCS_Richtexbox)
-        Me.TabPage1.Controls.Add(Me.TextBox2)
+        Me.TabPage1.Controls.Add(Me.MCS_ConsoleTextbox)
         Me.TabPage1.Controls.Add(Me.Send2MCSButton)
         Me.TabPage1.Location = New System.Drawing.Point(4, 24)
         Me.TabPage1.Name = "TabPage1"
@@ -273,6 +274,17 @@ Partial Class Form1
         Me.TabPage1.Size = New System.Drawing.Size(1018, 607)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Server console"
+        '
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(5, 572)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(77, 29)
+        Me.Button1.TabIndex = 6
+        Me.Button1.Text = "Rapid"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'TabPage2
         '
@@ -292,7 +304,7 @@ Partial Class Form1
         Me.TextBox3.BackColor = System.Drawing.Color.Black
         Me.TextBox3.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox3.ForeColor = System.Drawing.Color.Silver
-        Me.TextBox3.Location = New System.Drawing.Point(6, 573)
+        Me.TextBox3.Location = New System.Drawing.Point(6, 574)
         Me.TextBox3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(923, 26)
@@ -316,7 +328,7 @@ Partial Class Form1
         '
         Me.Send2CMDButton.Enabled = False
         Me.Send2CMDButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Send2CMDButton.Location = New System.Drawing.Point(935, 572)
+        Me.Send2CMDButton.Location = New System.Drawing.Point(935, 573)
         Me.Send2CMDButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Send2CMDButton.Name = "Send2CMDButton"
         Me.Send2CMDButton.Size = New System.Drawing.Size(77, 29)
@@ -435,7 +447,7 @@ Partial Class Form1
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.Name = "Form1"
-        Me.Text = "FourthWallMC v0.71 < You don't need to break it, we make window on the wall. >  B" &
+        Me.Text = "FourthWallMC v0.72 < You don't need to break it, we make window on the wall. >  B" &
     "y overdoingism Lab."
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
@@ -450,7 +462,7 @@ Partial Class Form1
 
     Friend WithEvents StartButton As Button
     Friend WithEvents Send2MCSButton As Button
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents MCS_ConsoleTextbox As TextBox
     Friend WithEvents MCS_Richtexbox As RichTextBox
     Friend WithEvents SetupButton As Button
     Friend WithEvents BoxRefreshTimer As Timer
@@ -482,4 +494,5 @@ Partial Class Form1
     Friend WithEvents ModeCBM_Button As Button
     Friend WithEvents Panel1 As Panel
     Friend WithEvents BurstModeButton As Button
+    Friend WithEvents Button1 As Button
 End Class
