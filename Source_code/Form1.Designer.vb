@@ -59,10 +59,15 @@ Partial Class Form1
         Me.ModeCBM_Button = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.BurstModeButton = New System.Windows.Forms.Button()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.EssentialsDetected = New System.Windows.Forms.Label()
+        Me.WaitPanel = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.WaitPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'StartButton
@@ -423,12 +428,56 @@ Partial Class Form1
         Me.BurstModeButton.Text = "Burst Mode"
         Me.BurstModeButton.UseVisualStyleBackColor = False
         '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(963, 13)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(147, 16)
+        Me.Label10.TabIndex = 31
+        Me.Label10.Text = "EssentialsX Detected: "
+        '
+        'EssentialsDetected
+        '
+        Me.EssentialsDetected.AutoSize = True
+        Me.EssentialsDetected.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EssentialsDetected.Location = New System.Drawing.Point(1109, 13)
+        Me.EssentialsDetected.Name = "EssentialsDetected"
+        Me.EssentialsDetected.Size = New System.Drawing.Size(16, 16)
+        Me.EssentialsDetected.TabIndex = 32
+        Me.EssentialsDetected.Text = "?"
+        '
+        'WaitPanel
+        '
+        Me.WaitPanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.WaitPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.WaitPanel.Controls.Add(Me.Label2)
+        Me.WaitPanel.Location = New System.Drawing.Point(600, 300)
+        Me.WaitPanel.Name = "WaitPanel"
+        Me.WaitPanel.Size = New System.Drawing.Size(101, 50)
+        Me.WaitPanel.TabIndex = 33
+        Me.WaitPanel.Visible = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(15, 16)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(69, 16)
+        Me.Label2.TabIndex = 32
+        Me.Label2.Text = "Waiting..."
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.ClientSize = New System.Drawing.Size(1177, 700)
+        Me.Controls.Add(Me.WaitPanel)
+        Me.Controls.Add(Me.EssentialsDetected)
+        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.BurstModeButton)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ModeCBM_Button)
@@ -447,7 +496,7 @@ Partial Class Form1
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.Name = "Form1"
-        Me.Text = "FourthWallMC v0.72 < You don't need to break it, we make window on the wall. >  B" &
+        Me.Text = "FourthWallMC v0.73 < You don't need to break it, we make window on the wall. >  B" &
     "y overdoingism Lab."
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
@@ -456,7 +505,10 @@ Partial Class Form1
         Me.TabPage2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.WaitPanel.ResumeLayout(False)
+        Me.WaitPanel.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -495,4 +547,8 @@ Partial Class Form1
     Friend WithEvents Panel1 As Panel
     Friend WithEvents BurstModeButton As Button
     Friend WithEvents Button1 As Button
+    Friend WithEvents Label10 As Label
+    Friend WithEvents EssentialsDetected As Label
+    Friend WithEvents WaitPanel As Panel
+    Friend WithEvents Label2 As Label
 End Class

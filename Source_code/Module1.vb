@@ -24,7 +24,7 @@ Module Module1
     Public Man_ThisTime_W2Say As Boolean
     Public Man_Use_InJ As Boolean = True
     Public Man_CMD_FirstExec As String
-    Public Man_Flood_ToCMD As Boolean
+    Public Man_Flood_ToCMD As Integer
     Public Man_CMD_FDFilter As String
     Public Man_CMD_FDFilterList() As String
 

@@ -40,12 +40,15 @@ Partial Class Form4
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Button9 = New System.Windows.Forms.Button()
+        Me.Button10 = New System.Windows.Forms.Button()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'TextBox1
@@ -53,7 +56,7 @@ Partial Class Form4
         Me.TextBox1.BackColor = System.Drawing.Color.Black
         Me.TextBox1.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.ForeColor = System.Drawing.Color.White
-        Me.TextBox1.Location = New System.Drawing.Point(17, 188)
+        Me.TextBox1.Location = New System.Drawing.Point(17, 187)
         Me.TextBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TextBox1.MaxLength = 100
         Me.TextBox1.Name = "TextBox1"
@@ -67,7 +70,7 @@ Partial Class Form4
         Me.TextBox3.BackColor = System.Drawing.Color.Black
         Me.TextBox3.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox3.ForeColor = System.Drawing.Color.White
-        Me.TextBox3.Location = New System.Drawing.Point(17, 316)
+        Me.TextBox3.Location = New System.Drawing.Point(17, 270)
         Me.TextBox3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TextBox3.MaxLength = 100
         Me.TextBox3.Name = "TextBox3"
@@ -104,7 +107,7 @@ Partial Class Form4
         'Button2
         '
         Me.Button2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(376, 98)
+        Me.Button2.Location = New System.Drawing.Point(376, 99)
         Me.Button2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(77, 29)
@@ -115,7 +118,7 @@ Partial Class Form4
         'Button3
         '
         Me.Button3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.Location = New System.Drawing.Point(476, 98)
+        Me.Button3.Location = New System.Drawing.Point(476, 99)
         Me.Button3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(77, 29)
@@ -126,7 +129,7 @@ Partial Class Form4
         'Button4
         '
         Me.Button4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.Location = New System.Drawing.Point(476, 186)
+        Me.Button4.Location = New System.Drawing.Point(476, 185)
         Me.Button4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(77, 29)
@@ -138,7 +141,7 @@ Partial Class Form4
         'Button5
         '
         Me.Button5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.Location = New System.Drawing.Point(376, 186)
+        Me.Button5.Location = New System.Drawing.Point(376, 185)
         Me.Button5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(77, 29)
@@ -149,7 +152,7 @@ Partial Class Form4
         'Button6
         '
         Me.Button6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button6.Location = New System.Drawing.Point(476, 314)
+        Me.Button6.Location = New System.Drawing.Point(476, 268)
         Me.Button6.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(77, 29)
@@ -160,7 +163,7 @@ Partial Class Form4
         'Button7
         '
         Me.Button7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button7.Location = New System.Drawing.Point(376, 314)
+        Me.Button7.Location = New System.Drawing.Point(376, 268)
         Me.Button7.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(77, 29)
@@ -182,7 +185,7 @@ Partial Class Form4
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(14, 80)
+        Me.Label1.Location = New System.Drawing.Point(14, 81)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(303, 16)
         Me.Label1.TabIndex = 17
@@ -194,25 +197,25 @@ Partial Class Form4
         Me.Label2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(14, 168)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(248, 16)
+        Me.Label2.Size = New System.Drawing.Size(193, 16)
         Me.Label2.TabIndex = 18
-        Me.Label2.Text = "Log server message to blow up your disk."
+        Me.Label2.Text = "I have no idea what it work for...."
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(14, 218)
+        Me.Label3.Location = New System.Drawing.Point(14, 217)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(343, 16)
+        Me.Label3.Size = New System.Drawing.Size(111, 16)
         Me.Label3.TabIndex = 19
-        Me.Label3.Text = "Recommend: Debug <true>  Using <depending on case*>"
+        Me.Label3.Text = "Recommend: (no)"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(14, 130)
+        Me.Label4.Location = New System.Drawing.Point(14, 131)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(252, 16)
         Me.Label4.TabIndex = 20
@@ -222,7 +225,7 @@ Partial Class Form4
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(388, 130)
+        Me.Label5.Location = New System.Drawing.Point(388, 131)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(54, 16)
         Me.Label5.TabIndex = 21
@@ -232,7 +235,7 @@ Partial Class Form4
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(388, 218)
+        Me.Label6.Location = New System.Drawing.Point(388, 217)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(54, 16)
         Me.Label6.TabIndex = 22
@@ -242,39 +245,17 @@ Partial Class Form4
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(18, 296)
+        Me.Label7.Location = New System.Drawing.Point(18, 250)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(248, 16)
         Me.Label7.TabIndex = 23
         Me.Label7.Text = "Is CommandBlock can work with 4WMC?"
         '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.ForeColor = System.Drawing.Color.Gray
-        Me.Label8.Location = New System.Drawing.Point(14, 242)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(257, 14)
-        Me.Label8.TabIndex = 24
-        Me.Label8.Text = "*If you are managing a public server, or other "
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.ForeColor = System.Drawing.Color.Gray
-        Me.Label9.Location = New System.Drawing.Point(14, 260)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(219, 14)
-        Me.Label9.TabIndex = 25
-        Me.Label9.Text = "security considerations, true is better."
-        '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(388, 347)
+        Me.Label10.Location = New System.Drawing.Point(388, 301)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(54, 16)
         Me.Label10.TabIndex = 26
@@ -284,7 +265,7 @@ Partial Class Form4
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(18, 346)
+        Me.Label11.Location = New System.Drawing.Point(18, 300)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(157, 16)
         Me.Label11.TabIndex = 27
@@ -293,7 +274,7 @@ Partial Class Form4
         'Button8
         '
         Me.Button8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button8.Location = New System.Drawing.Point(247, 389)
+        Me.Button8.Location = New System.Drawing.Point(247, 410)
         Me.Button8.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(77, 29)
@@ -306,7 +287,7 @@ Partial Class Form4
         Me.TextBox2.BackColor = System.Drawing.Color.Black
         Me.TextBox2.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox2.ForeColor = System.Drawing.Color.White
-        Me.TextBox2.Location = New System.Drawing.Point(17, 100)
+        Me.TextBox2.Location = New System.Drawing.Point(17, 101)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TextBox2.MaxLength = 100
         Me.TextBox2.Name = "TextBox2"
@@ -315,17 +296,76 @@ Partial Class Form4
         Me.TextBox2.TabIndex = 29
         Me.TextBox2.Text = "gamerule sendCommandFeedback"
         '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(388, 387)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(54, 16)
+        Me.Label9.TabIndex = 34
+        Me.Label9.Text = "(default)"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(16, 336)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(200, 16)
+        Me.Label12.TabIndex = 33
+        Me.Label12.Text = "Start/stop day/night time forward."
+        '
+        'Button9
+        '
+        Me.Button9.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button9.Location = New System.Drawing.Point(476, 354)
+        Me.Button9.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(77, 29)
+        Me.Button9.TabIndex = 32
+        Me.Button9.Text = "false"
+        Me.Button9.UseVisualStyleBackColor = True
+        '
+        'Button10
+        '
+        Me.Button10.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button10.Location = New System.Drawing.Point(376, 354)
+        Me.Button10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button10.Name = "Button10"
+        Me.Button10.Size = New System.Drawing.Size(77, 29)
+        Me.Button10.TabIndex = 31
+        Me.Button10.Text = "true"
+        Me.Button10.UseVisualStyleBackColor = True
+        '
+        'TextBox5
+        '
+        Me.TextBox5.BackColor = System.Drawing.Color.Black
+        Me.TextBox5.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox5.ForeColor = System.Drawing.Color.White
+        Me.TextBox5.Location = New System.Drawing.Point(17, 356)
+        Me.TextBox5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.TextBox5.MaxLength = 100
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.ReadOnly = True
+        Me.TextBox5.Size = New System.Drawing.Size(340, 26)
+        Me.TextBox5.TabIndex = 30
+        Me.TextBox5.Text = "gamerule doDaylightCycle"
+        '
         'Form4
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(570, 435)
+        Me.ClientSize = New System.Drawing.Size(570, 458)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.Label12)
+        Me.Controls.Add(Me.Button9)
+        Me.Controls.Add(Me.Button10)
+        Me.Controls.Add(Me.TextBox5)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.Button8)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label10)
-        Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
@@ -371,10 +411,13 @@ Partial Class Form4
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Label9 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents Button8 As Button
     Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Button9 As Button
+    Friend WithEvents Button10 As Button
+    Friend WithEvents TextBox5 As TextBox
 End Class

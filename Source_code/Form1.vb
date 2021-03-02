@@ -72,9 +72,20 @@ Public Class Form1
     Dim ReallyClose As Boolean
     Dim LoadFont As Font
 
+    'Send to Console UP+DOWN key Get recent use
     Dim Send2Recent(9) As String
     Dim Send2Idx As Integer
     Dim Send2IdxLast As Integer
+
+    'Detect EssentialsX Installed
+    Dim IsEssentialsX_Installed As Integer
+
+    'Get the time tick
+    Dim I_Asking_Tick(1) As Boolean
+    Dim Time_AskMap(1) As String
+    Dim Time_TickReturn(1) As String
+
+
 
     <DllImport("user32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
     Shared Function SendMessage(hWnd As IntPtr, wMsg As Integer, wParam As IntPtr, lParam As IntPtr) As Integer
@@ -296,6 +307,7 @@ Public Class Form1
                         Case "cm"
                         Case "in"
                         Case "sy"
+                        Case "gt"
                         Case Else
                             ErrorType = 1
                     End Select
@@ -357,12 +369,17 @@ Public Class Form1
 
                                             Case CM_FloodMode + "0"
 
-                                                Man_Flood_ToCMD = False
+                                                Man_Flood_ToCMD = 0
                                                 SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
 
                                             Case CM_FloodMode + "1"
 
-                                                Man_Flood_ToCMD = True
+                                                Man_Flood_ToCMD = 1
+                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
+
+                                            Case CM_FloodMode + "2"
+
+                                                Man_Flood_ToCMD = 2
                                                 SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
 
                                             Case CM_W_SAY_CHG + "0"
@@ -407,6 +424,33 @@ Public Class Form1
                                             Write_To_Console("say " + Command_Str)
                                             SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
                                         End If
+
+                                    ElseIf Command_Mode = "gt" Then
+
+                                        I_Asking_Tick(0) = True
+                                        Time_TickReturn(0) = "-1"
+
+                                        If IsEssentialsX_Installed = 2 Then
+                                            Time_AskMap(0) = Command_Str
+                                            Write_To_Console("time")
+                                        Else
+                                            Write_To_Console("execute in " + Time_AskMap(0) + " run time query daytime")
+                                        End If
+
+                                        Dim LoopWait As Integer = 0
+
+                                        Do
+                                            Thread.Sleep(100)
+                                            My.Application.DoEvents()
+                                            If Time_TickReturn(0) <> "-1" Then Exit Do
+                                            LoopWait += 1
+                                        Loop Until LoopWait = 11
+
+                                        SendToClients(Time_TickReturn(0), Clients(Tmp_Idx1).TheSocket)
+
+                                        Time_TickReturn(0) = ""
+                                        Time_AskMap(0) = ""
+                                        I_Asking_Tick(0) = False
 
                                     Else
                                         ErrorType = 1
@@ -525,6 +569,19 @@ Public Class Form1
 
             Directory.SetCurrentDirectory(My.Computer.FileSystem.GetFileInfo(MCServer_JAR_BAT_Location).DirectoryName)
 
+
+            If My.Computer.FileSystem.DirectoryExists(".\plugins") Then
+                Dim FindEssPlugIn() As String = Directory.GetFiles(".\plugins\", "Essentials*.jar")
+                If FindEssPlugIn IsNot Nothing AndAlso FindEssPlugIn.Length > 0 Then
+                    IsEssentialsX_Installed = 2
+                Else
+                    IsEssentialsX_Installed = 1
+                End If
+            Else
+                IsEssentialsX_Installed = 1
+            End If
+
+
             StartButton.Enabled = False
             BackupButton.Enabled = False
             My.Application.DoEvents()
@@ -616,6 +673,38 @@ Public Class Form1
             Dim Tmp_String As String = Tmp_String_Org.ToUpper
             Dim Tmp_String2 As String = ""
 
+            '=============Ask tick command from RC=========Start
+            For TickTestIdx As Integer = 0 To 1
+                If I_Asking_Tick(TickTestIdx) Then
+                    If InStr(Tmp_String, "INFO]: * @") = 0 Then
+                        If (InStr(Tmp_String, "INFO]: <") = 0) AndAlso (InStr(Tmp_String, "INFO]: [") = 0) Then
+
+                            Dim TMP_TICK1_IDX As Integer
+
+                            If IsEssentialsX_Installed = 2 Then
+                                If InStr(Tmp_String_Org, Time_AskMap(TickTestIdx) + " ") > 0 Then
+                                    TMP_TICK1_IDX = InStr(Tmp_String, " TICKS")
+                                    If TMP_TICK1_IDX > 0 Then
+                                        Dim TMP_TICK2_IDX As Integer = InStrRev(Tmp_String, " ", TMP_TICK1_IDX - 1)
+                                        If TMP_TICK2_IDX > 0 AndAlso TMP_TICK1_IDX > TMP_TICK2_IDX Then
+                                            Time_TickReturn(TickTestIdx) = Tmp_String_Org.Substring(TMP_TICK2_IDX, TMP_TICK1_IDX - TMP_TICK2_IDX)
+                                        End If
+                                    End If
+                                End If
+                            Else
+                                TMP_TICK1_IDX = InStr(Tmp_String, " THE TIME IS ")
+                                If TMP_TICK1_IDX > 0 Then
+                                    Time_TickReturn(TickTestIdx) = Tmp_String_Org.Substring(TMP_TICK1_IDX + 12)
+                                End If
+                            End If
+
+                        End If
+                    End If
+                End If
+            Next
+            '=============Ask tick command from RC=========End
+
+
             '=============Serial Port Out==========
             If SP1.IsOpen Then
                 If Man_COM_TxFilterList IsNot Nothing Then
@@ -631,8 +720,8 @@ Public Class Form1
             End If
             '======================================
 
-            '================Flood To CMD=============
-            If Man_Flood_ToCMD Then
+            '================Flood To CMD=============MC→CMD
+            If Man_Flood_ToCMD = 2 Then
                 If Man_CMD_FDFilterList IsNot Nothing Then
                     For Each Tmp_String2 In Man_CMD_FDFilterList
                         If InStr(Tmp_String_Org, Tmp_String2) > 0 Then
@@ -685,7 +774,7 @@ Public Class Form1
 
                 If MC_Server_WorkState < 2 Then 'Start detect
 
-                    Tmp_Index2 = InStr(Replace(Tmp_String, "SERVER THREAD/", ""), " INFO]: DONE")
+                    Tmp_Index2 = InStr(Replace(Tmp_String, "SERVER THREAD/", ""), "INFO]: DONE")
 
                     If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
                         MC_Server_WorkState = 2
@@ -694,7 +783,7 @@ Public Class Form1
 
                 ElseIf MC_Server_WorkState = 2 Then 'Stop detect 
 
-                    Tmp_Index2 = InStr(Replace(Tmp_String, "SERVER THREAD/", ""), " INFO]: STOPPING THE SERVER")
+                    Tmp_Index2 = InStr(Replace(Tmp_String, "SERVER THREAD/", ""), "INFO]: STOPPING THE SERVER")
 
                     If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
                         MC_Server_WorkState = 1
@@ -784,9 +873,11 @@ Public Class Form1
 
                                 Select Case Val(Get_Message)
                                     Case 0
-                                        Man_Flood_ToCMD = False
+                                        Man_Flood_ToCMD = 0
                                     Case 1
-                                        Man_Flood_ToCMD = True
+                                        Man_Flood_ToCMD = 1
+                                    Case 2
+                                        Man_Flood_ToCMD = 2
                                 End Select
 
                             Case CM_ServerMode 'working mode swtch
@@ -1071,7 +1162,7 @@ Public Class Form1
             If MC_Server_WorkState = 2 Then
 
                 '====================CMD foold to MC + injection
-                If Man_Use_InJ AndAlso Tmp_String_Org.Substring(0, 1) = "'" Then
+                If Man_Use_InJ AndAlso Tmp_String_Org.Substring(0, 1) = "~" Then
 
                     If Tmp_String_Org.Length = 3 Then
 
@@ -1081,9 +1172,11 @@ Public Class Form1
 
                                 Select Case Tmp_String_Org.Substring(2, 1)
                                     Case 0
-                                        Man_Flood_ToCMD = False
+                                        Man_Flood_ToCMD = 0
                                     Case 1
-                                        Man_Flood_ToCMD = True
+                                        Man_Flood_ToCMD = 1
+                                    Case 2
+                                        Man_Flood_ToCMD = 2
                                 End Select
 
                             Case CM_ServerMode
@@ -1121,6 +1214,41 @@ Public Class Form1
 
                         End Select
 
+                    ElseIf Tmp_String_Org.Length > 4 Then
+
+                        If Tmp_String_Org.Substring(0, 4).ToUpper = "~GT," Then
+
+                            I_Asking_Tick(1) = True
+                            Time_TickReturn(1) = "-1"
+                            Time_AskMap(1) = Tmp_String_Org.Substring(4)
+
+                            If IsEssentialsX_Installed = 2 Then
+                                Write_To_Console("time")
+                            Else
+                                Write_To_Console("execute in " + Time_AskMap(1) + " run time query daytime")
+                            End If
+
+                            Dim LoopWait As Integer = 0
+
+                            Do
+                                Thread.Sleep(100)
+                                My.Application.DoEvents()
+                                If Time_TickReturn(1) <> "-1" Then Exit Do
+                                LoopWait += 1
+                            Loop Until LoopWait = 11
+
+                            CMD_Write_To_Console(Time_TickReturn(1))
+
+                            Time_TickReturn(1) = ""
+                            Time_AskMap(1) = ""
+                            I_Asking_Tick(1) = False
+
+                        Else
+
+                            Write_To_Console(Tmp_String_Org.Substring(1))
+
+                        End If
+
                     Else
 
                         Write_To_Console(Tmp_String_Org.Substring(1))
@@ -1129,7 +1257,7 @@ Public Class Form1
 
                 Else
 
-                    If Not Man_Flood_ToCMD Then
+                    If Man_Flood_ToCMD = 1 Then 'MC←CMD
 
                         If Man_ThisTime_W2Say Then
                             Write_To_Console("say " + Tmp_String_Org)
@@ -1180,10 +1308,10 @@ Public Class Form1
         SendTo_MincraftServer()
     End Sub
 
-
     Private Sub SetupButton_Click(sender As Object, e As EventArgs) Handles SetupButton.Click
         If MC_Server_WorkState = 1 Then Exit Sub
         Form2.Show()
+        Form2.BringToFront()
     End Sub
 
     Private Sub BoxRefreshTimer_Tick(sender As Object, e As EventArgs) Handles BoxRefreshTimer.Tick
@@ -1241,30 +1369,37 @@ Public Class Form1
         End Select
 
         Select Case Man_Flood_ToCMD
-            Case False
-                ModeCFW_Button.BackColor = Color.White
-                ModeCFW_Button.Text = "CMD Flood way" + vbNewLine + "MC←CMD"
 
-                Select Case Man_ThisTime_W2Say
-                    Case False
-                        ModeCBM_Button.BackColor = Color.White
-                        ModeCBM_Button.Text = "CMD Back mode" + vbNewLine + """Whisper"""
-                    Case True
-                        ModeCBM_Button.BackColor = Color.LightYellow
-                        ModeCBM_Button.Text = "CMD Back mode" + vbNewLine + """Say"""
-                End Select
+            Case 0, 2
 
-            Case True
-
-                ModeCFW_Button.BackColor = Color.Pink
-                ModeCFW_Button.Text = "CMD Flood way" + vbNewLine + "MC→CMD"
+                If Man_Flood_ToCMD = 0 Then
+                    ModeCFW_Button.BackColor = Color.White
+                    ModeCFW_Button.Text = "CMD Flood way" + vbNewLine + "MC↮CMD"
+                Else
+                    ModeCFW_Button.BackColor = Color.Pink
+                    ModeCFW_Button.Text = "CMD Flood way" + vbNewLine + "MC→CMD"
+                End If
 
                 ModeCBM_Button.BackColor = Color.Gray
                 Select Case Man_ThisTime_W2Say
                     Case False
-                        ModeCBM_Button.Text = "CMD Back mode" + vbNewLine + """Whisper"" (N/A)"
+                        ModeCBM_Button.Text = "MC←CMD use" + vbNewLine + """Whisper"" (N/A)"
                     Case True
-                        ModeCBM_Button.Text = "CMD Back mode" + vbNewLine + """Say"" (N/A)"
+                        ModeCBM_Button.Text = "MC←CMD use" + vbNewLine + """Say"" (N/A)"
+                End Select
+
+            Case 1
+
+                ModeCFW_Button.BackColor = Color.LightSkyBlue
+                ModeCFW_Button.Text = "CMD Flood way" + vbNewLine + "MC←CMD"
+
+                Select Case Man_ThisTime_W2Say
+                    Case False
+                        ModeCBM_Button.BackColor = Color.Wheat
+                        ModeCBM_Button.Text = "MC←CMD use" + vbNewLine + """Whisper"""
+                    Case True
+                        ModeCBM_Button.BackColor = Color.LightYellow
+                        ModeCBM_Button.Text = "MC←CMD use" + vbNewLine + """Say"""
                 End Select
 
         End Select
@@ -1279,6 +1414,15 @@ Public Class Form1
                 BurstModeButton.Text = "Burst Mode" + vbNewLine + "OFF"
                 BurstModeButton.BackColor = Color.White
 
+        End Select
+
+        Select Case IsEssentialsX_Installed
+            Case 0
+                EssentialsDetected.Text = "?"
+            Case 1
+                EssentialsDetected.Text = "NO"
+            Case 2
+                EssentialsDetected.Text = "YES"
         End Select
 
     End Sub
@@ -1377,12 +1521,40 @@ Public Class Form1
     Private Sub CloseForm(sender As Object, ByRef e As CancelEventArgs)
 
         If MsgBox("Exit?", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
-            If MC_Server_WorkState <> 0 Then
+
+            If MC_Server_WorkState = 2 Then
+                MCS_ConsoleTextbox.Text = "stop"
+                SendTo_MincraftServer()
+                Dim WaitCount As Integer
+                WaitPanel.Visible = True
+
+                Do
+                    My.Application.DoEvents()
+                    Thread.Sleep(100)
+                    WaitCount += 1
+                    If MC_Server_WorkState = 0 Then
+                        ReallyClose = True
+                        Me.Close()
+                        End
+                    End If
+                Loop Until WaitCount = 200
+
+                WaitPanel.Visible = False
+                If MsgBox("Looks like auto-shutdown is fault or take time too long." + vbNewLine + vbNewLine +
+                          "Do you still want exit? ", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
+                    ReallyClose = True
+                    Me.Close()
+                    End
+                End If
+
+            ElseIf MC_Server_WorkState = 1 Then
+
                 If MsgBox("Some missions are still working, it's will make problem if force to exit. Sure? ", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
                     ReallyClose = True
                     Me.Close()
                     End
                 End If
+
             Else
                 ReallyClose = True
                 Me.Close()
@@ -1398,7 +1570,6 @@ Public Class Form1
         End If
 
     End Sub
-
 
     Private Sub TextBox2_KeyUp(sender As Object, e As KeyEventArgs) Handles MCS_ConsoleTextbox.KeyUp
 
@@ -1462,7 +1633,6 @@ Public Class Form1
 
         kill_task()
 
-
     End Sub
 
     Private Sub kill_task()
@@ -1508,7 +1678,10 @@ Public Class Form1
     End Sub
 
     Private Sub ModeCFW_Button_Click(sender As Object, e As EventArgs) Handles ModeCFW_Button.Click
-        Man_Flood_ToCMD = Not Man_Flood_ToCMD
+
+        Man_Flood_ToCMD += 1
+        If Man_Flood_ToCMD = 3 Then Man_Flood_ToCMD = 0
+
     End Sub
 
     Private Sub SP1Mon_Tick(sender As Object, e As EventArgs) Handles SP1Mon.Tick
@@ -1609,6 +1782,7 @@ Public Class Form1
 
     Private Sub HelpButton_Click(sender As Object, e As EventArgs) Handles HelpButton.Click
         Form3.Show()
+        Form3.BringToFront()
     End Sub
 
 
@@ -1622,6 +1796,7 @@ Public Class Form1
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Form4.Show()
+        Form4.BringToFront()
     End Sub
 
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing

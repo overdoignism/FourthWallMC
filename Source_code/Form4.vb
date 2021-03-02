@@ -24,12 +24,12 @@
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
-        Form1.TextBox3.Text = TextBox1.Text + " true"
+        Form1.MCS_ConsoleTextbox.Text = TextBox3.Text + " true"
         Form1.SendTo_MincraftServer()
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        Form1.TextBox3.Text = TextBox1.Text + " false"
+        Form1.MCS_ConsoleTextbox.Text = TextBox3.Text + " false"
         Form1.SendTo_MincraftServer()
     End Sub
 
@@ -37,6 +37,13 @@
         Me.Visible = False
     End Sub
 
+    Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+        Form1.MCS_ConsoleTextbox.Text = TextBox5.Text + " true"
+        Form1.SendTo_MincraftServer()
+    End Sub
 
-
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        Form1.MCS_ConsoleTextbox.Text = TextBox5.Text + " false"
+        Form1.SendTo_MincraftServer()
+    End Sub
 End Class

@@ -398,9 +398,9 @@ Partial Class Form2
         Me.CMDsideApo_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CMDsideApo_Checkbox.Location = New System.Drawing.Point(21, 186)
         Me.CMDsideApo_Checkbox.Name = "CMDsideApo_Checkbox"
-        Me.CMDsideApo_Checkbox.Size = New System.Drawing.Size(320, 19)
+        Me.CMDsideApo_Checkbox.Size = New System.Drawing.Size(334, 19)
         Me.CMDsideApo_Checkbox.TabIndex = 22
-        Me.CMDsideApo_Checkbox.Text = "CMD side start with ' (Apostrophe) is server command"
+        Me.CMDsideApo_Checkbox.Text = "CMD side start with ~(tilde) is server command injection "
         Me.CMDsideApo_Checkbox.UseVisualStyleBackColor = True
         '
         'PRIID_Textbox
