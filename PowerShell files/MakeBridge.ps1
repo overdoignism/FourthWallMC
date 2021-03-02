@@ -3,7 +3,7 @@
 #
 # Because the Burst Mode, you won't see message on console window. If you want observe, please remark it.
 #
-# 2021-02-28
+# 2021/03/02
 #
 # Example:
 #
@@ -68,60 +68,60 @@
 
 
 	# Into Burst Mode
-	Write-Host "'/1"
+	Write-Host "~/1"
 
 	# Turn off sendCommandFeedback
-	Write-Host "'gamerule sendCommandFeedback false"
+	Write-Host "~gamerule sendCommandFeedback false"
 
 	$XmovTmp=$XmovTmp+$Xmov
 	$ZmovTmp=$ZmovTmp+$Zmov
 
-	Write-Host "'setblock"($x+$XmovTmp-$Xwidth)($y)($z+$ZmovTmp+$Zwidth)"polished_andesite_stairs[facing=$StartBrick] replace"
-	Write-Host "'setblock"($x+$XmovTmp-($Xwidth/2))($y)($z+$ZmovTmp+($Zwidth/2))"polished_andesite_stairs[facing=$StartBrick] replace"
-	Write-Host "'setblock"($x+$XmovTmp)($y)($z+$ZmovTmp)"polished_andesite_stairs[facing=$StartBrick] replace"
-	Write-Host "'setblock"($x+$XmovTmp+($Xwidth/2))($y)($z+$ZmovTmp-($Zwidth/2))"polished_andesite_stairs[facing=$StartBrick] replace"
-	Write-Host "'setblock"($x+$XmovTmp+$Xwidth)($y)($z+$ZmovTmp-$Zwidth)"polished_andesite_stairs[facing=$StartBrick] replace"
+	Write-Host "~setblock"($x+$XmovTmp-$Xwidth)($y)($z+$ZmovTmp+$Zwidth)"polished_andesite_stairs[facing=$StartBrick] replace"
+	Write-Host "~setblock"($x+$XmovTmp-($Xwidth/2))($y)($z+$ZmovTmp+($Zwidth/2))"polished_andesite_stairs[facing=$StartBrick] replace"
+	Write-Host "~setblock"($x+$XmovTmp)($y)($z+$ZmovTmp)"polished_andesite_stairs[facing=$StartBrick] replace"
+	Write-Host "~setblock"($x+$XmovTmp+($Xwidth/2))($y)($z+$ZmovTmp-($Zwidth/2))"polished_andesite_stairs[facing=$StartBrick] replace"
+	Write-Host "~setblock"($x+$XmovTmp+$Xwidth)($y)($z+$ZmovTmp-$Zwidth)"polished_andesite_stairs[facing=$StartBrick] replace"
 
 	for ($i=1; $i -le $length-2; $i++) {
 
 		$XmovTmp=$XmovTmp+$Xmov
 		$ZmovTmp=$ZmovTmp+$Zmov
 
-		Write-Host "'setblock"($x+$XmovTmp-$Xwidth)($y)($z+$ZmovTmp+$Zwidth)"polished_andesite_slab[type=top] replace"
-		Write-Host "'setblock"($x+$XmovTmp-($Xwidth/2))($y)($z+$ZmovTmp+($Zwidth/2))"polished_andesite_slab[type=top] replace"
-		Write-Host "'setblock"($x+$XmovTmp)($y)($z+$ZmovTmp)"polished_andesite_slab[type=top] replace"
-		Write-Host "'setblock"($x+$XmovTmp+($Xwidth/2))($y)($z+$ZmovTmp-($Zwidth/2))"polished_andesite_slab[type=top] replace"
-		Write-Host "'setblock"($x+$XmovTmp+$Xwidth)($y)($z+$ZmovTmp-$Zwidth)"polished_andesite_slab[type=top] replace"
+		Write-Host "~setblock"($x+$XmovTmp-$Xwidth)($y)($z+$ZmovTmp+$Zwidth)"polished_andesite_slab[type=top] replace"
+		Write-Host "~setblock"($x+$XmovTmp-($Xwidth/2))($y)($z+$ZmovTmp+($Zwidth/2))"polished_andesite_slab[type=top] replace"
+		Write-Host "~setblock"($x+$XmovTmp)($y)($z+$ZmovTmp)"polished_andesite_slab[type=top] replace"
+		Write-Host "~setblock"($x+$XmovTmp+($Xwidth/2))($y)($z+$ZmovTmp-($Zwidth/2))"polished_andesite_slab[type=top] replace"
+		Write-Host "~setblock"($x+$XmovTmp+$Xwidth)($y)($z+$ZmovTmp-$Zwidth)"polished_andesite_slab[type=top] replace"
 
 		if ($MakeTunnel -eq 'YES') {
 			for ($j=1; $j -le 4; $j++) {
-				Write-Host "'setblock"($x+$XmovTmp-$Xwidth)($y+$j)($z+$ZmovTmp+$Zwidth)"air replace"
-				Write-Host "'setblock"($x+$XmovTmp-($Xwidth/2))($y+$j)($z+$ZmovTmp+($Zwidth/2))"air replace"
-				Write-Host "'setblock"($x+$XmovTmp)($y+$j)($z+$ZmovTmp)"air replace"
-				Write-Host "'setblock"($x+$XmovTmp+($Xwidth/2))($y+$j)($z+$ZmovTmp-($Zwidth/2))"air replace"
-				Write-Host "'setblock"($x+$XmovTmp+$Xwidth)($y+$j)($z+$ZmovTmp-$Zwidth)"air replace"
+				Write-Host "~setblock"($x+$XmovTmp-$Xwidth)($y+$j)($z+$ZmovTmp+$Zwidth)"air replace"
+				Write-Host "~setblock"($x+$XmovTmp-($Xwidth/2))($y+$j)($z+$ZmovTmp+($Zwidth/2))"air replace"
+				Write-Host "~setblock"($x+$XmovTmp)($y+$j)($z+$ZmovTmp)"air replace"
+				Write-Host "~setblock"($x+$XmovTmp+($Xwidth/2))($y+$j)($z+$ZmovTmp-($Zwidth/2))"air replace"
+				Write-Host "~setblock"($x+$XmovTmp+$Xwidth)($y+$j)($z+$ZmovTmp-$Zwidth)"air replace"
 			}
 		}
 
-		Write-Host "'setblock"($x+$XmovTmp-$Xwidth)($y+1)($z+$ZmovTmp+$Zwidth)"birch_fence replace"
-		Write-Host "'setblock"($x+$XmovTmp+$Xwidth)($y+1)($z+$ZmovTmp-$Zwidth)"birch_fence replace"
+		Write-Host "~setblock"($x+$XmovTmp-$Xwidth)($y+1)($z+$ZmovTmp+$Zwidth)"birch_fence replace"
+		Write-Host "~setblock"($x+$XmovTmp+$Xwidth)($y+1)($z+$ZmovTmp-$Zwidth)"birch_fence replace"
 
-		if ($i % 6 -eq 0){Write-Host "'setblock"($x+$XmovTmp+$Xwidth)($y+2)($z+$ZmovTmp-$Zwidth)"lantern replace"}
-		if ($i % 6 -eq 3){Write-Host "'setblock"($x+$XmovTmp-$Xwidth)($y+2)($z+$ZmovTmp+$Zwidth)"lantern replace"}			
+		if ($i % 6 -eq 0){Write-Host "~setblock"($x+$XmovTmp+$Xwidth)($y+2)($z+$ZmovTmp-$Zwidth)"lantern replace"}
+		if ($i % 6 -eq 3){Write-Host "~setblock"($x+$XmovTmp-$Xwidth)($y+2)($z+$ZmovTmp+$Zwidth)"lantern replace"}			
 
 	}
 	
 	$XmovTmp=$XmovTmp+$Xmov
 	$ZmovTmp=$ZmovTmp+$Zmov
 
-	Write-Host "'setblock"($x+$XmovTmp-$Xwidth)($y)($z+$ZmovTmp+$Zwidth)"polished_andesite_stairs[facing=$EndBrick] replace"
-	Write-Host "'setblock"($x+$XmovTmp-($Xwidth/2))($y)($z+$ZmovTmp+($Zwidth/2))"polished_andesite_stairs[facing=$EndBrick] replace"
-	Write-Host "'setblock"($x+$XmovTmp)($y)($z+$ZmovTmp)"polished_andesite_stairs[facing=$EndBrick] replace"
-	Write-Host "'setblock"($x+$XmovTmp+($Xwidth/2))($y)($z+$ZmovTmp-($Zwidth/2))"polished_andesite_stairs[facing=$EndBrick] replace"
-	Write-Host "'setblock"($x+$XmovTmp+$Xwidth)($y)($z+$ZmovTmp-$Zwidth)"polished_andesite_stairs[facing=$EndBrick] replace"
+	Write-Host "~setblock"($x+$XmovTmp-$Xwidth)($y)($z+$ZmovTmp+$Zwidth)"polished_andesite_stairs[facing=$EndBrick] replace"
+	Write-Host "~setblock"($x+$XmovTmp-($Xwidth/2))($y)($z+$ZmovTmp+($Zwidth/2))"polished_andesite_stairs[facing=$EndBrick] replace"
+	Write-Host "~setblock"($x+$XmovTmp)($y)($z+$ZmovTmp)"polished_andesite_stairs[facing=$EndBrick] replace"
+	Write-Host "~setblock"($x+$XmovTmp+($Xwidth/2))($y)($z+$ZmovTmp-($Zwidth/2))"polished_andesite_stairs[facing=$EndBrick] replace"
+	Write-Host "~setblock"($x+$XmovTmp+$Xwidth)($y)($z+$ZmovTmp-$Zwidth)"polished_andesite_stairs[facing=$EndBrick] replace"
 
 	# Quit Burst Mode
-	Write-Host "'/0"
+	Write-Host "~/0"
 
 	# Turn on sendCommandFeedback
-	Write-Host "'gamerule sendCommandFeedback true"
+	Write-Host "~gamerule sendCommandFeedback true"
