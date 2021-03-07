@@ -226,7 +226,7 @@ Public Class Form1
 
 
     End Function
-    Function Handler_Client(ByVal state As Object)
+    Sub Handler_Client(ByVal state As Object)
 
         Dim Tmp_Idx1 As Integer
         Dim Found_Client_Space As Boolean = False
@@ -259,7 +259,7 @@ Public Class Form1
                 FthWallMC_Server = 0
             End If
 
-            Exit Function
+            Exit Sub
 
         End Try
 
@@ -332,129 +332,7 @@ Public Class Form1
 
                                 Case 0
 
-                                    If Command_Mode = "cm" Then
-
-                                        Select Case Command_Str.ToLower
-
-                                            Case "start"
-
-                                                If MC_Server_WorkState <> 0 Then
-                                                    ErrorType = 3
-                                                Else
-                                                    SendToClients(Start_MC_Server_Process(JVM_Launch_Parameter, JVM_JAVA_EXE_Location, MCServer_JAR_BAT_Location, MCServer_Launch_Parameter), Clients(Tmp_Idx1).TheSocket)
-                                                End If
-
-                                            Case "backup"
-
-                                                If MC_Server_WorkState <> 0 Then
-                                                    ErrorType = 3
-                                                Else
-                                                    SendToClients(Start_Server_Backup_Process(ZIP_Launch_Parameter, ZIP_EXE_Location, ZIP_TIME_Format), Clients(Tmp_Idx1).TheSocket)
-                                                End If
-
-                                            Case "info1"
-
-                                                If MC_Server_WorkState = 0 Then
-                                                    SendToClients("OFF", Clients(Tmp_Idx1).TheSocket)
-                                                ElseIf MC_Server_WorkState = 1 Then
-                                                    SendToClients("BUSY", Clients(Tmp_Idx1).TheSocket)
-                                                Else
-                                                    SendToClients("ON", Clients(Tmp_Idx1).TheSocket)
-                                                End If
-
-                                            Case "kill"
-
-                                                kill_task()
-                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
-
-                                            Case CM_FloodMode + "0"
-
-                                                Man_Flood_ToCMD = 0
-                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
-
-                                            Case CM_FloodMode + "1"
-
-                                                Man_Flood_ToCMD = 1
-                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
-
-                                            Case CM_FloodMode + "2"
-
-                                                Man_Flood_ToCMD = 2
-                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
-
-                                            Case CM_W_SAY_CHG + "0"
-
-                                                Man_ThisTime_W2Say = False
-                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
-
-                                            Case CM_W_SAY_CHG + "1"
-
-                                                Man_ThisTime_W2Say = True
-                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
-
-                                            Case CM_BurstMode + "0"
-
-                                                BurstMode = False
-                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
-
-                                            Case CM_BurstMode + "1"
-
-                                                BurstMode = True
-                                                SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
-
-                                            Case Else
-                                                ErrorType = 1
-
-                                        End Select
-
-                                    ElseIf Command_Mode = "in" Then
-
-                                        If MC_Server_WorkState = 0 Then
-                                            ErrorType = 2
-                                        Else
-                                            Write_To_Console(Command_Str)
-                                            SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
-                                        End If
-
-                                    ElseIf Command_Mode = "sy" Then
-
-                                        If MC_Server_WorkState = 0 Then
-                                            ErrorType = 2
-                                        Else
-                                            Write_To_Console("say " + Command_Str)
-                                            SendToClients("OK", Clients(Tmp_Idx1).TheSocket)
-                                        End If
-
-                                    ElseIf Command_Mode = "gt" Then
-
-                                        I_Asking_Tick(0) = True
-                                        Time_TickReturn(0) = "-1"
-
-                                        If IsEssentialsX_Installed = 2 Then
-                                            Time_AskMap(0) = Command_Str
-                                            Write_To_Console("time")
-                                        Else
-                                            Write_To_Console("execute in " + Time_AskMap(0) + " run time query daytime")
-                                        End If
-
-                                        Dim LoopWait As Integer = 0
-
-                                        Do
-                                            Thread.Sleep(100)
-                                            My.Application.DoEvents()
-                                            If Time_TickReturn(0) <> "-1" Then Exit Do
-                                            LoopWait += 1
-                                        Loop Until LoopWait = 11
-
-                                        SendToClients(Time_TickReturn(0), Clients(Tmp_Idx1).TheSocket)
-
-                                        Time_TickReturn(0) = ""
-                                        Time_AskMap(0) = ""
-                                        I_Asking_Tick(0) = False
-
-                                    Else
-                                        ErrorType = 1
-                                    End If
+                                    ErrorType = Process_RC_Request(Command_Mode, Command_Str, Tmp_Idx1)
 
                                 Case 1
                                     ErrorType = 4
@@ -493,21 +371,151 @@ Public Class Form1
             CloseASocket(Clients(Tmp_Idx1))
             Waiting_Input = False
 
-
         Catch ex As Exception
 
             Try
-
                 CloseASocket(Clients(Tmp_Idx1))
+                Threading.ThreadPool.QueueUserWorkItem(AddressOf Handler_Client)
                 Waiting_Input = False
-
             Finally
             End Try
 
         End Try
 
-        Return True
+    End Sub
+
+
+    Private Function Process_RC_Request(Command_Mode As String, Command_Str As String, ClientIdx As Integer) As Integer
+
+        Dim Testing As Boolean
+        Process_RC_Request = 0
+
+        If Command_Mode = "cm" Then
+
+            Select Case Command_Str.ToLower
+
+                Case "start"
+                    If MC_Server_WorkState <> 0 Then
+                        Process_RC_Request = 3
+                    Else
+                        SendToClients(Start_MC_Server_Process(JVM_Launch_Parameter, JVM_JAVA_EXE_Location, MCServer_JAR_BAT_Location, MCServer_Launch_Parameter), Clients(ClientIdx).TheSocket)
+                    End If
+
+                Case "backup"
+                    If MC_Server_WorkState <> 0 Then
+                        Process_RC_Request = 3
+                    Else
+                        SendToClients(Start_Server_Backup_Process(ZIP_Launch_Parameter, ZIP_EXE_Location, ZIP_TIME_Format), Clients(ClientIdx).TheSocket)
+                    End If
+
+                Case "info1"
+                    If MC_Server_WorkState = 0 Then
+                        SendToClients("OFF", Clients(ClientIdx).TheSocket)
+                    ElseIf MC_Server_WorkState = 1 Then
+                        SendToClients("BUSY", Clients(ClientIdx).TheSocket)
+                    Else
+                        SendToClients("ON", Clients(ClientIdx).TheSocket)
+                    End If
+
+                Case "kill"
+                    kill_task()
+                    SendToClients("OK", Clients(ClientIdx).TheSocket)
+
+                Case Else
+                    Testing = True
+
+            End Select
+
+
+            If Command_Str.Length = 2 And Testing = True Then
+
+                Select Case Command_Str.Substring(0, 1)
+
+                    Case CM_FloodMode
+                        Man_Flood_ToCMD = Val(Command_Str.Substring(1, 1)) Mod 3
+                        SendToClients("OK", Clients(ClientIdx).TheSocket)
+
+                    Case CM_W_SAY_CHG
+                        Man_ThisTime_W2Say = Val(Command_Str.Substring(1, 1)) Mod 2
+                        SendToClients("OK", Clients(ClientIdx).TheSocket)
+
+                    Case CM_BurstMode
+                        BurstMode = Val(Command_Str.Substring(1, 1)) Mod 2
+                        SendToClients("OK", Clients(ClientIdx).TheSocket)
+
+                    Case Else
+                        Process_RC_Request = 1
+
+                End Select
+
+            Else
+
+                Process_RC_Request = 1
+
+            End If
+
+        ElseIf Command_Mode = "in" Then
+
+            If MC_Server_WorkState = 0 Then
+                Process_RC_Request = 2
+            Else
+                Write_To_Console(Command_Str)
+                SendToClients("OK", Clients(ClientIdx).TheSocket)
+            End If
+
+        ElseIf Command_Mode = "sy" Then
+
+            If MC_Server_WorkState = 0 Then
+                Process_RC_Request = 2
+            Else
+                Write_To_Console("say " + Command_Str)
+                SendToClients("OK", Clients(ClientIdx).TheSocket)
+            End If
+
+        ElseIf Command_Mode = "gt" Then
+
+            Process_RC_Request = 0
+
+            If (MC_Server_WorkState = 2) AndAlso (FthWallMC_Server_Bypass = 0) Then
+
+                I_Asking_Tick(0) = True
+                Time_TickReturn(0) = "-1"
+
+                If IsEssentialsX_Installed = 2 Then
+                    Time_AskMap(0) = Command_Str
+                    Write_To_Console("time")
+                Else
+                    Time_AskMap(0) = Command_Str
+                    Write_To_Console("execute in " + Time_AskMap(0) + " run time query daytime")
+                End If
+
+                Dim LoopWait As Integer = 0
+
+                Do
+                    Thread.Sleep(100)
+                    My.Application.DoEvents()
+                    If Time_TickReturn(0) <> "-1" Then Exit Do
+                    LoopWait += 1
+                Loop Until LoopWait = 11
+
+                SendToClients(Time_TickReturn(0), Clients(ClientIdx).TheSocket)
+
+                Time_TickReturn(0) = ""
+                Time_AskMap(0) = ""
+                I_Asking_Tick(0) = False
+
+            ElseIf (MC_Server_WorkState = 1) OrElse (FthWallMC_Server_Bypass = 2) Then
+                SendToClients("-2", Clients(ClientIdx).TheSocket) 'Busy
+            Else
+                SendToClients("-3", Clients(ClientIdx).TheSocket) 'Pass or error
+            End If
+
+        Else
+            Process_RC_Request = 1
+        End If
+
     End Function
+
 
     Sub CloseASocket(ByRef NowWorker As ClientWorker)
 
@@ -678,9 +686,7 @@ Public Class Form1
                 If I_Asking_Tick(TickTestIdx) Then
                     If InStr(Tmp_String, "INFO]: * @") = 0 Then
                         If (InStr(Tmp_String, "INFO]: <") = 0) AndAlso (InStr(Tmp_String, "INFO]: [") = 0) Then
-
                             Dim TMP_TICK1_IDX As Integer
-
                             If IsEssentialsX_Installed = 2 Then
                                 If InStr(Tmp_String_Org, Time_AskMap(TickTestIdx) + " ") > 0 Then
                                     TMP_TICK1_IDX = InStr(Tmp_String, " TICKS")
@@ -749,7 +755,7 @@ Public Class Form1
 
             '============================================ Console Text Buffer Show up
 
-            If Not BurstMode Then
+            If BurstMode = 0 Then
 
                 Show_String = ""
 
@@ -771,27 +777,19 @@ Public Class Form1
             Do 'ALL In Game Command Parsing In this Fake DO-LOOP
 
                 '================================================ Server state Detect
-
                 If MC_Server_WorkState < 2 Then 'Start detect
-
                     Tmp_Index2 = InStr(Replace(Tmp_String, "SERVER THREAD/", ""), "INFO]: DONE")
-
                     If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
                         MC_Server_WorkState = 2
                         Exit Do
                     End If
-
                 ElseIf MC_Server_WorkState = 2 Then 'Stop detect 
-
                     Tmp_Index2 = InStr(Replace(Tmp_String, "SERVER THREAD/", ""), "INFO]: STOPPING THE SERVER")
-
                     If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
                         MC_Server_WorkState = 1
                         Exit Do
                     End If
-
                 End If
-
                 '====================================================================
 
                 If MC_Server_WorkState = 2 Then
@@ -821,9 +819,6 @@ Public Class Form1
                         'Get SenderID
                         Get_SenderID = Tmp_String_Org.Substring(Tmp_Index2 - 1, Tmp_Index3 - Tmp_Index2)
 
-                        'Check Man Right
-                        If Not The_Man_has_right(Get_SenderID) Then Exit Do
-
                         'Get AfterW
                         Get_AfterW = Tmp_String_Org.Substring(Tmp_Index3 + 26)
 
@@ -831,17 +826,30 @@ Public Class Form1
                         Dim TmpVal1 As Integer = InStr(Get_AfterW, " ")
                         Get_SendToID = Get_AfterW.Substring(0, TmpVal1).Trim
 
-                        If Get_SenderID = Get_SendToID Then
-                            Man_Who_LastSending = Get_SenderID
-                        ElseIf (Get_SenderID.Length > 15) AndAlso (Get_SenderID.Substring(0, 15) = "CommandBlock at") Then
-                            If Get_SendToID = "CommandBlock" Then
-                                Man_Who_LastSending = "CONSOLE"
-                            Else
-                                Exit Do
-                            End If
-                        Else
-                            Exit Do
-                        End If
+                        '[15:39:38] [Server thread/INFO]: CommandBlock at 38,63,-42 issued server command: /w CommandBlock at #4WMC-MugenRailway 38 64 -42 S
+
+                        'Check Man Right
+                        If Not The_Man_has_right(Get_SenderID, Get_SendToID) Then Exit Do
+
+                        'ElseIf (Get_SenderID.Length > 15) AndAlso (Get_SenderID.Substring(0, 15) = "CommandBlock at") Then
+                        '        If Get_SendToID = "CommandBlock" Then
+                        '            Man_Who_LastSending = "CONSOLE"
+                        '        Else
+                        '            Exit Do
+                        '        End If
+                        '    ElseIf (Get_SenderID.Length >= 15) AndAlso (Man_CBAT_Workable = True) Then
+                        '        If Get_SenderID.Substring(0, 15) = "CommandBlock at" Then
+                        '            If Get_SendToID = "CommandBlock" Then
+                        '                Man_Who_LastSending = "CONSOLE"
+                        '            Else
+                        '                Exit Do
+                        '            End If
+                        '        Else
+                        '            Exit Do
+                        '        End If
+                        '    Else
+                        '        Exit Do
+                        '    End If
 
                         'Get AfterID
                         Get_AfterID = Get_AfterW.Substring(TmpVal1)
@@ -905,9 +913,9 @@ Public Class Form1
 
                                 Select Case Val(Get_Message)
                                     Case 0
-                                        BurstMode = False
+                                        BurstMode = 0
                                     Case 1
-                                        BurstMode = True
+                                        BurstMode = 1
                                 End Select
 
                             Case Else
@@ -1138,7 +1146,7 @@ Public Class Form1
 
             '===================================== CMD Console Text Buffer show up
 
-            If Not BurstMode Then
+            If BurstMode = 0 Then
 
                 CMD_Show_String = ""
 
@@ -1203,9 +1211,9 @@ Public Class Form1
 
                                 Select Case Tmp_String_Org.Substring(2, 1)
                                     Case 0
-                                        BurstMode = False
+                                        BurstMode = 0
                                     Case 1
-                                        BurstMode = True
+                                        BurstMode = 1
                                 End Select
 
                             Case Else
@@ -1406,11 +1414,11 @@ Public Class Form1
 
         Select Case BurstMode
 
-            Case True
+            Case 1
                 BurstModeButton.Text = "Burst Mode" + vbNewLine + "ON"
                 BurstModeButton.BackColor = Color.GreenYellow
 
-            Case False
+            Case 0
                 BurstModeButton.Text = "Burst Mode" + vbNewLine + "OFF"
                 BurstModeButton.BackColor = Color.White
 
@@ -1780,7 +1788,7 @@ Public Class Form1
         Man_ThisTime_W2Say = Not Man_ThisTime_W2Say
     End Sub
 
-    Private Sub HelpButton_Click(sender As Object, e As EventArgs) Handles HelpButton.Click
+    Private Sub HelpButton_Click(sender As Object, e As EventArgs) Handles HelpAbout_Button.Click
         Form3.Show()
         Form3.BringToFront()
     End Sub
@@ -1791,7 +1799,7 @@ Public Class Form1
     End Sub
 
     Private Sub BurstModeButton_Click(sender As Object, e As EventArgs) Handles BurstModeButton.Click
-        BurstMode = Not BurstMode
+        BurstMode = BurstMode Xor 1
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -1806,5 +1814,6 @@ Public Class Form1
         End If
 
     End Sub
+
 
 End Class

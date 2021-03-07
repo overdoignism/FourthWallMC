@@ -73,6 +73,8 @@ Partial Class Form2
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.CBlockat_CheckBox = New System.Windows.Forms.CheckBox()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -294,6 +296,8 @@ Partial Class Form2
         'GroupBox5
         '
         Me.GroupBox5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.GroupBox5.Controls.Add(Me.CBlockat_CheckBox)
+        Me.GroupBox5.Controls.Add(Me.Label22)
         Me.GroupBox5.Controls.Add(Me.Label17)
         Me.GroupBox5.Controls.Add(Me.Label18)
         Me.GroupBox5.Controls.Add(Me.Label21)
@@ -334,7 +338,7 @@ Partial Class Form2
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(21, 111)
+        Me.Label21.Location = New System.Drawing.Point(21, 106)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(158, 15)
         Me.Label21.TabIndex = 31
@@ -359,16 +363,16 @@ Partial Class Form2
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(17, 153)
+        Me.Label16.Location = New System.Drawing.Point(19, 146)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(218, 15)
+        Me.Label16.Size = New System.Drawing.Size(162, 15)
         Me.Label16.TabIndex = 26
-        Me.Label16.Text = "2. Full ""CommandBlock at x,y,z"" to work"
+        Me.Label16.Text = "2. CommandBlock workable"
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(19, 131)
+        Me.Label15.Location = New System.Drawing.Point(19, 126)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(225, 15)
         Me.Label15.TabIndex = 25
@@ -396,7 +400,7 @@ Partial Class Form2
         Me.CMDsideApo_Checkbox.AutoSize = True
         Me.CMDsideApo_Checkbox.Checked = True
         Me.CMDsideApo_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CMDsideApo_Checkbox.Location = New System.Drawing.Point(21, 186)
+        Me.CMDsideApo_Checkbox.Location = New System.Drawing.Point(394, 174)
         Me.CMDsideApo_Checkbox.Name = "CMDsideApo_Checkbox"
         Me.CMDsideApo_Checkbox.Size = New System.Drawing.Size(334, 19)
         Me.CMDsideApo_Checkbox.TabIndex = 22
@@ -590,6 +594,27 @@ Partial Class Form2
         Me.TabPage3.Text = "Backup setting"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(18, 190)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(229, 15)
+        Me.Label22.TabIndex = 34
+        Me.Label22.Text = "Else full ""CommandBlock at x,y,z"" to work"
+        '
+        'CBlockat_CheckBox
+        '
+        Me.CBlockat_CheckBox.AutoSize = True
+        Me.CBlockat_CheckBox.Checked = True
+        Me.CBlockat_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CBlockat_CheckBox.Location = New System.Drawing.Point(23, 167)
+        Me.CBlockat_CheckBox.Name = "CBlockat_CheckBox"
+        Me.CBlockat_CheckBox.Size = New System.Drawing.Size(217, 19)
+        Me.CBlockat_CheckBox.TabIndex = 35
+        Me.CBlockat_CheckBox.Text = """CommandBlock"" all have privilege"
+        Me.CBlockat_CheckBox.UseVisualStyleBackColor = True
+        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -670,4 +695,6 @@ Partial Class Form2
     Friend WithEvents Label21 As Label
     Friend WithEvents Label17 As Label
     Friend WithEvents Label18 As Label
+    Friend WithEvents CBlockat_CheckBox As CheckBox
+    Friend WithEvents Label22 As Label
 End Class

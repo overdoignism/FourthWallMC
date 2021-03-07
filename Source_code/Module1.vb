@@ -24,9 +24,10 @@ Module Module1
     Public Man_ThisTime_W2Say As Boolean
     Public Man_Use_InJ As Boolean = True
     Public Man_CMD_FirstExec As String
-    Public Man_Flood_ToCMD As Integer
+    Public Man_Flood_ToCMD As Integer '0=None 1=CMD2F  2=F2CMD
     Public Man_CMD_FDFilter As String
     Public Man_CMD_FDFilterList() As String
+    Public Man_CBAT_Workable As Integer = 1
 
     Public Man_COM_Port As String
     Public Man_COM_Buad As Integer = 9600
@@ -46,7 +47,7 @@ Module Module1
     Public MCServer_RAM_Peak As Long
     Public The_ProcessInstanceName As String
 
-    Public BurstMode As Boolean = False
+    Public BurstMode As Integer = 0
 
     Public Origial_Path As String
 
@@ -62,6 +63,8 @@ Module Module1
         ZIP_EXE_Location = Form2.BackupExe_Textbox.Text
         ZIP_Launch_Parameter = Form2.BackupPar_Textbox.Text
         ZIP_TIME_Format = Form2.BackupTimeS_Textbox.Text
+
+        Man_CBAT_Workable = Form2.CBlockat_CheckBox.CheckState
 
         Man_Who_CanWork = Form2.PRIID_Textbox.Text
         Man_Use_InJ = Form2.CMDsideApo_Checkbox.Checked
@@ -104,6 +107,7 @@ Module Module1
             createNode(Save_XML, "Man_COM_LineEnd", Man_COM_LineEnd)
             createNode(Save_XML, "Man_CMD_FDFilter", Man_CMD_FDFilter)
             createNode(Save_XML, "IsAgree", IsAgree)
+            createNode(Save_XML, "Man_CBAT_Workable", Man_CBAT_Workable)
 
             Save_XML.WriteEndElement()
             Save_XML.Flush()
@@ -183,6 +187,9 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("IsAgree")
             If TmpNode IsNot Nothing Then IsAgree = TmpNode.InnerText
 
+            TmpNode = Node1.SelectSingleNode("Man_CBAT_Workable")
+            If TmpNode IsNot Nothing Then Man_CBAT_Workable = TmpNode.InnerText
+
             If Man_Who_CanWork IsNot Nothing Then
                 Make_List_Array()
             Else
@@ -214,6 +221,7 @@ Module Module1
         Form2.Autoexe_Textbox.Text = Man_CMD_FirstExec
         Form2.COMFilter_Textbox.Text = Man_COM_TxFilter
         Form2.MCFilter_Textbox.Text = Man_CMD_FDFilter
+        Form2.CBlockat_CheckBox.CheckState = Man_CBAT_Workable
 
         Form2.ManPortNum.Value = Man_Port_Number
         Form2.CMDsideApo_Checkbox.Checked = Man_Use_InJ
@@ -295,17 +303,37 @@ Module Module1
     End Function
 
 
-    Public Function The_Man_has_right(Check_String As String) As Boolean
+    Public Function The_Man_has_right(Check_Sender_String As String, Check_Sendto_String As String) As Boolean
+
+
+        If (Check_Sender_String.Length >= 15) AndAlso (Man_CBAT_Workable = 1) Then
+            If (Check_Sender_String.Substring(0, 15) = "CommandBlock at") Then
+                If (Check_Sendto_String = "CommandBlock") Then
+                    Man_Who_LastSending = "CONSOLE"
+                    Return True
+                End If
+            End If
+        End If
+
 
         For Each TestOP_List As String In Man_Who_CanWorkList
-            If Check_String = TestOP_List Then
-                The_Man_has_right = True
-                Exit Function
+            If Check_Sender_String = TestOP_List Then
+                If Check_Sender_String = Check_Sendto_String Then
+                    Man_Who_LastSending = Check_Sendto_String
+                    Return True
+                ElseIf (Check_Sender_String.Length > 15) AndAlso (Check_Sender_String.Substring(0, 15) = "CommandBlock at") Then
+                    If (Check_Sendto_String = "CommandBlock") Then
+                        Man_Who_LastSending = "CONSOLE"
+                        Return True
+                    End If
+                End If
             End If
         Next
 
-        The_Man_has_right = False
+        Return False
 
     End Function
+
+
 
 End Module

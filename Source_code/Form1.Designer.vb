@@ -40,7 +40,7 @@ Partial Class Form1
         Me.ExitButton = New System.Windows.Forms.Button()
         Me.BackupButton = New System.Windows.Forms.Button()
         Me.KillTaskButton = New System.Windows.Forms.Button()
-        Me.HelpButton = New System.Windows.Forms.Button()
+        Me.HelpAbout_Button = New System.Windows.Forms.Button()
         Me.RCState_Label = New System.Windows.Forms.Label()
         Me.ModeRC_Button = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -221,16 +221,16 @@ Partial Class Form1
         Me.KillTaskButton.Text = "Kill Task"
         Me.KillTaskButton.UseVisualStyleBackColor = True
         '
-        'HelpButton
+        'HelpAbout_Button
         '
-        Me.HelpButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.HelpButton.Location = New System.Drawing.Point(11, 567)
-        Me.HelpButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.HelpButton.Name = "HelpButton"
-        Me.HelpButton.Size = New System.Drawing.Size(121, 58)
-        Me.HelpButton.TabIndex = 17
-        Me.HelpButton.Text = "Help && About"
-        Me.HelpButton.UseVisualStyleBackColor = True
+        Me.HelpAbout_Button.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HelpAbout_Button.Location = New System.Drawing.Point(11, 567)
+        Me.HelpAbout_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.HelpAbout_Button.Name = "HelpAbout_Button"
+        Me.HelpAbout_Button.Size = New System.Drawing.Size(121, 58)
+        Me.HelpAbout_Button.TabIndex = 17
+        Me.HelpAbout_Button.Text = "Help && About"
+        Me.HelpAbout_Button.UseVisualStyleBackColor = True
         '
         'RCState_Label
         '
@@ -484,7 +484,7 @@ Partial Class Form1
         Me.Controls.Add(Me.ModeCFW_Button)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.ModeRC_Button)
-        Me.Controls.Add(Me.HelpButton)
+        Me.Controls.Add(Me.HelpAbout_Button)
         Me.Controls.Add(Me.KillTaskButton)
         Me.Controls.Add(Me.BackupButton)
         Me.Controls.Add(Me.ExitButton)
@@ -496,7 +496,7 @@ Partial Class Form1
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.Name = "Form1"
-        Me.Text = "FourthWallMC v0.73 < You don't need to break it, we make window on the wall. >  B" &
+        Me.Text = "FourthWallMC v0.74 < You don't need to break it, we make window on the wall. >  B" &
     "y overdoingism Lab."
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
@@ -528,7 +528,7 @@ Partial Class Form1
     Friend WithEvents ExitButton As Button
     Friend WithEvents BackupButton As Button
     Friend WithEvents KillTaskButton As Button
-    Friend WithEvents HelpButton As Button
+    Friend WithEvents HelpAbout_Button As Button
     Friend WithEvents RCState_Label As Label
     Friend WithEvents ModeRC_Button As Button
     Friend WithEvents TabControl1 As TabControl
