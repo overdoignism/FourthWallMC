@@ -3,7 +3,7 @@
 #
 # Because the Burst Mode, you won't see message on console window. If you want observe, please remark it.
 #
-# 2021/03/02
+# 2021/03/09
 #
 # Example:
 #
@@ -68,7 +68,7 @@
 
 
 	# Into Burst Mode
-	Write-Host "~/1"
+	Write-Host "~*,,,1"
 
 	# Turn off sendCommandFeedback
 	Write-Host "~gamerule sendCommandFeedback false"
@@ -121,7 +121,7 @@
 	Write-Host "~setblock"($x+$XmovTmp+$Xwidth)($y)($z+$ZmovTmp-$Zwidth)"polished_andesite_stairs[facing=$EndBrick] replace"
 
 	# Quit Burst Mode
-	Write-Host "~/0"
+	Write-Host "~*,,,0"
 
 	# Turn on sendCommandFeedback
 	Write-Host "~gamerule sendCommandFeedback true"
