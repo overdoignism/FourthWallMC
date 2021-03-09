@@ -47,20 +47,18 @@ Partial Class Form1
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.CMD_Texbox = New System.Windows.Forms.TextBox()
-        Me.Send2CMDButton = New System.Windows.Forms.Button()
-        Me.CMDBoxRefreshTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.ModeCFW_Button = New System.Windows.Forms.Button()
+        Me.Send2Exe_TextBox = New System.Windows.Forms.TextBox()
+        Me.EXE_Texbox = New System.Windows.Forms.TextBox()
+        Me.Send2EXE_Button = New System.Windows.Forms.Button()
+        Me.EXE_BoxRefreshTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.ModeExeFW_Button = New System.Windows.Forms.Button()
         Me.SP1 = New System.IO.Ports.SerialPort(Me.components)
         Me.SP1Mon = New System.Windows.Forms.Timer(Me.components)
         Me.Label6 = New System.Windows.Forms.Label()
         Me.COMState_Label = New System.Windows.Forms.Label()
-        Me.ModeCBM_Button = New System.Windows.Forms.Button()
+        Me.ModeExeBM_Button = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.BurstModeButton = New System.Windows.Forms.Button()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.EssentialsDetected = New System.Windows.Forms.Label()
         Me.WaitPanel = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
@@ -294,68 +292,68 @@ Partial Class Form1
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TabPage2.Controls.Add(Me.TextBox3)
-        Me.TabPage2.Controls.Add(Me.CMD_Texbox)
-        Me.TabPage2.Controls.Add(Me.Send2CMDButton)
+        Me.TabPage2.Controls.Add(Me.Send2Exe_TextBox)
+        Me.TabPage2.Controls.Add(Me.EXE_Texbox)
+        Me.TabPage2.Controls.Add(Me.Send2EXE_Button)
         Me.TabPage2.Location = New System.Drawing.Point(4, 24)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(1018, 607)
         Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "CMD console"
+        Me.TabPage2.Text = "EXE console"
         '
-        'TextBox3
+        'Send2Exe_TextBox
         '
-        Me.TextBox3.BackColor = System.Drawing.Color.Black
-        Me.TextBox3.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox3.ForeColor = System.Drawing.Color.Silver
-        Me.TextBox3.Location = New System.Drawing.Point(6, 574)
-        Me.TextBox3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(923, 26)
-        Me.TextBox3.TabIndex = 26
+        Me.Send2Exe_TextBox.BackColor = System.Drawing.Color.Black
+        Me.Send2Exe_TextBox.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Send2Exe_TextBox.ForeColor = System.Drawing.Color.Silver
+        Me.Send2Exe_TextBox.Location = New System.Drawing.Point(6, 574)
+        Me.Send2Exe_TextBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Send2Exe_TextBox.Name = "Send2Exe_TextBox"
+        Me.Send2Exe_TextBox.Size = New System.Drawing.Size(923, 26)
+        Me.Send2Exe_TextBox.TabIndex = 26
         '
-        'CMD_Texbox
+        'EXE_Texbox
         '
-        Me.CMD_Texbox.BackColor = System.Drawing.Color.Black
-        Me.CMD_Texbox.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CMD_Texbox.ForeColor = System.Drawing.Color.Silver
-        Me.CMD_Texbox.Location = New System.Drawing.Point(6, 6)
-        Me.CMD_Texbox.MaxLength = 1048576
-        Me.CMD_Texbox.Multiline = True
-        Me.CMD_Texbox.Name = "CMD_Texbox"
-        Me.CMD_Texbox.ReadOnly = True
-        Me.CMD_Texbox.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.CMD_Texbox.Size = New System.Drawing.Size(1006, 560)
-        Me.CMD_Texbox.TabIndex = 0
+        Me.EXE_Texbox.BackColor = System.Drawing.Color.Black
+        Me.EXE_Texbox.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EXE_Texbox.ForeColor = System.Drawing.Color.Silver
+        Me.EXE_Texbox.Location = New System.Drawing.Point(6, 6)
+        Me.EXE_Texbox.MaxLength = 1048576
+        Me.EXE_Texbox.Multiline = True
+        Me.EXE_Texbox.Name = "EXE_Texbox"
+        Me.EXE_Texbox.ReadOnly = True
+        Me.EXE_Texbox.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.EXE_Texbox.Size = New System.Drawing.Size(1006, 560)
+        Me.EXE_Texbox.TabIndex = 0
         '
-        'Send2CMDButton
+        'Send2EXE_Button
         '
-        Me.Send2CMDButton.Enabled = False
-        Me.Send2CMDButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Send2CMDButton.Location = New System.Drawing.Point(935, 573)
-        Me.Send2CMDButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Send2CMDButton.Name = "Send2CMDButton"
-        Me.Send2CMDButton.Size = New System.Drawing.Size(77, 29)
-        Me.Send2CMDButton.TabIndex = 25
-        Me.Send2CMDButton.Text = "Send"
-        Me.Send2CMDButton.UseVisualStyleBackColor = True
+        Me.Send2EXE_Button.Enabled = False
+        Me.Send2EXE_Button.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Send2EXE_Button.Location = New System.Drawing.Point(935, 573)
+        Me.Send2EXE_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Send2EXE_Button.Name = "Send2EXE_Button"
+        Me.Send2EXE_Button.Size = New System.Drawing.Size(77, 29)
+        Me.Send2EXE_Button.TabIndex = 25
+        Me.Send2EXE_Button.Text = "Send"
+        Me.Send2EXE_Button.UseVisualStyleBackColor = True
         '
-        'CMDBoxRefreshTimer
+        'EXE_BoxRefreshTimer
         '
-        Me.CMDBoxRefreshTimer.Interval = 500
+        Me.EXE_BoxRefreshTimer.Interval = 500
         '
-        'ModeCFW_Button
+        'ModeExeFW_Button
         '
-        Me.ModeCFW_Button.BackColor = System.Drawing.Color.White
-        Me.ModeCFW_Button.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ModeCFW_Button.Location = New System.Drawing.Point(11, 290)
-        Me.ModeCFW_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.ModeCFW_Button.Name = "ModeCFW_Button"
-        Me.ModeCFW_Button.Size = New System.Drawing.Size(121, 58)
-        Me.ModeCFW_Button.TabIndex = 25
-        Me.ModeCFW_Button.Text = "CMD Flood way"
-        Me.ModeCFW_Button.UseVisualStyleBackColor = False
+        Me.ModeExeFW_Button.BackColor = System.Drawing.Color.White
+        Me.ModeExeFW_Button.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ModeExeFW_Button.Location = New System.Drawing.Point(11, 290)
+        Me.ModeExeFW_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.ModeExeFW_Button.Name = "ModeExeFW_Button"
+        Me.ModeExeFW_Button.Size = New System.Drawing.Size(121, 58)
+        Me.ModeExeFW_Button.TabIndex = 25
+        Me.ModeExeFW_Button.Text = "EXE Flood way"
+        Me.ModeExeFW_Button.UseVisualStyleBackColor = False
         '
         'SP1
         '
@@ -389,17 +387,17 @@ Partial Class Form1
         Me.COMState_Label.TabIndex = 27
         Me.COMState_Label.Text = "OFF"
         '
-        'ModeCBM_Button
+        'ModeExeBM_Button
         '
-        Me.ModeCBM_Button.BackColor = System.Drawing.Color.White
-        Me.ModeCBM_Button.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ModeCBM_Button.Location = New System.Drawing.Point(11, 354)
-        Me.ModeCBM_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.ModeCBM_Button.Name = "ModeCBM_Button"
-        Me.ModeCBM_Button.Size = New System.Drawing.Size(121, 58)
-        Me.ModeCBM_Button.TabIndex = 28
-        Me.ModeCBM_Button.Text = "CMD Back mode"
-        Me.ModeCBM_Button.UseVisualStyleBackColor = False
+        Me.ModeExeBM_Button.BackColor = System.Drawing.Color.White
+        Me.ModeExeBM_Button.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ModeExeBM_Button.Location = New System.Drawing.Point(11, 354)
+        Me.ModeExeBM_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.ModeExeBM_Button.Name = "ModeExeBM_Button"
+        Me.ModeExeBM_Button.Size = New System.Drawing.Size(121, 58)
+        Me.ModeExeBM_Button.TabIndex = 28
+        Me.ModeExeBM_Button.Text = "EXE Back mode"
+        Me.ModeExeBM_Button.UseVisualStyleBackColor = False
         '
         'Panel1
         '
@@ -427,26 +425,6 @@ Partial Class Form1
         Me.BurstModeButton.TabIndex = 30
         Me.BurstModeButton.Text = "Burst Mode"
         Me.BurstModeButton.UseVisualStyleBackColor = False
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(963, 13)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(147, 16)
-        Me.Label10.TabIndex = 31
-        Me.Label10.Text = "EssentialsX Detected: "
-        '
-        'EssentialsDetected
-        '
-        Me.EssentialsDetected.AutoSize = True
-        Me.EssentialsDetected.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EssentialsDetected.Location = New System.Drawing.Point(1109, 13)
-        Me.EssentialsDetected.Name = "EssentialsDetected"
-        Me.EssentialsDetected.Size = New System.Drawing.Size(16, 16)
-        Me.EssentialsDetected.TabIndex = 32
-        Me.EssentialsDetected.Text = "?"
         '
         'WaitPanel
         '
@@ -476,12 +454,10 @@ Partial Class Form1
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.ClientSize = New System.Drawing.Size(1177, 700)
         Me.Controls.Add(Me.WaitPanel)
-        Me.Controls.Add(Me.EssentialsDetected)
-        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.BurstModeButton)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.ModeCBM_Button)
-        Me.Controls.Add(Me.ModeCFW_Button)
+        Me.Controls.Add(Me.ModeExeBM_Button)
+        Me.Controls.Add(Me.ModeExeFW_Button)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.ModeRC_Button)
         Me.Controls.Add(Me.HelpAbout_Button)
@@ -496,8 +472,8 @@ Partial Class Form1
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.Name = "Form1"
-        Me.Text = "FourthWallMC v0.74 < You don't need to break it, we make window on the wall. >  B" &
-    "y overdoingism Lab."
+        Me.Text = "FourthWallMC v0.75 < You don't need to break it, we put window on the wall. >  By" &
+    " overdoingism Lab."
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
@@ -508,7 +484,6 @@ Partial Class Form1
         Me.WaitPanel.ResumeLayout(False)
         Me.WaitPanel.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
@@ -534,21 +509,19 @@ Partial Class Form1
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents CMDBoxRefreshTimer As Timer
-    Friend WithEvents CMD_Texbox As TextBox
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents Send2CMDButton As Button
-    Friend WithEvents ModeCFW_Button As Button
+    Friend WithEvents EXE_BoxRefreshTimer As Timer
+    Friend WithEvents EXE_Texbox As TextBox
+    Friend WithEvents Send2Exe_TextBox As TextBox
+    Friend WithEvents Send2EXE_Button As Button
+    Friend WithEvents ModeExeFW_Button As Button
     Friend WithEvents SP1 As IO.Ports.SerialPort
     Friend WithEvents SP1Mon As Timer
     Friend WithEvents Label6 As Label
     Friend WithEvents COMState_Label As Label
-    Friend WithEvents ModeCBM_Button As Button
+    Friend WithEvents ModeExeBM_Button As Button
     Friend WithEvents Panel1 As Panel
     Friend WithEvents BurstModeButton As Button
     Friend WithEvents Button1 As Button
-    Friend WithEvents Label10 As Label
-    Friend WithEvents EssentialsDetected As Label
     Friend WithEvents WaitPanel As Panel
     Friend WithEvents Label2 As Label
 End Class

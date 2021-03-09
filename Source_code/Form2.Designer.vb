@@ -47,6 +47,10 @@ Partial Class Form2
         Me.BackupPar_Textbox = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.EssentialsDetected = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.CBlockat_CheckBox = New System.Windows.Forms.CheckBox()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -56,7 +60,7 @@ Partial Class Form2
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Autoexe_Textbox = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.CMDsideApo_Checkbox = New System.Windows.Forms.CheckBox()
+        Me.EXEside_Prefix_Checkbox = New System.Windows.Forms.CheckBox()
         Me.PRIID_Textbox = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -73,8 +77,6 @@ Partial Class Form2
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.CBlockat_CheckBox = New System.Windows.Forms.CheckBox()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -296,6 +298,8 @@ Partial Class Form2
         'GroupBox5
         '
         Me.GroupBox5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.GroupBox5.Controls.Add(Me.EssentialsDetected)
+        Me.GroupBox5.Controls.Add(Me.Label23)
         Me.GroupBox5.Controls.Add(Me.CBlockat_CheckBox)
         Me.GroupBox5.Controls.Add(Me.Label22)
         Me.GroupBox5.Controls.Add(Me.Label17)
@@ -307,7 +311,7 @@ Partial Class Form2
         Me.GroupBox5.Controls.Add(Me.Label15)
         Me.GroupBox5.Controls.Add(Me.Autoexe_Textbox)
         Me.GroupBox5.Controls.Add(Me.Label10)
-        Me.GroupBox5.Controls.Add(Me.CMDsideApo_Checkbox)
+        Me.GroupBox5.Controls.Add(Me.EXEside_Prefix_Checkbox)
         Me.GroupBox5.Controls.Add(Me.PRIID_Textbox)
         Me.GroupBox5.Controls.Add(Me.Label11)
         Me.GroupBox5.Location = New System.Drawing.Point(26, 148)
@@ -315,7 +319,50 @@ Partial Class Form2
         Me.GroupBox5.Size = New System.Drawing.Size(771, 226)
         Me.GroupBox5.TabIndex = 23
         Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "CMD console"
+        Me.GroupBox5.Text = "EXE console"
+        '
+        'EssentialsDetected
+        '
+        Me.EssentialsDetected.AutoSize = True
+        Me.EssentialsDetected.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.EssentialsDetected.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EssentialsDetected.Location = New System.Drawing.Point(324, 105)
+        Me.EssentialsDetected.Name = "EssentialsDetected"
+        Me.EssentialsDetected.Size = New System.Drawing.Size(16, 16)
+        Me.EssentialsDetected.TabIndex = 37
+        Me.EssentialsDetected.Text = "?"
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Label23.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.Location = New System.Drawing.Point(180, 105)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(147, 16)
+        Me.Label23.TabIndex = 36
+        Me.Label23.Text = "EssentialsX Detected: "
+        '
+        'CBlockat_CheckBox
+        '
+        Me.CBlockat_CheckBox.AutoSize = True
+        Me.CBlockat_CheckBox.Checked = True
+        Me.CBlockat_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CBlockat_CheckBox.Location = New System.Drawing.Point(23, 167)
+        Me.CBlockat_CheckBox.Name = "CBlockat_CheckBox"
+        Me.CBlockat_CheckBox.Size = New System.Drawing.Size(217, 19)
+        Me.CBlockat_CheckBox.TabIndex = 35
+        Me.CBlockat_CheckBox.Text = """CommandBlock"" all have privilege"
+        Me.CBlockat_CheckBox.UseVisualStyleBackColor = True
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(18, 190)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(229, 15)
+        Me.Label22.TabIndex = 34
+        Me.Label22.Text = "Else full ""CommandBlock at x,y,z"" to work"
         '
         'Label17
         '
@@ -340,9 +387,9 @@ Partial Class Form2
         Me.Label21.AutoSize = True
         Me.Label21.Location = New System.Drawing.Point(21, 106)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(158, 15)
+        Me.Label21.Size = New System.Drawing.Size(148, 15)
         Me.Label21.TabIndex = 31
-        Me.Label21.Text = "With EssentialsX 2 Plug-in: "
+        Me.Label21.Text = "With EssentialsX Plug-in: "
         '
         'MCFilter_Textbox
         '
@@ -356,9 +403,9 @@ Partial Class Form2
         Me.Label20.AutoSize = True
         Me.Label20.Location = New System.Drawing.Point(391, 91)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(124, 15)
+        Me.Label20.Size = New System.Drawing.Size(120, 15)
         Me.Label20.TabIndex = 29
-        Me.Label20.Text = "MC→CMD Flood filter"
+        Me.Label20.Text = "MC→EXE Flood filter"
         '
         'Label16
         '
@@ -391,21 +438,21 @@ Partial Class Form2
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(391, 27)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(305, 15)
+        Me.Label10.Size = New System.Drawing.Size(301, 15)
         Me.Label10.TabIndex = 24
-        Me.Label10.Text = "The auto-exec after CMD start (Leave blank if not used)"
+        Me.Label10.Text = "The auto-exec after EXE start (Leave blank if not used)"
         '
-        'CMDsideApo_Checkbox
+        'EXEside_Prefix_Checkbox
         '
-        Me.CMDsideApo_Checkbox.AutoSize = True
-        Me.CMDsideApo_Checkbox.Checked = True
-        Me.CMDsideApo_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CMDsideApo_Checkbox.Location = New System.Drawing.Point(394, 174)
-        Me.CMDsideApo_Checkbox.Name = "CMDsideApo_Checkbox"
-        Me.CMDsideApo_Checkbox.Size = New System.Drawing.Size(334, 19)
-        Me.CMDsideApo_Checkbox.TabIndex = 22
-        Me.CMDsideApo_Checkbox.Text = "CMD side start with ~(tilde) is server command injection "
-        Me.CMDsideApo_Checkbox.UseVisualStyleBackColor = True
+        Me.EXEside_Prefix_Checkbox.AutoSize = True
+        Me.EXEside_Prefix_Checkbox.Checked = True
+        Me.EXEside_Prefix_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.EXEside_Prefix_Checkbox.Location = New System.Drawing.Point(394, 174)
+        Me.EXEside_Prefix_Checkbox.Name = "EXEside_Prefix_Checkbox"
+        Me.EXEside_Prefix_Checkbox.Size = New System.Drawing.Size(330, 19)
+        Me.EXEside_Prefix_Checkbox.TabIndex = 22
+        Me.EXEside_Prefix_Checkbox.Text = "EXE side start with ~(tilde) is server command injection "
+        Me.EXEside_Prefix_Checkbox.UseVisualStyleBackColor = True
         '
         'PRIID_Textbox
         '
@@ -594,27 +641,6 @@ Partial Class Form2
         Me.TabPage3.Text = "Backup setting"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(18, 190)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(229, 15)
-        Me.Label22.TabIndex = 34
-        Me.Label22.Text = "Else full ""CommandBlock at x,y,z"" to work"
-        '
-        'CBlockat_CheckBox
-        '
-        Me.CBlockat_CheckBox.AutoSize = True
-        Me.CBlockat_CheckBox.Checked = True
-        Me.CBlockat_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CBlockat_CheckBox.Location = New System.Drawing.Point(23, 167)
-        Me.CBlockat_CheckBox.Name = "CBlockat_CheckBox"
-        Me.CBlockat_CheckBox.Size = New System.Drawing.Size(217, 19)
-        Me.CBlockat_CheckBox.TabIndex = 35
-        Me.CBlockat_CheckBox.Text = """CommandBlock"" all have privilege"
-        Me.CBlockat_CheckBox.UseVisualStyleBackColor = True
-        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -672,7 +698,7 @@ Partial Class Form2
     Friend WithEvents PRIID_Textbox As TextBox
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents CMDsideApo_Checkbox As CheckBox
+    Friend WithEvents EXEside_Prefix_Checkbox As CheckBox
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
@@ -697,4 +723,6 @@ Partial Class Form2
     Friend WithEvents Label18 As Label
     Friend WithEvents CBlockat_CheckBox As CheckBox
     Friend WithEvents Label22 As Label
+    Friend WithEvents EssentialsDetected As Label
+    Friend WithEvents Label23 As Label
 End Class

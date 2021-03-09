@@ -71,7 +71,18 @@ Public Class Form2
 
     Private Sub Form2_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         Make_Value_In_Box()
+
+        Select Case IsEssentialsX_Installed
+            Case 0
+                EssentialsDetected.Text = "?"
+            Case 1
+                EssentialsDetected.Text = "NO"
+            Case 2
+                EssentialsDetected.Text = "YES"
+        End Select
     End Sub
+
+
 
 
 End Class

@@ -23,10 +23,10 @@ Module Module1
     Public Man_Who_LastSending As String
     Public Man_ThisTime_W2Say As Boolean
     Public Man_Use_InJ As Boolean = True
-    Public Man_CMD_FirstExec As String
-    Public Man_Flood_ToCMD As Integer '0=None 1=CMD2F  2=F2CMD
-    Public Man_CMD_FDFilter As String
-    Public Man_CMD_FDFilterList() As String
+    Public Man_EXE_FirstExec As String
+    Public Man_Flood_ToEXE As Integer '0=None 1=EXE2F  2=F2EXE
+    Public Man_EXE_FDFilter As String
+    Public Man_EXE_FDFilterList() As String
     Public Man_CBAT_Workable As Integer = 1
 
     Public Man_COM_Port As String
@@ -48,8 +48,14 @@ Module Module1
     Public The_ProcessInstanceName As String
 
     Public BurstMode As Integer = 0
-
     Public Origial_Path As String
+
+    'Detect EssentialsX Installed
+    Public IsEssentialsX_Installed As Integer
+
+    Public FthWallMC_Server_Bypass As Integer
+
+
 
     Public Sub Before_Save()
 
@@ -67,9 +73,9 @@ Module Module1
         Man_CBAT_Workable = Form2.CBlockat_CheckBox.CheckState
 
         Man_Who_CanWork = Form2.PRIID_Textbox.Text
-        Man_Use_InJ = Form2.CMDsideApo_Checkbox.Checked
-        Man_CMD_FirstExec = Form2.Autoexe_Textbox.Text
-        Man_CMD_FDFilter = Form2.MCFilter_Textbox.Text
+        Man_Use_InJ = Form2.EXEside_Prefix_Checkbox.Checked
+        Man_EXE_FirstExec = Form2.Autoexe_Textbox.Text
+        Man_EXE_FDFilter = Form2.MCFilter_Textbox.Text
 
         Man_COM_Port = Form2.ComPortList.Text
         Man_COM_LineEnd = Form2.COMLineEnd.SelectedIndex
@@ -100,12 +106,12 @@ Module Module1
             createNode(Save_XML, "ZIP_Launch_Parameter", ZIP_Launch_Parameter)
             createNode(Save_XML, "ZIP_TIME_Format", ZIP_TIME_Format)
             createNode(Save_XML, "Man_Use_InJ", Man_Use_InJ)
-            createNode(Save_XML, "Man_CMD_FirstExec", Man_CMD_FirstExec)
+            createNode(Save_XML, "Man_EXE_FirstExec", Man_EXE_FirstExec)
             createNode(Save_XML, "Man_COM_Port", Man_COM_Port)
             createNode(Save_XML, "Man_COM_Buad", Man_COM_Buad.ToString)
             createNode(Save_XML, "Man_COM_TxFilter", Man_COM_TxFilter)
             createNode(Save_XML, "Man_COM_LineEnd", Man_COM_LineEnd)
-            createNode(Save_XML, "Man_CMD_FDFilter", Man_CMD_FDFilter)
+            createNode(Save_XML, "Man_EXE_FDFilter", Man_EXE_FDFilter)
             createNode(Save_XML, "IsAgree", IsAgree)
             createNode(Save_XML, "Man_CBAT_Workable", Man_CBAT_Workable)
 
@@ -165,11 +171,11 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("Man_Use_InJ")
             If TmpNode IsNot Nothing Then Man_Use_InJ = TmpNode.InnerText
 
-            TmpNode = Node1.SelectSingleNode("Man_CMD_FirstExec")
-            If TmpNode IsNot Nothing Then Man_CMD_FirstExec = TmpNode.InnerText
+            TmpNode = Node1.SelectSingleNode("Man_EXE_FirstExec")
+            If TmpNode IsNot Nothing Then Man_EXE_FirstExec = TmpNode.InnerText
 
-            TmpNode = Node1.SelectSingleNode("Man_CMD_FDFilter")
-            If TmpNode IsNot Nothing Then Man_CMD_FDFilter = TmpNode.InnerText
+            TmpNode = Node1.SelectSingleNode("Man_EXE_FDFilter")
+            If TmpNode IsNot Nothing Then Man_EXE_FDFilter = TmpNode.InnerText
 
             TmpNode = Node1.SelectSingleNode("Man_COM_Port")
             If TmpNode IsNot Nothing Then Man_COM_Port = TmpNode.InnerText
@@ -218,13 +224,13 @@ Module Module1
         Form2.BackupPar_Textbox.Text = ZIP_Launch_Parameter
         Form2.BackupTimeS_Textbox.Text = ZIP_TIME_Format
         Form2.PRIID_Textbox.Text = Man_Who_CanWork
-        Form2.Autoexe_Textbox.Text = Man_CMD_FirstExec
+        Form2.Autoexe_Textbox.Text = Man_EXE_FirstExec
         Form2.COMFilter_Textbox.Text = Man_COM_TxFilter
-        Form2.MCFilter_Textbox.Text = Man_CMD_FDFilter
+        Form2.MCFilter_Textbox.Text = Man_EXE_FDFilter
         Form2.CBlockat_CheckBox.CheckState = Man_CBAT_Workable
 
         Form2.ManPortNum.Value = Man_Port_Number
-        Form2.CMDsideApo_Checkbox.Checked = Man_Use_InJ
+        Form2.EXEside_Prefix_Checkbox.Checked = Man_Use_InJ
 
         Form2.ComPortList.Text = Man_COM_Port
         Form2.COMLineEnd.SelectedIndex = Man_COM_LineEnd
@@ -257,10 +263,10 @@ Module Module1
             Man_COM_TxFilterList = Nothing
         End If
 
-        If Man_CMD_FDFilter <> "" Then
-            Man_CMD_FDFilterList = Man_CMD_FDFilter.Split(CType(";", Char()), StringSplitOptions.RemoveEmptyEntries)
+        If Man_EXE_FDFilter <> "" Then
+            Man_EXE_FDFilterList = Man_EXE_FDFilter.Split(CType(";", Char()), StringSplitOptions.RemoveEmptyEntries)
         Else
-            Man_CMD_FDFilterList = Nothing
+            Man_EXE_FDFilterList = Nothing
         End If
 
 
@@ -333,7 +339,105 @@ Module Module1
         Return False
 
     End Function
+    Public Function Check_If_Misjudge(TheString As String, ChkIsBoolen As Boolean) As Boolean
+
+        If ChkIsBoolen = False Then Return False
+        Check_If_Misjudge = False
+
+        If InStr(TheString, "INFO]: * @") = 0 Then
+            If (InStr(TheString, "INFO]: <") = 0) Then
+                If (InStr(TheString, "INFO]: [") = 0) Then
+                    Return True
+                End If
+            End If
+        End If
+
+    End Function
+
+    Public Function Locate_Return(TheString As String, CheckTarget As String) As String
+
+        Locate_Return = "-1"
+        Dim TheStringUp As String = TheString.ToUpper
+        Dim TheStringWorking As String
+
+        If InStr(TheStringUp, CheckTarget.ToUpper) = 0 Then Exit Function
+
+        Dim TMP_IDX, TMP_IDX2 As Integer
+        TMP_IDX = InStr(TheStringUp, "INFO]: THE NEAREST ")
+        TMP_IDX = InStr(TMP_IDX + 2, TheStringUp, "IS AT")
+
+        If TMP_IDX > 0 Then
+            If TheStringUp.Length > TMP_IDX + 20 Then
+                TMP_IDX += 6
+                TMP_IDX2 = InStr(TMP_IDX + 3, TheStringUp, "BLOCKS AWAY")
+                If TMP_IDX2 > TMP_IDX Then
+                    TheStringWorking = TheString.Substring(TMP_IDX, (TMP_IDX2 - TMP_IDX) - 1)
+                    TheStringWorking = Replace(TheStringWorking, "] (", ",")
+                    TheStringWorking = Replace(TheStringWorking, " ", "")
+
+                    Return TheStringWorking
+                End If
+            End If
+        End If
+
+    End Function
+    Public Sub What_RU_Waiting(ByRef WaitingStr As String, WaitingTimes As Integer)
+
+        Dim LoopWait As Integer = 0
+
+        Do
+            System.Threading.Thread.Sleep(100)
+            My.Application.DoEvents()
+            If WaitingStr <> "-1" Then Exit Do
+            LoopWait += 1
+        Loop Until LoopWait = WaitingTimes
+
+    End Sub
 
 
+    Public Function Get_Full_MCServer_Control(TheString As String) As Integer
+
+        If TheString.Length >= 4 Then
+
+            Dim ServerSetting() As String = TheString.Split(",")
+            Dim TmpIdx1, TmpIdx2 As Integer
+
+            TmpIdx1 = UBound(ServerSetting)
+            If TmpIdx1 <> 3 Then Return 1
+
+            For TmpIdx2 = 0 To 3
+                If ServerSetting(TmpIdx2) <> "" Then
+                    TmpIdx1 = Val(ServerSetting(TmpIdx2))
+                    Select Case TmpIdx2
+                        Case 0
+                            If (TmpIdx1 >= 0) AndAlso (TmpIdx1 <= 2) Then
+                                FthWallMC_Server_Bypass = TmpIdx1
+                            End If
+                        Case 1
+                            If (TmpIdx1 >= 0) AndAlso (TmpIdx1 <= 2) Then
+                                Man_Flood_ToEXE = TmpIdx1
+                            End If
+                        Case 2
+                            If (TmpIdx1 >= 0) AndAlso (TmpIdx1 <= 1) Then
+                                Man_ThisTime_W2Say = TmpIdx1
+                            End If
+                        Case 3
+                            If (TmpIdx1 >= 0) AndAlso (TmpIdx1 <= 1) Then
+                                BurstMode = TmpIdx1
+                            End If
+                    End Select
+                End If
+            Next
+
+            Return 0
+        Else
+            Return 1
+        End If
+
+
+
+
+
+    End Function
 
 End Module
