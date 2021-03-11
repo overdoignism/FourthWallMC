@@ -621,6 +621,10 @@ Public Class Form1
                     MCServer_BAT_Mode = True
                 Else
 
+                    If The_FileName.Length >= 4 Then
+                        If The_FileName.Substring(The_FileName.Length - 4).ToUpper <> ".EXE" Then The_FileName = The_FileName + ".exe"
+                    End If
+
                     If Not My.Computer.FileSystem.FileExists(The_FileName) Then
 
                         Dim pathStr() As String = Environment.GetEnvironmentVariable("path").Split(";")
