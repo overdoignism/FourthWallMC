@@ -620,10 +620,27 @@ Public Class Form1
                     The_Arguments = The_MC_Arguments
                     MCServer_BAT_Mode = True
                 Else
+
                     If Not My.Computer.FileSystem.FileExists(The_FileName) Then
-                        MCS_Richtexbox.Text += vbNewLine + "JVM java.exe not present. Please setup first."
-                        Start_MC_Server_Process = "NEED-SETUP"
-                        Exit Function
+
+                        Dim pathStr() As String = Environment.GetEnvironmentVariable("path").Split(";")
+                        Dim pathTry As String
+                        Dim pathTryGet As Boolean = False
+
+                        For Each pathTry In pathStr
+                            If My.Computer.FileSystem.FileExists(pathTry + "\" + The_FileName) Then
+                                The_FileName = pathTry + "\" + The_FileName
+                                pathTryGet = True
+                                Exit For
+                            End If
+                        Next
+
+                        If pathTryGet = False Then
+                            MCS_Richtexbox.Text += vbNewLine + "JVM java.exe not present. Please setup first."
+                            Start_MC_Server_Process = "NEED-SETUP"
+                            Exit Function
+                        End If
+
                     End If
                     Launch_File = The_FileName
                     The_Arguments = The_JAVA_Arguments + " -jar " + """" + The_JAR_BAT_File + """ " + The_MC_Arguments
