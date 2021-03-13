@@ -1,7 +1,7 @@
 ﻿#
 # It's a sample code for FourthWallMC
 #
-# 2021-02-27
+# 2021-03-13
 #
 # Please do not modify this if you are not know what are you doing.
 #
@@ -72,7 +72,7 @@ function ConnectServer {
 		if ($WaitCount -gt $waitsec)
 		{
 			Write-Host 'The task has timed out.'
-			if ($err2stop) {exit}
+			if ($err2stop) {exit 1}
 		}
 		else
 		{
@@ -84,25 +84,25 @@ function ConnectServer {
 					$UseString = $password + ",sy,This task has been cancelled."
 					$NoDisplay = ServerSocket -socket_server $server -socket_port $port -socket_message $UseString
 					Write-Host "PASS: This task has been cancelled."
-                    			Exit
+                    			exit 2
  				}
 
 	 			'NOT-ON'
    			        {
 	        		        Write-Host 'NOT-ON: This operation is need Minecraft server be on-line.'
- 					if ($err2stop) {exit}
+ 					if ($err2stop) {exit 3}
                 		}
 
 	    			'NOT-OFF'
 				{
 					Write-Host 'NOT-OFF: This operation is need Minecraft server be off-line.'
-					if ($err2stop) {exit}
+					if ($err2stop) {exit 4}
 				}
 
 				'FAIL'
                 		{	
 					Write-Host 'Error happend during connection.'
-					if ($err2stop) {exit}
+					if ($err2stop) {exit 5}
                 		}
 
 				default
