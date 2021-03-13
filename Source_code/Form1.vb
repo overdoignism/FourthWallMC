@@ -23,8 +23,12 @@ Public Class Form1
 
     Const CM_ServerState_Flag As String = "*"
     Const CM_ServerGetFlag As String = "+"
+
     Const WM_VSCROLL As Integer = 277
     Const SB_PAGEBOTTOM As Integer = 7
+
+    Const TCP_timeout_s As Integer = 21
+    Const Get_timeout_ds As Integer = 41
 
     Private cpuCounter As System.Diagnostics.PerformanceCounter
 
@@ -93,6 +97,21 @@ Public Class Form1
     Dim IALB_Argu_Findwhat(1) As String
     Dim IALB_Return(1) As String
 
+    'Data get block
+    Dim I_Asking_Data_Block(1) As Boolean
+    Dim IADB_Argu_Findwhat As String = "has the following block data:"
+    Dim IADB_Return(1) As String
+
+    'Data get entity
+    Dim I_Asking_Data_Entity(1) As Boolean
+    Dim IADE_Argu_Findwhat As String = "has the following entity data:"
+    Dim IADE_Return(1) As String
+
+    'Data get storage
+    'Dim I_Asking_Data_Storage(1) As Boolean
+    'Dim IADS_Argu_Pos(1) As String
+    'Dim IADS_Argu_Findwhat(1) As String
+    'Dim IADS_Return(1) As String
 
     <DllImport("user32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
     Shared Function SendMessage(hWnd As IntPtr, wMsg As Integer, wParam As IntPtr, lParam As IntPtr) As Integer
@@ -172,7 +191,8 @@ Public Class Form1
 
         ManServerRefreshTimer.Enabled = False
 
-        If FthWallMC_Server = 0 Then
+        If FthWallMC_Server <> 2 Then
+
             FthWallMC_Server = 1
             Try
                 FthWallMC_Server_TcpListerner = New Sockets.TcpListener(IPAddress.Any, Man_Port_Number)
@@ -180,9 +200,9 @@ Public Class Form1
                 Threading.ThreadPool.QueueUserWorkItem(AddressOf Handler_Client)
                 FthWallMC_Server = 2
             Catch ex As Exception
-                FthWallMC_Server = 0
+                FthWallMC_Server = 1
             End Try
-            FthWallMC_Server = 2
+
         End If
 
         ManServerRefreshTimer.Enabled = True
@@ -313,6 +333,7 @@ Public Class Form1
 
                     Select Case Command_Mode
                         Case "cm"
+                        Case "bk"
                         Case "in"
                         Case "sy"
                         Case "gt"
@@ -320,6 +341,9 @@ Public Class Form1
                         Case "gb"
                         Case "gd"
                         Case "ss"
+                        Case "db"
+                        Case "de"
+                            'Case "ds"
                         Case Else
                             ErrorType = 1
                     End Select
@@ -401,10 +425,8 @@ Public Class Form1
 
     End Sub
 
-
     Private Function Process_RC_Request(Command_Mode As String, Command_Str As String, ClientIdx As Integer) As Integer
 
-        'Dim Testing As Boolean
         Process_RC_Request = 0
 
         If Command_Mode = "cm" Then
@@ -443,18 +465,25 @@ Public Class Form1
                 Case "kill"
                     kill_task()
                     Return 0
-                    'SendToClients("OK", Clients(ClientIdx).TheSocket)
 
                 Case Else
-                    'Testing = True
-                    'Process_RC_Request = 1
                     Return 1
+
             End Select
+
+
+        ElseIf Command_Mode = "bk" Then
+
+            If MC_Server_WorkState <> 0 Then
+                Return 3
+            Else
+                SendToClients(Start_Server_Backup_Process(Command_Str, ZIP_EXE_Location, ZIP_TIME_Format), Clients(ClientIdx).TheSocket)
+                Return 99
+            End If
 
         ElseIf Command_Mode = "ss" Then
 
             Process_RC_Request = Get_Full_MCServer_Control(Command_Str)
-            'If Process_RC_Request = 0 Then SendToClients("OK", Clients(ClientIdx).TheSocket)
             Exit Function
 
         ElseIf Command_Mode = "in" Then
@@ -463,7 +492,6 @@ Public Class Form1
                 Return 2
             Else
                 Write_To_Console(Command_Str)
-                'SendToClients("OK", Clients(ClientIdx).TheSocket)
                 Return 0
             End If
 
@@ -473,7 +501,6 @@ Public Class Form1
                 Return 2
             Else
                 Write_To_Console("say " + Command_Str)
-                'SendToClients("OK", Clients(ClientIdx).TheSocket)
                 Return 0
             End If
 
@@ -515,7 +542,7 @@ Public Class Form1
             Time_AskMap(RCorEXE_Mode) = Command_str
 
             Write_To_Console("execute in " + Time_AskMap(RCorEXE_Mode) + " run time query daytime")
-            What_RU_Waiting(Time_TickReturn(RCorEXE_Mode), 11)
+            What_RU_Waiting(Time_TickReturn(RCorEXE_Mode), Get_timeout_ds)
 
             If RCorEXE_Mode = 0 Then SendToClients(Time_TickReturn(0), TmpClientWork.TheSocket)
             If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Time_TickReturn(1))
@@ -537,9 +564,8 @@ Public Class Form1
             IAL_Argu_Pos(RCorEXE_Mode) = Argus(0) '/positioned 500 100 500 /as Overdoingism
             If Argus(1) <> "" Then Argus(1) = " in " + Argus(1) '/in the_nether
             IAL_Argu_Findwhat(RCorEXE_Mode) = Argus(2) '/ocean
-
             Write_To_Console("execute " + IAL_Argu_Pos(RCorEXE_Mode) + Argus(1) + " run locate " + Argus(2))
-            What_RU_Waiting(IAL_Return(RCorEXE_Mode), 20)
+            What_RU_Waiting(IAL_Return(RCorEXE_Mode), Get_timeout_ds)
 
             If RCorEXE_Mode = 0 Then SendToClients(IAL_Return(0), TmpClientWork.TheSocket)
             If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IAL_Return(1))
@@ -563,12 +589,44 @@ Public Class Form1
             IALB_Argu_Findwhat(RCorEXE_Mode) = Argus(2) '/ocean
 
             Write_To_Console("execute " + IALB_Argu_Pos(RCorEXE_Mode) + Argus(1) + " run locatebiome " + Argus(2))
-            What_RU_Waiting(IALB_Return(RCorEXE_Mode), 20)
+            What_RU_Waiting(IALB_Return(RCorEXE_Mode), Get_timeout_ds)
 
             If RCorEXE_Mode = 0 Then SendToClients(IALB_Return(0), TmpClientWork.TheSocket)
             If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IALB_Return(1))
 
             IALB_Return(RCorEXE_Mode) = "" : IALB_Argu_Pos(RCorEXE_Mode) = "" : IALB_Argu_Findwhat(RCorEXE_Mode) = "" : I_Asking_LocateBiome(RCorEXE_Mode) = False
+
+
+        ElseIf Command_Mode = "db" Then
+
+            Process_Get_Command = 0
+
+            I_Asking_Data_Block(RCorEXE_Mode) = True
+            IADB_Return(RCorEXE_Mode) = "-1"
+
+            Write_To_Console(Command_str)
+            What_RU_Waiting(IADB_Return(RCorEXE_Mode), Get_timeout_ds)
+
+            If RCorEXE_Mode = 0 Then SendToClients(IADB_Return(0), TmpClientWork.TheSocket)
+            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IADB_Return(1))
+
+            IADB_Return(RCorEXE_Mode) = "" : I_Asking_Data_Block(RCorEXE_Mode) = False
+
+        ElseIf Command_Mode = "de" Then
+
+            Process_Get_Command = 0
+
+            I_Asking_Data_Entity(RCorEXE_Mode) = True
+            IADE_Return(RCorEXE_Mode) = "-1"
+
+            Write_To_Console(Command_str)
+            What_RU_Waiting(IADE_Return(RCorEXE_Mode), Get_timeout_ds)
+
+            If RCorEXE_Mode = 0 Then SendToClients(IADE_Return(0), TmpClientWork.TheSocket)
+            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IADE_Return(1))
+
+            'ElseIf Command_Mode = "ds" Then
+
 
         End If
     End Function
@@ -587,10 +645,14 @@ Public Class Form1
         If FthWallMC_Server = 2 Then
 
             Try
-                Dim TX1 As New StreamWriter(NowClient.GetStream) 'UTF8
-                TX1.Write(Data) 'WriteLine
-                TX1.Flush()
-                TX1.Dispose()
+                'Dim TX1 As New StreamWriter(NowClient.GetStream) 'UTF8
+                Dim TX2 As New BinaryWriter(NowClient.GetStream)
+                Dim Bytes() As Byte = Encoding.UTF8.GetBytes(Data)
+
+                TX2.Write(Bytes, 0, Bytes.Length)
+                TX2.Flush()
+                TX2.Dispose()
+
             Catch ex As Exception
 
             End Try
@@ -653,7 +715,7 @@ Public Class Form1
             End If
 
             Directory.SetCurrentDirectory(My.Computer.FileSystem.GetFileInfo(MCServer_JAR_BAT_Location).DirectoryName)
-
+            MC_Server_WorkState = 1
 
             If My.Computer.FileSystem.DirectoryExists(".\plugins") Then
                 Dim FindEssPlugIn() As String = Directory.GetFiles(".\plugins\", "Essentials*.jar")
@@ -701,7 +763,6 @@ Public Class Form1
             AddHandler MC_Process.Exited, AddressOf ExitHandler
 
             My.Application.DoEvents()
-            MC_Server_WorkState = 1
 
             MC_Process.Start()
             MC_Process.BeginOutputReadLine()
@@ -712,13 +773,11 @@ Public Class Form1
 
             The_ProcessInstanceName = GetProcessInstanceName(MC_Process.Id)
 
-
             Do
                 cpuCounter = New System.Diagnostics.PerformanceCounter("Process", "% Processor Time", The_ProcessInstanceName)
                 My.Application.DoEvents()
                 If cpuCounter IsNot Nothing Then Exit Do
             Loop
-
 
             MCServer_CPU_Peak = 0
             MCServer_RAM_Peak = 0
@@ -765,7 +824,7 @@ Public Class Form1
 
             For IDX_TMP_01 = 0 To 1
 
-                '=============Get tick command from RC=========Start
+                '============= Get tick command =========
                 If Check_If_Misjudge(Tmp_String, I_Asking_Tick(IDX_TMP_01)) Then
                     Dim TMP_TICK1_IDX As Integer
                     TMP_TICK1_IDX = InStr(Tmp_String, " THE TIME IS ")
@@ -775,20 +834,27 @@ Public Class Form1
                 End If
 
 
-                '=============Get Locate from RC=========Start
+                '============= Get Locate =========
                 If Check_If_Misjudge(Tmp_String, I_Asking_Locate(IDX_TMP_01)) Then
                     IAL_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IAL_Argu_Findwhat(IDX_TMP_01))
                 End If
 
-
-                '=============Get LocateBiome from RC=========Start
+                '============= Get LocateBiome =========
                 If Check_If_Misjudge(Tmp_String, I_Asking_LocateBiome(IDX_TMP_01)) Then
                     IALB_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IALB_Argu_Findwhat(IDX_TMP_01))
                 End If
 
+                '============= Data Get Block =========
+                If Check_If_Misjudge(Tmp_String, I_Asking_Data_Block(IDX_TMP_01)) Then
+                    IADB_Return(IDX_TMP_01) = Data_Return(Tmp_String_Org, IADB_Argu_Findwhat)
+                End If
+
+                '============= Data Get Entity =========
+                If Check_If_Misjudge(Tmp_String, I_Asking_Data_Entity(IDX_TMP_01)) Then
+                    IADE_Return(IDX_TMP_01) = Data_Return(Tmp_String_Org, IADE_Argu_Findwhat)
+                End If
 
             Next
-
 
 
             '=============Serial Port Out==========
@@ -904,8 +970,6 @@ Public Class Form1
                         'Get SendToID
                         Tmp_Index1 = InStr(Get_AfterW, " ")
                         Get_SendToID = Get_AfterW.Substring(0, Tmp_Index1).Trim
-
-                        '[15:39:38] [Server thread/INFO]: CommandBlock at 38,63,-42 issued server command: /w CommandBlock at #4WMC-MugenRailway 38 64 -42 S
 
                         'Check Man Right
                         If Not The_Man_has_right(Get_SenderID, Get_SendToID) Then Exit Do
@@ -1023,6 +1087,7 @@ Public Class Form1
                 Exit Function
             End If
 
+            MC_Server_WorkState = 1
             Directory.SetCurrentDirectory(My.Computer.FileSystem.GetFileInfo(The_FileName).DirectoryName)
 
             StartButton.Enabled = False
@@ -1065,7 +1130,6 @@ Public Class Form1
 
             ZIP_IS_LAUNCHED = True
             KillTaskButton.Enabled = True
-            MC_Server_WorkState = 1
 
             Start_Server_Backup_Process = "OK"
 
@@ -1213,6 +1277,7 @@ Public Class Form1
                             Dim Command_Str As String = Tmp_String_Org.Substring(5)
                             ResultCode = Process_Get_Command(Command_Mode, Command_Str, 1)
                         End If
+
 
                     End If
 
@@ -1567,7 +1632,7 @@ Public Class Form1
         For Each TempClient As ClientWorker In Clients
             If TempClient.DeadTime >= 1 Then
                 TempClient.DeadTime += 1
-                If TempClient.DeadTime >= 11 Then
+                If TempClient.DeadTime >= TCP_timeout_s Then
                     SendToClients("TIMEOUT", TempClient.TheSocket)
                     TempClient.IsUsing = False
                     TempClient.DeadTime = 0

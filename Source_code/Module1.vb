@@ -360,6 +360,7 @@ Module Module1
         Dim TheStringUp As String = TheString.ToUpper
         Dim TheStringWorking As String
 
+        If CheckTarget Is Nothing Then Exit Function
         If InStr(TheStringUp, CheckTarget.ToUpper) = 0 Then Exit Function
 
         Dim TMP_IDX, TMP_IDX2 As Integer
@@ -381,7 +382,25 @@ Module Module1
         End If
 
     End Function
-    Public Sub What_RU_Waiting(ByRef WaitingStr As String, WaitingTimes As Integer)
+
+    Public Function Data_Return(TheString As String, CheckTarget As String) As String
+
+        Data_Return = "-1"
+        Dim TheStringUp As String = TheString.ToUpper
+        Dim TMP_IDX As Integer
+        TMP_IDX = InStr(TheStringUp, "INFO]:")
+
+        If CheckTarget Is Nothing Then Exit Function
+
+        If TMP_IDX > 0 Then
+            If InStr(TheStringUp, CheckTarget.ToUpper) > 0 Then
+                Data_Return = TheString.Substring(TMP_IDX + 6)
+            End If
+        End If
+
+    End Function
+
+    Public Sub What_RU_Waiting(ByRef WaitingStr As String, WaitingTimes_ds As Integer)
 
         Dim LoopWait As Integer = 0
 
@@ -390,7 +409,7 @@ Module Module1
             My.Application.DoEvents()
             If WaitingStr <> "-1" Then Exit Do
             LoopWait += 1
-        Loop Until LoopWait = WaitingTimes
+        Loop Until LoopWait = WaitingTimes_ds
 
     End Sub
 
