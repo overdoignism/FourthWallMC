@@ -10,4 +10,6 @@ Echo.
 Echo.
 Echo If you see "CurrentUser RemoteSigned", It's work successfuly.
 Echo.
-Pause
+cd %~dp0
+
+Powershell -NoExit -Command Set-Location -LiteralPath .
