@@ -28,7 +28,8 @@ Public Class Form2
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles SetupOK_Button.Click
 
         Before_Save()
-        Me.Hide()
+        'Me.Hide()
+        Me.Close()
 
     End Sub
 
@@ -36,7 +37,9 @@ Public Class Form2
 
         Make_Value_In_Box()
         'Me.Hide()
-        Me.Visible = False
+        'Me.Visible = False
+        Me.Close()
+
     End Sub
 
 
@@ -81,8 +84,5 @@ Public Class Form2
                 EssentialsDetected.Text = "YES"
         End Select
     End Sub
-
-
-
 
 End Class

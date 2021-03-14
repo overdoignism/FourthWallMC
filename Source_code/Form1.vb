@@ -367,7 +367,6 @@ Public Class Form1
                             Select Case FthWallMC_Server_Bypass
 
                                 Case 0
-
                                     ErrorType = Process_RC_Request(Command_Mode, Command_Str, Tmp_Idx1)
 
                                 Case 1
@@ -923,14 +922,16 @@ Public Class Form1
             Do 'ALL In Game Command Parsing In this Fake DO-LOOP
 
                 '================================================ Server state Detect
+                Dim StartStop_Check As String = Replace(Tmp_String, "SERVER THREAD/", "")
+                StartStop_Check = Replace(StartStop_Check, " [MINECRAFT/DEDICATEDSERVER]", "")
                 If MC_Server_WorkState < 2 Then 'Start detect
-                    Tmp_Index2 = InStr(Replace(Tmp_String, "SERVER THREAD/", ""), "INFO]: DONE")
+                    Tmp_Index2 = InStr(StartStop_Check, "INFO]: DONE")
                     If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
                         MC_Server_WorkState = 2
                         Exit Do
                     End If
                 ElseIf MC_Server_WorkState = 2 Then 'Stop detect 
-                    Tmp_Index2 = InStr(Replace(Tmp_String, "SERVER THREAD/", ""), "INFO]: STOPPING THE SERVER")
+                        Tmp_Index2 = InStr(StartStop_Check, "INFO]: STOPPING THE SERVER")
                     If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
                         MC_Server_WorkState = 1
                         Exit Do

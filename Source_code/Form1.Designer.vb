@@ -472,8 +472,8 @@ Partial Class Form1
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.Name = "Form1"
-        Me.Text = "FourthWallMC v0.76 < You don't need to break it, we put window on the wall. >  By" &
-    " overdoingism Lab."
+        Me.Text = "FourthWallMC v0.761 < You don't need to break it, we put window on the wall. >  B" &
+    "y overdoingism Lab."
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()

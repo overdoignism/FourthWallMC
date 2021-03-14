@@ -344,6 +344,8 @@ Module Module1
         If ChkIsBoolen = False Then Return False
         Check_If_Misjudge = False
 
+        TheString = Replace(TheString, " [MINECRAFT/DEDICATEDSERVER]", "")
+
         If InStr(TheString, "INFO]: * @") = 0 Then
             If (InStr(TheString, "INFO]: <") = 0) Then
                 If (InStr(TheString, "INFO]: [") = 0) Then
@@ -357,14 +359,17 @@ Module Module1
     Public Function Locate_Return(TheString As String, CheckTarget As String) As String
 
         Locate_Return = "-1"
+        If CheckTarget Is Nothing Then Exit Function
+
         Dim TheStringUp As String = TheString.ToUpper
         Dim TheStringWorking As String
 
-        If CheckTarget Is Nothing Then Exit Function
         If InStr(TheStringUp, CheckTarget.ToUpper) = 0 Then Exit Function
 
         Dim TMP_IDX, TMP_IDX2 As Integer
         TMP_IDX = InStr(TheStringUp, "INFO]: THE NEAREST ")
+        If TMP_IDX = 0 Then TMP_IDX = InStr(TheStringUp, "RVER]: THE NEAREST ")
+
         TMP_IDX = InStr(TMP_IDX + 2, TheStringUp, "IS AT")
 
         If TMP_IDX > 0 Then
@@ -386,11 +391,12 @@ Module Module1
     Public Function Data_Return(TheString As String, CheckTarget As String) As String
 
         Data_Return = "-1"
+        If CheckTarget Is Nothing Then Exit Function
+
         Dim TheStringUp As String = TheString.ToUpper
         Dim TMP_IDX As Integer
         TMP_IDX = InStr(TheStringUp, "INFO]:")
-
-        If CheckTarget Is Nothing Then Exit Function
+        If TMP_IDX = 0 Then TMP_IDX = InStr(TheStringUp, "RVER]:")
 
         If TMP_IDX > 0 Then
             If InStr(TheStringUp, CheckTarget.ToUpper) > 0 Then

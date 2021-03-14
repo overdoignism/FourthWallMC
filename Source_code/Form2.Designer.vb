@@ -77,6 +77,7 @@ Partial Class Form2
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Label24 = New System.Windows.Forms.Label()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -215,6 +216,7 @@ Partial Class Form2
         Me.ManPortNum.Size = New System.Drawing.Size(74, 21)
         Me.ManPortNum.TabIndex = 14
         Me.ManPortNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ManPortNum.Value = New Decimal(New Integer() {25566, 0, 0, 0})
         '
         'RCPassword_Textbox
         '
@@ -316,7 +318,7 @@ Partial Class Form2
         Me.GroupBox5.Controls.Add(Me.Label11)
         Me.GroupBox5.Location = New System.Drawing.Point(26, 148)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(771, 226)
+        Me.GroupBox5.Size = New System.Drawing.Size(771, 236)
         Me.GroupBox5.TabIndex = 23
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "EXE console"
@@ -326,7 +328,7 @@ Partial Class Form2
         Me.EssentialsDetected.AutoSize = True
         Me.EssentialsDetected.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.EssentialsDetected.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EssentialsDetected.Location = New System.Drawing.Point(324, 105)
+        Me.EssentialsDetected.Location = New System.Drawing.Point(324, 110)
         Me.EssentialsDetected.Name = "EssentialsDetected"
         Me.EssentialsDetected.Size = New System.Drawing.Size(16, 16)
         Me.EssentialsDetected.TabIndex = 37
@@ -337,7 +339,7 @@ Partial Class Form2
         Me.Label23.AutoSize = True
         Me.Label23.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Label23.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(180, 105)
+        Me.Label23.Location = New System.Drawing.Point(180, 110)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(147, 16)
         Me.Label23.TabIndex = 36
@@ -348,7 +350,7 @@ Partial Class Form2
         Me.CBlockat_CheckBox.AutoSize = True
         Me.CBlockat_CheckBox.Checked = True
         Me.CBlockat_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CBlockat_CheckBox.Location = New System.Drawing.Point(23, 167)
+        Me.CBlockat_CheckBox.Location = New System.Drawing.Point(23, 172)
         Me.CBlockat_CheckBox.Name = "CBlockat_CheckBox"
         Me.CBlockat_CheckBox.Size = New System.Drawing.Size(217, 19)
         Me.CBlockat_CheckBox.TabIndex = 35
@@ -358,16 +360,16 @@ Partial Class Form2
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(18, 190)
+        Me.Label22.Location = New System.Drawing.Point(18, 195)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(229, 15)
+        Me.Label22.Size = New System.Drawing.Size(253, 15)
         Me.Label22.TabIndex = 34
-        Me.Label22.Text = "Else full ""CommandBlock at x,y,z"" to work"
+        Me.Label22.Text = "Else use full ""CommandBlock at x,y,z"" to work"
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(21, 69)
+        Me.Label17.Location = New System.Drawing.Point(21, 77)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(321, 15)
         Me.Label17.TabIndex = 33
@@ -376,7 +378,7 @@ Partial Class Form2
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(391, 132)
+        Me.Label18.Location = New System.Drawing.Point(391, 135)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(321, 15)
         Me.Label18.TabIndex = 32
@@ -385,7 +387,7 @@ Partial Class Form2
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(21, 106)
+        Me.Label21.Location = New System.Drawing.Point(21, 111)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(148, 15)
         Me.Label21.TabIndex = 31
@@ -393,7 +395,7 @@ Partial Class Form2
         '
         'MCFilter_Textbox
         '
-        Me.MCFilter_Textbox.Location = New System.Drawing.Point(394, 108)
+        Me.MCFilter_Textbox.Location = New System.Drawing.Point(394, 111)
         Me.MCFilter_Textbox.Name = "MCFilter_Textbox"
         Me.MCFilter_Textbox.Size = New System.Drawing.Size(320, 21)
         Me.MCFilter_Textbox.TabIndex = 30
@@ -401,7 +403,7 @@ Partial Class Form2
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(391, 91)
+        Me.Label20.Location = New System.Drawing.Point(391, 94)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(120, 15)
         Me.Label20.TabIndex = 29
@@ -410,7 +412,7 @@ Partial Class Form2
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(19, 146)
+        Me.Label16.Location = New System.Drawing.Point(19, 151)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(162, 15)
         Me.Label16.TabIndex = 26
@@ -419,7 +421,7 @@ Partial Class Form2
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(19, 126)
+        Me.Label15.Location = New System.Drawing.Point(19, 131)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(225, 15)
         Me.Label15.TabIndex = 25
@@ -427,7 +429,7 @@ Partial Class Form2
         '
         'Autoexe_Textbox
         '
-        Me.Autoexe_Textbox.Location = New System.Drawing.Point(394, 45)
+        Me.Autoexe_Textbox.Location = New System.Drawing.Point(394, 53)
         Me.Autoexe_Textbox.MaxLength = 65535
         Me.Autoexe_Textbox.Name = "Autoexe_Textbox"
         Me.Autoexe_Textbox.Size = New System.Drawing.Size(320, 21)
@@ -436,7 +438,7 @@ Partial Class Form2
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(391, 27)
+        Me.Label10.Location = New System.Drawing.Point(391, 35)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(301, 15)
         Me.Label10.TabIndex = 24
@@ -447,7 +449,7 @@ Partial Class Form2
         Me.EXEside_Prefix_Checkbox.AutoSize = True
         Me.EXEside_Prefix_Checkbox.Checked = True
         Me.EXEside_Prefix_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.EXEside_Prefix_Checkbox.Location = New System.Drawing.Point(394, 174)
+        Me.EXEside_Prefix_Checkbox.Location = New System.Drawing.Point(394, 177)
         Me.EXEside_Prefix_Checkbox.Name = "EXEside_Prefix_Checkbox"
         Me.EXEside_Prefix_Checkbox.Size = New System.Drawing.Size(330, 19)
         Me.EXEside_Prefix_Checkbox.TabIndex = 22
@@ -456,7 +458,7 @@ Partial Class Form2
         '
         'PRIID_Textbox
         '
-        Me.PRIID_Textbox.Location = New System.Drawing.Point(24, 45)
+        Me.PRIID_Textbox.Location = New System.Drawing.Point(24, 53)
         Me.PRIID_Textbox.MaxLength = 65535
         Me.PRIID_Textbox.Name = "PRIID_Textbox"
         Me.PRIID_Textbox.Size = New System.Drawing.Size(320, 21)
@@ -466,7 +468,7 @@ Partial Class Form2
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(21, 28)
+        Me.Label11.Location = New System.Drawing.Point(21, 36)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(215, 15)
         Me.Label11.TabIndex = 19
@@ -520,6 +522,7 @@ Partial Class Form2
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.Label24)
         Me.TabPage2.Controls.Add(Me.GroupBox1)
         Me.TabPage2.Controls.Add(Me.GroupBox5)
         Me.TabPage2.Controls.Add(Me.GroupBox4)
@@ -542,7 +545,7 @@ Partial Class Form2
         Me.GroupBox1.Controls.Add(Me.ComPortSPD_NumericUpDown)
         Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.Label13)
-        Me.GroupBox1.Location = New System.Drawing.Point(26, 411)
+        Me.GroupBox1.Location = New System.Drawing.Point(26, 412)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(771, 140)
         Me.GroupBox1.TabIndex = 24
@@ -641,6 +644,19 @@ Partial Class Form2
         Me.TabPage3.Text = "Backup setting"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label24.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(113, 144)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Padding = New System.Windows.Forms.Padding(2)
+        Me.Label24.Size = New System.Drawing.Size(419, 22)
+        Me.Label24.TabIndex = 37
+        Me.Label24.Text = " ( Execute command in world is need Spigot / PaperMC Server )"
+        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -661,6 +677,7 @@ Partial Class Form2
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.ComPortSPD_NumericUpDown, System.ComponentModel.ISupportInitialize).EndInit()
@@ -725,4 +742,5 @@ Partial Class Form2
     Friend WithEvents Label22 As Label
     Friend WithEvents EssentialsDetected As Label
     Friend WithEvents Label23 As Label
+    Friend WithEvents Label24 As Label
 End Class
