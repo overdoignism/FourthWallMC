@@ -1267,7 +1267,7 @@ Public Class Form1
                             Dim Command_Mode As String = Tmp_String_Org.ToLower.Substring(2, 2)
                             Dim Command_Str As String = Tmp_String_Org.Substring(5)
                             ResultCode = Process_Get_Command(Command_Mode, Command_Str, 1)
-                            If ResultCode = 1 Then EXE_Write_To_Console("Bad Format")
+                            If ResultCode = 1 Then EXE_Write_To_Console("-5")
                         End If
 
 

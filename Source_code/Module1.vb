@@ -408,6 +408,12 @@ Module Module1
         TMP_IDX = InStr(TheStringUp, "INFO]:")
         If TMP_IDX = 0 Then TMP_IDX = InStr(TheStringUp, "RVER]:")
 
+        If CheckTarget(2) <> "" Then
+            If InStr(TheStringUp, CheckTarget(2).ToUpper) > 0 Then
+                Return "-4"
+            End If
+        End If
+
         If TMP_IDX > 0 Then
             If InStr(TheStringUp, CheckTarget(0).ToUpper) > 0 Then
                 If InStr(TheStringUp, CheckTarget(1).ToUpper) > 0 Then
@@ -416,12 +422,6 @@ Module Module1
             End If
         End If
 
-
-        If CheckTarget(2) <> "" Then
-            If InStr(TheStringUp, CheckTarget(2).ToUpper) > 0 Then
-                RawRead_Return = "-4"
-            End If
-        End If
 
 
     End Function
