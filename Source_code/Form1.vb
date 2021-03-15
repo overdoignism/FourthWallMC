@@ -97,15 +97,20 @@ Public Class Form1
     Dim IALB_Argu_Findwhat(1) As String
     Dim IALB_Return(1) As String
 
-    'Data get block
-    Dim I_Asking_Data_Block(1) As Boolean
-    Dim IADB_Argu_Findwhat As String = "has the following block data:"
-    Dim IADB_Return(1) As String
+    'Raw Read Back
+    Dim I_Asking_RawRead(1) As Boolean
+    Dim IARR_Argu_Findwhat(1)() As String
+    Dim IARR_Return(1) As String
 
-    'Data get entity
-    Dim I_Asking_Data_Entity(1) As Boolean
-    Dim IADE_Argu_Findwhat As String = "has the following entity data:"
-    Dim IADE_Return(1) As String
+    ''Data get block
+    'Dim I_Asking_Data_Block(1) As Boolean
+    'Dim IADB_Argu_Findwhat As String = "has the following block data:"
+    'Dim IADB_Return(1) As String
+
+    ''Data get entity
+    'Dim I_Asking_Data_Entity(1) As Boolean
+    'Dim IADE_Argu_Findwhat As String = "has the following entity data:"
+    'Dim IADE_Return(1) As String
 
     'Data get storage
     'Dim I_Asking_Data_Storage(1) As Boolean
@@ -341,9 +346,7 @@ Public Class Form1
                         Case "gb"
                         Case "gd"
                         Case "ss"
-                        Case "db"
-                        Case "de"
-                            'Case "ds"
+                        Case "rr"
                         Case Else
                             ErrorType = 1
                     End Select
@@ -353,9 +356,7 @@ Public Class Form1
                 If ErrorType = 0 Then
 
                     If MC_Server_WorkState = 1 Then
-
                         ErrorType = 5
-
                     Else
 
                         Command_Str = Rcv_Str.Substring(Man_Pwd_Length + 4)
@@ -363,15 +364,11 @@ Public Class Form1
                         If Command_Str = "" Then
                             ErrorType = 1
                         Else
-
                             Select Case FthWallMC_Server_Bypass
-
                                 Case 0
                                     ErrorType = Process_RC_Request(Command_Mode, Command_Str, Tmp_Idx1)
-
                                 Case 1
                                     ErrorType = 4
-
                                 Case 2
                                     ErrorType = 5
 
@@ -385,7 +382,7 @@ Public Class Form1
 
                 Select Case ErrorType
                     Case 0
-                        SendToClients("OK", Clients(Tmp_Idx1).TheSocket) 'Bad password or command format.
+                        SendToClients("OK", Clients(Tmp_Idx1).TheSocket) 'OK.
                     Case 1
                         SendToClients("BAD", Clients(Tmp_Idx1).TheSocket) 'Bad password or command format.
                     Case 2
@@ -393,13 +390,10 @@ Public Class Form1
                     Case 3
                         SendToClients("NOT-OFF", Clients(Tmp_Idx1).TheSocket) 'Need Minecraft server be offline.
                     Case 4
-
                         If Command_Mode = "sy" Then Write_To_Console("say " + Command_Str)
                         SendToClients("PASS", Clients(Tmp_Idx1).TheSocket) 'Server want pass this task.
-
                     Case 5
                         SendToClients("BUSY", Clients(Tmp_Idx1).TheSocket) 'Server is busy. please wait.
-
                     Case 99
                         'Displayed by above code
 
@@ -426,7 +420,8 @@ Public Class Form1
 
     Private Function Process_RC_Request(Command_Mode As String, Command_Str As String, ClientIdx As Integer) As Integer
 
-        Process_RC_Request = 0
+        Dim ErrFlag As Integer = 0
+        Process_RC_Request = 1
 
         If Command_Mode = "cm" Then
 
@@ -470,7 +465,6 @@ Public Class Form1
 
             End Select
 
-
         ElseIf Command_Mode = "bk" Then
 
             If MC_Server_WorkState <> 0 Then
@@ -482,8 +476,9 @@ Public Class Form1
 
         ElseIf Command_Mode = "ss" Then
 
-            Process_RC_Request = Get_Full_MCServer_Control(Command_Str)
-            Exit Function
+            ErrFlag = Get_Full_MCServer_Control(Command_Str)
+            If ErrFlag = 1 Then SendToClients("-5", Clients(ClientIdx).TheSocket) 'Format Error
+            Return 99
 
         ElseIf Command_Mode = "in" Then
 
@@ -509,18 +504,20 @@ Public Class Form1
 
             If (MC_Server_WorkState = 2) AndAlso (FthWallMC_Server_Bypass = 0) Then
 
-                Process_RC_Request = Process_Get_Command(Command_Mode, Command_Str, 0, Clients(ClientIdx))
-                Process_RC_Request = 99
+                ErrFlag = Process_Get_Command(Command_Mode, Command_Str, 0, Clients(ClientIdx))
+
+                If ErrFlag = 1 Then SendToClients("-5", Clients(ClientIdx).TheSocket) 'Format Error
+                Return 99
 
             ElseIf (MC_Server_WorkState = 1) OrElse (FthWallMC_Server_Bypass = 2) Then
 
                 SendToClients("-2", Clients(ClientIdx).TheSocket) 'Busy
-                Process_RC_Request = 99
+                Return 99
 
             Else
 
                 SendToClients("-3", Clients(ClientIdx).TheSocket) 'Pass or error
-                Process_RC_Request = 99
+                Return 99
 
             End If
 
@@ -528,7 +525,7 @@ Public Class Form1
 
     End Function
 
-    Function Process_Get_Command(Command_Mode As String, Command_str As String, RCorEXE_Mode As Integer, Optional ByRef TmpClientWork As ClientWorker = Nothing) As String
+    Function Process_Get_Command(Command_Mode As String, Command_str As String, RCorEXE_Mode As Integer, Optional ByRef TmpClientWork As ClientWorker = Nothing) As Integer
 
         Process_Get_Command = 1
 
@@ -595,37 +592,35 @@ Public Class Form1
 
             IALB_Return(RCorEXE_Mode) = "" : IALB_Argu_Pos(RCorEXE_Mode) = "" : IALB_Argu_Findwhat(RCorEXE_Mode) = "" : I_Asking_LocateBiome(RCorEXE_Mode) = False
 
+        ElseIf Command_Mode = "rr" Then
 
-        ElseIf Command_Mode = "db" Then
+            Dim ErrFlag As Integer = 0
 
-            Process_Get_Command = 0
-
-            I_Asking_Data_Block(RCorEXE_Mode) = True
-            IADB_Return(RCorEXE_Mode) = "-1"
-
-            Write_To_Console(Command_str)
-            What_RU_Waiting(IADB_Return(RCorEXE_Mode), Get_timeout_ds)
-
-            If RCorEXE_Mode = 0 Then SendToClients(IADB_Return(0), TmpClientWork.TheSocket)
-            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IADB_Return(1))
-
-            IADB_Return(RCorEXE_Mode) = "" : I_Asking_Data_Block(RCorEXE_Mode) = False
-
-        ElseIf Command_Mode = "de" Then
+            'Error control
+            IARR_Return(RCorEXE_Mode) = "-1"
+            Dim ParseArray() As String = Command_str.Split(";")
+            If ParseArray.Length < 4 Then ErrFlag = 1
+            Dim All_MCCommand As String = Get_All_MCCommand(Command_str)
+            If All_MCCommand = "" Then ErrFlag = 1
+            If ErrFlag = 1 Then Return 1
 
             Process_Get_Command = 0
+            ReDim IARR_Argu_Findwhat(RCorEXE_Mode)(2)
+            IARR_Argu_Findwhat(RCorEXE_Mode)(0) = ParseArray(0) 'Yes 1
+            IARR_Argu_Findwhat(RCorEXE_Mode)(1) = ParseArray(1) 'Yes 2
+            IARR_Argu_Findwhat(RCorEXE_Mode)(2) = ParseArray(2) 'No 1
+            I_Asking_RawRead(RCorEXE_Mode) = True
 
-            I_Asking_Data_Entity(RCorEXE_Mode) = True
-            IADE_Return(RCorEXE_Mode) = "-1"
+            Write_To_Console(All_MCCommand)
+            What_RU_Waiting(IARR_Return(RCorEXE_Mode), Get_timeout_ds)
 
-            Write_To_Console(Command_str)
-            What_RU_Waiting(IADE_Return(RCorEXE_Mode), Get_timeout_ds)
+            If RCorEXE_Mode = 0 Then SendToClients(IARR_Return(0), TmpClientWork.TheSocket)
 
-            If RCorEXE_Mode = 0 Then SendToClients(IADE_Return(0), TmpClientWork.TheSocket)
-            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IADE_Return(1))
-
-            'ElseIf Command_Mode = "ds" Then
-
+            'Because raw read back is so big to cause crash. It's a fix but not sure why.
+            If RCorEXE_Mode = 1 Then
+                Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread())
+                thread.Start()
+            End If
 
         End If
     End Function
@@ -843,14 +838,9 @@ Public Class Form1
                     IALB_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IALB_Argu_Findwhat(IDX_TMP_01))
                 End If
 
-                '============= Data Get Block =========
-                If Check_If_Misjudge(Tmp_String, I_Asking_Data_Block(IDX_TMP_01)) Then
-                    IADB_Return(IDX_TMP_01) = Data_Return(Tmp_String_Org, IADB_Argu_Findwhat)
-                End If
-
-                '============= Data Get Entity =========
-                If Check_If_Misjudge(Tmp_String, I_Asking_Data_Entity(IDX_TMP_01)) Then
-                    IADE_Return(IDX_TMP_01) = Data_Return(Tmp_String_Org, IADE_Argu_Findwhat)
+                '============= Raw Read Back =========
+                If Check_If_Misjudge(Tmp_String, I_Asking_RawRead(IDX_TMP_01)) Then
+                    IARR_Return(IDX_TMP_01) = RawRead_Return(Tmp_String_Org, IARR_Argu_Findwhat(IDX_TMP_01))
                 End If
 
             Next
@@ -931,7 +921,7 @@ Public Class Form1
                         Exit Do
                     End If
                 ElseIf MC_Server_WorkState = 2 Then 'Stop detect 
-                        Tmp_Index2 = InStr(StartStop_Check, "INFO]: STOPPING THE SERVER")
+                    Tmp_Index2 = InStr(StartStop_Check, "INFO]: STOPPING THE SERVER")
                     If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
                         MC_Server_WorkState = 1
                         Exit Do
@@ -1260,7 +1250,7 @@ Public Class Form1
 
             If MC_Server_WorkState = 2 Then
 
-                '====================EXE foold to MC + injection
+                '==================== MC + injection ==========================
                 If Man_Use_InJ AndAlso Tmp_String_Org.Substring(0, 1) = "~" Then
 
                     Dim ResultCode As Integer = 1
@@ -1277,15 +1267,16 @@ Public Class Form1
                             Dim Command_Mode As String = Tmp_String_Org.ToLower.Substring(2, 2)
                             Dim Command_Str As String = Tmp_String_Org.Substring(5)
                             ResultCode = Process_Get_Command(Command_Mode, Command_Str, 1)
+                            If ResultCode = 1 Then EXE_Write_To_Console("Bad Format")
                         End If
 
 
                     End If
 
-                    If ResultCode = 1 Then Write_To_Console(Tmp_String_Org.Substring(1))
 
                 Else
 
+                    '====================EXE foold to MC ===============
                     If Man_Flood_ToEXE = 1 Then 'MC←EXE
 
                         If Man_ThisTime_W2Say Then
@@ -1311,6 +1302,17 @@ Public Class Form1
 
         EXE_myStreamWriter = EXE_Process.StandardInput
         EXE_myStreamWriter.WriteLine(Write_Str_Data)
+
+    End Sub
+
+    Public Sub EXE_Write_To_Console_Thread()
+
+        If Not EXE_IS_LAUNCHED Then Exit Sub
+
+        EXE_myStreamWriter = EXE_Process.StandardInput
+        EXE_myStreamWriter.WriteLine(IARR_Return(1))
+
+        'It's dirty more then political (maybe)
 
     End Sub
 
@@ -1681,6 +1683,10 @@ Public Class Form1
             End If
         End If
 
+        If EXE_IS_LAUNCHED Then
+            EXE_Process.Kill()
+        End If
+
     End Sub
 
     Private Sub ModeRC_Button_Click(sender As Object, e As EventArgs) Handles ModeRC_Button.Click
@@ -1718,7 +1724,7 @@ Public Class Form1
 
     Private Sub SP1Mon_Tick(sender As Object, e As EventArgs) Handles SP1Mon.Tick
 
-        If Man_COM_Port Is Nothing Then  Exit Sub 
+        If Man_COM_Port Is Nothing Then Exit Sub
 
 
         If Man_COM_Port.ToLower = "off" Then

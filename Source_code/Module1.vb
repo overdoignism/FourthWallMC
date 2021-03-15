@@ -346,13 +346,23 @@ Module Module1
 
         TheString = Replace(TheString, " [MINECRAFT/DEDICATEDSERVER]", "")
 
-        If InStr(TheString, "INFO]: * @") = 0 Then
-            If (InStr(TheString, "INFO]: <") = 0) Then
-                If (InStr(TheString, "INFO]: [") = 0) Then
-                    Return True
-                End If
-            End If
+        If InStr(TheString, "INFO]: * @") > 0 Then
+            Return False
         End If
+
+        If (InStr(TheString, "INFO]: <") > 0) Then
+            Return False
+        End If
+
+        If (InStr(TheString, "INFO]: [") > 0) Then
+            Return False
+        End If
+
+        If (InStr(TheString, "ISSUED SERVER COMMAND:") > 0) Then
+            Return False
+        End If
+
+        Return True
 
     End Function
 
@@ -388,9 +398,9 @@ Module Module1
 
     End Function
 
-    Public Function Data_Return(TheString As String, CheckTarget As String) As String
+    Public Function RawRead_Return(TheString As String, CheckTarget() As String) As String
 
-        Data_Return = "-1"
+        RawRead_Return = "-1"
         If CheckTarget Is Nothing Then Exit Function
 
         Dim TheStringUp As String = TheString.ToUpper
@@ -399,10 +409,20 @@ Module Module1
         If TMP_IDX = 0 Then TMP_IDX = InStr(TheStringUp, "RVER]:")
 
         If TMP_IDX > 0 Then
-            If InStr(TheStringUp, CheckTarget.ToUpper) > 0 Then
-                Data_Return = TheString.Substring(TMP_IDX + 6)
+            If InStr(TheStringUp, CheckTarget(0).ToUpper) > 0 Then
+                If InStr(TheStringUp, CheckTarget(1).ToUpper) > 0 Then
+                    RawRead_Return = TheString.Substring(TMP_IDX + 6)
+                End If
             End If
         End If
+
+
+        If CheckTarget(2) <> "" Then
+            If InStr(TheStringUp, CheckTarget(2).ToUpper) > 0 Then
+                RawRead_Return = "-4"
+            End If
+        End If
+
 
     End Function
 
@@ -419,6 +439,29 @@ Module Module1
 
     End Sub
 
+    Public Function Get_All_MCCommand(TheString As String)
+
+        Get_All_MCCommand = ""
+
+        If TheString.Length > 0 Then
+
+            Dim TMP0, TMP1 As Integer
+            TMP1 = 0
+
+            For TMP0 = 0 To TheString.Length - 2
+                If TheString.Substring(TMP0, 1) = ";" Then
+                    TMP1 = TMP1 + 1
+                    If TMP1 = 3 Then
+                        Return TheString.Substring(TMP0 + 1)
+                    End If
+                End If
+            Next
+
+        End If
+
+
+
+    End Function
 
     Public Function Get_Full_MCServer_Control(TheString As String) As Integer
 
@@ -458,9 +501,6 @@ Module Module1
         Else
             Return 1
         End If
-
-
-
 
 
     End Function
