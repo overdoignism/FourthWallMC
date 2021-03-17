@@ -50,6 +50,21 @@ Partial Class Form1
         Me.Send2Exe_TextBox = New System.Windows.Forms.TextBox()
         Me.EXE_Texbox = New System.Windows.Forms.TextBox()
         Me.Send2EXE_Button = New System.Windows.Forms.Button()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Selected_Player = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Player_Logout = New System.Windows.Forms.ListBox()
+        Me.Player_Login = New System.Windows.Forms.ListBox()
         Me.EXE_BoxRefreshTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ModeExeFW_Button = New System.Windows.Forms.Button()
         Me.SP1 = New System.IO.Ports.SerialPort(Me.components)
@@ -64,6 +79,7 @@ Partial Class Form1
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.WaitPanel.SuspendLayout()
         Me.SuspendLayout()
@@ -258,6 +274,7 @@ Partial Class Form1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Location = New System.Drawing.Point(141, 13)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -338,6 +355,181 @@ Partial Class Form1
         Me.Send2EXE_Button.TabIndex = 25
         Me.Send2EXE_Button.Text = "Send"
         Me.Send2EXE_Button.UseVisualStyleBackColor = True
+        '
+        'TabPage3
+        '
+        Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(216, Byte), Integer))
+        Me.TabPage3.Controls.Add(Me.Button6)
+        Me.TabPage3.Controls.Add(Me.Label9)
+        Me.TabPage3.Controls.Add(Me.Label8)
+        Me.TabPage3.Controls.Add(Me.Label7)
+        Me.TabPage3.Controls.Add(Me.Selected_Player)
+        Me.TabPage3.Controls.Add(Me.Label5)
+        Me.TabPage3.Controls.Add(Me.Button5)
+        Me.TabPage3.Controls.Add(Me.Button4)
+        Me.TabPage3.Controls.Add(Me.Button3)
+        Me.TabPage3.Controls.Add(Me.Button2)
+        Me.TabPage3.Controls.Add(Me.Label4)
+        Me.TabPage3.Controls.Add(Me.Label3)
+        Me.TabPage3.Controls.Add(Me.Player_Logout)
+        Me.TabPage3.Controls.Add(Me.Player_Login)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 24)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(1018, 607)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Players (Detected)"
+        '
+        'Button6
+        '
+        Me.Button6.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button6.Location = New System.Drawing.Point(652, 252)
+        Me.Button6.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(121, 58)
+        Me.Button6.TabIndex = 46
+        Me.Button6.Text = "Pardon"
+        Me.Button6.UseVisualStyleBackColor = False
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(87, 572)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(527, 16)
+        Me.Label9.TabIndex = 45
+        Me.Label9.Text = "This list is re-generated after each Minecraft Server startup.  Not all played pl" &
+    "ayer."
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(649, 530)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(234, 16)
+        Me.Label8.TabIndex = 44
+        Me.Label8.Text = "You need press <Send> by yourself."
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(649, 509)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(218, 16)
+        Me.Label7.TabIndex = 43
+        Me.Label7.Text = "Just input to command send box."
+        '
+        'Selected_Player
+        '
+        Me.Selected_Player.AutoSize = True
+        Me.Selected_Player.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Selected_Player.Location = New System.Drawing.Point(649, 80)
+        Me.Selected_Player.Name = "Selected_Player"
+        Me.Selected_Player.Size = New System.Drawing.Size(48, 16)
+        Me.Selected_Player.TabIndex = 42
+        Me.Selected_Player.Text = "(none)"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(649, 38)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(97, 16)
+        Me.Label5.TabIndex = 41
+        Me.Label5.Text = "Now selected:"
+        '
+        'Button5
+        '
+        Me.Button5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button5.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button5.Location = New System.Drawing.Point(652, 384)
+        Me.Button5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(121, 58)
+        Me.Button5.TabIndex = 40
+        Me.Button5.Text = "DeOp"
+        Me.Button5.UseVisualStyleBackColor = False
+        '
+        'Button4
+        '
+        Me.Button4.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button4.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.Location = New System.Drawing.Point(652, 318)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(121, 58)
+        Me.Button4.TabIndex = 39
+        Me.Button4.Text = "Op"
+        Me.Button4.UseVisualStyleBackColor = False
+        '
+        'Button3
+        '
+        Me.Button3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button3.Location = New System.Drawing.Point(652, 186)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(121, 58)
+        Me.Button3.TabIndex = 38
+        Me.Button3.Text = "Ban"
+        Me.Button3.UseVisualStyleBackColor = False
+        '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.Location = New System.Drawing.Point(652, 120)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(121, 58)
+        Me.Button2.TabIndex = 35
+        Me.Button2.Text = "Kick "
+        Me.Button2.UseVisualStyleBackColor = False
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(340, 35)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(84, 16)
+        Me.Label4.TabIndex = 34
+        Me.Label4.Text = "Logged out:"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(42, 35)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(130, 16)
+        Me.Label3.TabIndex = 12
+        Me.Label3.Text = "Logged in (Online):"
+        '
+        'Player_Logout
+        '
+        Me.Player_Logout.FormattingEnabled = True
+        Me.Player_Logout.ItemHeight = 15
+        Me.Player_Logout.Location = New System.Drawing.Point(343, 54)
+        Me.Player_Logout.Name = "Player_Logout"
+        Me.Player_Logout.Size = New System.Drawing.Size(290, 499)
+        Me.Player_Logout.Sorted = True
+        Me.Player_Logout.TabIndex = 1
+        '
+        'Player_Login
+        '
+        Me.Player_Login.FormattingEnabled = True
+        Me.Player_Login.ItemHeight = 15
+        Me.Player_Login.Location = New System.Drawing.Point(45, 54)
+        Me.Player_Login.Name = "Player_Login"
+        Me.Player_Login.Size = New System.Drawing.Size(290, 499)
+        Me.Player_Login.Sorted = True
+        Me.Player_Login.TabIndex = 0
         '
         'EXE_BoxRefreshTimer
         '
@@ -472,13 +664,15 @@ Partial Class Form1
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.Name = "Form1"
-        Me.Text = "FourthWallMC v0.77 < You don't need to break it, we put window on the wall. >  By" &
+        Me.Text = "FourthWallMC v0.78 < You don't need to break it, we put window on the wall. >  By" &
     " overdoingism Lab."
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
+        Me.TabPage3.ResumeLayout(False)
+        Me.TabPage3.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.WaitPanel.ResumeLayout(False)
@@ -524,4 +718,19 @@ Partial Class Form1
     Friend WithEvents Button1 As Button
     Friend WithEvents WaitPanel As Panel
     Friend WithEvents Label2 As Label
+    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Player_Logout As ListBox
+    Friend WithEvents Player_Login As ListBox
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents Selected_Player As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Button6 As Button
 End Class

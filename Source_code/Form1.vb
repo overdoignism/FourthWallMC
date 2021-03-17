@@ -3,7 +3,6 @@ Imports System.Text
 Imports System.Threading
 Imports System.Net
 Imports System.ComponentModel
-'Imports System.Windows.Forms
 Imports System.IO.Ports
 Imports System.Runtime.InteropServices
 Public Class Form1
@@ -56,7 +55,6 @@ Public Class Form1
     Public FthWallMC_Server As Integer = 0 '0 = Offline 1 = Trying 2= Online
     Public FthWallMC_Server_TcpListerner As Sockets.TcpListener
 
-
     Public Clients() As ClientWorker
     Public Clients_Now_Max As Integer = -1
 
@@ -75,10 +73,9 @@ Public Class Form1
     Dim LoadFont As Font
 
     'Send to Console UP+DOWN key Get recent use
-    Dim Send2Recent(9) As String
-    Dim Send2Idx As Integer
-    Dim Send2IdxLast As Integer
-
+    Dim Send2Recent(1)() As String
+    Dim Send2Idx() As Integer = {0, 0}
+    Dim Send2IdxLast() As Integer = {0, 0}
 
     'Get the time tick
     Dim I_Asking_Tick(1) As Boolean
@@ -102,30 +99,16 @@ Public Class Form1
     Dim IARR_Argu_Findwhat(1)() As String
     Dim IARR_Return(1) As String
 
-    ''Data get block
-    'Dim I_Asking_Data_Block(1) As Boolean
-    'Dim IADB_Argu_Findwhat As String = "has the following block data:"
-    'Dim IADB_Return(1) As String
-
-    ''Data get entity
-    'Dim I_Asking_Data_Entity(1) As Boolean
-    'Dim IADE_Argu_Findwhat As String = "has the following entity data:"
-    'Dim IADE_Return(1) As String
-
-    'Data get storage
-    'Dim I_Asking_Data_Storage(1) As Boolean
-    'Dim IADS_Argu_Pos(1) As String
-    'Dim IADS_Argu_Findwhat(1) As String
-    'Dim IADS_Return(1) As String
+    Dim OneTime_A_Listbox_Act As Boolean
 
     <DllImport("user32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
     Shared Function SendMessage(hWnd As IntPtr, wMsg As Integer, wParam As IntPtr, lParam As IntPtr) As Integer
     End Function
 
-
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-
+        ReDim Send2Recent(0)(9)
+        ReDim Send2Recent(1)(9)
         Man_Who_LastSending = "CONSOLE"
         Form2.COMLineEnd.SelectedIndex = 0
 
@@ -233,10 +216,12 @@ Public Class Form1
             Try
 
                 For Each TmpClient As ClientWorker In Clients
-                    TmpClient.TheSocket.Close()
-                    TmpClient.IsUsing = False
-                    TmpClient.DeadTime = 0
-                    TmpClient.TheSocket.Dispose()
+                    If TmpClient.TheSocket IsNot Nothing Then
+                        TmpClient.TheSocket.Close()
+                        TmpClient.IsUsing = False
+                        TmpClient.DeadTime = 0
+                        TmpClient.TheSocket.Dispose()
+                    End If
                 Next
 
                 FthWallMC_Server_TcpListerner.Stop()
@@ -256,7 +241,6 @@ Public Class Form1
         ManServerRefreshTimer.Enabled = True
 
         Return True
-
 
     End Function
     Sub Handler_Client(ByVal state As Object)
@@ -324,7 +308,6 @@ Public Class Form1
                 Rcv_Str = Replace(Rcv_Str, vbCr, "")
                 Rcv_Str = Replace(Rcv_Str, vbLf, "")
 
-
                 If Rcv_Str Is Nothing Then
                     Rcv_Str = ""
                     ErrorType = 1
@@ -347,6 +330,7 @@ Public Class Form1
                         Case "gd"
                         Case "ss"
                         Case "rr"
+                        Case "pr"
                         Case Else
                             ErrorType = 1
                     End Select
@@ -622,6 +606,29 @@ Public Class Form1
                 thread.Start()
             End If
 
+        ElseIf Command_Mode = "pr" Then
+
+            Dim ReturnRes As String = ""
+
+            If Command_str.ToLower = "login" Then
+                For TmpIDXa01 As Integer = 0 To (Player_Login.Items.Count - 1)
+                    ReturnRes += Player_Login.Items(TmpIDXa01)
+                    If TmpIDXa01 <> (Player_Login.Items.Count - 1) Then ReturnRes += ","
+                Next
+            ElseIf Command_str.ToLower = "logout" Then
+                For TmpIDXa01 As Integer = 0 To (Player_Logout.Items.Count - 1)
+                    ReturnRes += Player_Logout.Items(TmpIDXa01)
+                    If TmpIDXa01 <> (Player_Logout.Items.Count - 1) Then ReturnRes += ","
+                Next
+            Else
+                Return 1
+            End If
+
+            Process_Get_Command = 0
+            If ReturnRes = "" Then ReturnRes = "(none)"
+            If RCorEXE_Mode = 0 Then SendToClients(ReturnRes, TmpClientWork.TheSocket)
+            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(ReturnRes)
+
         End If
     End Function
 
@@ -657,6 +664,8 @@ Public Class Form1
 
     Private Function Start_MC_Server_Process(The_JAVA_Arguments As String, The_FileName As String, The_JAR_BAT_File As String, The_MC_Arguments As String) As String
 
+
+        If MC_Server_WorkState <> 0 Then Return "BUSY"
         Dim Launch_File As String = ""
         Dim The_Arguments As String = ""
         MCS_Richtexbox.Text = "Starting Minecraft Server..."
@@ -777,6 +786,7 @@ Public Class Form1
             MCServer_RAM_Peak = 0
             MCServer_CPU_Wait = 0
             Start_MC_Server_Process = "OK"
+            InNeed_Detect_AbnormalEnd = True
 
         Catch ex As Exception
 
@@ -786,6 +796,7 @@ Public Class Form1
 
         End Try
 
+        PlayerClear()
 
         'Start EXE here
         Start_EXE_Process(Man_EXE_FirstExec)
@@ -813,38 +824,35 @@ Public Class Form1
             Dim Tmp_String As String = Tmp_String_Org.ToUpper
             Dim Tmp_String2 As String = ""
 
-            Dim IDX_TMP_01 As Integer
+            If Check_If_Misjudge(Tmp_String) Then
+                For IDX_TMP_01 As Integer = 0 To 1
 
-
-            For IDX_TMP_01 = 0 To 1
-
-                '============= Get tick command =========
-                If Check_If_Misjudge(Tmp_String, I_Asking_Tick(IDX_TMP_01)) Then
-                    Dim TMP_TICK1_IDX As Integer
-                    TMP_TICK1_IDX = InStr(Tmp_String, " THE TIME IS ")
-                    If TMP_TICK1_IDX > 0 Then
-                        Time_TickReturn(IDX_TMP_01) = Tmp_String_Org.Substring(TMP_TICK1_IDX + 12)
+                    '============= Get tick command =========
+                    If I_Asking_Tick(IDX_TMP_01) Then
+                        Dim TMP_TICK1_IDX As Integer
+                        TMP_TICK1_IDX = InStr(Tmp_String, " THE TIME IS ")
+                        If TMP_TICK1_IDX > 0 Then
+                            Time_TickReturn(IDX_TMP_01) = Tmp_String_Org.Substring(TMP_TICK1_IDX + 12)
+                        End If
                     End If
-                End If
 
+                    '============= Get Locate =========
+                    If I_Asking_Locate(IDX_TMP_01) Then
+                        IAL_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IAL_Argu_Findwhat(IDX_TMP_01))
+                    End If
 
-                '============= Get Locate =========
-                If Check_If_Misjudge(Tmp_String, I_Asking_Locate(IDX_TMP_01)) Then
-                    IAL_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IAL_Argu_Findwhat(IDX_TMP_01))
-                End If
+                    '============= Get LocateBiome =========
+                    If I_Asking_LocateBiome(IDX_TMP_01) Then
+                        IALB_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IALB_Argu_Findwhat(IDX_TMP_01))
+                    End If
 
-                '============= Get LocateBiome =========
-                If Check_If_Misjudge(Tmp_String, I_Asking_LocateBiome(IDX_TMP_01)) Then
-                    IALB_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IALB_Argu_Findwhat(IDX_TMP_01))
-                End If
+                    '============= Raw Read Back =========
+                    If I_Asking_RawRead(IDX_TMP_01) Then
+                        IARR_Return(IDX_TMP_01) = RawRead_Return(Tmp_String_Org, IARR_Argu_Findwhat(IDX_TMP_01))
+                    End If
 
-                '============= Raw Read Back =========
-                If Check_If_Misjudge(Tmp_String, I_Asking_RawRead(IDX_TMP_01)) Then
-                    IARR_Return(IDX_TMP_01) = RawRead_Return(Tmp_String_Org, IARR_Argu_Findwhat(IDX_TMP_01))
-                End If
-
-            Next
-
+                Next
+            End If
 
             '=============Serial Port Out==========
             If SP1.IsOpen Then
@@ -879,7 +887,6 @@ Public Class Form1
             Dim Tmp_Index1, Tmp_Index2, Tmp_Index3 As Integer
 
             '===================================== Console Text Buffer
-
             Saved_String(Saved_String_IDX) = Tmp_String_Org + vbNewLine
 
             If Saved_String_IDX >= Saved_String_Max Then
@@ -911,21 +918,29 @@ Public Class Form1
 
             Do 'ALL In Game Command Parsing In this Fake DO-LOOP
 
-                '================================================ Server state Detect
-                Dim StartStop_Check As String = Replace(Tmp_String, "SERVER THREAD/", "")
-                StartStop_Check = Replace(StartStop_Check, " [MINECRAFT/DEDICATEDSERVER]", "")
-                If MC_Server_WorkState < 2 Then 'Start detect
-                    Tmp_Index2 = InStr(StartStop_Check, "INFO]: DONE")
-                    If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
-                        MC_Server_WorkState = 2
-                        Exit Do
+                '================================================ Server state / Login-out Detect
+                If Check_If_Misjudge(Tmp_String) Then
+
+                    Dim StartStop_Check As String = Replace(Tmp_String, "SERVER THREAD/", "")
+                    StartStop_Check = Replace(StartStop_Check, " [MINECRAFT/DEDICATEDSERVER]", "")
+
+                    If MC_Server_WorkState < 2 Then 'Start detect
+                        Tmp_Index2 = InStr(StartStop_Check, "INFO]: DONE")
+                        If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
+                            MC_Server_WorkState = 2
+                            Exit Do
+                        End If
+                    ElseIf MC_Server_WorkState = 2 Then 'Stop detect 
+                        Tmp_Index2 = InStr(StartStop_Check, "INFO]: STOPPING THE SERVER")
+                        If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
+                            InNeed_Detect_AbnormalEnd = False
+                            MC_Server_WorkState = 1
+                            Exit Do
+                        End If
                     End If
-                ElseIf MC_Server_WorkState = 2 Then 'Stop detect 
-                    Tmp_Index2 = InStr(StartStop_Check, "INFO]: STOPPING THE SERVER")
-                    If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
-                        MC_Server_WorkState = 1
-                        Exit Do
-                    End If
+
+                    If ParseLogInOut(Tmp_String_Org) Then Exit Do
+
                 End If
                 '====================================================================
 
@@ -974,19 +989,13 @@ Public Class Form1
 
                             Case CM_Type_W 'Output to EXE, EXE w back
 
-                                If Not EXE_IS_LAUNCHED Then
-                                    Start_EXE_Process(Man_EXE_FirstExec)
-                                End If
-
+                                If Not EXE_IS_LAUNCHED Then Start_EXE_Process(Man_EXE_FirstExec)
                                 Man_ThisTime_W2Say = False
                                 EXE_Write_To_Console(Get_Message)
 
                             Case CM_Type_SAY 'Output to EXE, EXE say back
 
-                                If Not EXE_IS_LAUNCHED Then
-                                    Start_EXE_Process(Man_EXE_FirstExec)
-                                End If
-
+                                If Not EXE_IS_LAUNCHED Then Start_EXE_Process(Man_EXE_FirstExec)
                                 Man_ThisTime_W2Say = True
                                 EXE_Write_To_Console(Get_Message)
 
@@ -1052,6 +1061,7 @@ Public Class Form1
     Public Sub Write_To_Console(Write_Str_Data As String)
 
         If MC_Server_WorkState <> 2 Then Exit Sub
+        If Write_Str_Data.ToUpper = "STOP" Then InNeed_Detect_AbnormalEnd = False
 
         myStreamWriter = MC_Process.StandardInput
         myStreamWriter.WriteLine(Write_Str_Data)
@@ -1066,6 +1076,8 @@ Public Class Form1
     End Sub
 
     Private Function Start_Server_Backup_Process(The_Arguments As String, The_FileName As String, TimeFormatReplace As String) As String
+
+        If MC_Server_WorkState <> 0 Then Return "BUSY"
 
         MCS_Richtexbox.Text = "Starting Minecraft Server Backup..."
         Start_Server_Backup_Process = ""
@@ -1273,7 +1285,6 @@ Public Class Form1
 
                     End If
 
-
                 Else
 
                     '====================EXE foold to MC ===============
@@ -1336,7 +1347,7 @@ Public Class Form1
     End Sub
 
     Private Sub Send2MCSButton_Click(sender As Object, e As EventArgs) Handles Send2MCSButton.Click
-        SendTo_MincraftServer()
+        SendTo_Console(0)
     End Sub
 
     Private Sub SetupButton_Click(sender As Object, e As EventArgs) Handles SetupButton.Click
@@ -1353,6 +1364,8 @@ Public Class Form1
     End Sub
 
     Private Sub ManServerRefreshTimer_Tick(sender As Object, e As EventArgs) Handles ManServerRefreshTimer.Tick
+
+        If ReallyClose = True Then Exit Sub
 
         If (Man_Port_Number > 0) And (Man_TCP_ErrorTimes < 10) Then
 
@@ -1470,6 +1483,26 @@ Public Class Form1
                 BackupButton.Enabled = True
                 KillTaskButton.Enabled = False
 
+                If InNeed_Detect_AbnormalEnd = True Then
+
+                    InNeed_Detect_AbnormalEnd = False
+                    Det_AE_Times += 1
+
+                    Try
+                        If Det_AE_Run <> "" Then
+
+                            Dim RunAE As New ProcessStartInfo()
+                            Dim TmpRAEstr As String = Replace(Det_AE_RunPara, "$TIME$", Now.ToString(DAE_TIME_Format))
+                            TmpRAEstr = Replace(TmpRAEstr, "$FAIL$", Det_AE_Times.ToString)
+                            RunAE.FileName = Det_AE_Run
+                            RunAE.Arguments = TmpRAEstr
+                            Process.Start(RunAE)
+
+                        End If
+                    Catch ex As Exception
+                    End Try
+                End If
+
             Case 1
 
                 MCSState_Label.Text = "Minecraft Server: BUSY"
@@ -1537,18 +1570,25 @@ Public Class Form1
         End Select
 
     End Sub
-    Public Sub SendTo_MincraftServer()
+    Public Sub SendTo_Console(ModeSelect As Integer)
 
         If MC_Server_WorkState <> 2 Then Exit Sub
 
-        Write_To_Console(MCS_ConsoleTextbox.Text)
+        If ModeSelect = 0 Then
+            Write_To_Console(MCS_ConsoleTextbox.Text)
+            Send2Recent(ModeSelect)(Send2IdxLast(ModeSelect)) = MCS_ConsoleTextbox.Text
+            MCS_ConsoleTextbox.Text = ""
+        ElseIf ModeSelect = 1 Then
+            EXE_Write_To_Console(Send2Exe_TextBox.Text)
+            Send2Recent(ModeSelect)(Send2IdxLast(ModeSelect)) = Send2Exe_TextBox.Text
+            Send2Exe_TextBox.Text = ""
+        End If
 
-        Send2Recent(Send2IdxLast) = MCS_ConsoleTextbox.Text
-        Send2IdxLast += 1
-        If Send2IdxLast > 9 Then Send2IdxLast = 0
-        Send2Idx = Send2IdxLast
 
-        MCS_ConsoleTextbox.Text = ""
+        Send2IdxLast(ModeSelect) += 1
+        If Send2IdxLast(ModeSelect) > 9 Then Send2IdxLast(ModeSelect) = 0
+        Send2Idx(ModeSelect) = Send2IdxLast(ModeSelect)
+
 
     End Sub
 
@@ -1558,7 +1598,7 @@ Public Class Form1
 
             If MC_Server_WorkState = 2 Then
                 MCS_ConsoleTextbox.Text = "stop"
-                SendTo_MincraftServer()
+                SendTo_Console(0)
                 Dim WaitCount As Integer
                 WaitPanel.Visible = True
 
@@ -1567,33 +1607,26 @@ Public Class Form1
                     Thread.Sleep(100)
                     WaitCount += 1
                     If MC_Server_WorkState = 0 Then
-                        ReallyClose = True
-                        Me.Close()
-                        End
+                        ALL_END()
+
                     End If
                 Loop Until WaitCount = 200
 
                 WaitPanel.Visible = False
                 If MsgBox("Looks like auto-shutdown is fault or take time too long." + vbNewLine + vbNewLine +
                           "Do you still want exit? ", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
-                    ReallyClose = True
-                    Me.Close()
-                    End
+                    ALL_END()
+
                 End If
 
             ElseIf MC_Server_WorkState = 1 Then
 
                 If MsgBox("Some missions are still working, it's will make problem if force to exit. Sure? ", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
-                    ReallyClose = True
-                    Me.Close()
-                    End
+                    ALL_END()
                 End If
 
             Else
-                ReallyClose = True
-                Me.Close()
-                End
-
+                ALL_END()
             End If
         Else
 
@@ -1605,28 +1638,50 @@ Public Class Form1
 
     End Sub
 
-    Private Sub TextBox2_KeyUp(sender As Object, e As KeyEventArgs) Handles MCS_ConsoleTextbox.KeyUp
+    Private Sub ALL_END()
+
+        ReallyClose = True
+        Stop_Management_Server()
+        kill_task()
+        'My.Application.DoEvents()
+        MCServerRefreshTimer.Enabled = False
+        EXE_BoxRefreshTimer.Enabled = False
+        ManServerRefreshTimer.Enabled = False
+        'My.Application.DoEvents()
+        Try
+            'Me.Close()
+            End
+        Catch ex As Exception
+            End
+        End Try
+
+    End Sub
+
+    Private Sub MCS_ConsoleTextbox_KeyUp(sender As Object, e As KeyEventArgs) Handles MCS_ConsoleTextbox.KeyUp
+        GetKeyUp(sender, e, 0)
+    End Sub
+
+    Private Sub Send2Exe_TextBox_KeyUp(sender As Object, e As KeyEventArgs) Handles Send2Exe_TextBox.KeyUp
+        GetKeyUp(sender, e, 1)
+    End Sub
+
+    Sub GetKeyUp(sender As Object, e As KeyEventArgs, FromWhich As Integer)
 
         Select Case e.KeyCode
-
             Case Keys.Enter
-                SendTo_MincraftServer()
-
+                SendTo_Console(FromWhich)
             Case Keys.Up
-
-                Send2Idx -= 1
-                If Send2Idx < 0 Then Send2Idx = 9
-                MCS_ConsoleTextbox.Text = Send2Recent(Send2Idx)
-
+                Send2Idx(FromWhich) -= 1
+                If Send2Idx(FromWhich) < 0 Then Send2Idx(FromWhich) = 9
+                sender.Text = Send2Recent(FromWhich)(Send2Idx(FromWhich))
             Case Keys.Down
-
-                Send2Idx += 1
-                If Send2Idx > 9 Then Send2Idx = 0
-                MCS_ConsoleTextbox.Text = Send2Recent(Send2Idx)
-
+                Send2Idx(FromWhich) += 1
+                If Send2Idx(FromWhich) > 9 Then Send2Idx(FromWhich) = 0
+                sender.Text = Send2Recent(FromWhich)(Send2Idx(FromWhich))
         End Select
 
     End Sub
+
 
     Private Sub ManServerTimeOutTimer_Tick(sender As Object, e As EventArgs) Handles ManServerTimeOutTimer.Tick
 
@@ -1673,6 +1728,7 @@ Public Class Form1
 
         If MC_IS_LAUNCHED Then
             If Not MC_Process.HasExited Then
+                InNeed_Detect_AbnormalEnd = False
                 MC_Process.Kill()
             End If
         End If
@@ -1684,7 +1740,9 @@ Public Class Form1
         End If
 
         If EXE_IS_LAUNCHED Then
-            EXE_Process.Kill()
+            If Not EXE_Process.HasExited Then
+                EXE_Process.Kill()
+            End If
         End If
 
     End Sub
@@ -1706,13 +1764,6 @@ Public Class Form1
     Private Sub Send2EXEButton_Click(sender As Object, e As EventArgs) Handles Send2EXE_Button.Click
         EXE_Write_To_Console(Send2Exe_TextBox.Text)
         Send2Exe_TextBox.Text = ""
-    End Sub
-
-    Private Sub TextBox3_KeyUp(sender As Object, e As KeyEventArgs) Handles Send2Exe_TextBox.KeyUp
-        If e.KeyCode = Keys.Enter Then
-            EXE_Write_To_Console(Send2Exe_TextBox.Text)
-            Send2Exe_TextBox.Text = ""
-        End If
     End Sub
 
     Private Sub ModeCFW_Button_Click(sender As Object, e As EventArgs) Handles ModeExeFW_Button.Click
@@ -1807,16 +1858,6 @@ Public Class Form1
 
     End Sub
 
-    Private Function UnicodeBytesToString(ByVal bytes() As Byte, data_long As Integer) As String
-
-        For idx As Integer = 0 To UBound(bytes)
-            If bytes(idx) < 10 Then bytes(idx) = 32
-            If bytes(idx) > 126 Then bytes(idx) = 32
-        Next
-
-        Return System.Text.Encoding.ASCII.GetString(bytes, 0, data_long)
-    End Function
-
     Private Sub ModeCBM_Button_Click(sender As Object, e As EventArgs) Handles ModeExeBM_Button.Click
         Man_ThisTime_W2Say = Not Man_ThisTime_W2Say
     End Sub
@@ -1825,7 +1866,6 @@ Public Class Form1
         Form3.Show()
         Form3.BringToFront()
     End Sub
-
 
     Private Sub MCS_Richtexbox_LinkClicked(sender As Object, e As LinkClickedEventArgs) Handles MCS_Richtexbox.LinkClicked
         System.Diagnostics.Process.Start(e.LinkText)
@@ -1846,6 +1886,96 @@ Public Class Form1
             CloseForm(sender, e)
         End If
 
+    End Sub
+
+    Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Player_Login.SelectedIndexChanged
+        If OneTime_A_Listbox_Act Then Exit Sub
+        OneTime_A_Listbox_Act = True
+        Player_Logout.ClearSelected()
+        Selected_Player.Text = Player_Login.SelectedItem
+        If Selected_Player.Text = "" Then Selected_Player.Text = "(none)"
+        OneTime_A_Listbox_Act = False
+    End Sub
+
+    Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Player_Logout.SelectedIndexChanged
+        If OneTime_A_Listbox_Act Then Exit Sub
+        OneTime_A_Listbox_Act = True
+        Player_Login.ClearSelected()
+        Selected_Player.Text = Player_Logout.SelectedItem
+        If Selected_Player.Text = "" Then Selected_Player.Text = "(none)"
+        OneTime_A_Listbox_Act = False
+    End Sub
+
+    Private Sub PlayerClear()
+        Player_Login.ClearSelected()
+        Player_Logout.ClearSelected()
+        Selected_Player.Text = "(none)"
+        Player_Login.Items.Clear()
+        Player_Logout.Items.Clear()
+    End Sub
+
+    Public Function ParseLogInOut(TheString As String) As Boolean
+
+        If MC_Server_WorkState <> 2 Then Return False
+
+        Dim TmpIDXs1, TmpIDXs2, TmpIDXs3, TmpIDXs4 As Integer
+        Dim TmpStrUp As String = TheString.ToUpper
+        Dim TmpResStr As String
+        ParseLogInOut = False
+
+        TmpIDXs1 = InStr(TmpStrUp, "]:")
+        TmpIDXs2 = InStr(TmpStrUp, "JOINED THE GAME")
+        TmpIDXs3 = InStr(TmpStrUp, "LEFT THE GAME")
+
+        If (TmpIDXs2 > TmpIDXs1) AndAlso (TmpIDXs1 > 0) Then
+
+            TmpResStr = TheString.Substring(TmpIDXs1 + 2, TmpIDXs2 - TmpIDXs1 - 4)
+
+            Player_Login.Items.Add(TmpResStr)
+
+            For TmpIDXs4 = (Player_Logout.Items.Count - 1) To 0 Step -1
+                If Player_Logout.Items(TmpIDXs4) = TmpResStr Then
+                    Player_Logout.Items.RemoveAt(TmpIDXs4)
+                End If
+            Next
+
+            ParseLogInOut = True
+
+        ElseIf (TmpIDXs3 > TmpIDXs1) AndAlso (TmpIDXs1 > 0) Then
+
+            TmpResStr = TheString.Substring(TmpIDXs1 + 2, TmpIDXs3 - TmpIDXs1 - 4)
+
+            Player_Logout.Items.Add(TmpResStr)
+
+            For TmpIDXs4 = (Player_Login.Items.Count - 1) To 0 Step -1
+                If Player_Login.Items(TmpIDXs4) = TmpResStr Then
+                    Player_Login.Items.RemoveAt(TmpIDXs4)
+                End If
+            Next
+
+            ParseLogInOut = True
+        End If
+
+    End Function
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        If Selected_Player.Text <> "(none)" Then MCS_ConsoleTextbox.Text = "kick " + Selected_Player.Text
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If Selected_Player.Text <> "(none)" Then MCS_ConsoleTextbox.Text = "ban " + Selected_Player.Text
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        If Selected_Player.Text <> "(none)" Then MCS_ConsoleTextbox.Text = "op " + Selected_Player.Text
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        If Selected_Player.Text <> "(none)" Then MCS_ConsoleTextbox.Text = "deop " + Selected_Player.Text
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        If Selected_Player.Text <> "(none)" Then MCS_ConsoleTextbox.Text = "pardon " + Selected_Player.Text
     End Sub
 
 

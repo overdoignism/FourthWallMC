@@ -47,6 +47,8 @@ Partial Class Form2
         Me.BackupPar_Textbox = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.ExeViaSay_Checkbox = New System.Windows.Forms.CheckBox()
         Me.EssentialsDetected = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.CBlockat_CheckBox = New System.Windows.Forms.CheckBox()
@@ -60,13 +62,17 @@ Partial Class Form2
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Autoexe_Textbox = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.EXEside_Prefix_Checkbox = New System.Windows.Forms.CheckBox()
         Me.PRIID_Textbox = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.EXEside_Prefix_Checkbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.BrowseTER_Button = New System.Windows.Forms.Button()
+        Me.DetAE_Run_TextBox = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.COMLineEnd = New System.Windows.Forms.ComboBox()
         Me.Label19 = New System.Windows.Forms.Label()
@@ -76,16 +82,25 @@ Partial Class Form2
         Me.ComPortSPD_NumericUpDown = New System.Windows.Forms.NumericUpDown()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.Label24 = New System.Windows.Forms.Label()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.DetAETimeS_Textbox = New System.Windows.Forms.TextBox()
+        Me.DetAE_Para_TextBox = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.ComPortSPD_NumericUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage4.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -293,13 +308,16 @@ Partial Class Form2
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(116, 81)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(392, 15)
+        Me.Label9.Size = New System.Drawing.Size(500, 15)
         Me.Label9.TabIndex = 22
-        Me.Label9.Text = "Backup / Compressor program parameter:  ( can use $TIME$ replace )"
+        Me.Label9.Text = "Backup / Compressor program parameter:  ( Use $TIME$ will be replaced with timest" &
+    "amp)"
         '
         'GroupBox5
         '
-        Me.GroupBox5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.GroupBox5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(242, Byte), Integer))
+        Me.GroupBox5.Controls.Add(Me.Label25)
+        Me.GroupBox5.Controls.Add(Me.ExeViaSay_Checkbox)
         Me.GroupBox5.Controls.Add(Me.EssentialsDetected)
         Me.GroupBox5.Controls.Add(Me.Label23)
         Me.GroupBox5.Controls.Add(Me.CBlockat_CheckBox)
@@ -313,15 +331,39 @@ Partial Class Form2
         Me.GroupBox5.Controls.Add(Me.Label15)
         Me.GroupBox5.Controls.Add(Me.Autoexe_Textbox)
         Me.GroupBox5.Controls.Add(Me.Label10)
-        Me.GroupBox5.Controls.Add(Me.EXEside_Prefix_Checkbox)
         Me.GroupBox5.Controls.Add(Me.PRIID_Textbox)
         Me.GroupBox5.Controls.Add(Me.Label11)
-        Me.GroupBox5.Location = New System.Drawing.Point(26, 148)
+        Me.GroupBox5.Location = New System.Drawing.Point(23, 37)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(771, 236)
         Me.GroupBox5.TabIndex = 23
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "EXE console"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label25.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.Location = New System.Drawing.Point(394, 184)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Padding = New System.Windows.Forms.Padding(2)
+        Me.Label25.Size = New System.Drawing.Size(306, 22)
+        Me.Label25.TabIndex = 39
+        Me.Label25.Text = "This option is use for vanilla/forge etc., server."
+        Me.Label25.Visible = False
+        '
+        'ExeViaSay_Checkbox
+        '
+        Me.ExeViaSay_Checkbox.AutoSize = True
+        Me.ExeViaSay_Checkbox.Location = New System.Drawing.Point(394, 162)
+        Me.ExeViaSay_Checkbox.Name = "ExeViaSay_Checkbox"
+        Me.ExeViaSay_Checkbox.Size = New System.Drawing.Size(176, 19)
+        Me.ExeViaSay_Checkbox.TabIndex = 38
+        Me.ExeViaSay_Checkbox.Text = "Execute command via ""say"""
+        Me.ExeViaSay_Checkbox.UseVisualStyleBackColor = True
+        Me.ExeViaSay_Checkbox.Visible = False
         '
         'EssentialsDetected
         '
@@ -378,7 +420,7 @@ Partial Class Form2
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(391, 135)
+        Me.Label18.Location = New System.Drawing.Point(391, 131)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(321, 15)
         Me.Label18.TabIndex = 32
@@ -395,7 +437,7 @@ Partial Class Form2
         '
         'MCFilter_Textbox
         '
-        Me.MCFilter_Textbox.Location = New System.Drawing.Point(394, 111)
+        Me.MCFilter_Textbox.Location = New System.Drawing.Point(394, 107)
         Me.MCFilter_Textbox.Name = "MCFilter_Textbox"
         Me.MCFilter_Textbox.Size = New System.Drawing.Size(320, 21)
         Me.MCFilter_Textbox.TabIndex = 30
@@ -403,7 +445,7 @@ Partial Class Form2
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(391, 94)
+        Me.Label20.Location = New System.Drawing.Point(391, 90)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(120, 15)
         Me.Label20.TabIndex = 29
@@ -444,18 +486,6 @@ Partial Class Form2
         Me.Label10.TabIndex = 24
         Me.Label10.Text = "The auto-exec after EXE start (Leave blank if not used)"
         '
-        'EXEside_Prefix_Checkbox
-        '
-        Me.EXEside_Prefix_Checkbox.AutoSize = True
-        Me.EXEside_Prefix_Checkbox.Checked = True
-        Me.EXEside_Prefix_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.EXEside_Prefix_Checkbox.Location = New System.Drawing.Point(394, 177)
-        Me.EXEside_Prefix_Checkbox.Name = "EXEside_Prefix_Checkbox"
-        Me.EXEside_Prefix_Checkbox.Size = New System.Drawing.Size(330, 19)
-        Me.EXEside_Prefix_Checkbox.TabIndex = 22
-        Me.EXEside_Prefix_Checkbox.Text = "EXE side start with ~(tilde) is server command injection "
-        Me.EXEside_Prefix_Checkbox.UseVisualStyleBackColor = True
-        '
         'PRIID_Textbox
         '
         Me.PRIID_Textbox.Location = New System.Drawing.Point(24, 53)
@@ -473,6 +503,20 @@ Partial Class Form2
         Me.Label11.Size = New System.Drawing.Size(215, 15)
         Me.Label11.TabIndex = 19
         Me.Label11.Text = "Who has privilege? (ID, not nickname)"
+        '
+        'EXEside_Prefix_Checkbox
+        '
+        Me.EXEside_Prefix_Checkbox.AutoSize = True
+        Me.EXEside_Prefix_Checkbox.Checked = True
+        Me.EXEside_Prefix_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.EXEside_Prefix_Checkbox.Enabled = False
+        Me.EXEside_Prefix_Checkbox.Location = New System.Drawing.Point(23, 279)
+        Me.EXEside_Prefix_Checkbox.Name = "EXEside_Prefix_Checkbox"
+        Me.EXEside_Prefix_Checkbox.Size = New System.Drawing.Size(383, 19)
+        Me.EXEside_Prefix_Checkbox.TabIndex = 22
+        Me.EXEside_Prefix_Checkbox.Text = "EXE side start with ~(tilde) is server command injection (invisible)"
+        Me.EXEside_Prefix_Checkbox.UseVisualStyleBackColor = True
+        Me.EXEside_Prefix_Checkbox.Visible = False
         '
         'GroupBox4
         '
@@ -492,6 +536,7 @@ Partial Class Form2
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControl1.Location = New System.Drawing.Point(12, 13)
@@ -522,9 +567,8 @@ Partial Class Form2
         '
         'TabPage2
         '
-        Me.TabPage2.Controls.Add(Me.Label24)
+        Me.TabPage2.Controls.Add(Me.GroupBox2)
         Me.TabPage2.Controls.Add(Me.GroupBox1)
-        Me.TabPage2.Controls.Add(Me.GroupBox5)
         Me.TabPage2.Controls.Add(Me.GroupBox4)
         Me.TabPage2.Location = New System.Drawing.Point(4, 24)
         Me.TabPage2.Name = "TabPage2"
@@ -533,6 +577,51 @@ Partial Class Form2
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Management setting"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.GroupBox2.Controls.Add(Me.Label30)
+        Me.GroupBox2.Controls.Add(Me.Label29)
+        Me.GroupBox2.Controls.Add(Me.DetAETimeS_Textbox)
+        Me.GroupBox2.Controls.Add(Me.DetAE_Para_TextBox)
+        Me.GroupBox2.Controls.Add(Me.Label27)
+        Me.GroupBox2.Controls.Add(Me.Label28)
+        Me.GroupBox2.Controls.Add(Me.BrowseTER_Button)
+        Me.GroupBox2.Controls.Add(Me.DetAE_Run_TextBox)
+        Me.GroupBox2.Controls.Add(Me.Label26)
+        Me.GroupBox2.Location = New System.Drawing.Point(26, 148)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(771, 198)
+        Me.GroupBox2.TabIndex = 25
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "What to execute if MCS abnormal termination:"
+        '
+        'BrowseTER_Button
+        '
+        Me.BrowseTER_Button.Location = New System.Drawing.Point(20, 32)
+        Me.BrowseTER_Button.Name = "BrowseTER_Button"
+        Me.BrowseTER_Button.Size = New System.Drawing.Size(87, 36)
+        Me.BrowseTER_Button.TabIndex = 3
+        Me.BrowseTER_Button.Text = "Browse"
+        Me.BrowseTER_Button.UseVisualStyleBackColor = True
+        '
+        'DetAE_Run_TextBox
+        '
+        Me.DetAE_Run_TextBox.Location = New System.Drawing.Point(119, 46)
+        Me.DetAE_Run_TextBox.MaxLength = 1024
+        Me.DetAE_Run_TextBox.Name = "DetAE_Run_TextBox"
+        Me.DetAE_Run_TextBox.Size = New System.Drawing.Size(632, 21)
+        Me.DetAE_Run_TextBox.TabIndex = 4
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(119, 31)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(137, 15)
+        Me.Label26.TabIndex = 5
+        Me.Label26.Text = "If not use, leave it blank."
         '
         'GroupBox1
         '
@@ -545,7 +634,7 @@ Partial Class Form2
         Me.GroupBox1.Controls.Add(Me.ComPortSPD_NumericUpDown)
         Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.Label13)
-        Me.GroupBox1.Location = New System.Drawing.Point(26, 412)
+        Me.GroupBox1.Location = New System.Drawing.Point(26, 379)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(771, 140)
         Me.GroupBox1.TabIndex = 24
@@ -628,6 +717,31 @@ Partial Class Form2
         Me.Label13.TabIndex = 16
         Me.Label13.Text = "Speed (bps)"
         '
+        'TabPage4
+        '
+        Me.TabPage4.Controls.Add(Me.Label24)
+        Me.TabPage4.Controls.Add(Me.GroupBox5)
+        Me.TabPage4.Controls.Add(Me.EXEside_Prefix_Checkbox)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 24)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Size = New System.Drawing.Size(820, 572)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "EXE Console setting"
+        Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label24.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(110, 33)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Padding = New System.Windows.Forms.Padding(2)
+        Me.Label24.Size = New System.Drawing.Size(419, 22)
+        Me.Label24.TabIndex = 37
+        Me.Label24.Text = " ( Execute command in world is need Spigot / PaperMC Server )"
+        '
         'TabPage3
         '
         Me.TabPage3.Controls.Add(Me.BrowseBackup_Button)
@@ -644,24 +758,68 @@ Partial Class Form2
         Me.TabPage3.Text = "Backup setting"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
-        'Label24
+        'DetAETimeS_Textbox
         '
-        Me.Label24.AutoSize = True
-        Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label24.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(113, 144)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Padding = New System.Windows.Forms.Padding(2)
-        Me.Label24.Size = New System.Drawing.Size(419, 22)
-        Me.Label24.TabIndex = 37
-        Me.Label24.Text = " ( Execute command in world is need Spigot / PaperMC Server )"
+        Me.DetAETimeS_Textbox.Location = New System.Drawing.Point(119, 154)
+        Me.DetAETimeS_Textbox.MaxLength = 16
+        Me.DetAETimeS_Textbox.Name = "DetAETimeS_Textbox"
+        Me.DetAETimeS_Textbox.Size = New System.Drawing.Size(152, 21)
+        Me.DetAETimeS_Textbox.TabIndex = 25
+        Me.DetAETimeS_Textbox.Text = "yyyyMMddHHmmss"
+        '
+        'DetAE_Para_TextBox
+        '
+        Me.DetAE_Para_TextBox.Location = New System.Drawing.Point(120, 101)
+        Me.DetAE_Para_TextBox.MaxLength = 1024
+        Me.DetAE_Para_TextBox.Name = "DetAE_Para_TextBox"
+        Me.DetAE_Para_TextBox.Size = New System.Drawing.Size(631, 21)
+        Me.DetAE_Para_TextBox.TabIndex = 27
+        Me.DetAE_Para_TextBox.Text = "$TIME$ $FAIL$"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(120, 139)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(169, 15)
+        Me.Label27.TabIndex = 24
+        Me.Label27.Text = "Timestamp format: ( $TIME$ )"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(119, 86)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(541, 15)
+        Me.Label28.TabIndex = 26
+        Me.Label28.Text = "Parameter:  ( Use $TIME$ will be replaced with timestamp, $FAIL$ will be replaced" &
+    " with fail times.)"
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label29.Location = New System.Drawing.Point(460, 125)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(175, 15)
+        Me.Label29.TabIndex = 28
+        Me.Label29.Text = "If there is a restart command,"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label30.Location = New System.Drawing.Point(458, 140)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(293, 15)
+        Me.Label30.TabIndex = 29
+        Me.Label30.Text = "you may use $FAIL$ to determine to avoid over run."
         '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(950, 625)
+        Me.ClientSize = New System.Drawing.Size(957, 625)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.SetupCancel_Button)
         Me.Controls.Add(Me.SetupOK_Button)
@@ -677,10 +835,13 @@ Partial Class Form2
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
-        Me.TabPage2.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.ComPortSPD_NumericUpDown, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage4.ResumeLayout(False)
+        Me.TabPage4.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
         Me.ResumeLayout(False)
@@ -743,4 +904,17 @@ Partial Class Form2
     Friend WithEvents EssentialsDetected As Label
     Friend WithEvents Label23 As Label
     Friend WithEvents Label24 As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents ExeViaSay_Checkbox As CheckBox
+    Friend WithEvents TabPage4 As TabPage
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents BrowseTER_Button As Button
+    Friend WithEvents DetAE_Run_TextBox As TextBox
+    Friend WithEvents Label26 As Label
+    Friend WithEvents DetAETimeS_Textbox As TextBox
+    Friend WithEvents DetAE_Para_TextBox As TextBox
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label28 As Label
+    Friend WithEvents Label29 As Label
+    Friend WithEvents Label30 As Label
 End Class

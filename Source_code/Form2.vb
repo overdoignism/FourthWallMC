@@ -85,4 +85,13 @@ Public Class Form2
         End Select
     End Sub
 
+    Private Sub BrowseTER_Button_Click(sender As Object, e As EventArgs) Handles BrowseTER_Button.Click
+        OpenFileDialog1.FileName = ""
+        OpenFileDialog1.Filter = "*.*|*.*"
+        If OpenFileDialog1.ShowDialog = DialogResult.OK Then
+            DetAE_Run_TextBox.Text = OpenFileDialog1.FileName
+        End If
+    End Sub
+
+
 End Class

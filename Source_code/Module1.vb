@@ -47,14 +47,24 @@ Module Module1
     Public MCServer_RAM_Peak As Long
     Public The_ProcessInstanceName As String
 
+    Public InNeed_Detect_AbnormalEnd As Boolean
+    Public Det_AE_Run As String
+    Public Det_AE_RunPara As String = "$TIME$ $FAIL$"
+    Public Det_AE_Times As Integer
+    Public DAE_TIME_Format As String = "yyyyMMddHHmmss"
+
+    Public EXECommand_ViaSay As Boolean
+
     Public BurstMode As Integer = 0
     Public Origial_Path As String
 
     'Detect EssentialsX Installed
     Public IsEssentialsX_Installed As Integer
-
     Public FthWallMC_Server_Bypass As Integer
 
+    Public LogInlayer() As String
+    Public LogOutPlayer() As String
+    Public BannedPlayer() As String
 
 
     Public Sub Before_Save()
@@ -83,6 +93,12 @@ Module Module1
         Man_COM_TxFilter = Form2.COMFilter_Textbox.Text
 
         IsAgree = Form3.Iagree_CheckBox.Checked
+
+        Det_AE_Run = Form2.DetAE_Run_TextBox.Text
+        Det_AE_RunPara = Form2.DetAE_Para_TextBox.Text
+        DAE_TIME_Format = Form2.DetAETimeS_Textbox.Text
+
+        EXECommand_ViaSay = Form2.ExeViaSay_Checkbox.Checked
 
         Make_List_Array()
         SaveXML()
@@ -114,6 +130,10 @@ Module Module1
             createNode(Save_XML, "Man_EXE_FDFilter", Man_EXE_FDFilter)
             createNode(Save_XML, "IsAgree", IsAgree)
             createNode(Save_XML, "Man_CBAT_Workable", Man_CBAT_Workable)
+            createNode(Save_XML, "Det_AE_Run", Det_AE_Run)
+            createNode(Save_XML, "EXECommand_ViaSay", EXECommand_ViaSay)
+            createNode(Save_XML, "Det_AE_RunPara", Det_AE_RunPara)
+            createNode(Save_XML, "DAE_TIME_Format", DAE_TIME_Format)
 
             Save_XML.WriteEndElement()
             Save_XML.Flush()
@@ -196,6 +216,18 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("Man_CBAT_Workable")
             If TmpNode IsNot Nothing Then Man_CBAT_Workable = TmpNode.InnerText
 
+            TmpNode = Node1.SelectSingleNode("Det_AE_Run")
+            If TmpNode IsNot Nothing Then Det_AE_Run = TmpNode.InnerText
+
+            TmpNode = Node1.SelectSingleNode("EXECommand_ViaSay")
+            If TmpNode IsNot Nothing Then EXECommand_ViaSay = TmpNode.InnerText
+
+            TmpNode = Node1.SelectSingleNode("Det_AE_RunPara")
+            If TmpNode IsNot Nothing Then Det_AE_RunPara = TmpNode.InnerText
+
+            TmpNode = Node1.SelectSingleNode("DAE_TIME_Format")
+            If TmpNode IsNot Nothing Then DAE_TIME_Format = TmpNode.InnerText
+
             If Man_Who_CanWork IsNot Nothing Then
                 Make_List_Array()
             Else
@@ -236,6 +268,13 @@ Module Module1
         Form2.COMLineEnd.SelectedIndex = Man_COM_LineEnd
         Form2.ComPortSPD_NumericUpDown.Value = Man_COM_Buad
 
+        Form2.DetAE_Run_TextBox.Text = Det_AE_Run
+        Form2.DetAE_Para_TextBox.Text = Det_AE_RunPara
+        Form2.DetAETimeS_Textbox.Text = DAE_TIME_Format
+
+
+        Form2.ExeViaSay_Checkbox.Checked = EXECommand_ViaSay
+
         Form3.Iagree_CheckBox.Checked = IsAgree
 
     End Sub
@@ -272,7 +311,6 @@ Module Module1
 
     End Sub
 
-
     Public Function GetProcessInstanceName(pid As Integer) As String
 
         Dim Cats As New PerformanceCounterCategory("Process")
@@ -290,7 +328,6 @@ Module Module1
         Next
 
     End Function
-
 
     Public Function LoadFontFile(FontFilePatch As String) As FontFamily
 
@@ -339,9 +376,8 @@ Module Module1
         Return False
 
     End Function
-    Public Function Check_If_Misjudge(TheString As String, ChkIsBoolen As Boolean) As Boolean
+    Public Function Check_If_Misjudge(TheString As String) As Boolean
 
-        If ChkIsBoolen = False Then Return False
         Check_If_Misjudge = False
 
         TheString = Replace(TheString, " [MINECRAFT/DEDICATEDSERVER]", "")
@@ -502,7 +538,16 @@ Module Module1
             Return 1
         End If
 
+    End Function
 
+    Public Function UnicodeBytesToString(ByVal bytes() As Byte, data_long As Integer) As String
+
+        For idx As Integer = 0 To UBound(bytes)
+            If bytes(idx) < 10 Then bytes(idx) = 32
+            If bytes(idx) > 126 Then bytes(idx) = 32
+        Next
+
+        Return System.Text.Encoding.ASCII.GetString(bytes, 0, data_long)
     End Function
 
 End Module
