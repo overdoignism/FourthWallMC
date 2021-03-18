@@ -70,6 +70,12 @@ Partial Class Form2
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.DetAETimeS_Textbox = New System.Windows.Forms.TextBox()
+        Me.DetAE_Para_TextBox = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
         Me.BrowseTER_Button = New System.Windows.Forms.Button()
         Me.DetAE_Run_TextBox = New System.Windows.Forms.TextBox()
         Me.Label26 = New System.Windows.Forms.Label()
@@ -85,12 +91,7 @@ Partial Class Form2
         Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.DetAETimeS_Textbox = New System.Windows.Forms.TextBox()
-        Me.DetAE_Para_TextBox = New System.Windows.Forms.TextBox()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -316,6 +317,7 @@ Partial Class Form2
         'GroupBox5
         '
         Me.GroupBox5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(242, Byte), Integer))
+        Me.GroupBox5.Controls.Add(Me.Label31)
         Me.GroupBox5.Controls.Add(Me.Label25)
         Me.GroupBox5.Controls.Add(Me.ExeViaSay_Checkbox)
         Me.GroupBox5.Controls.Add(Me.EssentialsDetected)
@@ -335,7 +337,7 @@ Partial Class Form2
         Me.GroupBox5.Controls.Add(Me.Label11)
         Me.GroupBox5.Location = New System.Drawing.Point(23, 37)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(771, 236)
+        Me.GroupBox5.Size = New System.Drawing.Size(771, 252)
         Me.GroupBox5.TabIndex = 23
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "EXE console"
@@ -346,13 +348,12 @@ Partial Class Form2
         Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label25.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(394, 184)
+        Me.Label25.Location = New System.Drawing.Point(394, 208)
         Me.Label25.Name = "Label25"
         Me.Label25.Padding = New System.Windows.Forms.Padding(2)
-        Me.Label25.Size = New System.Drawing.Size(306, 22)
+        Me.Label25.Size = New System.Drawing.Size(322, 22)
         Me.Label25.TabIndex = 39
-        Me.Label25.Text = "This option is use for vanilla/forge etc., server."
-        Me.Label25.Visible = False
+        Me.Label25.Text = "This option is useful for vanilla/forge etc., server."
         '
         'ExeViaSay_Checkbox
         '
@@ -363,7 +364,6 @@ Partial Class Form2
         Me.ExeViaSay_Checkbox.TabIndex = 38
         Me.ExeViaSay_Checkbox.Text = "Execute command via ""say"""
         Me.ExeViaSay_Checkbox.UseVisualStyleBackColor = True
-        Me.ExeViaSay_Checkbox.Visible = False
         '
         'EssentialsDetected
         '
@@ -510,7 +510,7 @@ Partial Class Form2
         Me.EXEside_Prefix_Checkbox.Checked = True
         Me.EXEside_Prefix_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.EXEside_Prefix_Checkbox.Enabled = False
-        Me.EXEside_Prefix_Checkbox.Location = New System.Drawing.Point(23, 279)
+        Me.EXEside_Prefix_Checkbox.Location = New System.Drawing.Point(23, 317)
         Me.EXEside_Prefix_Checkbox.Name = "EXEside_Prefix_Checkbox"
         Me.EXEside_Prefix_Checkbox.Size = New System.Drawing.Size(383, 19)
         Me.EXEside_Prefix_Checkbox.TabIndex = 22
@@ -547,6 +547,7 @@ Partial Class Form2
         '
         'TabPage1
         '
+        Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TabPage1.Controls.Add(Me.BrowseJAR_Button)
         Me.TabPage1.Controls.Add(Me.JARPATH_Textbox)
         Me.TabPage1.Controls.Add(Me.Label4)
@@ -563,7 +564,6 @@ Partial Class Form2
         Me.TabPage1.Size = New System.Drawing.Size(820, 572)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "MC server setting"
-        Me.TabPage1.UseVisualStyleBackColor = True
         '
         'TabPage2
         '
@@ -596,6 +596,63 @@ Partial Class Form2
         Me.GroupBox2.TabIndex = 25
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "What to execute if MCS abnormal termination:"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label30.Location = New System.Drawing.Point(458, 140)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(293, 15)
+        Me.Label30.TabIndex = 29
+        Me.Label30.Text = "you may use $FAIL$ to determine to avoid over run."
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label29.Location = New System.Drawing.Point(460, 125)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(175, 15)
+        Me.Label29.TabIndex = 28
+        Me.Label29.Text = "If there is a restart command,"
+        '
+        'DetAETimeS_Textbox
+        '
+        Me.DetAETimeS_Textbox.Location = New System.Drawing.Point(119, 154)
+        Me.DetAETimeS_Textbox.MaxLength = 16
+        Me.DetAETimeS_Textbox.Name = "DetAETimeS_Textbox"
+        Me.DetAETimeS_Textbox.Size = New System.Drawing.Size(152, 21)
+        Me.DetAETimeS_Textbox.TabIndex = 25
+        Me.DetAETimeS_Textbox.Text = "yyyyMMddHHmmss"
+        '
+        'DetAE_Para_TextBox
+        '
+        Me.DetAE_Para_TextBox.Location = New System.Drawing.Point(120, 101)
+        Me.DetAE_Para_TextBox.MaxLength = 1024
+        Me.DetAE_Para_TextBox.Name = "DetAE_Para_TextBox"
+        Me.DetAE_Para_TextBox.Size = New System.Drawing.Size(631, 21)
+        Me.DetAE_Para_TextBox.TabIndex = 27
+        Me.DetAE_Para_TextBox.Text = "$TIME$ $FAIL$"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(120, 139)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(169, 15)
+        Me.Label27.TabIndex = 24
+        Me.Label27.Text = "Timestamp format: ( $TIME$ )"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(119, 86)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(541, 15)
+        Me.Label28.TabIndex = 26
+        Me.Label28.Text = "Parameter:  ( Use $TIME$ will be replaced with timestamp, $FAIL$ will be replaced" &
+    " with fail times.)"
         '
         'BrowseTER_Button
         '
@@ -738,12 +795,13 @@ Partial Class Form2
         Me.Label24.Location = New System.Drawing.Point(110, 33)
         Me.Label24.Name = "Label24"
         Me.Label24.Padding = New System.Windows.Forms.Padding(2)
-        Me.Label24.Size = New System.Drawing.Size(419, 22)
+        Me.Label24.Size = New System.Drawing.Size(444, 22)
         Me.Label24.TabIndex = 37
-        Me.Label24.Text = " ( Execute command in world is need Spigot / PaperMC Server )"
+        Me.Label24.Text = " ( Execute command in world is best with Spigot / PaperMC Server )"
         '
         'TabPage3
         '
+        Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(236, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TabPage3.Controls.Add(Me.BrowseBackup_Button)
         Me.TabPage3.Controls.Add(Me.Label7)
         Me.TabPage3.Controls.Add(Me.BackupTimeS_Textbox)
@@ -756,64 +814,15 @@ Partial Class Form2
         Me.TabPage3.Size = New System.Drawing.Size(820, 572)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Backup setting"
-        Me.TabPage3.UseVisualStyleBackColor = True
         '
-        'DetAETimeS_Textbox
+        'Label31
         '
-        Me.DetAETimeS_Textbox.Location = New System.Drawing.Point(119, 154)
-        Me.DetAETimeS_Textbox.MaxLength = 16
-        Me.DetAETimeS_Textbox.Name = "DetAETimeS_Textbox"
-        Me.DetAETimeS_Textbox.Size = New System.Drawing.Size(152, 21)
-        Me.DetAETimeS_Textbox.TabIndex = 25
-        Me.DetAETimeS_Textbox.Text = "yyyyMMddHHmmss"
-        '
-        'DetAE_Para_TextBox
-        '
-        Me.DetAE_Para_TextBox.Location = New System.Drawing.Point(120, 101)
-        Me.DetAE_Para_TextBox.MaxLength = 1024
-        Me.DetAE_Para_TextBox.Name = "DetAE_Para_TextBox"
-        Me.DetAE_Para_TextBox.Size = New System.Drawing.Size(631, 21)
-        Me.DetAE_Para_TextBox.TabIndex = 27
-        Me.DetAE_Para_TextBox.Text = "$TIME$ $FAIL$"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(120, 139)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(169, 15)
-        Me.Label27.TabIndex = 24
-        Me.Label27.Text = "Timestamp format: ( $TIME$ )"
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(119, 86)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(541, 15)
-        Me.Label28.TabIndex = 26
-        Me.Label28.Text = "Parameter:  ( Use $TIME$ will be replaced with timestamp, $FAIL$ will be replaced" &
-    " with fail times.)"
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label29.Location = New System.Drawing.Point(460, 125)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(175, 15)
-        Me.Label29.TabIndex = 28
-        Me.Label29.Text = "If there is a restart command,"
-        '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label30.Location = New System.Drawing.Point(458, 140)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(293, 15)
-        Me.Label30.TabIndex = 29
-        Me.Label30.Text = "you may use $FAIL$ to determine to avoid over run."
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(392, 185)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(244, 15)
+        Me.Label31.TabIndex = 40
+        Me.Label31.Text = """CommandBlock"" all have privilege (by ""@"")"
         '
         'Form2
         '
@@ -917,4 +926,5 @@ Partial Class Form2
     Friend WithEvents Label28 As Label
     Friend WithEvents Label29 As Label
     Friend WithEvents Label30 As Label
+    Friend WithEvents Label31 As Label
 End Class

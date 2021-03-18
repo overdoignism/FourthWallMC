@@ -17,17 +17,21 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
+    Const FwmcVer As String = "0.79"
+
     Const CM_Type_W As String = "#"
     Const CM_Type_SAY As String = "$"
 
     Const CM_ServerState_Flag As String = "*"
     Const CM_ServerGetFlag As String = "+"
+    Const CM_ServerGetFlag_NoBack As String = "-"
 
     Const WM_VSCROLL As Integer = 277
     Const SB_PAGEBOTTOM As Integer = 7
 
     Const TCP_timeout_s As Integer = 21
     Const Get_timeout_ds As Integer = 41
+    Const CloseForm_wait_ds As Integer = 200
 
     Private cpuCounter As System.Diagnostics.PerformanceCounter
 
@@ -111,6 +115,8 @@ Public Class Form1
         ReDim Send2Recent(1)(9)
         Man_Who_LastSending = "CONSOLE"
         Form2.COMLineEnd.SelectedIndex = 0
+
+        Me.Text = "FourthWallMC v" + FwmcVer + " < You don't need to break it, we put window on the wall. >  By overdoingism Lab."
 
         '=====Serial Port init
         For Each sp As String In My.Computer.Ports.SerialPortNames
@@ -292,9 +298,8 @@ Public Class Form1
 
             Dim Rcv_Bytes(Clients(Tmp_Idx1).TheSocket.ReceiveBufferSize) As Byte
             Dim Rcv_Str As String = ""
-            Dim Compare_Pwd, Command_Mode, Command_Str As String
+            Dim Command_Mode, Command_Str As String
 
-            Compare_Pwd = ""
             Command_Mode = ""
             Command_Str = ""
 
@@ -318,70 +323,18 @@ Public Class Form1
                 Else
 
                     Command_Mode = Rcv_Str.Substring(Man_Pwd_Length + 1, 2).ToLower
+                    Command_Str = Rcv_Str.Substring(Man_Pwd_Length + 4)
 
-                    Select Case Command_Mode
-                        Case "cm"
-                        Case "bk"
-                        Case "in"
-                        Case "sy"
-                        Case "gt"
-                        Case "gl"
-                        Case "gb"
-                        Case "gd"
-                        Case "ss"
-                        Case "rr"
-                        Case "pr"
-                        Case Else
-                            ErrorType = 1
-                    End Select
+                    If Command_Str.Length = 0 Then ErrorType = 1
+                    If Rcv_Str.Substring(Man_Pwd_Length + 3, 1) <> "," Then ErrorType = 1
 
                 End If
 
                 If ErrorType = 0 Then
-
-                    If MC_Server_WorkState = 1 Then
-                        ErrorType = 5
-                    Else
-
-                        Command_Str = Rcv_Str.Substring(Man_Pwd_Length + 4)
-
-                        If Command_Str = "" Then
-                            ErrorType = 1
-                        Else
-                            Select Case FthWallMC_Server_Bypass
-                                Case 0
-                                    ErrorType = Process_RC_Request(Command_Mode, Command_Str, Tmp_Idx1)
-                                Case 1
-                                    ErrorType = 4
-                                Case 2
-                                    ErrorType = 5
-
-                            End Select
-
-                        End If
-
-                    End If
-
+                    Process_Get_Command(Command_Mode, Command_Str, 0, Clients(Tmp_Idx1))
+                Else
+                    SendToClients("BAD", Clients(Tmp_Idx1).TheSocket)
                 End If
-
-                Select Case ErrorType
-                    Case 0
-                        SendToClients("OK", Clients(Tmp_Idx1).TheSocket) 'OK.
-                    Case 1
-                        SendToClients("BAD", Clients(Tmp_Idx1).TheSocket) 'Bad password or command format.
-                    Case 2
-                        SendToClients("NOT-ON", Clients(Tmp_Idx1).TheSocket)'Minecraft server is offline.
-                    Case 3
-                        SendToClients("NOT-OFF", Clients(Tmp_Idx1).TheSocket) 'Need Minecraft server be offline.
-                    Case 4
-                        If Command_Mode = "sy" Then Write_To_Console("say " + Command_Str)
-                        SendToClients("PASS", Clients(Tmp_Idx1).TheSocket) 'Server want pass this task.
-                    Case 5
-                        SendToClients("BUSY", Clients(Tmp_Idx1).TheSocket) 'Server is busy. please wait.
-                    Case 99
-                        'Displayed by above code
-
-                End Select
 
             End If
 
@@ -402,234 +355,329 @@ Public Class Form1
 
     End Sub
 
-    Private Function Process_RC_Request(Command_Mode As String, Command_Str As String, ClientIdx As Integer) As Integer
+    Function Process_Get_Command(Command_Mode As String, Command_str As String, RCorEXE_Mode As Integer,
+                                 Optional ByRef TmpClientWork As ClientWorker = Nothing) As Integer
 
-        Dim ErrFlag As Integer = 0
-        Process_RC_Request = 1
+        Process_Get_Command = 0
+        Dim WorkString As String = ""
+        Dim WrongFmt As Integer = 0
+        Command_Mode = Command_Mode.ToLower
 
-        If Command_Mode = "cm" Then
+        Select Case Command_Mode
+            Case "sy"
+            Case "cm"
+            Case "ss"
+            Case "bk"
+            Case "gt"
+            Case "gl"
+            Case "gb"
+            Case "rr"
+            Case "pr"
+            Case "in"
+            Case Else
+                If RCorEXE_Mode = 0 Then SendToClients("BAD", TmpClientWork.TheSocket)
+                If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BAD")
+                Return 1
+        End Select
 
-            Select Case Command_Str.ToLower
+        If Command_Mode = "sy" Then
 
-                Case "start"
-                    If MC_Server_WorkState <> 0 Then
-                        Return 3
-                    Else
-                        SendToClients(Start_MC_Server_Process(JVM_Launch_Parameter, JVM_JAVA_EXE_Location, MCServer_JAR_BAT_Location, MCServer_Launch_Parameter), Clients(ClientIdx).TheSocket)
-                        Return 99
-                    End If
+            If MC_Server_WorkState = 2 Then
+                Write_To_Console("say " + Command_str)
+            End If
 
-                Case "backup"
+            If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
+            If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK")
+            Return 1
 
-                    If MC_Server_WorkState <> 0 Then
-                        Return 3
-                    Else
-                        SendToClients(Start_Server_Backup_Process(ZIP_Launch_Parameter, ZIP_EXE_Location, ZIP_TIME_Format), Clients(ClientIdx).TheSocket)
-                        Return 99
-                    End If
+        ElseIf Command_Mode = "cm" Then
+
+            Select Case Command_str.ToLower
 
                 Case "info1"
 
+                    If RCorEXE_Mode = 2 Then Return 2
+
                     If MC_Server_WorkState = 0 Then
-                        SendToClients("OFF", Clients(ClientIdx).TheSocket)
+                        WorkString = "OFF"
                     ElseIf MC_Server_WorkState = 1 Then
-                        SendToClients("BUSY", Clients(ClientIdx).TheSocket)
-                    Else
-                        SendToClients("ON", Clients(ClientIdx).TheSocket)
+                        WorkString = "BUSY"
+                    ElseIf MC_Server_WorkState = 2 Then
+                        WorkString = "ON"
                     End If
 
-                    Return 99
+                    If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
+                    Return 1
+
+                Case "info2"
+
+                    Select Case FthWallMC_Server_Bypass
+                        Case 0
+                            WorkString = "OK"
+                        Case 1
+                            WorkString = "PASS"
+                        Case 2
+                            WorkString = "BUSY"
+                    End Select
+
+                    If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
+                    Return 1
+
+                Case "info3"
+
+                    If RCorEXE_Mode = 2 Then Return 2
+
+                    If MC_Server_WorkState = 2 Then
+                        WorkString = Fix(CLng((CLng(GetTickCount64()) - CLng(ServerStart_Tick)) / 1000)).ToString + ";"
+                    Else
+                        WorkString = "0;"
+                    End If
+
+                    WorkString += MCServerType + ";" + FwmcVer
+
+                    If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
+                    Return 1
 
                 Case "kill"
-                    kill_task()
-                    Return 0
 
-                Case Else
+                    kill_task()
+
+                    If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK")
                     Return 1
 
             End Select
 
-        ElseIf Command_Mode = "bk" Then
-
-            If MC_Server_WorkState <> 0 Then
-                Return 3
-            Else
-                SendToClients(Start_Server_Backup_Process(Command_Str, ZIP_EXE_Location, ZIP_TIME_Format), Clients(ClientIdx).TheSocket)
-                Return 99
-            End If
-
         ElseIf Command_Mode = "ss" Then
 
-            ErrFlag = Get_Full_MCServer_Control(Command_Str)
-            If ErrFlag = 1 Then SendToClients("-5", Clients(ClientIdx).TheSocket) 'Format Error
-            Return 99
-
-        ElseIf Command_Mode = "in" Then
-
-            If MC_Server_WorkState = 0 Then
-                Return 2
+            If Get_Full_MCServer_Control(Command_str) = 0 Then
+                WrongFmt = 1
             Else
-                Write_To_Console(Command_Str)
-                Return 0
-            End If
-
-        ElseIf Command_Mode = "sy" Then
-
-            If MC_Server_WorkState = 0 Then
-                Return 2
-            Else
-                Write_To_Console("say " + Command_Str)
-                Return 0
-            End If
-
-        Else
-
-            Process_RC_Request = 1
-
-            If (MC_Server_WorkState = 2) AndAlso (FthWallMC_Server_Bypass = 0) Then
-
-                ErrFlag = Process_Get_Command(Command_Mode, Command_Str, 0, Clients(ClientIdx))
-
-                If ErrFlag = 1 Then SendToClients("-5", Clients(ClientIdx).TheSocket) 'Format Error
-                Return 99
-
-            ElseIf (MC_Server_WorkState = 1) OrElse (FthWallMC_Server_Bypass = 2) Then
-
-                SendToClients("-2", Clients(ClientIdx).TheSocket) 'Busy
-                Return 99
-
-            Else
-
-                SendToClients("-3", Clients(ClientIdx).TheSocket) 'Pass or error
-                Return 99
-
-            End If
-
-        End If
-
-    End Function
-
-    Function Process_Get_Command(Command_Mode As String, Command_str As String, RCorEXE_Mode As Integer, Optional ByRef TmpClientWork As ClientWorker = Nothing) As Integer
-
-        Process_Get_Command = 1
-
-        If Command_Mode = "gt" Then
-
-            Process_Get_Command = 0
-
-            I_Asking_Tick(RCorEXE_Mode) = True
-            Time_TickReturn(RCorEXE_Mode) = "-1"
-            Time_AskMap(RCorEXE_Mode) = Command_str
-
-            Write_To_Console("execute in " + Time_AskMap(RCorEXE_Mode) + " run time query daytime")
-            What_RU_Waiting(Time_TickReturn(RCorEXE_Mode), Get_timeout_ds)
-
-            If RCorEXE_Mode = 0 Then SendToClients(Time_TickReturn(0), TmpClientWork.TheSocket)
-            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Time_TickReturn(1))
-
-            Time_TickReturn(RCorEXE_Mode) = ""
-            Time_AskMap(RCorEXE_Mode) = ""
-            I_Asking_Tick(RCorEXE_Mode) = False
-
-        ElseIf Command_Mode = "gl" Then
-
-            Process_Get_Command = 0
-
-            I_Asking_Locate(RCorEXE_Mode) = True
-            IAL_Return(RCorEXE_Mode) = "-1"
-
-            Dim Argus() As String = Command_str.Split(",")
-            If UBound(Argus) < 2 Then Return 1
-
-            IAL_Argu_Pos(RCorEXE_Mode) = Argus(0) '/positioned 500 100 500 /as Overdoingism
-            If Argus(1) <> "" Then Argus(1) = " in " + Argus(1) '/in the_nether
-            IAL_Argu_Findwhat(RCorEXE_Mode) = Argus(2) '/ocean
-            Write_To_Console("execute " + IAL_Argu_Pos(RCorEXE_Mode) + Argus(1) + " run locate " + Argus(2))
-            What_RU_Waiting(IAL_Return(RCorEXE_Mode), Get_timeout_ds)
-
-            If RCorEXE_Mode = 0 Then SendToClients(IAL_Return(0), TmpClientWork.TheSocket)
-            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IAL_Return(1))
-
-            IAL_Return(RCorEXE_Mode) = "" : IAL_Argu_Pos(RCorEXE_Mode) = "" : IAL_Argu_Findwhat(RCorEXE_Mode) = "" : I_Asking_Locate(RCorEXE_Mode) = False
-
-        ElseIf Command_Mode = "gb" Then
-
-            Process_Get_Command = 0
-
-            I_Asking_LocateBiome(RCorEXE_Mode) = True
-            IALB_Return(RCorEXE_Mode) = "-1"
-
-            Dim Argus() As String = Command_str.Split(",")
-            If UBound(Argus) < 2 Then Return 1
-
-            IALB_Argu_Pos(RCorEXE_Mode) = Argus(0) '/positioned 500 100 500 /as Overdoingism
-
-            If Argus(1) <> "" Then Argus(1) = " in " + Argus(1) '/in the_nether
-
-            IALB_Argu_Findwhat(RCorEXE_Mode) = Argus(2) '/ocean
-
-            Write_To_Console("execute " + IALB_Argu_Pos(RCorEXE_Mode) + Argus(1) + " run locatebiome " + Argus(2))
-            What_RU_Waiting(IALB_Return(RCorEXE_Mode), Get_timeout_ds)
-
-            If RCorEXE_Mode = 0 Then SendToClients(IALB_Return(0), TmpClientWork.TheSocket)
-            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IALB_Return(1))
-
-            IALB_Return(RCorEXE_Mode) = "" : IALB_Argu_Pos(RCorEXE_Mode) = "" : IALB_Argu_Findwhat(RCorEXE_Mode) = "" : I_Asking_LocateBiome(RCorEXE_Mode) = False
-
-        ElseIf Command_Mode = "rr" Then
-
-            Dim ErrFlag As Integer = 0
-
-            'Error control
-            IARR_Return(RCorEXE_Mode) = "-1"
-            Dim ParseArray() As String = Command_str.Split(";")
-            If ParseArray.Length < 4 Then ErrFlag = 1
-            Dim All_MCCommand As String = Get_All_MCCommand(Command_str)
-            If All_MCCommand = "" Then ErrFlag = 1
-            If ErrFlag = 1 Then Return 1
-
-            Process_Get_Command = 0
-            ReDim IARR_Argu_Findwhat(RCorEXE_Mode)(2)
-            IARR_Argu_Findwhat(RCorEXE_Mode)(0) = ParseArray(0) 'Yes 1
-            IARR_Argu_Findwhat(RCorEXE_Mode)(1) = ParseArray(1) 'Yes 2
-            IARR_Argu_Findwhat(RCorEXE_Mode)(2) = ParseArray(2) 'No 1
-            I_Asking_RawRead(RCorEXE_Mode) = True
-
-            Write_To_Console(All_MCCommand)
-            What_RU_Waiting(IARR_Return(RCorEXE_Mode), Get_timeout_ds)
-
-            If RCorEXE_Mode = 0 Then SendToClients(IARR_Return(0), TmpClientWork.TheSocket)
-
-            'Because raw read back is so big to cause crash. It's a fix but not sure why.
-            If RCorEXE_Mode = 1 Then
-                Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread())
-                thread.Start()
-            End If
-
-        ElseIf Command_Mode = "pr" Then
-
-            Dim ReturnRes As String = ""
-
-            If Command_str.ToLower = "login" Then
-                For TmpIDXa01 As Integer = 0 To (Player_Login.Items.Count - 1)
-                    ReturnRes += Player_Login.Items(TmpIDXa01)
-                    If TmpIDXa01 <> (Player_Login.Items.Count - 1) Then ReturnRes += ","
-                Next
-            ElseIf Command_str.ToLower = "logout" Then
-                For TmpIDXa01 As Integer = 0 To (Player_Logout.Items.Count - 1)
-                    ReturnRes += Player_Logout.Items(TmpIDXa01)
-                    If TmpIDXa01 <> (Player_Logout.Items.Count - 1) Then ReturnRes += ","
-                Next
-            Else
+                If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
+                If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK")
                 Return 1
             End If
 
-            Process_Get_Command = 0
-            If ReturnRes = "" Then ReturnRes = "(none)"
-            If RCorEXE_Mode = 0 Then SendToClients(ReturnRes, TmpClientWork.TheSocket)
-            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(ReturnRes)
+        End If
+
+        'Below is PASS/BUSY effect command ===================== split Line =================================
+
+        If WrongFmt = 0 Then
+
+            If FthWallMC_Server_Bypass = 0 Then
+
+                If Command_Mode = "cm" Then
+
+                    Select Case Command_str.ToLower
+
+                        Case "start"
+
+                            If MC_Server_WorkState <> 0 Then
+                                WorkString = "NOT-OFF"
+                            Else
+                                WorkString = Start_MC_Server_Process(JVM_Launch_Parameter, JVM_JAVA_EXE_Location, MCServer_JAR_BAT_Location, MCServer_Launch_Parameter)
+                            End If
+
+                            If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
+                            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
+                            Return 1
+
+                        Case "backup"
+
+                            If MC_Server_WorkState <> 0 Then
+                                WorkString = "NOT-OFF"
+                            Else
+                                WorkString = Start_Server_Backup_Process(ZIP_Launch_Parameter, ZIP_EXE_Location, ZIP_TIME_Format)
+                            End If
+
+                            If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
+                            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
+                            Return 1
+
+                        Case Else
+
+                            WrongFmt = 1
+
+                    End Select
+
+                ElseIf Command_Mode = "bk" Then
+
+                    If MC_Server_WorkState <> 0 Then
+                        WorkString = "NOT-OFF"
+                    Else
+                        WorkString = Start_Server_Backup_Process(Command_str, ZIP_EXE_Location, ZIP_TIME_Format)
+                    End If
+
+                    If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
+                    Return 1
+
+                End If
+
+                'Below is must return command ===================== split Line =================================
+                If RCorEXE_Mode = 2 Then Return 2
+
+                'Below is must ON need command ===================== split Line =================================
+                If MC_Server_WorkState <> 2 Then
+                    If RCorEXE_Mode = 0 Then SendToClients("NOT-ON", TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("NOT-ON")
+                    Return 1
+                End If
+
+                If Command_Mode = "in" Then
+
+                    Write_To_Console(Command_str)
+                    If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK")
+                    Return 1
+
+                ElseIf Command_Mode = "gt" Then
+
+                    I_Asking_Tick(RCorEXE_Mode) = True
+                    Time_TickReturn(RCorEXE_Mode) = "-1"
+                    Time_AskMap(RCorEXE_Mode) = Command_str
+
+                    Write_To_Console("execute in " + Time_AskMap(RCorEXE_Mode) + " run time query daytime")
+                    What_RU_Waiting(Time_TickReturn(RCorEXE_Mode), Get_timeout_ds)
+
+                    If RCorEXE_Mode = 0 Then SendToClients(Time_TickReturn(0), TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Time_TickReturn(1))
+                    Return 1
+
+                ElseIf Command_Mode = "gl" Then
+
+                    I_Asking_Locate(RCorEXE_Mode) = True
+                    IAL_Return(RCorEXE_Mode) = "-1"
+
+                    Dim Argus() As String = Command_str.Split(";")
+                    If UBound(Argus) < 2 Then
+                        WrongFmt = 1
+                    Else
+                        IAL_Argu_Pos(RCorEXE_Mode) = Argus(0) '/positioned 500 100 500 /as Overdoingism
+                        If Argus(1) <> "" Then Argus(1) = " in " + Argus(1) '/in the_nether
+                        IAL_Argu_Findwhat(RCorEXE_Mode) = Argus(2) '/ocean
+
+                        Write_To_Console("execute " + IAL_Argu_Pos(RCorEXE_Mode) + Argus(1) + " run locate " + Argus(2))
+                        What_RU_Waiting(IAL_Return(RCorEXE_Mode), Get_timeout_ds)
+
+                        If RCorEXE_Mode = 0 Then SendToClients(IAL_Return(0), TmpClientWork.TheSocket)
+                        If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IAL_Return(1))
+                        Return 1
+                    End If
+
+                ElseIf Command_Mode = "gb" Then
+
+                    I_Asking_LocateBiome(RCorEXE_Mode) = True
+                    IALB_Return(RCorEXE_Mode) = "-1"
+
+                    Dim Argus() As String = Command_str.Split(";")
+
+                    If UBound(Argus) < 2 Then
+                        WrongFmt = 1
+                    Else
+                        IALB_Argu_Pos(RCorEXE_Mode) = Argus(0) '/positioned 500 100 500 /as Overdoingism
+                        If Argus(1) <> "" Then Argus(1) = " in " + Argus(1) '/in the_nether
+                        IALB_Argu_Findwhat(RCorEXE_Mode) = Argus(2) '/ocean
+
+                        Write_To_Console("execute " + IALB_Argu_Pos(RCorEXE_Mode) + Argus(1) + " run locatebiome " + Argus(2))
+                        What_RU_Waiting(IALB_Return(RCorEXE_Mode), Get_timeout_ds)
+
+                        If RCorEXE_Mode = 0 Then SendToClients(IALB_Return(0), TmpClientWork.TheSocket)
+                        If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IALB_Return(1))
+                        Return 1
+                    End If
+
+                ElseIf Command_Mode = "rr" Then
+
+                    Dim ErrFlag As Integer = 0
+
+                    'Error control
+                    IARR_Return(RCorEXE_Mode) = "-1"
+                    Dim ParseArray() As String = Command_str.Split(";")
+                    If ParseArray.Length < 4 Then ErrFlag = 1
+                    Dim All_MCCommand As String = Get_All_MCCommand(Command_str)
+                    If All_MCCommand = "" Then ErrFlag = 1
+                    If ErrFlag = 1 Then Return 1
+
+                    ReDim IARR_Argu_Findwhat(RCorEXE_Mode)(2)
+                    IARR_Argu_Findwhat(RCorEXE_Mode)(0) = ParseArray(0) 'Yes 1
+                    IARR_Argu_Findwhat(RCorEXE_Mode)(1) = ParseArray(1) 'Yes 2
+                    IARR_Argu_Findwhat(RCorEXE_Mode)(2) = ParseArray(2) 'No 1
+                    I_Asking_RawRead(RCorEXE_Mode) = True
+
+                    Write_To_Console(All_MCCommand)
+                    What_RU_Waiting(IARR_Return(RCorEXE_Mode), Get_timeout_ds)
+
+                    If RCorEXE_Mode = 0 Then SendToClients(IARR_Return(0), TmpClientWork.TheSocket)
+
+                    'Because raw read back is so big to cause crash. It's a fix but not sure why.
+                    If RCorEXE_Mode = 1 Then
+                        Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread())
+                        thread.Start()
+                    End If
+
+                    Return 1
+
+                ElseIf Command_Mode = "pr" Then
+
+                    If Command_str.ToLower = "login" Then
+                        For TmpIDXa01 As Integer = 0 To (Player_Login.Items.Count - 1)
+                            WorkString += Player_Login.Items(TmpIDXa01)
+                            If TmpIDXa01 <> (Player_Login.Items.Count - 1) Then WorkString += ";"
+                        Next
+                    ElseIf Command_str.ToLower = "logout" Then
+                        For TmpIDXa01 As Integer = 0 To (Player_Logout.Items.Count - 1)
+                            WorkString += Player_Logout.Items(TmpIDXa01)
+                            If TmpIDXa01 <> (Player_Logout.Items.Count - 1) Then WorkString += ";"
+                        Next
+                    Else
+                        WrongFmt = 1
+                    End If
+
+                    If WrongFmt = 0 Then
+                        If WorkString = "" Then WorkString = "(none)"
+                        If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
+                        If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
+                        Return 1
+                    End If
+
+                Else
+
+                    If RCorEXE_Mode = 0 Then SendToClients("BAD", TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BAD")
+                    Return 1
+                End If
+
+            ElseIf FthWallMC_Server_Bypass = 1 Then
+
+                If RCorEXE_Mode = 0 Then SendToClients("PASS", TmpClientWork.TheSocket)
+                If RCorEXE_Mode = 1 Then EXE_Write_To_Console("PASS")
+                Return 1
+
+            ElseIf FthWallMC_Server_Bypass = 2 Then
+
+                If RCorEXE_Mode = 0 Then SendToClients("BUSY", TmpClientWork.TheSocket)
+                If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BUSY")
+                Return 1
+
+            End If
 
         End If
+
+        If WrongFmt = 1 Then
+            If RCorEXE_Mode = 0 Then SendToClients("BAD*", TmpClientWork.TheSocket)
+            If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BAD*")
+            Return 1
+        Else
+            If RCorEXE_Mode = 0 Then SendToClients("BAD", TmpClientWork.TheSocket)
+            If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BAD")
+        End If
+
+        Return 0
+
     End Function
 
     Sub CloseASocket(ByRef NowWorker As ClientWorker)
@@ -663,7 +711,6 @@ Public Class Form1
     End Sub
 
     Private Function Start_MC_Server_Process(The_JAVA_Arguments As String, The_FileName As String, The_JAR_BAT_File As String, The_MC_Arguments As String) As String
-
 
         If MC_Server_WorkState <> 0 Then Return "BUSY"
         Dim Launch_File As String = ""
@@ -751,7 +798,6 @@ Public Class Form1
                 .RedirectStandardError = True
                 .RedirectStandardInput = True
                 .UseShellExecute = False
-                '.StandardOutputEncoding = Encoding.UTF8
                 .WindowStyle = ProcessWindowStyle.Hidden
                 .CreateNoWindow = True
                 .Arguments = The_Arguments
@@ -782,6 +828,8 @@ Public Class Form1
                 If cpuCounter IsNot Nothing Then Exit Do
             Loop
 
+            ServerStart_Tick = GetTickCount64()
+            MCServerType = "Vanilla(or not detected)"
             MCServer_CPU_Peak = 0
             MCServer_RAM_Peak = 0
             MCServer_CPU_Wait = 0
@@ -823,6 +871,7 @@ Public Class Form1
             Dim Tmp_String_Org As String = outLine.Data
             Dim Tmp_String As String = Tmp_String_Org.ToUpper
             Dim Tmp_String2 As String = ""
+            Dim Tmp_Index1, Tmp_Index2 As Integer ', Tmp_Index3 As Integer
 
             If Check_If_Misjudge(Tmp_String) Then
                 For IDX_TMP_01 As Integer = 0 To 1
@@ -884,7 +933,6 @@ Public Class Form1
             End If
             '======================================
 
-            Dim Tmp_Index1, Tmp_Index2, Tmp_Index3 As Integer
 
             '===================================== Console Text Buffer
             Saved_String(Saved_String_IDX) = Tmp_String_Org + vbNewLine
@@ -931,7 +979,7 @@ Public Class Form1
                             Exit Do
                         End If
                     ElseIf MC_Server_WorkState = 2 Then 'Stop detect 
-                        Tmp_Index2 = InStr(StartStop_Check, "INFO]: STOPPING THE SERVER")
+                        Tmp_Index2 = InStr(StartStop_Check, "INFO]: STOPPING SERVER")
                         If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 < 16) Then
                             InNeed_Detect_AbnormalEnd = False
                             MC_Server_WorkState = 1
@@ -955,53 +1003,27 @@ Public Class Form1
 
                     '================================================ GeekCommand Detect
 
-                    Dim Get_AfterW As String
-                    Dim Get_SenderID As String
-                    Dim Get_SendToID As String
-                    Dim Get_AfterID As String
-                    Dim Get_TypeCommand As String
-                    Dim Get_Message As String
+                    Dim GeekCommand As GeekCommand_Rtn = Para_Go(Tmp_String_Org, EXECommand_ViaSay)
 
-                    Tmp_Index2 = InStr(Tmp_String, " INFO]:") + 8 'L=7
-                    Tmp_Index3 = InStr(Tmp_String, " ISSUED SERVER COMMAND: /W ") 'L=27
+                    If GeekCommand.IsUsable Then
 
-                    If ((Tmp_Index3 > Tmp_Index2) AndAlso (Tmp_String.Length > Tmp_Index3 + 27 + 6)) Then
-
-                        'Get SenderID
-                        Get_SenderID = Tmp_String_Org.Substring(Tmp_Index2 - 1, Tmp_Index3 - Tmp_Index2)
-
-                        'Get AfterW
-                        Get_AfterW = Tmp_String_Org.Substring(Tmp_Index3 + 26)
-
-                        'Get SendToID
-                        Tmp_Index1 = InStr(Get_AfterW, " ")
-                        Get_SendToID = Get_AfterW.Substring(0, Tmp_Index1).Trim
-
-                        'Check Man Right
-                        If Not The_Man_has_right(Get_SenderID, Get_SendToID) Then Exit Do
-
-                        Get_AfterID = Get_AfterW.Substring(Tmp_Index1)
-                        If Get_AfterID.Length <= 1 Then Exit Do
-                        Get_TypeCommand = Get_AfterID.Substring(0, 1)
-                        Get_Message = Get_AfterID.Substring(1)
-
-                        Select Case Get_TypeCommand
+                        Select Case GeekCommand.TheCommandPart
 
                             Case CM_Type_W 'Output to EXE, EXE w back
 
                                 If Not EXE_IS_LAUNCHED Then Start_EXE_Process(Man_EXE_FirstExec)
                                 Man_ThisTime_W2Say = False
-                                EXE_Write_To_Console(Get_Message)
+                                EXE_Write_To_Console(GeekCommand.TheMessagePart)
 
                             Case CM_Type_SAY 'Output to EXE, EXE say back
 
                                 If Not EXE_IS_LAUNCHED Then Start_EXE_Process(Man_EXE_FirstExec)
                                 Man_ThisTime_W2Say = True
-                                EXE_Write_To_Console(Get_Message)
+                                EXE_Write_To_Console(GeekCommand.TheMessagePart)
 
                             Case CM_ServerState_Flag
 
-                                Get_Full_MCServer_Control(Get_Message)
+                                Get_Full_MCServer_Control(GeekCommand.TheMessagePart)
 
                             Case Else
 
@@ -1014,6 +1036,12 @@ Public Class Form1
                         Exit Do
 
                     End If
+
+                ElseIf MC_Server_WorkState = 1 Then
+
+
+                    If MCServerType = "Vanilla(or not detected)" Then MCServerType = GetServerBrand(Tmp_String)
+
 
                 End If
 
@@ -1175,6 +1203,8 @@ Public Class Form1
                 .RedirectStandardOutput = True
                 .RedirectStandardError = True
                 .RedirectStandardInput = True
+                '.StandardOutputEncoding = Encoding.UTF8
+                '.StandardErrorEncoding = Encoding.UTF8 
                 .UseShellExecute = False
                 .WindowStyle = ProcessWindowStyle.Hidden
                 .CreateNoWindow = True
@@ -1265,23 +1295,44 @@ Public Class Form1
                 '==================== MC + injection ==========================
                 If Man_Use_InJ AndAlso Tmp_String_Org.Substring(0, 1) = "~" Then
 
-                    Dim ResultCode As Integer = 1
+                    Dim ResultCode As Integer
 
-                    If Tmp_String_Org.Length > 5 Then
+                    If Tmp_String_Org.Length > 4 Then
 
                         'ServerState Control
                         If Tmp_String_Org.Substring(1, 1) = CM_ServerState_Flag Then
                             ResultCode = Get_Full_MCServer_Control(Tmp_String_Org.Substring(2))
+                            Exit Sub
                         End If
+
+                        Dim Command_Mode As String = Tmp_String_Org.ToLower.Substring(2, 2)
+                        Dim Command_Str As String = Tmp_String_Org.Substring(5)
 
                         'Get xxx Command
-                        If Tmp_String_Org.ToUpper.Substring(1, 1) = CM_ServerGetFlag Then
-                            Dim Command_Mode As String = Tmp_String_Org.ToLower.Substring(2, 2)
-                            Dim Command_Str As String = Tmp_String_Org.Substring(5)
-                            ResultCode = Process_Get_Command(Command_Mode, Command_Str, 1)
-                            If ResultCode = 1 Then EXE_Write_To_Console("-5")
+                        If Tmp_String_Org.Substring(1, 1) = CM_ServerGetFlag Then
+                            If Tmp_String_Org.Substring(4, 1) = "," Then
+                                Process_Get_Command(Command_Mode, Command_Str, 1)
+                            Else
+                                EXE_Write_To_Console("BAD")
+                            End If
+                            Exit Sub
                         End If
 
+                        'Get xxx Command NoBack
+                        If Tmp_String_Org.Substring(1, 1) = CM_ServerGetFlag_NoBack Then
+                            If Tmp_String_Org.Substring(4, 1) = "," Then
+                                Process_Get_Command(Command_Mode, Command_Str, 2)
+                            Else
+
+                            End If
+                            Exit Sub
+                        End If
+
+                        Write_To_Console(Tmp_String_Org.Substring(1))
+
+                    Else
+
+                        Write_To_Console(Tmp_String_Org.Substring(1))
 
                     End If
 
@@ -1519,6 +1570,7 @@ Public Class Form1
             Case 2
 
                 MCSState_Label.Text = "Minecraft Server: ON"
+                ServerType_Label.Text = MCServerType
 
                 StartButton.Enabled = False
                 BackupButton.Enabled = False
@@ -1594,6 +1646,8 @@ Public Class Form1
 
     Private Sub CloseForm(sender As Object, ByRef e As CancelEventArgs)
 
+        e.Cancel = False
+
         If MsgBox("Exit?", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
 
             If MC_Server_WorkState = 2 Then
@@ -1608,9 +1662,8 @@ Public Class Form1
                     WaitCount += 1
                     If MC_Server_WorkState = 0 Then
                         ALL_END()
-
                     End If
-                Loop Until WaitCount = 200
+                Loop Until WaitCount = CloseForm_wait_ds
 
                 WaitPanel.Visible = False
                 If MsgBox("Looks like auto-shutdown is fault or take time too long." + vbNewLine + vbNewLine +
@@ -1866,20 +1919,16 @@ Public Class Form1
         Form3.Show()
         Form3.BringToFront()
     End Sub
-
     Private Sub MCS_Richtexbox_LinkClicked(sender As Object, e As LinkClickedEventArgs) Handles MCS_Richtexbox.LinkClicked
         System.Diagnostics.Process.Start(e.LinkText)
     End Sub
-
     Private Sub BurstModeButton_Click(sender As Object, e As EventArgs) Handles BurstModeButton.Click
         BurstMode = BurstMode Xor 1
     End Sub
-
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Form4.Show()
         Form4.BringToFront()
     End Sub
-
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         If ReallyClose = False Then

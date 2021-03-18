@@ -76,6 +76,8 @@ Partial Class Form1
         Me.BurstModeButton = New System.Windows.Forms.Button()
         Me.WaitPanel = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.ServerType_Label = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -639,12 +641,34 @@ Partial Class Form1
         Me.Label2.TabIndex = 32
         Me.Label2.Text = "Waiting..."
         '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(888, 9)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(148, 16)
+        Me.Label10.TabIndex = 34
+        Me.Label10.Text = "Detected Server Type:"
+        '
+        'ServerType_Label
+        '
+        Me.ServerType_Label.AutoSize = True
+        Me.ServerType_Label.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ServerType_Label.Location = New System.Drawing.Point(1042, 9)
+        Me.ServerType_Label.Name = "ServerType_Label"
+        Me.ServerType_Label.Size = New System.Drawing.Size(16, 16)
+        Me.ServerType_Label.TabIndex = 35
+        Me.ServerType_Label.Text = "?"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.ClientSize = New System.Drawing.Size(1177, 700)
+        Me.Controls.Add(Me.ServerType_Label)
+        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.WaitPanel)
         Me.Controls.Add(Me.BurstModeButton)
         Me.Controls.Add(Me.Panel1)
@@ -664,8 +688,8 @@ Partial Class Form1
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.Name = "Form1"
-        Me.Text = "FourthWallMC v0.78 < You don't need to break it, we put window on the wall. >  By" &
-    " overdoingism Lab."
+        Me.Text = "FourthWallMC < You don't need to break it, we put window on the wall. >  By overd" &
+    "oingism Lab."
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
@@ -678,6 +702,7 @@ Partial Class Form1
         Me.WaitPanel.ResumeLayout(False)
         Me.WaitPanel.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -733,4 +758,6 @@ Partial Class Form1
     Friend WithEvents Label7 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Button6 As Button
+    Friend WithEvents Label10 As Label
+    Friend WithEvents ServerType_Label As Label
 End Class

@@ -3,8 +3,15 @@ Imports System.Text
 Imports System.IO
 Imports System.Net
 Imports System.Drawing.Text
+Imports System.Runtime.InteropServices
 
 Module Module1
+
+    Public Structure GeekCommand_Rtn
+        Dim TheCommandPart As String
+        Dim TheMessagePart As String
+        Dim IsUsable As Boolean
+    End Structure
 
     Public IsAgree As Boolean
 
@@ -66,6 +73,14 @@ Module Module1
     Public LogOutPlayer() As String
     Public BannedPlayer() As String
 
+
+    Public MCServerType As String = "Vanilla(or not detected)"
+    Public MCServerVer As String
+    Public ServerStart_Tick As UInt64
+
+    <DllImport("kernel32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
+    Public Function GetTickCount64() As UInt64
+    End Function
 
     Public Sub Before_Save()
 
@@ -272,7 +287,6 @@ Module Module1
         Form2.DetAE_Para_TextBox.Text = Det_AE_RunPara
         Form2.DetAETimeS_Textbox.Text = DAE_TIME_Format
 
-
         Form2.ExeViaSay_Checkbox.Checked = EXECommand_ViaSay
 
         Form3.Iagree_CheckBox.Checked = IsAgree
@@ -287,6 +301,18 @@ Module Module1
 
     End Sub
 
+    Public Function GetServerBrand(TestStr As String) As String
+
+        If InStr(TestStr, " PAPER") > 0 Then Return "Paper"
+        If InStr(TestStr, " FABRIC") > 0 Then Return "Fabric"
+        If InStr(TestStr, " FORGE") > 0 Then Return "Forge"
+        If InStr(TestStr, " FABRIC") > 0 Then Return "Fabric"
+        If InStr(TestStr, " SPIGOT") > 0 Then Return "Spigot"
+
+        Return "Vanilla(or not detected)"
+
+    End Function
+
     Public Sub Make_List_Array()
 
         Dim TmpString As String
@@ -294,7 +320,6 @@ Module Module1
         TmpString = Replace(TmpString, " ;", ";")
         TmpString = Replace(TmpString, "; ", ";")
         Man_Who_CanWorkList = TmpString.Split(CType(";", Char()), StringSplitOptions.RemoveEmptyEntries)
-
 
         If Man_COM_TxFilter <> "" Then
             Man_COM_TxFilterList = Man_COM_TxFilter.Split(CType(";", Char()), StringSplitOptions.RemoveEmptyEntries)
@@ -308,8 +333,88 @@ Module Module1
             Man_EXE_FDFilterList = Nothing
         End If
 
-
     End Sub
+    Public Function Para_Go(TheString As String, ExeViaSay As Boolean) As GeekCommand_Rtn
+
+        Dim GeekCommandRtnV1, GeekCommandRtnV2 As New GeekCommand_Rtn
+        GeekCommandRtnV1.IsUsable = False
+        GeekCommandRtnV2.IsUsable = False
+
+        Dim Get_AfterW As String
+        Dim Get_SenderID As String
+        Dim Get_SendToID As String
+        Dim Get_AfterID As String
+        Dim Tmp_Index1, Tmp_Index2, Tmp_Index3 As Integer
+        Dim TheStringUP As String = TheString.ToUpper
+
+        '==========================V1 detect========================
+        Tmp_Index2 = InStr(TheStringUP, " INFO]:") + 8 'L=7
+        Tmp_Index3 = InStr(TheStringUP, " ISSUED SERVER COMMAND: /W ") 'L=27
+        If ((Tmp_Index3 > Tmp_Index2) AndAlso (TheStringUP.Length > Tmp_Index3 + 27 + 6)) Then
+            'Get SenderID
+            Get_SenderID = TheString.Substring(Tmp_Index2 - 1, Tmp_Index3 - Tmp_Index2)
+            'Get AfterW
+            Get_AfterW = TheString.Substring(Tmp_Index3 + 26)
+            'Get SendToID
+            Tmp_Index1 = InStr(Get_AfterW, " ")
+            Get_SendToID = Get_AfterW.Substring(0, Tmp_Index1).Trim
+
+            If The_Man_has_right_V1(Get_SenderID, Get_SendToID) Then
+                Get_AfterID = Get_AfterW.Substring(Tmp_Index1)
+                If Get_AfterID.Length > 2 Then
+                    GeekCommandRtnV1.TheCommandPart = Get_AfterID.Substring(0, 1)
+                    GeekCommandRtnV1.TheMessagePart = Get_AfterID.Substring(1)
+                    GeekCommandRtnV1.IsUsable = True
+                End If
+            End If
+        End If
+
+        If GeekCommandRtnV1.IsUsable Then Return GeekCommandRtnV1
+
+        '==========================V2 detect 1 ========================
+        If ExeViaSay Then
+            Tmp_Index2 = InStr(TheStringUP, "]: <") + 4
+            Tmp_Index3 = InStr(Tmp_Index2, TheStringUP, ">")
+            If (Tmp_Index3 > Tmp_Index2) Then
+                Get_SenderID = TheString.Substring(Tmp_Index2 - 1, Tmp_Index3 - Tmp_Index2)
+                If The_Man_has_right_V2(Get_SenderID) Then
+                    Get_AfterID = TheString.Substring(Tmp_Index3).Trim
+                    If Get_AfterID.Length > 2 Then
+                        GeekCommandRtnV2.TheCommandPart = Get_AfterID.Substring(0, 1)
+                        GeekCommandRtnV2.TheMessagePart = Get_AfterID.Substring(1)
+                        GeekCommandRtnV2.IsUsable = True
+                    End If
+                End If
+            End If
+        End If
+
+
+        If GeekCommandRtnV2.IsUsable Then Return GeekCommandRtnV2
+
+
+        '==========================V2 detect 2 ========================
+        If ExeViaSay Then
+            Tmp_Index2 = InStr(TheStringUP, "]: [") + 4
+            Tmp_Index3 = InStr(Tmp_Index2, TheStringUP, "]")
+            If (Tmp_Index3 > Tmp_Index2) Then
+                Get_SenderID = TheString.Substring(Tmp_Index2 - 1, Tmp_Index3 - Tmp_Index2)
+                If The_Man_has_right_V2(Get_SenderID) Then
+                    Get_AfterID = TheString.Substring(Tmp_Index3).Trim
+                    If Get_AfterID.Length > 2 Then
+                        GeekCommandRtnV2.TheCommandPart = Get_AfterID.Substring(0, 1)
+                        GeekCommandRtnV2.TheMessagePart = Get_AfterID.Substring(1)
+                        GeekCommandRtnV2.IsUsable = True
+                    End If
+                End If
+            End If
+        End If
+
+
+        If GeekCommandRtnV2.IsUsable Then Return GeekCommandRtnV2
+
+        Return GeekCommandRtnV1
+
+    End Function
 
     Public Function GetProcessInstanceName(pid As Integer) As String
 
@@ -346,8 +451,7 @@ Module Module1
     End Function
 
 
-    Public Function The_Man_has_right(Check_Sender_String As String, Check_Sendto_String As String) As Boolean
-
+    Public Function The_Man_has_right_V1(Check_Sender_String As String, Check_Sendto_String As String) As Boolean
 
         If (Check_Sender_String.Length >= 15) AndAlso (Man_CBAT_Workable = 1) Then
             If (Check_Sender_String.Substring(0, 15) = "CommandBlock at") Then
@@ -357,7 +461,6 @@ Module Module1
                 End If
             End If
         End If
-
 
         For Each TestOP_List As String In Man_Who_CanWorkList
             If Check_Sender_String = TestOP_List Then
@@ -376,27 +479,32 @@ Module Module1
         Return False
 
     End Function
-    Public Function Check_If_Misjudge(TheString As String) As Boolean
 
-        Check_If_Misjudge = False
+    Public Function The_Man_has_right_V2(Check_Sender_String As String) As Boolean
+
+        If Check_Sender_String = "@" Then
+            Return True
+        End If
+
+        For Each TestOP_List As String In Man_Who_CanWorkList
+            If Check_Sender_String = TestOP_List Then
+                Man_Who_LastSending = Check_Sender_String
+                Return True
+            End If
+        Next
+
+        Return False
+
+    End Function
+
+    Public Function Check_If_Misjudge(TheString As String) As Boolean
 
         TheString = Replace(TheString, " [MINECRAFT/DEDICATEDSERVER]", "")
 
-        If InStr(TheString, "INFO]: * @") > 0 Then
-            Return False
-        End If
-
-        If (InStr(TheString, "INFO]: <") > 0) Then
-            Return False
-        End If
-
-        If (InStr(TheString, "INFO]: [") > 0) Then
-            Return False
-        End If
-
-        If (InStr(TheString, "ISSUED SERVER COMMAND:") > 0) Then
-            Return False
-        End If
+        If InStr(TheString, "INFO]: * @") > 0 Then Return False
+        If (InStr(TheString, "INFO]: <") > 0) Then Return False
+        If (InStr(TheString, "INFO]: [") > 0) Then Return False
+        If (InStr(TheString, "ISSUED SERVER COMMAND:") > 0) Then Return False
 
         Return True
 
@@ -424,7 +532,7 @@ Module Module1
                 TMP_IDX2 = InStr(TMP_IDX + 3, TheStringUp, "BLOCKS AWAY")
                 If TMP_IDX2 > TMP_IDX Then
                     TheStringWorking = TheString.Substring(TMP_IDX, (TMP_IDX2 - TMP_IDX) - 1)
-                    TheStringWorking = Replace(TheStringWorking, "] (", ",")
+                    TheStringWorking = Replace(TheStringWorking, "] (", ";")
                     TheStringWorking = Replace(TheStringWorking, " ", "")
 
                     Return TheStringWorking
@@ -457,8 +565,6 @@ Module Module1
                 End If
             End If
         End If
-
-
 
     End Function
 
@@ -495,19 +601,17 @@ Module Module1
 
         End If
 
-
-
     End Function
 
     Public Function Get_Full_MCServer_Control(TheString As String) As Integer
 
         If TheString.Length >= 4 Then
 
-            Dim ServerSetting() As String = TheString.Split(",")
+            Dim ServerSetting() As String = TheString.Split(";")
             Dim TmpIdx1, TmpIdx2 As Integer
 
             TmpIdx1 = UBound(ServerSetting)
-            If TmpIdx1 <> 3 Then Return 1
+            If TmpIdx1 <> 3 Then Return 0
 
             For TmpIdx2 = 0 To 3
                 If ServerSetting(TmpIdx2) <> "" Then
@@ -533,9 +637,9 @@ Module Module1
                 End If
             Next
 
-            Return 0
-        Else
             Return 1
+        Else
+            Return 0
         End If
 
     End Function
