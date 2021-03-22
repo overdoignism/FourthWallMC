@@ -66,6 +66,10 @@ Partial Class Form1
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Player_Logout = New System.Windows.Forms.ListBox()
         Me.Player_Login = New System.Windows.Forms.ListBox()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.Command_err_ListBox = New System.Windows.Forms.ListBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Debug_Listbox = New System.Windows.Forms.ListBox()
         Me.ModeExeFW_Button = New System.Windows.Forms.Button()
         Me.SP1 = New System.IO.Ports.SerialPort(Me.components)
         Me.SP1Mon = New System.Windows.Forms.Timer(Me.components)
@@ -81,10 +85,12 @@ Partial Class Form1
         Me.RestartCon_Button = New System.Windows.Forms.Button()
         Me.EXE_BoxRefreshTimer = New System.Windows.Forms.Timer(Me.components)
         Me.BoxRefreshTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.WaitPanel.SuspendLayout()
         Me.SuspendLayout()
@@ -276,6 +282,7 @@ Partial Class Form1
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
+        Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Location = New System.Drawing.Point(141, 13)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -554,6 +561,50 @@ Partial Class Form1
         Me.Player_Login.Sorted = True
         Me.Player_Login.TabIndex = 0
         '
+        'TabPage4
+        '
+        Me.TabPage4.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.TabPage4.Controls.Add(Me.Label13)
+        Me.TabPage4.Controls.Add(Me.Command_err_ListBox)
+        Me.TabPage4.Controls.Add(Me.Label12)
+        Me.TabPage4.Controls.Add(Me.Debug_Listbox)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 24)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Size = New System.Drawing.Size(1018, 607)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "Debug tracker"
+        '
+        'Command_err_ListBox
+        '
+        Me.Command_err_ListBox.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Command_err_ListBox.FormattingEnabled = True
+        Me.Command_err_ListBox.ItemHeight = 15
+        Me.Command_err_ListBox.Location = New System.Drawing.Point(524, 61)
+        Me.Command_err_ListBox.Name = "Command_err_ListBox"
+        Me.Command_err_ListBox.Size = New System.Drawing.Size(464, 484)
+        Me.Command_err_ListBox.TabIndex = 14
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.White
+        Me.Label12.Location = New System.Drawing.Point(28, 38)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(207, 16)
+        Me.Label12.TabIndex = 13
+        Me.Label12.Text = "Debug message: (Latest on top)"
+        '
+        'Debug_Listbox
+        '
+        Me.Debug_Listbox.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Debug_Listbox.FormattingEnabled = True
+        Me.Debug_Listbox.ItemHeight = 15
+        Me.Debug_Listbox.Location = New System.Drawing.Point(31, 61)
+        Me.Debug_Listbox.Name = "Debug_Listbox"
+        Me.Debug_Listbox.Size = New System.Drawing.Size(464, 484)
+        Me.Debug_Listbox.TabIndex = 0
+        '
         'ModeExeFW_Button
         '
         Me.ModeExeFW_Button.BackColor = System.Drawing.Color.White
@@ -630,7 +681,7 @@ Partial Class Form1
         Me.WaitPanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.WaitPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.WaitPanel.Controls.Add(Me.Label2)
-        Me.WaitPanel.Location = New System.Drawing.Point(600, 300)
+        Me.WaitPanel.Location = New System.Drawing.Point(601, 300)
         Me.WaitPanel.Name = "WaitPanel"
         Me.WaitPanel.Size = New System.Drawing.Size(101, 50)
         Me.WaitPanel.TabIndex = 33
@@ -689,6 +740,17 @@ Partial Class Form1
         '
         Me.BoxRefreshTimer.Interval = 500
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.ForeColor = System.Drawing.Color.White
+        Me.Label13.Location = New System.Drawing.Point(521, 42)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(210, 16)
+        Me.Label13.TabIndex = 15
+        Me.Label13.Text = "Command error:  (Latest on top)"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -725,6 +787,8 @@ Partial Class Form1
         Me.TabPage2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
+        Me.TabPage4.ResumeLayout(False)
+        Me.TabPage4.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.WaitPanel.ResumeLayout(False)
@@ -791,4 +855,9 @@ Partial Class Form1
     Friend WithEvents Label11 As Label
     Friend WithEvents EXE_BoxRefreshTimer As Timer
     Friend WithEvents BoxRefreshTimer As Timer
+    Friend WithEvents TabPage4 As TabPage
+    Friend WithEvents Debug_Listbox As ListBox
+    Friend WithEvents Command_err_ListBox As ListBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Label13 As Label
 End Class

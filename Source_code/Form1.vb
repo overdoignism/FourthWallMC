@@ -17,7 +17,7 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
-    Const FwmcVer As String = "0.80"
+    Const FwmcVer As String = "0.81"
 
     Const CM_Type_W As String = "#"
     Const CM_Type_VarWri As String = "$"
@@ -207,6 +207,7 @@ Public Class Form1
                 FthWallMC_Server = 2
             Catch ex As Exception
                 FthWallMC_Server = 1
+                Debug_Listbox.Items.Insert(0, "Start_Management_Server():" + ex.Message)
             End Try
 
         End If
@@ -253,6 +254,7 @@ Public Class Form1
 
                 FthWallMC_Server = TmpState
                 RCState_Label.Text = "ERROR"
+                Debug_Listbox.Items.Insert(0, "Stop_Management_Server():" + ex.Message)
                 Return False
 
             End Try
@@ -289,6 +291,8 @@ Public Class Form1
             Clients(Tmp_Idx1).TheSocket = FthWallMC_Server_TcpListerner.AcceptTcpClient
 
         Catch ex As Exception
+
+            Debug_Listbox.Items.Insert(0,"Handler_Client()1:" + ex.Message)
 
             If Closing_Socket Then
                 FthWallMC_Server = 0
@@ -354,6 +358,7 @@ Public Class Form1
                 If ErrorType = 0 Then
                     Process_Get_Command(Command_Mode, Command_Str, 0, Clients(Tmp_Idx1))
                 Else
+                    Command_err_ListBox.Items.Insert(0, "HANC:" + Command_Mode + ";" + Command_Str)
                     SendToClients("BAD", Clients(Tmp_Idx1).TheSocket)
                 End If
 
@@ -364,6 +369,8 @@ Public Class Form1
             Waiting_Input = False
 
         Catch ex As Exception
+
+            Debug_Listbox.Items.Insert(0, "Handler_Client()2:" + ex.Message)
 
             Try
                 CloseASocket(Clients(Tmp_Idx1))
@@ -405,6 +412,7 @@ Public Class Form1
             Case Else
                 If RCorEXE_Mode = 0 Then SendToClients("BAD", TmpClientWork.TheSocket)
                 If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BAD")
+                Command_err_ListBox.Items.Insert(0, "PGC1:" + Command_Mode + ";" + Command_str + ";" + RCorEXE_Mode.ToString)
                 Return 1
         End Select
 
@@ -443,10 +451,6 @@ Public Class Form1
                         WorkString = "ON"
                     End If
 
-                    If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
-                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
-                    Return 1
-
                 Case "info2"
 
                     Select Case FthWallMC_Server_Bypass
@@ -457,10 +461,6 @@ Public Class Form1
                         Case 2
                             WorkString = "WAIT"
                     End Select
-
-                    If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
-                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
-                    Return 1
 
                 Case "info3"
 
@@ -474,32 +474,26 @@ Public Class Form1
 
                     WorkString += MCServerType + ";" + FwmcVer
 
-                    If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
-                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
-                    Return 1
-
                 Case "kill"
-
                     kill_task()
+                    WorkString = "OK"
 
-                    If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
-                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK")
-                    Return 1
+                Case "rconsole"
+                    Restart_EXEConsole()
+                    WorkString = "OK"
 
                 Case "sender"
-
                     If RCorEXE_Mode = 0 Then SendToClients(Man_Who_LastSending_ForCheck, TmpClientWork.TheSocket)
                     If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Man_Who_LastSending_ForCheck)
                     Return 1
 
-                Case "rconsole"
-
-                    Restart_EXEConsole()
-                    If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
-                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK")
-                    Return 1
-
             End Select
+
+            If WorkString <> "" Then
+                If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
+                If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
+                Return 1
+            End If
 
         ElseIf Command_Mode = "ss" Then
 
@@ -586,42 +580,34 @@ Public Class Form1
 
                 If Command_Mode = "cm" Then
 
-                    Select Case Command_str.ToLower
-
-                        Case "start"
-
-                            If MC_Server_WorkState <> 0 Then
-                                WorkString = "NOT-OFF"
-                            Else
+                    If MC_Server_WorkState = 2 Then
+                        WorkString = "NOT-OFF"
+                    ElseIf MC_Server_WorkState = 1 Then
+                        WorkString = "BUSY"
+                    Else
+                        Select Case Command_str.ToLower
+                            Case "start"
                                 WorkString = Start_MC_Server_Process(JVM_Launch_Parameter, JVM_JAVA_EXE_Location, MCServer_JAR_BAT_Location, MCServer_Launch_Parameter)
-                            End If
-
-                            If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
-                            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
-                            Return 1
-
-                        Case "backup"
-
-                            If MC_Server_WorkState <> 0 Then
-                                WorkString = "NOT-OFF"
-                            Else
+                            Case "backup"
                                 WorkString = Start_Server_Backup_Process(ZIP_Launch_Parameter, ZIP_EXE_Location, ZIP_TIME_Format)
-                            End If
+                            Case Else
+                                WrongFmt = 1
+                        End Select
+                    End If
 
-                            If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
-                            If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
-                            Return 1
+                    If WrongFmt = 0 Then
+                        If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
+                        If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString)
+                        Return 1
+                    End If
 
-                        Case Else
-
-                            WrongFmt = 1
-
-                    End Select
 
                 ElseIf Command_Mode = "bk" Then
 
-                    If MC_Server_WorkState <> 0 Then
+                    If MC_Server_WorkState = 2 Then
                         WorkString = "NOT-OFF"
+                    ElseIf MC_Server_WorkState = 1 Then
+                        WorkString = "BUSY"
                     Else
                         WorkString = Start_Server_Backup_Process(Command_str, ZIP_EXE_Location, ZIP_TIME_Format)
                     End If
@@ -635,10 +621,14 @@ Public Class Form1
                 'Below is must return command ===================== split Line =================================
                 If RCorEXE_Mode = 2 Then Return 2
 
-                'Below is must ON need command ===================== split Line =================================
-                If MC_Server_WorkState <> 2 Then
+                'Below is must ON / not BUSY need command ===================== split Line =================================
+                If MC_Server_WorkState = 0 Then
                     If RCorEXE_Mode = 0 Then SendToClients("NOT-ON", TmpClientWork.TheSocket)
                     If RCorEXE_Mode = 1 Then EXE_Write_To_Console("NOT-ON")
+                    Return 1
+                ElseIf MC_Server_WorkState = 1 Then
+                    If RCorEXE_Mode = 0 Then SendToClients("BUSY", TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BUSY")
                     Return 1
                 End If
 
@@ -740,6 +730,7 @@ Public Class Form1
 
                     If RCorEXE_Mode = 0 Then SendToClients("BAD", TmpClientWork.TheSocket)
                     If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BAD")
+                    Command_err_ListBox.Items.Insert(0, "PGC2:" + Command_Mode + ";" + Command_str + ";" + RCorEXE_Mode.ToString)
                     Return 1
                 End If
 
@@ -762,10 +753,12 @@ Public Class Form1
         If WrongFmt = 1 Then
             If RCorEXE_Mode = 0 Then SendToClients("BAD*", TmpClientWork.TheSocket)
             If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BAD*")
+            Command_err_ListBox.Items.Insert(0, "PGC3:" + Command_Mode + ";" + Command_str + ";" + RCorEXE_Mode.ToString)
             Return 1
         Else
             If RCorEXE_Mode = 0 Then SendToClients("BAD", TmpClientWork.TheSocket)
             If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BAD")
+            Command_err_ListBox.Items.Insert(0, "PGC4:" + Command_Mode + ";" + Command_str + ";" + RCorEXE_Mode.ToString)
         End If
 
         Return 0
@@ -795,6 +788,8 @@ Public Class Form1
                 TX2.Dispose()
 
             Catch ex As Exception
+
+                Debug_Listbox.Items.Insert(0, "SenToClients():" + ex.Message)
 
             End Try
 
@@ -940,6 +935,7 @@ Public Class Form1
             MC_Server_WorkState = 0
             MCS_Richtexbox.Text += vbNewLine + ex.Message + vbNewLine
             Start_MC_Server_Process = "ERROR"
+            Debug_Listbox.Items.Insert(0, "Start_MC_Server_Process():" + ex.Message)
 
         End Try
 
@@ -1232,6 +1228,7 @@ Public Class Form1
             MC_Server_WorkState = 0
             MCS_Richtexbox.Text += vbNewLine + ex.Message + vbNewLine
             Start_Server_Backup_Process = "Error"
+            Debug_Listbox.Items.Insert(0, "Start_Server_Backup_Process():" + ex.Message)
 
         End Try
 
@@ -1313,6 +1310,7 @@ Public Class Form1
 
             EXE_Texbox.Text += vbNewLine + ex.Message + vbNewLine
             Start_EXE_Process = "Error"
+            Debug_Listbox.Items.Insert(0, "Start_EXE_Process():" + ex.Message)
 
         End Try
 
@@ -1382,7 +1380,7 @@ Public Class Form1
 
                 Dim ResultCode As Integer
 
-                If Tmp_String_Org.Length > 4 Then
+                If Tmp_String_Org.Length > 5 Then
 
                     'ServerState Control
                     If Tmp_String_Org.Substring(1, 1) = CM_ServerState_Flag Then
@@ -1398,6 +1396,7 @@ Public Class Form1
                         If Tmp_String_Org.Substring(4, 1) = ";" Then
                             Process_Get_Command(Command_Mode, Command_Str, 1)
                         Else
+                            Command_err_ListBox.Items.Insert(0, "EXEO:" + Command_Mode + ";" + Command_Str)
                             EXE_Write_To_Console("BAD")
                         End If
                         Exit Sub
@@ -1446,6 +1445,8 @@ Public Class Form1
             EXE_myStreamWriter.WriteLine(Write_Str_Data)
         Catch ex As Exception
             EXE_IS_LAUNCHED = False
+            Debug_Listbox.Items.Insert(0, "EXE_Write_To_Console():" + ex.Message)
+
         End Try
 
 
@@ -1460,6 +1461,7 @@ Public Class Form1
             EXE_myStreamWriter.WriteLine(IARR_Return(1))
         Catch ex As Exception
             EXE_IS_LAUNCHED = False
+            Debug_Listbox.Items.Insert(0, "EXE_Write_To_Console_Thread():" + ex.Message)
         End Try
 
         'It's dirty more then political (maybe)
@@ -1469,8 +1471,6 @@ Public Class Form1
     Private Sub EXE_ExitHandler(sendingProcess As Object, ByVal e As System.EventArgs)
 
         EXE_IS_LAUNCHED = False
-        'Send2EXE_Button.Enabled = False
-        'Send2Exe_TextBox.Enabled = False
 
     End Sub
 
@@ -1494,13 +1494,6 @@ Public Class Form1
         Form2.Show()
         Form2.BringToFront()
     End Sub
-
-    'Private Sub BoxRefreshTimer_Tick(sender As Object, e As EventArgs) Handles BoxRefreshTimer.Tick
-
-    '    SendMessage(MCS_Richtexbox.Handle, WM_VSCROLL, CType(SB_PAGEBOTTOM, IntPtr), IntPtr.Zero)
-    '    BoxRefreshTimer.Enabled = False
-
-    'End Sub
 
     Private Sub ManServerRefreshTimer_Tick(sender As Object, e As EventArgs) Handles ManServerRefreshTimer.Tick
 
@@ -1590,6 +1583,7 @@ Public Class Form1
 
             End If
         Catch ex As Exception
+            Debug_Listbox.Items.Insert(0, "Abnormal_WorkStop():" + ex.Message)
         End Try
     End Sub
     Private Sub MCServerRefreshTimer_Tick(sender As Object, e As EventArgs) Handles MCServerRefreshTimer.Tick
@@ -1822,7 +1816,7 @@ Public Class Form1
                     End If
                 End If
             Catch ex As Exception
-
+                Debug_Listbox.Items.Insert(0, "ManServerTimeOutTimer_Tick():" + ex.Message)
             End Try
         Next
 
@@ -1861,7 +1855,7 @@ Public Class Form1
                 End If
             End If
         Catch ex As Exception
-
+            Debug_Listbox.Items.Insert(0, "kill_task()1:" + ex.Message)
         End Try
 
         Try
@@ -1871,7 +1865,7 @@ Public Class Form1
                 End If
             End If
         Catch ex As Exception
-
+            Debug_Listbox.Items.Insert(0, "kill_task()2:" + ex.Message)
         End Try
 
         Try
@@ -1883,7 +1877,7 @@ Public Class Form1
                 End If
             End If
         Catch ex As Exception
-
+            Debug_Listbox.Items.Insert(0, "kill_task()3:" + ex.Message)
         End Try
 
     End Sub
@@ -2004,7 +1998,7 @@ Public Class Form1
         Form4.Show()
         Form4.BringToFront()
     End Sub
-    Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+    Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles MyBase.Closing
 
         If ReallyClose = False Then
             CloseForm(sender, e)
@@ -2146,7 +2140,7 @@ Public Class Form1
             Start_EXE_Process(Man_EXE_FirstExec)
 
         Catch ex As Exception
-
+            Debug_Listbox.Items.Insert(0, "Restart_EXEConsole():" + ex.Message)
         End Try
 
     End Sub
@@ -2183,7 +2177,6 @@ Public Class Form1
     End Sub
 
     Private Sub BoxRefreshTimer_Tick(sender As Object, e As EventArgs) Handles BoxRefreshTimer.Tick
-
         Dim Tmp_Index1 As Integer
         Show_String2 = ""
 
@@ -2197,7 +2190,8 @@ Public Class Form1
 
         MCS_Richtexbox.Text = Show_String2
         BoxRefreshTimer.Enabled = False
-
     End Sub
+
+
 End Class
 
