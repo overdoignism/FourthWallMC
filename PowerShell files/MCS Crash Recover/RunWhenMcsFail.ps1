@@ -1,5 +1,7 @@
 ﻿#
-# 2021-03-17
+# 2021-03-22
+#
+# For 4WMC ver 0.80 or newer
 #
 # 這是一個範例程式，用於 FourthWallMC，用於麥塊當掉時的處置。
 # It's a sample code for FourthWallMC, use for Minecraft server was crash. 
@@ -59,7 +61,7 @@ Write-Host "The MineCraft server failed recovery task is started. "
 #
 
 
-$result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm,info1' -waitsec 20 -err2stop $true -showResult $true
+$result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;info1' -waitsec 20 -err2stop $true -showResult $true
 
 if ($result -eq "ON") 
 {
@@ -85,12 +87,16 @@ elseif ($result -eq "OFF")
 	$OutputStr | Out-File ".\fail.log" -Append
 
 	#
-	# 進行備份
-	# Backup Minecraft.
+	# 從備份還原
+	# Recovery from Minecraft Backup.
+	#
+	# ** 您需要在此段編輯還原用的代碼、指令或程式 **
+	# ** You need to put the recovery command or code in here. **
 	#
 
-	Write-Host "Start Backup.."
-	$result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm,backup' -waitsec 120 -err2stop $true -showResult $true
+	Write-Host "Start Recovery..(Put your code here.)"
+	# some code
+	Start-Sleep -second 5
 
 	#
 	# 檢查 Minecraft server 失敗次數。大於三次將不會進行重啟，改為email通知。
@@ -102,10 +108,10 @@ elseif ($result -eq "OFF")
 
 		#
 		# 這裡使用Gmail為例。如果使用別的郵件服務，請自行查閱相關指令。
-		# 使用Gmail收發必須在<帳戶><安全性>啟用<低安全性應用程式存取權>。
+		# 使用Gmail收發必須在 Google <帳戶><安全性>啟用<低安全性應用程式存取權>。
 		#
 		# It's an example for gmail. If you are using another one, please google how to use (with powershell).
-		# Use gmail need Enable the <account><security><Allow Less Secure Apps to Access>
+		# Using gmail need enable this setting in google account: <account><security><Allow Less Secure Apps to Access>
 		#
 		# $EmailFrom, $EmailTo, $SMTPClient.Credentials need be modify.
 		#
@@ -128,7 +134,7 @@ elseif ($result -eq "OFF")
 		#
 
 		Write-Host "Restart Minecraft Server....."
-    		$result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm,start' -waitsec 120 -err2stop $true -showResult $true
+    		$result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;start' -waitsec 120 -err2stop $true -showResult $true
 	}
 
 	write-host "All done."
