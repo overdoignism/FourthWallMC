@@ -92,6 +92,9 @@ Partial Class Form2
         Me.Label24 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Label31 = New System.Windows.Forms.Label()
+        Me.WaitBusyLongAsCrash_NumericUpDown = New System.Windows.Forms.NumericUpDown()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label33 = New System.Windows.Forms.Label()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -103,6 +106,7 @@ Partial Class Form2
         CType(Me.ComPortSPD_NumericUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage4.SuspendLayout()
         Me.TabPage3.SuspendLayout()
+        CType(Me.WaitBusyLongAsCrash_NumericUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BrowseJAR_Button
@@ -581,6 +585,9 @@ Partial Class Form2
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.GroupBox2.Controls.Add(Me.Label33)
+        Me.GroupBox2.Controls.Add(Me.Label32)
+        Me.GroupBox2.Controls.Add(Me.WaitBusyLongAsCrash_NumericUpDown)
         Me.GroupBox2.Controls.Add(Me.Label30)
         Me.GroupBox2.Controls.Add(Me.Label29)
         Me.GroupBox2.Controls.Add(Me.DetAETimeS_Textbox)
@@ -590,9 +597,9 @@ Partial Class Form2
         Me.GroupBox2.Controls.Add(Me.BrowseTER_Button)
         Me.GroupBox2.Controls.Add(Me.DetAE_Run_TextBox)
         Me.GroupBox2.Controls.Add(Me.Label26)
-        Me.GroupBox2.Location = New System.Drawing.Point(26, 148)
+        Me.GroupBox2.Location = New System.Drawing.Point(26, 136)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(771, 198)
+        Me.GroupBox2.Size = New System.Drawing.Size(771, 249)
         Me.GroupBox2.TabIndex = 25
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "What to execute if MCS abnormal termination:"
@@ -601,7 +608,7 @@ Partial Class Form2
         '
         Me.Label30.AutoSize = True
         Me.Label30.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label30.Location = New System.Drawing.Point(458, 140)
+        Me.Label30.Location = New System.Drawing.Point(458, 138)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(293, 15)
         Me.Label30.TabIndex = 29
@@ -611,7 +618,7 @@ Partial Class Form2
         '
         Me.Label29.AutoSize = True
         Me.Label29.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label29.Location = New System.Drawing.Point(460, 125)
+        Me.Label29.Location = New System.Drawing.Point(460, 123)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(175, 15)
         Me.Label29.TabIndex = 28
@@ -619,7 +626,7 @@ Partial Class Form2
         '
         'DetAETimeS_Textbox
         '
-        Me.DetAETimeS_Textbox.Location = New System.Drawing.Point(119, 154)
+        Me.DetAETimeS_Textbox.Location = New System.Drawing.Point(119, 150)
         Me.DetAETimeS_Textbox.MaxLength = 16
         Me.DetAETimeS_Textbox.Name = "DetAETimeS_Textbox"
         Me.DetAETimeS_Textbox.Size = New System.Drawing.Size(152, 21)
@@ -628,7 +635,7 @@ Partial Class Form2
         '
         'DetAE_Para_TextBox
         '
-        Me.DetAE_Para_TextBox.Location = New System.Drawing.Point(120, 101)
+        Me.DetAE_Para_TextBox.Location = New System.Drawing.Point(120, 99)
         Me.DetAE_Para_TextBox.MaxLength = 1024
         Me.DetAE_Para_TextBox.Name = "DetAE_Para_TextBox"
         Me.DetAE_Para_TextBox.Size = New System.Drawing.Size(631, 21)
@@ -638,7 +645,7 @@ Partial Class Form2
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(120, 139)
+        Me.Label27.Location = New System.Drawing.Point(120, 135)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(169, 15)
         Me.Label27.TabIndex = 24
@@ -647,7 +654,7 @@ Partial Class Form2
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(119, 86)
+        Me.Label28.Location = New System.Drawing.Point(119, 84)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(541, 15)
         Me.Label28.TabIndex = 26
@@ -691,7 +698,7 @@ Partial Class Form2
         Me.GroupBox1.Controls.Add(Me.ComPortSPD_NumericUpDown)
         Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.Label13)
-        Me.GroupBox1.Location = New System.Drawing.Point(26, 379)
+        Me.GroupBox1.Location = New System.Drawing.Point(26, 401)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(771, 140)
         Me.GroupBox1.TabIndex = 24
@@ -824,6 +831,36 @@ Partial Class Form2
         Me.Label31.TabIndex = 40
         Me.Label31.Text = """CommandBlock"" all have privilege (by ""@"")"
         '
+        'WaitBusyLongAsCrash_NumericUpDown
+        '
+        Me.WaitBusyLongAsCrash_NumericUpDown.Location = New System.Drawing.Point(123, 206)
+        Me.WaitBusyLongAsCrash_NumericUpDown.Maximum = New Decimal(New Integer() {120, 0, 0, 0})
+        Me.WaitBusyLongAsCrash_NumericUpDown.Name = "WaitBusyLongAsCrash_NumericUpDown"
+        Me.WaitBusyLongAsCrash_NumericUpDown.ReadOnly = True
+        Me.WaitBusyLongAsCrash_NumericUpDown.Size = New System.Drawing.Size(90, 21)
+        Me.WaitBusyLongAsCrash_NumericUpDown.TabIndex = 30
+        Me.WaitBusyLongAsCrash_NumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(120, 188)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(574, 15)
+        Me.Label32.TabIndex = 31
+        Me.Label32.Text = "How long does it not return from BUSY mode, identify as crashed, and execute acti" &
+    "ons (include kill task)."
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label33.Location = New System.Drawing.Point(228, 208)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(140, 15)
+        Me.Label33.TabIndex = 32
+        Me.Label33.Text = "(in minutes. 0 = not use)"
+        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -853,6 +890,7 @@ Partial Class Form2
         Me.TabPage4.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
+        CType(Me.WaitBusyLongAsCrash_NumericUpDown, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -927,4 +965,7 @@ Partial Class Form2
     Friend WithEvents Label29 As Label
     Friend WithEvents Label30 As Label
     Friend WithEvents Label31 As Label
+    Friend WithEvents Label33 As Label
+    Friend WithEvents Label32 As Label
+    Friend WithEvents WaitBusyLongAsCrash_NumericUpDown As NumericUpDown
 End Class

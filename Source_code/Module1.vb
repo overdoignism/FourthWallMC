@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Net
 Imports System.Drawing.Text
 Imports System.Runtime.InteropServices
+Imports System.Management
 
 Module Module1
 
@@ -28,7 +29,8 @@ Module Module1
     Public Man_Who_CanWork As String = "who1;who2"
     Public Man_Who_CanWorkList() As String
     Public Man_Who_LastSending As String
-    Public Man_ThisTime_W2Say As Boolean
+    Public Man_Who_LastSending_ForCheck As String = ""
+    'Public Man_ThisTime_W2Say As Boolean Abolished 
     Public Man_Use_InJ As Boolean = True
     Public Man_EXE_FirstExec As String
     Public Man_Flood_ToEXE As Integer '0=None 1=EXE2F  2=F2EXE
@@ -71,12 +73,15 @@ Module Module1
 
     Public LogInlayer() As String
     Public LogOutPlayer() As String
-    Public BannedPlayer() As String
-
 
     Public MCServerType As String = "Vanilla(or not detected)"
     Public MCServerVer As String
     Public ServerStart_Tick As UInt64
+
+    Public WaitBusyLongAsCrash As Integer
+    Public WaitBLAC_Count As Integer
+
+    Public variableString(9) As String
 
     <DllImport("kernel32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
     Public Function GetTickCount64() As UInt64
@@ -115,6 +120,8 @@ Module Module1
 
         EXECommand_ViaSay = Form2.ExeViaSay_Checkbox.Checked
 
+        WaitBusyLongAsCrash = Form2.WaitBusyLongAsCrash_NumericUpDown.Value
+
         Make_List_Array()
         SaveXML()
     End Sub
@@ -149,6 +156,9 @@ Module Module1
             createNode(Save_XML, "EXECommand_ViaSay", EXECommand_ViaSay)
             createNode(Save_XML, "Det_AE_RunPara", Det_AE_RunPara)
             createNode(Save_XML, "DAE_TIME_Format", DAE_TIME_Format)
+            createNode(Save_XML, "WaitBusyLongAsCrash", WaitBusyLongAsCrash)
+
+
 
             Save_XML.WriteEndElement()
             Save_XML.Flush()
@@ -161,14 +171,26 @@ Module Module1
 
     End Sub
 
-    Public Sub LoadXML()
+    Public Function LoadXML(Optional LoadFile As String = "") As String
 
         Dim Load_XML As New XmlDocument()
         Dim TmpNode As XmlNode
+        Dim LoadFile_Fin As String
+        LoadXML = ""
+
+
+        If LoadFile = "" Then
+            LoadFile_Fin = Origial_Path + "\Setting.xml"
+        Else
+            If Not My.Computer.FileSystem.FileExists(LoadFile) Then
+                Return "ERROR-File not exist."
+            End If
+            LoadFile_Fin = LoadFile
+        End If
 
         Try
 
-            Load_XML.Load(Origial_Path + "\Setting.xml")
+            Load_XML.Load(LoadFile_Fin)
             Dim nodes As XmlNodeList = Load_XML.DocumentElement.SelectNodes("/Setup")
             Dim Node1 As XmlNode = nodes.ItemOf(0)
 
@@ -243,6 +265,9 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("DAE_TIME_Format")
             If TmpNode IsNot Nothing Then DAE_TIME_Format = TmpNode.InnerText
 
+            TmpNode = Node1.SelectSingleNode("WaitBusyLongAsCrash")
+            If TmpNode IsNot Nothing Then WaitBusyLongAsCrash = Val(TmpNode.InnerText)
+
             If Man_Who_CanWork IsNot Nothing Then
                 Make_List_Array()
             Else
@@ -252,12 +277,12 @@ Module Module1
 
 
         Catch ex As Exception
-            MsgBox("Err:", 0, ex.Message)
+            LoadXML = "ERROR-" + ex.Message
         End Try
 
         Make_Value_In_Box()
 
-    End Sub
+    End Function
 
     Public Sub Make_Value_In_Box()
 
@@ -288,8 +313,10 @@ Module Module1
         Form2.DetAETimeS_Textbox.Text = DAE_TIME_Format
 
         Form2.ExeViaSay_Checkbox.Checked = EXECommand_ViaSay
+        Form2.WaitBusyLongAsCrash_NumericUpDown.Value = WaitBusyLongAsCrash
 
         Form3.Iagree_CheckBox.Checked = IsAgree
+
 
     End Sub
 
@@ -306,7 +333,6 @@ Module Module1
         If InStr(TestStr, " PAPER") > 0 Then Return "Paper"
         If InStr(TestStr, " FABRIC") > 0 Then Return "Fabric"
         If InStr(TestStr, " FORGE") > 0 Then Return "Forge"
-        If InStr(TestStr, " FABRIC") > 0 Then Return "Fabric"
         If InStr(TestStr, " SPIGOT") > 0 Then Return "Spigot"
 
         Return "Vanilla(or not detected)"
@@ -348,7 +374,7 @@ Module Module1
         Dim TheStringUP As String = TheString.ToUpper
 
         '==========================V1 detect========================
-        Tmp_Index2 = InStr(TheStringUP, " INFO]:") + 8 'L=7
+        Tmp_Index2 = InStr(TheStringUP, "]:") + 3 'L=2
         Tmp_Index3 = InStr(TheStringUP, " ISSUED SERVER COMMAND: /W ") 'L=27
         If ((Tmp_Index3 > Tmp_Index2) AndAlso (TheStringUP.Length > Tmp_Index3 + 27 + 6)) Then
             'Get SenderID
@@ -375,7 +401,7 @@ Module Module1
         If ExeViaSay Then
             Tmp_Index2 = InStr(TheStringUP, "]: <") + 4
             Tmp_Index3 = InStr(Tmp_Index2, TheStringUP, ">")
-            If (Tmp_Index3 > Tmp_Index2) Then
+            If (Tmp_Index3 > Tmp_Index2) AndAlso (Tmp_Index2 > 0) Then
                 Get_SenderID = TheString.Substring(Tmp_Index2 - 1, Tmp_Index3 - Tmp_Index2)
                 If The_Man_has_right_V2(Get_SenderID) Then
                     Get_AfterID = TheString.Substring(Tmp_Index3).Trim
@@ -396,7 +422,7 @@ Module Module1
         If ExeViaSay Then
             Tmp_Index2 = InStr(TheStringUP, "]: [") + 4
             Tmp_Index3 = InStr(Tmp_Index2, TheStringUP, "]")
-            If (Tmp_Index3 > Tmp_Index2) Then
+            If (Tmp_Index3 > Tmp_Index2) AndAlso (Tmp_Index2 > 0) Then
                 Get_SenderID = TheString.Substring(Tmp_Index2 - 1, Tmp_Index3 - Tmp_Index2)
                 If The_Man_has_right_V2(Get_SenderID) Then
                     Get_AfterID = TheString.Substring(Tmp_Index3).Trim
@@ -453,23 +479,24 @@ Module Module1
 
     Public Function The_Man_has_right_V1(Check_Sender_String As String, Check_Sendto_String As String) As Boolean
 
-        If (Check_Sender_String.Length >= 15) AndAlso (Man_CBAT_Workable = 1) Then
+        If (Check_Sender_String.Length >= 15) AndAlso (Man_CBAT_Workable = 1) Then 'CommandBlock send all pass
             If (Check_Sender_String.Substring(0, 15) = "CommandBlock at") Then
                 If (Check_Sendto_String = "CommandBlock") Then
-                    Man_Who_LastSending = "CONSOLE"
+                    Man_Who_LastSending_ForCheck = Check_Sender_String
                     Return True
                 End If
             End If
         End If
 
         For Each TestOP_List As String In Man_Who_CanWorkList
-            If Check_Sender_String = TestOP_List Then
+            If Check_Sender_String = TestOP_List Then  'Normal player send
                 If Check_Sender_String = Check_Sendto_String Then
-                    Man_Who_LastSending = Check_Sendto_String
+                    Man_Who_LastSending = Check_Sender_String
+                    Man_Who_LastSending_ForCheck = Check_Sender_String
                     Return True
-                ElseIf (Check_Sender_String.Length > 15) AndAlso (Check_Sender_String.Substring(0, 15) = "CommandBlock at") Then
+                ElseIf (Check_Sender_String.Length > 15) AndAlso (Check_Sender_String.Substring(0, 15) = "CommandBlock at") Then 'CommandBlock send need set
                     If (Check_Sendto_String = "CommandBlock") Then
-                        Man_Who_LastSending = "CONSOLE"
+                        Man_Who_LastSending_ForCheck = Check_Sender_String
                         Return True
                     End If
                 End If
@@ -483,12 +510,14 @@ Module Module1
     Public Function The_Man_has_right_V2(Check_Sender_String As String) As Boolean
 
         If Check_Sender_String = "@" Then
+            Man_Who_LastSending_ForCheck = "@"
             Return True
         End If
 
         For Each TestOP_List As String In Man_Who_CanWorkList
             If Check_Sender_String = TestOP_List Then
                 Man_Who_LastSending = Check_Sender_String
+                Man_Who_LastSending_ForCheck = Check_Sender_String
                 Return True
             End If
         Next
@@ -533,6 +562,7 @@ Module Module1
                 If TMP_IDX2 > TMP_IDX Then
                     TheStringWorking = TheString.Substring(TMP_IDX, (TMP_IDX2 - TMP_IDX) - 1)
                     TheStringWorking = Replace(TheStringWorking, "] (", ";")
+                    TheStringWorking = Replace(TheStringWorking, ",", ";")
                     TheStringWorking = Replace(TheStringWorking, " ", "")
 
                     Return TheStringWorking
@@ -605,15 +635,15 @@ Module Module1
 
     Public Function Get_Full_MCServer_Control(TheString As String) As Integer
 
-        If TheString.Length >= 4 Then
+        If TheString.Length >= 3 Then
 
             Dim ServerSetting() As String = TheString.Split(";")
             Dim TmpIdx1, TmpIdx2 As Integer
 
             TmpIdx1 = UBound(ServerSetting)
-            If TmpIdx1 <> 3 Then Return 0
+            If TmpIdx1 <> 2 Then Return 0
 
-            For TmpIdx2 = 0 To 3
+            For TmpIdx2 = 0 To 2
                 If ServerSetting(TmpIdx2) <> "" Then
                     TmpIdx1 = Val(ServerSetting(TmpIdx2))
                     Select Case TmpIdx2
@@ -626,10 +656,6 @@ Module Module1
                                 Man_Flood_ToEXE = TmpIdx1
                             End If
                         Case 2
-                            If (TmpIdx1 >= 0) AndAlso (TmpIdx1 <= 1) Then
-                                Man_ThisTime_W2Say = TmpIdx1
-                            End If
-                        Case 3
                             If (TmpIdx1 >= 0) AndAlso (TmpIdx1 <= 1) Then
                                 BurstMode = TmpIdx1
                             End If
@@ -653,5 +679,30 @@ Module Module1
 
         Return System.Text.Encoding.ASCII.GetString(bytes, 0, data_long)
     End Function
+
+    Sub killChildrenProcessesOf(ByVal parentProcessId As UInt32)
+
+        Dim searcher As New ManagementObjectSearcher("SELECT * FROM Win32_Process WHERE ParentProcessId=" & parentProcessId)
+
+        Dim Collection As ManagementObjectCollection
+        Collection = searcher.Get()
+
+        If (Collection.Count > 0) Then
+
+            For Each item In Collection
+                Dim childProcessId As Int32
+                childProcessId = Convert.ToInt32(item("ProcessId"))
+                If Not (childProcessId = Process.GetCurrentProcess().Id) Then
+
+                    killChildrenProcessesOf(childProcessId)
+
+                    Dim childProcess As Process
+                    childProcess = Process.GetProcessById(childProcessId)
+                    childProcess.Kill()
+                End If
+            Next
+        End If
+    End Sub
+
 
 End Module
