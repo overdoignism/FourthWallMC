@@ -1,7 +1,9 @@
 ﻿#
 # It's a sample code for FourthWallMC
 #
-# 2021-03-13
+# 2021-03-22
+#
+# For 4WMC ver 0.80 or newer
 #
 # Please do not modify this if you are not know what are you doing.
 #
@@ -49,12 +51,15 @@ function ServerSocket {
 function ConnectServer {
 	param ($server, $port, $password, $message, $waitsec, $err2stop = $true, $showResult = $false)
 
-	$ReturnResult = 'BUSY'
 	$WaitCount = 0
-	$UseString = $password + "," + $message
+	$UseString = $password + ";" + $message
+	
+	[bool]$IsNeedWait 
+	$IsNeedWait = $true
 
-	while($ReturnResult -eq 'BUSY')
+	while($IsNeedWait)
 	{
+
 
 		try
 		{
@@ -71,7 +76,7 @@ function ConnectServer {
 
 		if ($WaitCount -gt $waitsec)
 		{
-			Write-Host 'The task has timed out.'
+			Write-Host "The task has timed out: WAIT/BUSY over $waitsec sec."
 			if ($err2stop) {exit 1}
 		}
 		else
@@ -81,7 +86,7 @@ function ConnectServer {
 			{
 				'PASS'
 				{
-					$UseString = $password + ",sy,This task has been cancelled."
+					$UseString = $password + ";sy;This task has been cancelled."
 					$NoDisplay = ServerSocket -socket_server $server -socket_port $port -socket_message $UseString
 					Write-Host "PASS: This task has been cancelled."
                     			exit 2
@@ -110,6 +115,10 @@ function ConnectServer {
     				}
 			}
 		}
+
+		$IsNeedWait = ($ReturnResult -eq 'BUSY')
+		$IsNeedWait = $IsNeedWait -or ($ReturnResult -eq 'WAIT')
+
 	}
 
 	return $ReturnResult

@@ -1,5 +1,7 @@
 ﻿#
-# 2021-03-11
+# 2021-03-22
+#
+# For 4WMC ver 0.80 or newer
 #
 # 這是一個範例程式，用於 FourthWallMC，可以廣播、停止、備份、重啟伺服器。
 # It's a sample code for FourthWallMC, use to Broadcast, then stop server, backup server, and restart server. 
@@ -56,7 +58,7 @@ Write-Host "Backup task started."
 # Test for if Minecraft server is on.
 #
 
-$result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm,info1' -waitsec 20 -err2stop $true -showResult $true
+$result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;info1' -waitsec 20 -err2stop $true -showResult $true
 
 if ($result -eq "ON") 
 {
@@ -66,19 +68,19 @@ if ($result -eq "ON")
     #
 
     Write-Host "Countdown 5 min."
-    $result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in,say We will shutdown server in 5 min.' -waitsec 0 -err2stop $true -showResult $true
-    Start-Sleep -second 120
+    $result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We will shutdown server in 5 min.' -waitsec 0 -err2stop $true -showResult $true
+    Start-Sleep -second 12
 
     Write-Host "Countdown 3 min."
-    $result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in,say We will shutdown server in 3 min.' -waitsec 0 -err2stop $true -showResult $true
-    Start-Sleep -second 120
+    $result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We will shutdown server in 3 min.' -waitsec 0 -err2stop $true -showResult $true
+    Start-Sleep -second 12
 
     Write-Host "Countdown 1 min."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in,say We will shutdown server in 1 min.' -waitsec 0 -err2stop $true -showResult $true
-    Start-Sleep -second 60
+    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We will shutdown server in 1 min.' -waitsec 0 -err2stop $true -showResult $true
+    Start-Sleep -second 6
 
     Write-Host "Countdown end, we are shutting down."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in,say We are shutting down the server.' -waitsec 0 -err2stop $true -showResult $true
+    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We are shutting down the server.' -waitsec 0 -err2stop $true -showResult $true
 
     #
     # 在Minecraft伺服器內用 stop 指令進行關機
@@ -86,23 +88,23 @@ if ($result -eq "ON")
     #
 
     Write-Host "Minecraft is Shutdown now."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in,stop' -waitsec 0 -err2stop $true -showResult $true
+    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;stop' -waitsec 0 -err2stop $true -showResult $true
 
     #
-    # 讓 FourthWallMC 進行備份動作
-    # Let's FourthWallMC Backup Minecraft
+    # 等待完成關機，讓 FourthWallMC 進行備份動作
+    # Waiting for Shutdown, and let's FourthWallMC Backup Minecraft
     #
 
-    Write-Host "Start Backup.."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm,backup' -waitsec 120 -err2stop $true -showResult $true
+    Write-Host "Waiting for Shutdown, then Start Backup.."
+    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;backup' -waitsec 120 -err2stop $true -showResult $true
 
     #
-    # 重啟 Minecraft 伺服器
-    # Re-Start Minecraft server
+    # 等待完成備份，重啟 Minecraft 伺服器
+    # Waiting for Shutdown, and Re-Start Minecraft server
     #
 
-    Write-Host "Restart Minecraft Server....."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm,start' -waitsec 120 -err2stop $true -showResult $true
+    Write-Host "Waiting backup finish, then Restart Minecraft Server....."
+    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;start' -waitsec 120 -err2stop $true -showResult $true
 
 }
 elseif ($result -eq "OFF")
@@ -114,7 +116,8 @@ elseif ($result -eq "OFF")
     #
 
     Write-Host "Start Backup.."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm,backup' -waitsec 120 -err2stop $true -showResult $true
+    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;backup' -waitsec 120 -err2stop $true -showResult $true
+
 }
 else
 {
