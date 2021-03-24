@@ -64,7 +64,7 @@ Module Module1
 
     Public EXECommand_ViaSay As Boolean
 
-    Public BurstMode As Integer = 0
+    'Public BurstMode As Integer = 0
     Public Origial_Path As String
 
     'Detect EssentialsX Installed
@@ -81,7 +81,17 @@ Module Module1
     Public WaitBusyLongAsCrash As Integer
     Public WaitBLAC_Count As Integer
 
+    Public Return_PreFix As String = ""
+
     Public variableString(9) As String
+
+    Public Local_IP_ADDR As String = "Any"
+
+    Public Const Queued_EXE_depth = 99
+    Public Queued_EXE_Command(Queued_EXE_depth) As String
+    Public Queued_EXE_Command_StoredIDX As Integer = 0
+    Public Queued_EXE_Command_WalkedIDX As Integer = 0
+    Public Queued_EXE_Command_Enable As Boolean = False
 
     <DllImport("kernel32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
     Public Function GetTickCount64() As UInt64
@@ -120,6 +130,8 @@ Module Module1
 
         EXECommand_ViaSay = Form2.ExeViaSay_Checkbox.Checked
 
+        Local_IP_ADDR = Form2.L_IPaddr_Combobox.SelectedItem.ToString
+
         WaitBusyLongAsCrash = Form2.WaitBusyLongAsCrash_NumericUpDown.Value
 
         Make_List_Array()
@@ -157,8 +169,7 @@ Module Module1
             createNode(Save_XML, "Det_AE_RunPara", Det_AE_RunPara)
             createNode(Save_XML, "DAE_TIME_Format", DAE_TIME_Format)
             createNode(Save_XML, "WaitBusyLongAsCrash", WaitBusyLongAsCrash)
-
-
+            createNode(Save_XML, "Local_IP_ADDR", Local_IP_ADDR)
 
             Save_XML.WriteEndElement()
             Save_XML.Flush()
@@ -268,6 +279,11 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("WaitBusyLongAsCrash")
             If TmpNode IsNot Nothing Then WaitBusyLongAsCrash = Val(TmpNode.InnerText)
 
+            TmpNode = Node1.SelectSingleNode("Local_IP_ADDR")
+            If TmpNode IsNot Nothing Then Local_IP_ADDR = TmpNode.InnerText
+
+
+
             If Man_Who_CanWork IsNot Nothing Then
                 Make_List_Array()
             Else
@@ -317,6 +333,25 @@ Module Module1
 
         Form3.Iagree_CheckBox.Checked = IsAgree
 
+
+        '=======for IP
+
+        Dim Find_In_List As Boolean = False
+        For IDX01 As Integer = 0 To Form2.L_IPaddr_Combobox.Items.Count - 1
+            If Form2.L_IPaddr_Combobox.Items(IDX01).ToString = Local_IP_ADDR Then
+                Form2.L_IPaddr_Combobox.SelectedIndex() = IDX01
+                Find_In_List = True
+                Exit For
+            End If
+        Next
+
+        If Not Find_In_List Then
+            Form2.L_IPaddr_Combobox.SelectedIndex() = 0
+            Local_IP_ADDR = "Any"
+            MsgBox("Alert: The setting for local IP was disappear." + vbNewLine + vbNewLine +
+                   "(Maybe caused by Network adapter change.) " + vbNewLine + vbNewLine +
+                  "Now set to ""Any"". Please note.", 0, "Alert")
+        End If
 
     End Sub
 
@@ -539,9 +574,25 @@ Module Module1
 
     End Function
 
+    Public Function Ticket_Return(TheString As String, CheckTarget As String) As String
+
+        Ticket_Return = "-2"
+
+        If InStr(TheString.ToUpper, " UNKNOWN DIMENSION") > 0 Then Return "-4"
+
+        Dim TMP_TICK1_IDX As Integer
+        TMP_TICK1_IDX = InStr(TheString.ToUpper, " THE TIME IS ")
+
+        If TMP_TICK1_IDX > 0 Then
+            Return TheString.Substring(TMP_TICK1_IDX + 12)
+        End If
+
+    End Function
+
+
     Public Function Locate_Return(TheString As String, CheckTarget As String) As String
 
-        Locate_Return = "-1"
+        Locate_Return = "-2"
         If CheckTarget Is Nothing Then Exit Function
 
         Dim TheStringUp As String = TheString.ToUpper
@@ -574,7 +625,7 @@ Module Module1
 
     Public Function RawRead_Return(TheString As String, CheckTarget() As String) As String
 
-        RawRead_Return = "-1"
+        RawRead_Return = "-2"
         If CheckTarget Is Nothing Then Exit Function
 
         Dim TheStringUp As String = TheString.ToUpper
@@ -600,12 +651,12 @@ Module Module1
 
     Public Sub What_RU_Waiting(ByRef WaitingStr As String, WaitingTimes_ds As Integer)
 
+        WaitingTimes_ds = WaitingTimes_ds * 10
         Dim LoopWait As Integer = 0
-
         Do
-            System.Threading.Thread.Sleep(100)
+            System.Threading.Thread.Sleep(10)
             My.Application.DoEvents()
-            If WaitingStr <> "-1" Then Exit Do
+            If (WaitingStr <> "-1") And (WaitingStr <> "-2") Then Exit Do
             LoopWait += 1
         Loop Until LoopWait = WaitingTimes_ds
 
@@ -635,7 +686,7 @@ Module Module1
 
     Public Function Get_Full_MCServer_Control(TheString As String) As Integer
 
-        If TheString.Length >= 3 Then
+        If TheString.Length >= 2 Then
 
             Dim ServerSetting() As String = TheString.Split(";")
             Dim TmpIdx1, TmpIdx2 As Integer
@@ -654,10 +705,6 @@ Module Module1
                         Case 1
                             If (TmpIdx1 >= 0) AndAlso (TmpIdx1 <= 2) Then
                                 Man_Flood_ToEXE = TmpIdx1
-                            End If
-                        Case 2
-                            If (TmpIdx1 >= 0) AndAlso (TmpIdx1 <= 1) Then
-                                BurstMode = TmpIdx1
                             End If
                     End Select
                 End If
@@ -703,6 +750,42 @@ Module Module1
             Next
         End If
     End Sub
+
+
+    Public Sub Get_All_IP_Addr()
+
+        Form2.L_IPaddr_Combobox.Items.Clear()
+        Form2.L_IPaddr_Combobox.Items.Add("Any")
+        Form2.L_IPaddr_Combobox.Items.Add("IPv4 Any")
+        Form2.L_IPaddr_Combobox.Items.Add("IPv6 Any")
+        Form2.L_IPaddr_Combobox.Items.Add("127.0.0.1")
+        Form2.L_IPaddr_Combobox.Items.Add("::1")
+
+        Dim strHostName As String = Dns.GetHostName()
+        Dim IPHostE As IPHostEntry = Dns.GetHostEntry(strHostName)
+
+
+        For Each IP_ADDRS As IPAddress In IPHostE.AddressList
+            If IP_ADDRS.AddressFamily = Sockets.AddressFamily.InterNetwork Then
+                Form2.L_IPaddr_Combobox.Items.Add(IP_ADDRS.ToString)
+            ElseIf IP_ADDRS.AddressFamily = Sockets.AddressFamily.InterNetworkV6 Then
+
+                Form2.L_IPaddr_Combobox.Items.Add(IP_ADDRS.ToString)
+            End If
+        Next
+
+        Form2.L_IPaddr_Combobox.SelectedIndex = 0
+
+    End Sub
+
+    Public Sub Clear_EXE_Queue()
+        For idx00 As Integer = 0 To Queued_EXE_depth
+            Queued_EXE_Command(idx00) = ""
+        Next
+        Queued_EXE_Command_StoredIDX = 0
+        Queued_EXE_Command_WalkedIDX = 0
+    End Sub
+
 
 
 End Module

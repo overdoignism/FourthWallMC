@@ -29,7 +29,6 @@ Partial Class Form1
         Me.MCS_ConsoleTextbox = New System.Windows.Forms.TextBox()
         Me.MCS_Richtexbox = New System.Windows.Forms.RichTextBox()
         Me.SetupButton = New System.Windows.Forms.Button()
-        Me.ManServerRefreshTimer = New System.Windows.Forms.Timer(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
         Me.MCServerRefreshTimer = New System.Windows.Forms.Timer(Me.components)
         Me.MCSState_Label = New System.Windows.Forms.Label()
@@ -46,10 +45,10 @@ Partial Class Form1
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.EXE_Textbox = New System.Windows.Forms.RichTextBox()
         Me.EXECON_Stat_Label = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Send2Exe_TextBox = New System.Windows.Forms.TextBox()
-        Me.EXE_Texbox = New System.Windows.Forms.TextBox()
         Me.Send2EXE_Button = New System.Windows.Forms.Button()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Button6 = New System.Windows.Forms.Button()
@@ -67,6 +66,7 @@ Partial Class Form1
         Me.Player_Logout = New System.Windows.Forms.ListBox()
         Me.Player_Login = New System.Windows.Forms.ListBox()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.Command_err_ListBox = New System.Windows.Forms.ListBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Debug_Listbox = New System.Windows.Forms.ListBox()
@@ -76,7 +76,6 @@ Partial Class Form1
         Me.Label6 = New System.Windows.Forms.Label()
         Me.COMState_Label = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.BurstModeButton = New System.Windows.Forms.Button()
         Me.WaitPanel = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -85,7 +84,8 @@ Partial Class Form1
         Me.RestartCon_Button = New System.Windows.Forms.Button()
         Me.EXE_BoxRefreshTimer = New System.Windows.Forms.Timer(Me.components)
         Me.BoxRefreshTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.Label13 = New System.Windows.Forms.Label()
+        Me.QueueEXE_RunnerTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.PauseText_Button = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -152,11 +152,6 @@ Partial Class Form1
         Me.SetupButton.TabIndex = 6
         Me.SetupButton.Text = "Setup"
         Me.SetupButton.UseVisualStyleBackColor = True
-        '
-        'ManServerRefreshTimer
-        '
-        Me.ManServerRefreshTimer.Enabled = True
-        Me.ManServerRefreshTimer.Interval = 1000
         '
         'Label1
         '
@@ -317,10 +312,10 @@ Partial Class Form1
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TabPage2.Controls.Add(Me.EXE_Textbox)
         Me.TabPage2.Controls.Add(Me.EXECON_Stat_Label)
         Me.TabPage2.Controls.Add(Me.Label11)
         Me.TabPage2.Controls.Add(Me.Send2Exe_TextBox)
-        Me.TabPage2.Controls.Add(Me.EXE_Texbox)
         Me.TabPage2.Controls.Add(Me.Send2EXE_Button)
         Me.TabPage2.Location = New System.Drawing.Point(4, 24)
         Me.TabPage2.Name = "TabPage2"
@@ -328,6 +323,20 @@ Partial Class Form1
         Me.TabPage2.Size = New System.Drawing.Size(1018, 607)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "EXE console"
+        '
+        'EXE_Textbox
+        '
+        Me.EXE_Textbox.BackColor = System.Drawing.Color.Black
+        Me.EXE_Textbox.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EXE_Textbox.ForeColor = System.Drawing.Color.Silver
+        Me.EXE_Textbox.Location = New System.Drawing.Point(6, 5)
+        Me.EXE_Textbox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.EXE_Textbox.Name = "EXE_Textbox"
+        Me.EXE_Textbox.ReadOnly = True
+        Me.EXE_Textbox.Size = New System.Drawing.Size(1006, 561)
+        Me.EXE_Textbox.TabIndex = 29
+        Me.EXE_Textbox.Text = ""
+        Me.EXE_Textbox.WordWrap = False
         '
         'EXECON_Stat_Label
         '
@@ -359,21 +368,6 @@ Partial Class Form1
         Me.Send2Exe_TextBox.Name = "Send2Exe_TextBox"
         Me.Send2Exe_TextBox.Size = New System.Drawing.Size(808, 26)
         Me.Send2Exe_TextBox.TabIndex = 26
-        '
-        'EXE_Texbox
-        '
-        Me.EXE_Texbox.BackColor = System.Drawing.Color.Black
-        Me.EXE_Texbox.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EXE_Texbox.ForeColor = System.Drawing.Color.Silver
-        Me.EXE_Texbox.Location = New System.Drawing.Point(6, 6)
-        Me.EXE_Texbox.MaxLength = 1048576
-        Me.EXE_Texbox.Multiline = True
-        Me.EXE_Texbox.Name = "EXE_Texbox"
-        Me.EXE_Texbox.ReadOnly = True
-        Me.EXE_Texbox.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.EXE_Texbox.Size = New System.Drawing.Size(1006, 560)
-        Me.EXE_Texbox.TabIndex = 0
-        Me.EXE_Texbox.WordWrap = False
         '
         'Send2EXE_Button
         '
@@ -574,6 +568,17 @@ Partial Class Form1
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "Debug tracker"
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.ForeColor = System.Drawing.Color.White
+        Me.Label13.Location = New System.Drawing.Point(521, 42)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(210, 16)
+        Me.Label13.TabIndex = 15
+        Me.Label13.Text = "Command error:  (Latest on top)"
+        '
         'Command_err_ListBox
         '
         Me.Command_err_ListBox.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -664,18 +669,6 @@ Partial Class Form1
         Me.Panel1.Size = New System.Drawing.Size(1019, 36)
         Me.Panel1.TabIndex = 29
         '
-        'BurstModeButton
-        '
-        Me.BurstModeButton.BackColor = System.Drawing.Color.White
-        Me.BurstModeButton.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BurstModeButton.Location = New System.Drawing.Point(11, 351)
-        Me.BurstModeButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.BurstModeButton.Name = "BurstModeButton"
-        Me.BurstModeButton.Size = New System.Drawing.Size(121, 58)
-        Me.BurstModeButton.TabIndex = 30
-        Me.BurstModeButton.Text = "Burst Mode"
-        Me.BurstModeButton.UseVisualStyleBackColor = False
-        '
         'WaitPanel
         '
         Me.WaitPanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
@@ -738,30 +731,35 @@ Partial Class Form1
         '
         'BoxRefreshTimer
         '
-        Me.BoxRefreshTimer.Interval = 500
+        Me.BoxRefreshTimer.Enabled = True
+        Me.BoxRefreshTimer.Interval = 250
         '
-        'Label13
+        'QueueEXE_RunnerTimer
         '
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.ForeColor = System.Drawing.Color.White
-        Me.Label13.Location = New System.Drawing.Point(521, 42)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(210, 16)
-        Me.Label13.TabIndex = 15
-        Me.Label13.Text = "Command error:  (Latest on top)"
+        Me.QueueEXE_RunnerTimer.Interval = 500
+        '
+        'PauseText_Button
+        '
+        Me.PauseText_Button.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PauseText_Button.Location = New System.Drawing.Point(11, 375)
+        Me.PauseText_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PauseText_Button.Name = "PauseText_Button"
+        Me.PauseText_Button.Size = New System.Drawing.Size(121, 58)
+        Me.PauseText_Button.TabIndex = 37
+        Me.PauseText_Button.Text = "Pause TextBox"
+        Me.PauseText_Button.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
-        Me.ClientSize = New System.Drawing.Size(1177, 700)
+        Me.ClientSize = New System.Drawing.Size(1181, 700)
+        Me.Controls.Add(Me.PauseText_Button)
         Me.Controls.Add(Me.RestartCon_Button)
         Me.Controls.Add(Me.ServerType_Label)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.WaitPanel)
-        Me.Controls.Add(Me.BurstModeButton)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ModeExeFW_Button)
         Me.Controls.Add(Me.TabControl1)
@@ -803,7 +801,6 @@ Partial Class Form1
     Friend WithEvents MCS_ConsoleTextbox As TextBox
     Friend WithEvents MCS_Richtexbox As RichTextBox
     Friend WithEvents SetupButton As Button
-    Friend WithEvents ManServerRefreshTimer As Timer
     Friend WithEvents Label1 As Label
     Friend WithEvents MCServerRefreshTimer As Timer
     Friend WithEvents MCSState_Label As Label
@@ -819,7 +816,6 @@ Partial Class Form1
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents EXE_Texbox As TextBox
     Friend WithEvents Send2Exe_TextBox As TextBox
     Friend WithEvents Send2EXE_Button As Button
     Friend WithEvents ModeExeFW_Button As Button
@@ -828,7 +824,6 @@ Partial Class Form1
     Friend WithEvents Label6 As Label
     Friend WithEvents COMState_Label As Label
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents BurstModeButton As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents WaitPanel As Panel
     Friend WithEvents Label2 As Label
@@ -860,4 +855,7 @@ Partial Class Form1
     Friend WithEvents Command_err_ListBox As ListBox
     Friend WithEvents Label12 As Label
     Friend WithEvents Label13 As Label
+    Friend WithEvents QueueEXE_RunnerTimer As Timer
+    Friend WithEvents EXE_Textbox As RichTextBox
+    Friend WithEvents PauseText_Button As Button
 End Class
