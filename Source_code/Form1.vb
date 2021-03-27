@@ -19,7 +19,7 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
-    Const FwmcVer As String = "0.83"
+    Const FwmcVer As String = "0.84"
 
     Const CM_Type_W As String = "#"
     Const CM_Type_VarWri As String = "$"
@@ -407,7 +407,7 @@ Public Class Form1
             Case "vr" 'Var Read
             Case "vw" 'Var Write
             Case "vc" 'Var Read & Clear
-            Case "ss" 'Set setting (4WMC 3 mode)
+            Case "ss" 'Set setting (4WMC 2 mode)
             Case "pr" 'Get Login/Logout player
             Case "eq" 'Put in Game EXE Console request to Queue
            '===============
@@ -492,7 +492,7 @@ Public Class Form1
                     kill_task(False)
                     WorkString = "OK"
 
-                Case "rconsole"
+                Case "kill3"
                     Restart_EXEConsole()
                     WorkString = "OK"
 
@@ -1368,41 +1368,41 @@ Public Class Form1
 
                 If Tmp_String_Org.Length > 5 Then
 
-                    'ServerState Control
+                    ''ServerState Control
                     If Tmp_String_Org.Substring(1, 1) = CM_ServerState_Flag Then
                         ResultCode = Get_Full_MCServer_Control(Tmp_String_Org.Substring(2))
                         Exit Sub
                     End If
 
                     Dim Command_Mode As String = Tmp_String_Org.ToLower.Substring(2, 2)
-                    Dim Command_Str As String = Tmp_String_Org.Substring(5)
+                        Dim Command_Str As String = Tmp_String_Org.Substring(5)
 
-                    'Get xxx Command
-                    If Tmp_String_Org.Substring(1, 1) = CM_ServerGetFlag Then
-                        If Tmp_String_Org.Substring(4, 1) = ";" Then
-                            Process_Get_Command(Command_Mode, Command_Str, 1)
-                        Else
-                            Command_err_ListBox.Items.Insert(0, "EXEO:" + Command_Mode + ";" + Command_Str)
-                            EXE_Write_To_Console("BAD", Return_PreFix)
+                        'Get xxx Command
+                        If Tmp_String_Org.Substring(1, 1) = CM_ServerGetFlag Then
+                            If Tmp_String_Org.Substring(4, 1) = ";" Then
+                                Process_Get_Command(Command_Mode, Command_Str, 1)
+                            Else
+                                Command_err_ListBox.Items.Insert(0, "EXEO:" + Command_Mode + ";" + Command_Str)
+                                EXE_Write_To_Console("BAD", Return_PreFix)
+                            End If
+                            Exit Sub
                         End If
-                        Exit Sub
-                    End If
 
-                    'Get xxx Command NoBack
-                    If Tmp_String_Org.Substring(1, 1) = CM_ServerGetFlag_NoBack Then
-                        If Tmp_String_Org.Substring(4, 1) = ";" Then
-                            Process_Get_Command(Command_Mode, Command_Str, 2)
-                        Else
+                        'Get xxx Command NoBack
+                        If Tmp_String_Org.Substring(1, 1) = CM_ServerGetFlag_NoBack Then
+                            If Tmp_String_Org.Substring(4, 1) = ";" Then
+                                Process_Get_Command(Command_Mode, Command_Str, 2)
+                            Else
 
+                            End If
+                            Exit Sub
                         End If
-                        Exit Sub
-                    End If
 
-                    Write_To_Console(Tmp_String_Org.Substring(1))
+                        Write_To_Console(Tmp_String_Org.Substring(1))
 
-                Else
+                    Else
 
-                    Write_To_Console(Tmp_String_Org.Substring(1))
+                        Write_To_Console(Tmp_String_Org.Substring(1))
 
                 End If
 
