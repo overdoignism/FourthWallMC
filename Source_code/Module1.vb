@@ -692,9 +692,9 @@ Module Module1
             Dim TmpIdx1, TmpIdx2 As Integer
 
             TmpIdx1 = UBound(ServerSetting)
-            If TmpIdx1 <> 2 Then Return 0
+            If TmpIdx1 <> 1 Then Return 0
 
-            For TmpIdx2 = 0 To 2
+            For TmpIdx2 = 0 To TmpIdx1
                 If ServerSetting(TmpIdx2) <> "" Then
                     TmpIdx1 = Val(ServerSetting(TmpIdx2))
                     Select Case TmpIdx2

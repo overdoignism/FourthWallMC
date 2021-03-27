@@ -159,9 +159,9 @@ Partial Class Form1
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(196, 10)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(177, 16)
+        Me.Label1.Size = New System.Drawing.Size(178, 16)
         Me.Label1.TabIndex = 10
-        Me.Label1.Text = "Management RemoteCon: "
+        Me.Label1.Text = "Socket Script RemoteCon: "
         '
         'MCServerRefreshTimer
         '
@@ -254,7 +254,7 @@ Partial Class Form1
         Me.RCState_Label.BackColor = System.Drawing.Color.Black
         Me.RCState_Label.Font = New System.Drawing.Font("Arial Black", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RCState_Label.ForeColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.RCState_Label.Location = New System.Drawing.Point(384, 10)
+        Me.RCState_Label.Location = New System.Drawing.Point(384, 9)
         Me.RCState_Label.Name = "RCState_Label"
         Me.RCState_Label.Size = New System.Drawing.Size(37, 18)
         Me.RCState_Label.TabIndex = 18

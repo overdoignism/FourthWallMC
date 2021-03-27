@@ -19,7 +19,7 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
-    Const FwmcVer As String = "0.82"
+    Const FwmcVer As String = "0.83"
 
     Const CM_Type_W As String = "#"
     Const CM_Type_VarWri As String = "$"
@@ -574,12 +574,7 @@ Public Class Form1
                 WrongFmt = 1
             Else
 
-                WorkString = ""
-                If Command_str.Length >= 3 Then
-                    WorkString = Command_str.Substring(2)
-                End If
-
-                variableString(Val(Command_str.Substring(0, 1))) = WorkString
+                variableString(Val(Command_str.Substring(0, 1))) = Command_str.Substring(2)
 
                 If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
                 If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK", Return_PreFix)
@@ -1122,17 +1117,21 @@ Public Class Form1
 
                             Case CM_Type_VarWri 'Var Write
 
-                                If GeekCommand.TheMessagePart.Length > 3 Then
+                                If GeekCommand.TheMessagePart.Length > 2 Then
                                     If GeekCommand.TheMessagePart.Substring(1, 1) = ";" Then
                                         variableString(Val(GeekCommand.TheMessagePart.Substring(0, 1))) = GeekCommand.TheMessagePart.Substring(2)
                                     End If
-                                ElseIf GeekCommand.TheMessagePart.Length > 2 Then
+                                ElseIf GeekCommand.TheMessagePart.Length > 1 Then
                                     variableString(Val(GeekCommand.TheMessagePart.Substring(0, 1))) = ""
                                 End If
 
                             Case CM_ServerState_Flag
 
-                                Get_Full_MCServer_Control(GeekCommand.TheMessagePart)
+                                If GeekCommand.TheMessagePart.ToUpper = "RSTC" Then
+                                    Restart_EXEConsole()
+                                Else
+                                    Get_Full_MCServer_Control(GeekCommand.TheMessagePart)
+                                End If
 
                             Case Else
 
