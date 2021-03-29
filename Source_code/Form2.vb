@@ -21,8 +21,6 @@ Public Class Form2
             JVM_Textbox.Text = OpenFileDialog1.FileName
         End If
 
-
-
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles SetupOK_Button.Click
@@ -73,16 +71,12 @@ Public Class Form2
     End Sub
 
     Private Sub Form2_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+
+        Get_All_IP_Addr()
         Make_Value_In_Box()
 
-        Select Case IsEssentialsX_Installed
-            Case 0
-                EssentialsDetected.Text = "?"
-            Case 1
-                EssentialsDetected.Text = "NO"
-            Case 2
-                EssentialsDetected.Text = "YES"
-        End Select
+        ShowEssX_Det(EssentialsDetected)
+
     End Sub
 
     Private Sub BrowseTER_Button_Click(sender As Object, e As EventArgs) Handles BrowseTER_Button.Click
@@ -92,5 +86,6 @@ Public Class Form2
             DetAE_Run_TextBox.Text = OpenFileDialog1.FileName
         End If
     End Sub
+
 
 End Class

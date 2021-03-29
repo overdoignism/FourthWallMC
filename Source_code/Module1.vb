@@ -74,7 +74,7 @@ Module Module1
     Public LogInlayer() As String
     Public LogOutPlayer() As String
 
-    Public MCServerType As String = "Vanilla(or not detected)"
+    Public MCServerType As String = "Vanilla (or ND)"
     Public MCServerVer As String
     Public ServerStart_Tick As UInt64
 
@@ -87,8 +87,8 @@ Module Module1
 
     Public Local_IP_ADDR As String = "Any"
 
-    Public Const Queued_EXE_depth = 99
-    Public Queued_EXE_Command(Queued_EXE_depth) As String
+    Public Const Queued_EXE_MAX_depth = 99
+    Public Queued_EXE_Command(Queued_EXE_MAX_depth) As String
     Public Queued_EXE_Command_StoredIDX As Integer = 0
     Public Queued_EXE_Command_WalkedIDX As Integer = 0
     Public Queued_EXE_Command_Enable As Boolean = False
@@ -363,14 +363,22 @@ Module Module1
 
     End Sub
 
-    Public Function GetServerBrand(TestStr As String) As String
+    Public Function GetServerBrand(TestStr As String, OldDetect As String) As String
 
-        If InStr(TestStr, " PAPER") > 0 Then Return "Paper"
-        If InStr(TestStr, " FABRIC") > 0 Then Return "Fabric"
-        If InStr(TestStr, " FORGE") > 0 Then Return "Forge"
-        If InStr(TestStr, " SPIGOT") > 0 Then Return "Spigot"
+        Dim TestReturn As String = OldDetect
 
-        Return "Vanilla(or not detected)"
+        If OldDetect <> "Paper" OrElse OldDetect <> "Spigot" Then
+            If InStr(TestStr, " CRAFTBUKKIT") > 0 Then
+                Return "CraftBukkit"
+            End If
+        End If
+
+        If InStr(TestStr, " PAPER") > 0 Then TestReturn = "Paper"
+        If InStr(TestStr, " FABRIC") > 0 Then TestReturn = "Fabric"
+        If InStr(TestStr, " FORGE") > 0 Then TestReturn = "Forge"
+        If InStr(TestStr, " SPIGOT") > 0 Then TestReturn = "Spigot"
+
+        Return TestReturn
 
     End Function
 
@@ -778,14 +786,40 @@ Module Module1
 
     End Sub
 
-    Public Sub Clear_EXE_Queue()
-        For idx00 As Integer = 0 To Queued_EXE_depth
+    Public Sub Clear_EXE_Queue(QueueGoAllStop As Boolean)
+
+        For idx00 As Integer = 0 To Queued_EXE_MAX_depth
             Queued_EXE_Command(idx00) = ""
         Next
         Queued_EXE_Command_StoredIDX = 0
         Queued_EXE_Command_WalkedIDX = 0
+
+        If QueueGoAllStop Then
+            Queued_EXE_Command_Enable = False
+            Form1.QueueEXE_RunnerTimer.Enabled = False
+            Form1.Queue_TextBox.Text = "Stopped"
+        End If
+
     End Sub
 
+    Public Sub ShowEssX_Det(ByRef Comp1 As Object)
 
+        Select Case IsEssentialsX_Installed
+            Case 0
+                Comp1.Text = "?"
+            Case 1
+                Comp1.Text = "NO"
+            Case 2
+                Comp1.Text = "YES"
+        End Select
+    End Sub
+
+    Public Function GetLiveTime(MC_Server_WorkState As Integer) As String
+
+        If MC_Server_WorkState <> 2 Then Return ("-1")
+        If ServerStart_Tick = 0 Then Return ("-1")
+        Return Fix(CLng((CLng(GetTickCount64()) - CLng(ServerStart_Tick)) / 1000)).ToString()
+
+    End Function
 
 End Module

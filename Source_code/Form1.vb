@@ -19,11 +19,11 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
-    Const FwmcVer As String = "0.84"
+    Const FwmcVer As String = "0.85"
 
     Const CM_Type_W As String = "#"
     Const CM_Type_VarWri As String = "$"
-    'Const CM_Type_SAY As String = "$"
+    Const CM_Type_W2 As String = "@"
 
     Const CM_ServerState_Flag As String = "*"
     Const CM_ServerGetFlag As String = "+"
@@ -110,6 +110,8 @@ Public Class Form1
     Dim IARR_Return(1) As String
 
     Dim OneTime_A_Listbox_Act As Boolean
+    Dim ExeWorkingDir As String = ""
+    Dim SerWorkingDir As String = ""
 
     '<DllImport("user32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
     'Shared Function SendMessage(hWnd As IntPtr, wMsg As Integer, wParam As IntPtr, lParam As IntPtr) As Integer
@@ -122,6 +124,8 @@ Public Class Form1
         ReDim Send2Recent(1)(9)
         Man_Who_LastSending = "CONSOLE"
         Form2.COMLineEnd.SelectedIndex = 0
+        Add_to_NoteListbox("FourthWallMC System start.")
+
 
         Me.Text = "FourthWallMC v" + FwmcVer + " < You don't need to break it, we put window on the wall. >  By overdoingism Lab."
 
@@ -149,23 +153,29 @@ Public Class Form1
         '??? What this for
         CheckForIllegalCrossThreadCalls = False
 
-        If My.Computer.FileSystem.FileExists(Origial_Path + "\FontToLoad.otf") Then
-            LoadFont = New Font(LoadFontFile(Origial_Path + "\FontToLoad.otf"), 9, FontStyle.Regular)
-            MCS_Richtexbox.Font = LoadFont
-            EXE_Textbox.Font = LoadFont
-            Form3.Help_RichTextBox.Font = LoadFont
-        End If
+        Try
+            If My.Computer.FileSystem.FileExists(Origial_Path + "\FontToLoad.otf") Then
+                LoadFont = New Font(LoadFontFile(Origial_Path + "\FontToLoad.otf"), 9, FontStyle.Regular)
+                MCS_Richtexbox.Font = LoadFont
+                EXE_Textbox.Font = LoadFont
+                Form3.Help_RichTextBox.Font = LoadFont
+            End If
 
-        MCS_Richtexbox.LanguageOption = RichTextBoxLanguageOptions.UIFonts
-        EXE_Textbox.LanguageOption = RichTextBoxLanguageOptions.UIFonts
+            MCS_Richtexbox.LanguageOption = RichTextBoxLanguageOptions.UIFonts
+            EXE_Textbox.LanguageOption = RichTextBoxLanguageOptions.UIFonts
 
-        'The .net component is shitty
-        Form3.Help_RichTextBox.LanguageOption = RichTextBoxLanguageOptions.UIFonts
-        Form3.Visible = True
-        Form3.Visible = False
-        Form3.Help_RichTextBox.Text = My.Resources.HelpResource
+            'The .net component is shitty
+            Form3.Help_RichTextBox.LanguageOption = RichTextBoxLanguageOptions.UIFonts
+            Form3.Visible = True
+            Form3.Visible = False
+            Form3.Help_RichTextBox.Text = My.Resources.HelpResource
+            Add_to_NoteListbox("FontToLoad.otf found and loaded.")
+            My.Application.DoEvents()
+        Catch ex As Exception
 
-        My.Application.DoEvents()
+        End Try
+
+
 
         If My.Application.CommandLineArgs().Count > 0 Then
             If My.Application.CommandLineArgs(0).ToLower = "now" Then
@@ -476,13 +486,7 @@ Public Class Form1
 
                     If RCorEXE_Mode = 2 Then Return 2
 
-                    If MC_Server_WorkState = 2 Then
-                        WorkString = Fix(CLng((CLng(GetTickCount64()) - CLng(ServerStart_Tick)) / 1000)).ToString + ";"
-                    Else
-                        WorkString = "0;"
-                    End If
-
-                    WorkString += MCServerType + ";" + FwmcVer
+                    WorkString = GetLiveTime(MC_Server_WorkState) + ";" + MCServerType + ";" + FwmcVer
 
                 Case "kill"
                     kill_task()
@@ -517,14 +521,21 @@ Public Class Form1
                     If Queued_EXE_Command_Enable = False Then
                         Queued_EXE_Command_Enable = True
                         QueueEXE_RunnerTimer.Enabled = False
+                        Queue_TextBox.Text = "Queuing"
                     End If
                 Case "stop"
                     If Queued_EXE_Command_Enable = True Then
                         Queued_EXE_Command_Enable = False
                         QueueEXE_RunnerTimer.Enabled = True
+                        Queue_TextBox.Text = "Stopped and Launching"
                     End If
                 Case "clear"
-                    Clear_EXE_Queue()
+                    Clear_EXE_Queue(False)
+                    If Queued_EXE_Command_Enable Then
+                        Queue_TextBox.Text = "Queuing"
+                    Else
+                        Queue_TextBox.Text = "Stopped"
+                    End If
                 Case Else
                     WrongFmt = 1
             End Select
@@ -835,10 +846,15 @@ Public Class Form1
     Private Function Start_MC_Server_Process(The_JAVA_Arguments As String, The_FileName As String, The_JAR_BAT_File As String, The_MC_Arguments As String) As String
 
         If MC_Server_WorkState <> 0 Then Return "NOT-OFF"
+
         Dim Launch_File As String = ""
         Dim The_Arguments As String = ""
         MCS_Richtexbox.Text = "Starting Minecraft Server..."
         Start_MC_Server_Process = ""
+        MCServerType = "Vanilla (or ND)"
+        ServerType_TextBox.Text = MCServerType
+        IsEssentialsX_Installed = 0
+        Add_to_NoteListbox("Start_MC_Server_Process()")
 
         Try
 
@@ -887,8 +903,14 @@ Public Class Form1
                 End If
             End If
 
-            Directory.SetCurrentDirectory(My.Computer.FileSystem.GetFileInfo(The_JAR_BAT_File).DirectoryName)
+            SerWorkingDir = My.Computer.FileSystem.GetFileInfo(The_JAR_BAT_File).DirectoryName
+            SerWorkingPath_TextBox.Text = SerWorkingDir
+            Directory.SetCurrentDirectory(SerWorkingDir)
             MC_Server_WorkState = 1
+
+            If (SerWorkingDir <> ExeWorkingDir) AndAlso (EXE_IS_LAUNCHED = True) Then
+                Add_to_NoteListbox("You may need restart EXE console to work properly.", "Server working folder is different from EXE console's one.")
+            End If
 
             If My.Computer.FileSystem.DirectoryExists(".\plugins") Then
                 Dim FindEssPlugIn() As String = Directory.GetFiles(".\plugins\", "Essentials*.jar")
@@ -901,6 +923,7 @@ Public Class Form1
                 IsEssentialsX_Installed = 1
             End If
 
+            ShowEssX_Det(EssX_Det_TextBox)
 
             StartButton.Enabled = False
             BackupButton.Enabled = False
@@ -941,7 +964,7 @@ Public Class Form1
             MC_Process.BeginErrorReadLine()
 
             MC_IS_LAUNCHED = True
-            KillTaskButton.Enabled = True
+            'KillTaskButton.Enabled = True
 
             The_ProcessInstanceName = GetProcessInstanceName(MC_Process.Id)
 
@@ -952,7 +975,6 @@ Public Class Form1
             Loop
 
             ServerStart_Tick = GetTickCount64()
-            MCServerType = "Vanilla(or not detected)"
             MCServer_CPU_Peak = 0
             MCServer_RAM_Peak = 0
             MCServer_CPU_Wait = 0
@@ -1098,7 +1120,7 @@ Public Class Form1
 
                                 If Queued_EXE_Command_Enable = True Then
 
-                                    If Queued_EXE_Command_StoredIDX = Queued_EXE_depth Then
+                                    If Queued_EXE_Command_StoredIDX = Queued_EXE_MAX_depth Then
                                         If Queued_EXE_Command(0) = "" Then
                                             Queued_EXE_Command_StoredIDX = 0
                                             Queued_EXE_Command(Queued_EXE_Command_StoredIDX) = GeekCommand.TheMessagePart
@@ -1114,6 +1136,10 @@ Public Class Form1
                                     EXE_Write_To_Console(GeekCommand.TheMessagePart, "")
                                 End If
 
+                            Case CM_Type_W2
+
+                                If Not EXE_IS_LAUNCHED Then Start_EXE_Process(Man_EXE_FirstExec)
+                                EXE_Write_To_Console(GeekCommand.TheMessagePart, "")
 
                             Case CM_Type_VarWri 'Var Write
 
@@ -1147,9 +1173,8 @@ Public Class Form1
 
                 ElseIf MC_Server_WorkState = 1 Then
 
-                    If MCServerType = "Vanilla(or not detected)" Then 'Server type detect
-                        MCServerType = GetServerBrand(Tmp_String)
-                        Exit Do
+                    If (MCServerType = "Vanilla (or ND)") OrElse (MCServerType = "CraftBukkit") Then 'Server type detect
+                        MCServerType = GetServerBrand(Tmp_String, MCServerType)
                     End If
 
                     If InStr(Tmp_String, "]: DONE") > 5 Then 'Start detect
@@ -1188,6 +1213,7 @@ Public Class Form1
 
         MCS_Richtexbox.Text = "Starting Minecraft Server Backup..."
         Start_Server_Backup_Process = ""
+        Add_to_NoteListbox("Start_Server_Backup_Process()")
 
         Try
 
@@ -1239,8 +1265,6 @@ Public Class Form1
             ZIP_Process.BeginErrorReadLine()
 
             ZIP_IS_LAUNCHED = True
-            KillTaskButton.Enabled = True
-
             Start_Server_Backup_Process = "OK"
 
         Catch ex As Exception
@@ -1264,6 +1288,8 @@ Public Class Form1
     Private Function Start_EXE_Process(FirstExec As String) As String
 
         Start_EXE_Process = ""
+        Clear_EXE_Queue(True)
+        Add_to_NoteListbox("Start_EXE_Process()")
 
         Try
 
@@ -1278,17 +1304,24 @@ Public Class Form1
             End If
 
 
-            Dim WorkingDir As String = ""
             If MCServer_JAR_BAT_Location <> "" Then
-                If My.Computer.FileSystem.FileExists(MCServer_JAR_BAT_Location) Then WorkingDir = My.Computer.FileSystem.GetFileInfo(MCServer_JAR_BAT_Location).DirectoryName
+                If My.Computer.FileSystem.FileExists(MCServer_JAR_BAT_Location) Then
+                    ExeWorkingDir = My.Computer.FileSystem.GetFileInfo(MCServer_JAR_BAT_Location).DirectoryName
+                    EXEWorkingPath_TextBox.Text = ExeWorkingDir
+                End If
             Else
                 EXE_Textbox.Text = "Console will not start-up until the server setup done."
                 Start_EXE_Process = "NEED-SETUP"
                 Exit Function
             End If
 
+            If (SerWorkingDir <> "") AndAlso (SerWorkingDir <> ExeWorkingDir) Then
+                Add_to_NoteListbox("Server working folder is different from EXE console's one.")
+            End If
+
+
             With EXE_Process.StartInfo
-                .WorkingDirectory = WorkingDir
+                .WorkingDirectory = ExeWorkingDir
                 .FileName = "powershell.exe"
                 .RedirectStandardOutput = True
                 .RedirectStandardError = True
@@ -1375,34 +1408,34 @@ Public Class Form1
                     End If
 
                     Dim Command_Mode As String = Tmp_String_Org.ToLower.Substring(2, 2)
-                        Dim Command_Str As String = Tmp_String_Org.Substring(5)
+                    Dim Command_Str As String = Tmp_String_Org.Substring(5)
 
-                        'Get xxx Command
-                        If Tmp_String_Org.Substring(1, 1) = CM_ServerGetFlag Then
-                            If Tmp_String_Org.Substring(4, 1) = ";" Then
-                                Process_Get_Command(Command_Mode, Command_Str, 1)
-                            Else
-                                Command_err_ListBox.Items.Insert(0, "EXEO:" + Command_Mode + ";" + Command_Str)
-                                EXE_Write_To_Console("BAD", Return_PreFix)
-                            End If
-                            Exit Sub
+                    'Get xxx Command
+                    If Tmp_String_Org.Substring(1, 1) = CM_ServerGetFlag Then
+                        If Tmp_String_Org.Substring(4, 1) = ";" Then
+                            Process_Get_Command(Command_Mode, Command_Str, 1)
+                        Else
+                            Command_err_ListBox.Items.Insert(0, "EXEO:" + Command_Mode + ";" + Command_Str)
+                            EXE_Write_To_Console("BAD", Return_PreFix)
                         End If
+                        Exit Sub
+                    End If
 
-                        'Get xxx Command NoBack
-                        If Tmp_String_Org.Substring(1, 1) = CM_ServerGetFlag_NoBack Then
-                            If Tmp_String_Org.Substring(4, 1) = ";" Then
-                                Process_Get_Command(Command_Mode, Command_Str, 2)
-                            Else
+                    'Get xxx Command NoBack
+                    If Tmp_String_Org.Substring(1, 1) = CM_ServerGetFlag_NoBack Then
+                        If Tmp_String_Org.Substring(4, 1) = ";" Then
+                            Process_Get_Command(Command_Mode, Command_Str, 2)
+                        Else
 
-                            End If
-                            Exit Sub
                         End If
+                        Exit Sub
+                    End If
 
-                        Write_To_Console(Tmp_String_Org.Substring(1))
+                    Write_To_Console(Tmp_String_Org.Substring(1))
 
-                    Else
+                Else
 
-                        Write_To_Console(Tmp_String_Org.Substring(1))
+                    Write_To_Console(Tmp_String_Org.Substring(1))
 
                 End If
 
@@ -1518,11 +1551,11 @@ Public Class Form1
 
                 StartButton.Enabled = True
                 BackupButton.Enabled = True
-                KillTaskButton.Enabled = False
                 WaitBLAC_Count = 0
                 BusyCrash.Enabled = False
 
                 If InNeed_Detect_AbnormalEnd = True Then
+                    Add_to_NoteListbox("An abnormal stop has detected. It's " + (Det_AE_Times + 1).ToString + " times")
                     Abnormal_WorkStop()
                 End If
 
@@ -1537,19 +1570,21 @@ Public Class Form1
 
                 StartButton.Enabled = False
                 BackupButton.Enabled = False
-                KillTaskButton.Enabled = True
 
             Case 2
 
                 MCSState_Label.Text = "Minecraft Server: ON"
-                ServerType_Label.Text = MCServerType
+                ServerType_TextBox.Text = MCServerType
 
                 StartButton.Enabled = False
                 BackupButton.Enabled = False
-                KillTaskButton.Enabled = True
 
                 WaitBLAC_Count = 0
                 BusyCrash.Enabled = False
+
+                If TabControl1.SelectedIndex = 4 Then
+                    ServerLiveTime_Textbox.Text = GetLiveTime(MC_Server_WorkState)
+                End If
 
                 Try
 
@@ -1616,6 +1651,7 @@ Public Class Form1
 
             Else
                 If FthWallMC_Server > 0 Then
+                    Add_to_NoteListbox("TCP error over 10 times. socket stopped.")
                     Stop_Management_Server()
                 End If
             End If
@@ -1656,6 +1692,8 @@ Public Class Form1
                 ModeExeFW_Button.BackColor = Color.Pink
                 ModeExeFW_Button.Text = "EXE Flood way" + vbNewLine + "MC→EXE (2)" + vbNewLine + "Flooding"
         End Select
+
+
 
     End Sub
     Public Sub SendTo_Console(ModeSelect As Integer)
@@ -1805,7 +1843,7 @@ Public Class Form1
 
     Private Sub KillTaskButton_Click(sender As Object, e As EventArgs) Handles KillTaskButton.Click
 
-        If MsgBox("**WARNING** " + vbNewLine + vbNewLine + "It's will terminate the operation, " + vbNewLine + vbNewLine _
+        If MsgBox("**WARNING** " + vbNewLine + vbNewLine + "It's will terminate all operation, " + vbNewLine + vbNewLine _
                 + "and may cause some datas collapse, unsaved data lost, or other problems!!!" + vbNewLine + vbNewLine _
                + "Are you sure?", MsgBoxStyle.YesNo, "WARNING") = MsgBoxResult.No Then Exit Sub
 
@@ -1814,6 +1852,8 @@ Public Class Form1
     End Sub
 
     Private Sub kill_task(Optional Kill_EXE_Console As Boolean = True)
+
+        Add_to_NoteListbox("kill_task(" + Kill_EXE_Console.ToString + ")")
 
         Try
             If MC_IS_LAUNCHED Then
@@ -1838,9 +1878,7 @@ Public Class Form1
 
         If Kill_EXE_Console Then
 
-            Queued_EXE_Command_Enable = False
-            QueueEXE_RunnerTimer.Enabled = False
-            Clear_EXE_Queue()
+            Clear_EXE_Queue(True)
 
             Try
                 If EXE_IS_LAUNCHED Then
@@ -2081,6 +2119,7 @@ Public Class Form1
             InNeed_Detect_AbnormalEnd = False
             BusyCrash.Enabled = False
             WaitBLAC_Count = 0
+            Add_to_NoteListbox("Waiting time for busy is too long, regarded as crashed and stop.")
             kill_task()
             Abnormal_WorkStop()
         End If
@@ -2098,7 +2137,12 @@ Public Class Form1
 
     Sub Restart_EXEConsole()
 
+        Add_to_NoteListbox("Restart_EXEConsole()")
+
         Try
+
+            Clear_EXE_Queue(True)
+
             If EXE_IS_LAUNCHED Then
                 If Not EXE_Process.HasExited Then
                     killChildrenProcessesOf(EXE_Process.Id)
@@ -2181,23 +2225,16 @@ Public Class Form1
     Private Sub QueueEXE_RunnerTimer_Tick(sender As Object, e As EventArgs) Handles QueueEXE_RunnerTimer.Tick
 
         If Queued_EXE_Command_Enable = True Then Exit Sub
+        If EXE_IS_LAUNCHED = False Then Exit Sub
 
-        If Queued_EXE_Command_WalkedIDX = Queued_EXE_depth Then
-            If Queued_EXE_Command(0) <> "" Then
-                Queued_EXE_Command_WalkedIDX = 0
-                EXE_Write_To_Console(Queued_EXE_Command(Queued_EXE_Command_WalkedIDX), "")
-                Queued_EXE_Command(Queued_EXE_Command_WalkedIDX) = ""
-            Else
-                QueueEXE_RunnerTimer.Enabled = False
-            End If
+        Dim Queued_EXE_Command_WalkTo As Integer = (Queued_EXE_Command_WalkedIDX + 1) Mod (Queued_EXE_MAX_depth + 1)
+        If Queued_EXE_Command(Queued_EXE_Command_WalkTo) <> "" Then
+            EXE_Write_To_Console(Queued_EXE_Command(Queued_EXE_Command_WalkTo), "")
+            Queued_EXE_Command(Queued_EXE_Command_WalkTo) = ""
+            Queued_EXE_Command_WalkedIDX = Queued_EXE_Command_WalkTo
         Else
-            If Queued_EXE_Command(Queued_EXE_Command_WalkedIDX + 1) <> "" Then
-                Queued_EXE_Command_WalkedIDX += 1
-                EXE_Write_To_Console(Queued_EXE_Command(Queued_EXE_Command_WalkedIDX), "")
-                Queued_EXE_Command(Queued_EXE_Command_WalkedIDX) = ""
-            Else
-                QueueEXE_RunnerTimer.Enabled = False
-            End If
+            QueueEXE_RunnerTimer.Enabled = False
+            Queue_TextBox.Text = "Stopped"
         End If
 
     End Sub
@@ -2235,6 +2272,40 @@ Public Class Form1
 
         End If
 
+
+    End Sub
+
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+
+        If SerWorkingPath_TextBox.Text <> "" Then
+            If My.Computer.FileSystem.DirectoryExists(SerWorkingPath_TextBox.Text) Then
+                Process.Start("explorer.exe", SerWorkingPath_TextBox.Text)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+
+        If EXEWorkingPath_TextBox.Text <> "" Then
+            If My.Computer.FileSystem.DirectoryExists(EXEWorkingPath_TextBox.Text) Then
+                Process.Start("explorer.exe", EXEWorkingPath_TextBox.Text)
+            End If
+        End If
+
+    End Sub
+
+    Sub Add_to_NoteListbox(What_to_add As String, Optional What_to_add2 As String = "")
+
+        Note_ListBox.Items.Insert(0, Now.ToString("(yyyyMMdd-HHmmss) ") + "----")
+        Note_ListBox.Items.Insert(0, Now.ToString("(yyyyMMdd-HHmmss) ") + What_to_add)
+        If What_to_add2 <> "" Then Note_ListBox.Items.Insert(0, Now.ToString("(yyyyMMdd-hhmmss) ") + What_to_add2)
+
+        If Note_ListBox.Items.Count > 100 Then
+            Note_ListBox.Items.RemoveAt(Note_ListBox.Items.Count - 1)
+            Note_ListBox.Items.RemoveAt(Note_ListBox.Items.Count - 1)
+            Note_ListBox.Items.RemoveAt(Note_ListBox.Items.Count - 1)
+        End If
 
     End Sub
 End Class
