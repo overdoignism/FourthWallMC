@@ -19,7 +19,7 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
-    Const FwmcVer As String = "0.85"
+    Const FwmcVer As String = "0.86"
 
     Const CM_Type_W As String = "#"
     Const CM_Type_VarWri As String = "$"
@@ -113,9 +113,6 @@ Public Class Form1
     Dim ExeWorkingDir As String = ""
     Dim SerWorkingDir As String = ""
 
-    '<DllImport("user32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
-    'Shared Function SendMessage(hWnd As IntPtr, wMsg As Integer, wParam As IntPtr, lParam As IntPtr) As Integer
-    'End Function
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -125,15 +122,13 @@ Public Class Form1
         Man_Who_LastSending = "CONSOLE"
         Form2.COMLineEnd.SelectedIndex = 0
         Add_to_NoteListbox("FourthWallMC System start.")
-
-
         Me.Text = "FourthWallMC v" + FwmcVer + " < You don't need to break it, we put window on the wall. >  By overdoingism Lab."
 
         '=====Serial Port init
-        For Each sp As String In My.Computer.Ports.SerialPortNames
-            Form2.ComPortList.Items.Add(sp)
-        Next
-        Form2.ComPortList.SelectedIndex = 0
+        'SP1 serial port...
+        'The code is for Compatible with .net 5
+        SP1_Init()
+        Make_SerialPort_List()
         Man_COM_Port = "off"
         '======================
 
@@ -184,8 +179,8 @@ Public Class Form1
         End If
 
         RCState_Label.ForeColor = Color.FromArgb(255, 128, 128, 255)
-        ModeRC_Button.Text = "Work Mode" + vbNewLine + "Normal (0)"
-        ModeExeFW_Button.Text = "EXE Flood way" + vbNewLine + "MC←EXE"
+        ModeRC_Button.Text = "Work Mode" + vbCrLf + "Normal (0)"
+        ModeExeFW_Button.Text = "EXE Flood way" + vbCrLf + "MC←EXE"
 
         Start_EXE_Process(Man_EXE_FirstExec)
 
@@ -226,7 +221,7 @@ Public Class Form1
                 FthWallMC_Server = 2
             Catch ex As Exception
                 FthWallMC_Server = 1
-                Debug_Listbox.Items.Insert(0, "Start_Management_Server():" + ex.Message)
+                Add_to_NoteListbox("Start_Management_Server():" + ex.Message)
             End Try
 
         End If
@@ -273,7 +268,7 @@ Public Class Form1
 
                 FthWallMC_Server = TmpState
                 RCState_Label.Text = "ERROR"
-                Debug_Listbox.Items.Insert(0, "Stop_Management_Server():" + ex.Message)
+                Add_to_NoteListbox("Stop_Management_Server():" + ex.Message)
                 Return False
 
             End Try
@@ -311,7 +306,7 @@ Public Class Form1
 
         Catch ex As Exception
 
-            Debug_Listbox.Items.Insert(0, "Handler_Client()1:" + ex.Message)
+            Add_to_NoteListbox("Handler_Client()1:" + ex.Message)
 
             If Closing_Socket Then
                 FthWallMC_Server = 0
@@ -389,8 +384,7 @@ Public Class Form1
 
         Catch ex As Exception
 
-            Debug_Listbox.Items.Insert(0, "Handler_Client()2:" + ex.Message)
-
+            Add_to_NoteListbox("Handler_Client()2:" + ex.Message)
             Try
                 CloseASocket(Clients(Tmp_Idx1))
                 Threading.ThreadPool.QueueUserWorkItem(AddressOf Handler_Client)
@@ -486,7 +480,7 @@ Public Class Form1
 
                     If RCorEXE_Mode = 2 Then Return 2
 
-                    WorkString = GetLiveTime(MC_Server_WorkState) + ";" + MCServerType + ";" + FwmcVer
+                    WorkString = GetLiveTime2(MC_Server_WorkState) + ";" + MCServerType + ";" + FwmcVer
 
                 Case "kill"
                     kill_task()
@@ -514,7 +508,7 @@ Public Class Form1
             End If
 
 
-        ElseIf Command_mode = "eq" Then
+        ElseIf Command_Mode = "eq" Then
 
             Select Case Command_str.ToLower
                 Case "start"
@@ -835,8 +829,7 @@ Public Class Form1
 
             Catch ex As Exception
 
-                Debug_Listbox.Items.Insert(0, "SenToClients():" + ex.Message)
-
+                Add_to_NoteListbox("SenToClients():" + ex.Message)
             End Try
 
         End If
@@ -859,7 +852,7 @@ Public Class Form1
         Try
 
             If Not My.Computer.FileSystem.FileExists(The_JAR_BAT_File) Then
-                MCS_Richtexbox.Text += vbNewLine + "Server JAR file / Batch file not present. Please setup first."
+                MCS_Richtexbox.Text += vbCrLf + "Server JAR file / Batch file not present. Please setup first."
                 Start_MC_Server_Process = "NEED-SETUP"
                 Exit Function
             End If
@@ -891,7 +884,7 @@ Public Class Form1
                         Next
 
                         If pathTryGet = False Then
-                            MCS_Richtexbox.Text += vbNewLine + "JVM java.exe not present. Please setup first."
+                            MCS_Richtexbox.Text += vbCrLf + "JVM java.exe not present. Please setup first."
                             Start_MC_Server_Process = "NEED-SETUP"
                             Exit Function
                         End If
@@ -930,7 +923,7 @@ Public Class Form1
             My.Application.DoEvents()
 
             ReDim Saved_String2(Saved_String_Max2)
-            Saved_String2(0) = "Starting Minecraft Server..." + vbNewLine
+            Saved_String2(0) = "Starting Minecraft Server..." + vbCrLf
             Saved_String_IDX2 = 1
 
             MC_Process = New System.Diagnostics.Process()
@@ -966,18 +959,7 @@ Public Class Form1
             MC_IS_LAUNCHED = True
             'KillTaskButton.Enabled = True
 
-            The_ProcessInstanceName = GetProcessInstanceName(MC_Process.Id)
-
-            Do
-                cpuCounter = New System.Diagnostics.PerformanceCounter("Process", "% Processor Time", The_ProcessInstanceName)
-                My.Application.DoEvents()
-                If cpuCounter IsNot Nothing Then Exit Do
-            Loop
-
-            ServerStart_Tick = GetTickCount64()
-            MCServer_CPU_Peak = 0
-            MCServer_RAM_Peak = 0
-            MCServer_CPU_Wait = 0
+            ServerStart_Tick2 = DateDiff(DateInterval.Second, New Date(2010, 1, 1, 12, 0, 0), Now)
             Start_MC_Server_Process = "OK"
             InNeed_Detect_AbnormalEnd = True
 
@@ -988,10 +970,9 @@ Public Class Form1
         Catch ex As Exception
 
             MC_Server_WorkState = 0
-            MCS_Richtexbox.Text += vbNewLine + ex.Message + vbNewLine
+            MCS_Richtexbox.Text += vbCrLf + ex.Message + vbCrLf
             Start_MC_Server_Process = "ERROR"
-            Debug_Listbox.Items.Insert(0, "Start_MC_Server_Process():" + ex.Message)
-
+            Add_to_NoteListbox("Start_MC_Server_Process():" + ex.Message)
         End Try
 
         PlayerClear()
@@ -1048,7 +1029,7 @@ Public Class Form1
             '======================================
 
             '===================================== Console Text Full Buffer
-            Saved_String2(Saved_String_IDX2) = Tmp_String_Org + vbNewLine 'Full Buffer
+            Saved_String2(Saved_String_IDX2) = Tmp_String_Org + vbCrLf 'Full Buffer
             If Saved_String_IDX2 >= Saved_String_Max2 Then
                 Saved_String_IDX2 = 0
             Else
@@ -1218,7 +1199,7 @@ Public Class Form1
         Try
 
             If Not My.Computer.FileSystem.FileExists(ZIP_EXE_Location) Then
-                MCS_Richtexbox.Text += vbNewLine + "Backup / Compressor progarm Not present. Please setup first."
+                MCS_Richtexbox.Text += vbCrLf + "Backup / Compressor progarm Not present. Please setup first."
                 Start_Server_Backup_Process = "NEED-SETUP"
                 Exit Function
             End If
@@ -1231,7 +1212,7 @@ Public Class Form1
             My.Application.DoEvents()
 
             ReDim Saved_String2(Saved_String_Max2)
-            Saved_String2(0) = "Starting Minecraft Server Backup..." + vbNewLine
+            Saved_String2(0) = "Starting Minecraft Server Backup..." + vbCrLf
             Saved_String_IDX2 = 1
 
             ZIP_Process = New System.Diagnostics.Process()
@@ -1270,10 +1251,9 @@ Public Class Form1
         Catch ex As Exception
 
             MC_Server_WorkState = 0
-            MCS_Richtexbox.Text += vbNewLine + ex.Message + vbNewLine
+            MCS_Richtexbox.Text += vbCrLf + ex.Message + vbCrLf
             Start_Server_Backup_Process = "Error"
-            Debug_Listbox.Items.Insert(0, "Start_Server_Backup_Process():" + ex.Message)
-
+            Add_to_NoteListbox("Start_Server_Backup_Process():" + ex.Message)
         End Try
 
 
@@ -1351,17 +1331,16 @@ Public Class Form1
             Start_EXE_Process = "OK"
 
             ReDim EXE_Saved_String2(EXE_Saved_String_Max2)
-            EXE_Saved_String2(0) = "Starting Console with server folder." + vbNewLine
+            EXE_Saved_String2(0) = "Starting Console with server folder." + vbCrLf
             EXE_Saved_String_IDX2 = 1
 
             'DebugActiveProcess(EXE_Process.Id)
 
         Catch ex As Exception
 
-            EXE_Textbox.Text += vbNewLine + ex.Message + vbNewLine
+            EXE_Textbox.Text += vbCrLf + ex.Message + vbCrLf
             Start_EXE_Process = "Error"
-            Debug_Listbox.Items.Insert(0, "Start_EXE_Process():" + ex.Message)
-
+            Add_to_NoteListbox("Start_EXE_Process():" + ex.Message)
         End Try
 
     End Function
@@ -1376,7 +1355,7 @@ Public Class Form1
             'My.Application.DoEvents()
 
             '===================================== EXE Console Text Buffer (Full buffer)
-            EXE_Saved_String2(EXE_Saved_String_IDX2) = Tmp_String_Org + vbNewLine 'Full buffer
+            EXE_Saved_String2(EXE_Saved_String_IDX2) = Tmp_String_Org + vbCrLf 'Full buffer
             If EXE_Saved_String_IDX2 >= EXE_Saved_String_Max2 Then
                 EXE_Saved_String_IDX2 = 0
             Else
@@ -1462,7 +1441,7 @@ Public Class Form1
             EXE_myStreamWriter.WriteLine(ThePreFix + Write_Str_Data)
         Catch ex As Exception
             EXE_IS_LAUNCHED = False
-            Debug_Listbox.Items.Insert(0, "EXE_Write_To_Console():" + ex.Message)
+            Add_to_NoteListbox("EXE_Write_To_Console():" + ex.Message)
 
         End Try
 
@@ -1477,7 +1456,7 @@ Public Class Form1
             EXE_myStreamWriter.WriteLine(Return_PreFix + IARR_Return(1))
         Catch ex As Exception
             EXE_IS_LAUNCHED = False
-            Debug_Listbox.Items.Insert(0, "EXE_Write_To_Console_Thread():" + ex.Message)
+            Add_to_NoteListbox("EXE_Write_To_Console_Thread():" + ex.Message)
         End Try
 
         'It's dirty more then political (maybe)
@@ -1528,7 +1507,7 @@ Public Class Form1
 
             End If
         Catch ex As Exception
-            Debug_Listbox.Items.Insert(0, "Abnormal_WorkStop():" + ex.Message)
+            Add_to_NoteListbox("Abnormal_WorkStop():" + ex.Message)
         End Try
     End Sub
     Private Sub MCServerRefreshTimer_Tick(sender As Object, e As EventArgs) Handles MCServerRefreshTimer.Tick
@@ -1540,14 +1519,6 @@ Public Class Form1
             Case 0
 
                 MCSState_Label.Text = "Minecraft Server: OFF"
-
-                If MCServer_BAT_Mode Then
-                    CPUUsage_Label.Text = "CPU: " + "N/A (using BAT)"
-                    MemUsage_Label.Text = "Mem: " + "N/A (using BAT)"
-                Else
-                    CPUUsage_Label.Text = "CPU: " + "0.0% / " + MCServer_CPU_Peak.ToString("0.0") + "%"
-                    MemUsage_Label.Text = "Mem: " + "0 MB / " + (MCServer_RAM_Peak / 1048576).ToString("0.0") + " MB"
-                End If
 
                 StartButton.Enabled = True
                 BackupButton.Enabled = True
@@ -1563,11 +1534,6 @@ Public Class Form1
 
                 MCSState_Label.Text = "Minecraft Server: BUSY"
 
-                If MCServer_BAT_Mode Then
-                    CPUUsage_Label.Text = "CPU: " + "N/A (using BAT)"
-                    MemUsage_Label.Text = "Mem: " + "N/A (using BAT)"
-                End If
-
                 StartButton.Enabled = False
                 BackupButton.Enabled = False
 
@@ -1582,52 +1548,11 @@ Public Class Form1
                 WaitBLAC_Count = 0
                 BusyCrash.Enabled = False
 
-                If TabControl1.SelectedIndex = 4 Then
-                    ServerLiveTime_Textbox.Text = GetLiveTime(MC_Server_WorkState)
+                If TabControl1.SelectedIndex = 3 Then
+                    Dim NowTicket As Long = GetLiveTime2(MC_Server_WorkState)
+                    Dim ts As TimeSpan = TimeSpan.FromSeconds(NowTicket)
+                    ServerLiveTime_Textbox.Text = NowTicket.ToString + " (" + (NowTicket \ 86400).ToString + ":" + (New DateTime(ts.Ticks)).ToString("HH:mm:ss") + ")"
                 End If
-
-                Try
-
-                    If Not MC_Process.HasExited Then
-
-                        If MCServer_BAT_Mode Then
-
-                            CPUUsage_Label.Text = "CPU: " + "N/A (using BAT)"
-                            MemUsage_Label.Text = "Mem: " + "N/A (using BAT)"
-
-                        ElseIf MC_Server_WorkState = 2 Then
-
-                            If cpuCounter IsNot Nothing Then
-
-                                MC_Process.Refresh()
-
-                                MCServer_CPU_Now = CSng(cpuCounter.NextValue()) / Environment.ProcessorCount
-
-                                If MCServer_CPU_Wait > 10 Then
-                                    If MCServer_CPU_Now > MCServer_CPU_Peak Then MCServer_CPU_Peak = MCServer_CPU_Now
-                                Else
-                                    MCServer_CPU_Wait += 1
-                                End If
-
-                                CPUUsage_Label.Text = "CPU: " + MCServer_CPU_Now.ToString("0.0") + "% / " + MCServer_CPU_Peak.ToString("0.0") + "%"
-
-                                MCServer_RAM_Now = MC_Process.WorkingSet64
-                                If MCServer_RAM_Now > MCServer_RAM_Peak Then MCServer_RAM_Peak = MCServer_RAM_Now
-                                MemUsage_Label.Text = "Mem: " + (MCServer_RAM_Now / 1048576).ToString("0.0") + " MB / " + (MCServer_RAM_Peak / 1048576).ToString("0.0") + " MB"
-
-                            End If
-
-                        End If
-
-                    Else
-                        MC_Server_WorkState = 0
-                    End If
-
-                Catch ex As Exception
-
-                    MCS_Richtexbox.Text += vbNewLine + "MCServerRefreshTimer_Tick: " + ex.Message + vbNewLine
-
-                End Try
 
         End Select
 
@@ -1671,26 +1596,26 @@ Public Class Form1
 
         Select Case FthWallMC_Server_Bypass
             Case 0
-                ModeRC_Button.Text = "Work Mode" + vbNewLine + "Normal (0)"
+                ModeRC_Button.Text = "Work Mode" + vbCrLf + "Normal (0)"
                 ModeRC_Button.BackColor = Color.White
             Case 1
-                ModeRC_Button.Text = "Work Mode" + vbNewLine + "Pass (1)"
+                ModeRC_Button.Text = "Work Mode" + vbCrLf + "Pass (1)"
                 ModeRC_Button.BackColor = Color.Orange
             Case 2
-                ModeRC_Button.Text = "Work Mode" + vbNewLine + "Wait (2)"
+                ModeRC_Button.Text = "Work Mode" + vbCrLf + "Wait (2)"
                 ModeRC_Button.BackColor = Color.Yellow
         End Select
 
         Select Case Man_Flood_ToEXE
             Case 0
                 ModeExeFW_Button.BackColor = Color.White
-                ModeExeFW_Button.Text = "EXE Flood way" + vbNewLine + "MC↮EXE (0)" + vbNewLine + "None"
+                ModeExeFW_Button.Text = "EXE Flood way" + vbCrLf + "MC↮EXE (0)" + vbCrLf + "None"
             Case 1
                 ModeExeFW_Button.BackColor = Color.LightSkyBlue
-                ModeExeFW_Button.Text = "EXE Flood way" + vbNewLine + "MC←EXE (1)" + vbNewLine + "Use whisper"
+                ModeExeFW_Button.Text = "EXE Flood way" + vbCrLf + "MC←EXE (1)" + vbCrLf + "Use whisper"
             Case 2
                 ModeExeFW_Button.BackColor = Color.Pink
-                ModeExeFW_Button.Text = "EXE Flood way" + vbNewLine + "MC→EXE (2)" + vbNewLine + "Flooding"
+                ModeExeFW_Button.Text = "EXE Flood way" + vbCrLf + "MC→EXE (2)" + vbCrLf + "Flooding"
         End Select
 
 
@@ -1737,7 +1662,7 @@ Public Class Form1
                 Loop Until WaitCount = CloseForm_wait_ds
 
                 WaitPanel.Visible = False
-                If MsgBox("Looks like auto-shutdown is fault or take time too long." + vbNewLine + vbNewLine +
+                If MsgBox("Looks like auto-shutdown is fault or take time too long." + vbCrLf + vbCrLf +
                           "Do you still want exit? ", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
                     ALL_END()
 
@@ -1822,7 +1747,7 @@ Public Class Form1
                     End If
                 End If
             Catch ex As Exception
-                Debug_Listbox.Items.Insert(0, "ManServerTimeOutTimer_Tick():" + ex.Message)
+                Add_to_NoteListbox("ManServerTimeOutTimer_Tick():" + ex.Message)
             End Try
         Next
 
@@ -1843,8 +1768,8 @@ Public Class Form1
 
     Private Sub KillTaskButton_Click(sender As Object, e As EventArgs) Handles KillTaskButton.Click
 
-        If MsgBox("**WARNING** " + vbNewLine + vbNewLine + "It's will terminate all operation, " + vbNewLine + vbNewLine _
-                + "and may cause some datas collapse, unsaved data lost, or other problems!!!" + vbNewLine + vbNewLine _
+        If MsgBox("**WARNING** " + vbCrLf + vbCrLf + "It's will terminate all operation, " + vbCrLf + vbCrLf _
+                + "and may cause some datas collapse, unsaved data lost, or other problems!!!" + vbCrLf + vbCrLf _
                + "Are you sure?", MsgBoxStyle.YesNo, "WARNING") = MsgBoxResult.No Then Exit Sub
 
         kill_task()
@@ -1863,7 +1788,7 @@ Public Class Form1
                 End If
             End If
         Catch ex As Exception
-            Debug_Listbox.Items.Insert(0, "kill_task()1:" + ex.Message)
+            Add_to_NoteListbox("kill_task()1:" + ex.Message)
         End Try
 
         Try
@@ -1873,7 +1798,7 @@ Public Class Form1
                 End If
             End If
         Catch ex As Exception
-            Debug_Listbox.Items.Insert(0, "kill_task()2:" + ex.Message)
+            Add_to_NoteListbox("kill_task()2:" + ex.Message)
         End Try
 
         If Kill_EXE_Console Then
@@ -1889,7 +1814,7 @@ Public Class Form1
                     End If
                 End If
             Catch ex As Exception
-                Debug_Listbox.Items.Insert(0, "kill_task()3:" + ex.Message)
+                Add_to_NoteListbox("kill_task()3:" + ex.Message)
             End Try
 
         End If
@@ -1957,7 +1882,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub SP1_DataReceived(sender As Object, e As SerialDataReceivedEventArgs) Handles SP1.DataReceived
+    Private Sub SP1_DataReceived(sender As Object, e As SerialDataReceivedEventArgs)
 
         Dim Reciver_Data_Long As Integer
         Reciver_Data_Long = SP1.BytesToRead
@@ -2128,7 +2053,7 @@ Public Class Form1
 
     Private Sub RestartCon_Button_Click(sender As Object, e As EventArgs) Handles RestartCon_Button.Click
 
-        If MsgBox("Restart Console will terminate the working of console," + vbNewLine + vbNewLine +
+        If MsgBox("Restart Console will terminate the working of console," + vbCrLf + vbCrLf +
                   "It's not a routine means, are you really want to do?", MsgBoxStyle.OkCancel, "Alert") = MsgBoxResult.Ok Then
             Restart_EXEConsole()
         End If
@@ -2155,7 +2080,7 @@ Public Class Form1
             Start_EXE_Process(Man_EXE_FirstExec)
 
         Catch ex As Exception
-            Debug_Listbox.Items.Insert(0, "Restart_EXEConsole():" + ex.Message)
+            Add_to_NoteListbox("Restart_EXEConsole():" + ex.Message)
         End Try
 
     End Sub
@@ -2262,7 +2187,7 @@ Public Class Form1
             Next
             EXE_Textbox.Text = EXE_Show_String2
 
-            PauseText_Button.Text = "Pause TextBox" + vbNewLine + "(Paused)"
+            PauseText_Button.Text = "Pause TextBox" + vbCrLf + "(Paused)"
 
             My.Application.DoEvents()
         Else
@@ -2308,5 +2233,14 @@ Public Class Form1
         End If
 
     End Sub
+
+    Sub SP1_Init()
+        Me.SP1 = New System.IO.Ports.SerialPort(Me.components)
+        Me.SP1.ReadBufferSize = 64
+        Me.SP1.ReadTimeout = 1
+        Me.SP1.WriteBufferSize = 16
+        Me.SP1.WriteTimeout = 10
+    End Sub
+
 End Class
 

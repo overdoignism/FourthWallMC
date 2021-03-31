@@ -49,13 +49,6 @@ Module Module1
     Public ZIP_Launch_Parameter As String
     Public ZIP_TIME_Format As String = "yyyyMMddHHmmss"
 
-    Public MCServer_CPU_Now As Single
-    Public MCServer_CPU_Peak As Single
-    Public MCServer_CPU_Wait As Integer
-    Public MCServer_RAM_Now As Long
-    Public MCServer_RAM_Peak As Long
-    Public The_ProcessInstanceName As String
-
     Public InNeed_Detect_AbnormalEnd As Boolean
     Public Det_AE_Run As String
     Public Det_AE_RunPara As String = "$TIME$ $FAIL$"
@@ -76,7 +69,8 @@ Module Module1
 
     Public MCServerType As String = "Vanilla (or ND)"
     Public MCServerVer As String
-    Public ServerStart_Tick As UInt64
+    Public ServerStart_Tic_k As UInt64
+    Public ServerStart_Tick2 As Long
 
     Public WaitBusyLongAsCrash As Integer
     Public WaitBLAC_Count As Integer
@@ -93,9 +87,6 @@ Module Module1
     Public Queued_EXE_Command_WalkedIDX As Integer = 0
     Public Queued_EXE_Command_Enable As Boolean = False
 
-    <DllImport("kernel32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
-    Public Function GetTickCount64() As UInt64
-    End Function
 
     Public Sub Before_Save()
 
@@ -348,8 +339,8 @@ Module Module1
         If Not Find_In_List Then
             Form2.L_IPaddr_Combobox.SelectedIndex() = 0
             Local_IP_ADDR = "Any"
-            MsgBox("Alert: The setting for local IP was disappear." + vbNewLine + vbNewLine +
-                   "(Maybe caused by Network adapter change.) " + vbNewLine + vbNewLine +
+            MsgBox("Alert: The setting for local IP was disappear." + vbCrLf + vbCrLf +
+                   "(Maybe caused by Network adapter change.) " + vbCrLf + vbCrLf +
                   "Now set to ""Any"". Please note.", 0, "Alert")
         End If
 
@@ -482,24 +473,6 @@ Module Module1
         If GeekCommandRtnV2.IsUsable Then Return GeekCommandRtnV2
 
         Return GeekCommandRtnV1
-
-    End Function
-
-    Public Function GetProcessInstanceName(pid As Integer) As String
-
-        Dim Cats As New PerformanceCounterCategory("Process")
-        Dim instances() As String = Cats.GetInstanceNames()
-
-        GetProcessInstanceName = ""
-
-        For Each instance_Str As String In instances
-
-            Dim cnt As New PerformanceCounter("Process", "ID Process", instance_Str, True)
-
-            If cnt.RawValue = CLng(pid) Then
-                Return instance_Str
-            End If
-        Next
 
     End Function
 
@@ -814,12 +787,26 @@ Module Module1
         End Select
     End Sub
 
-    Public Function GetLiveTime(MC_Server_WorkState As Integer) As String
+    Public Function GetLiveTime2(MC_Server_WorkState As Integer) As String
 
         If MC_Server_WorkState <> 2 Then Return ("-1")
-        If ServerStart_Tick = 0 Then Return ("-1")
-        Return Fix(CLng((CLng(GetTickCount64()) - CLng(ServerStart_Tick)) / 1000)).ToString()
+        If ServerStart_Tick2 = 0 Then Return ("-1")
+
+        Dim TimeTest As Long
+        TimeTest = DateDiff(DateInterval.Second, New Date(2010, 1, 1, 12, 0, 0), Now)
+        Return TimeTest - ServerStart_Tick2
 
     End Function
+    Public Sub Make_SerialPort_List()
+
+        Dim sp2() As String = System.IO.Ports.SerialPort.GetPortNames()
+        Form2.ComPortList.Items.Clear()
+        Form2.ComPortList.Items.Add("OFF")
+        For Each sp As String In sp2 'My.Computer.Ports.SerialPortNames
+            Form2.ComPortList.Items.Add(sp)
+        Next
+        Form2.ComPortList.SelectedIndex = 0
+
+    End Sub
 
 End Module

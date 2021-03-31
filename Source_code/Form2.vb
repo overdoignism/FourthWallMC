@@ -73,8 +73,8 @@ Public Class Form2
     Private Sub Form2_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
         Get_All_IP_Addr()
+        Make_SerialPort_List()
         Make_Value_In_Box()
-
         ShowEssX_Det(EssentialsDetected)
 
     End Sub
