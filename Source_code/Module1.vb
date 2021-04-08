@@ -7,6 +7,21 @@ Imports System.Runtime.InteropServices
 Imports System.Management
 
 Module Module1
+    Public Structure ScriptCake
+        Dim Script_Process As System.Diagnostics.Process
+        Dim Script_myStreamWriter As System.IO.StreamWriter
+        Dim Is_Working As Boolean
+        Dim Script_Exec_Total_String As String
+        Dim PID As Integer
+
+        Dim Script_Specify_Prefix As String
+        Dim Alias_Specify_Prefix As String
+        Dim Work_start_ticket As Long
+        'Dim Is_Recive_Anything_RAW As Integer
+
+        Dim The_Cake_Var As String
+    End Structure
+
 
     Public Structure GeekCommand_Rtn
         Dim TheCommandPart As String
@@ -45,6 +60,10 @@ Module Module1
     Public Man_COM_TxFilter As String = ""
     Public Man_COM_TxFilterList() As String
 
+    Public Console_Shell_Exec As String = "Powershell.exe"
+    Public Console_Main_Arguments As String = "-NoExit -Command"
+    Public Console_Mux_Arguments As String = "-Command"
+
     Public ZIP_EXE_Location As String
     Public ZIP_Launch_Parameter As String
     Public ZIP_TIME_Format As String = "yyyyMMddHHmmss"
@@ -75,7 +94,7 @@ Module Module1
     Public WaitBusyLongAsCrash As Integer
     Public WaitBLAC_Count As Integer
 
-    Public Return_PreFix As String = ""
+    'Public Return_PreFix As String = ""
 
     Public variableString(9) As String
 
@@ -125,6 +144,11 @@ Module Module1
 
         WaitBusyLongAsCrash = Form2.WaitBusyLongAsCrash_NumericUpDown.Value
 
+
+        Console_Shell_Exec = Form2.Console_Shell_Exec_Textbox.Text
+        Console_Main_Arguments = Form2.Console_Main_Arguments_Textbox.Text
+        Console_Mux_Arguments = Form2.Console_Mux_Arguments_Textbox.Text
+
         Make_List_Array()
         SaveXML()
     End Sub
@@ -161,6 +185,10 @@ Module Module1
             createNode(Save_XML, "DAE_TIME_Format", DAE_TIME_Format)
             createNode(Save_XML, "WaitBusyLongAsCrash", WaitBusyLongAsCrash)
             createNode(Save_XML, "Local_IP_ADDR", Local_IP_ADDR)
+            createNode(Save_XML, "Console_Shell_Exec", Console_Shell_Exec)
+            createNode(Save_XML, "Console_Main_Arguments", Console_Main_Arguments)
+            createNode(Save_XML, "Console_Mux_Arguments", Console_Mux_Arguments)
+
 
             Save_XML.WriteEndElement()
             Save_XML.Flush()
@@ -273,6 +301,14 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("Local_IP_ADDR")
             If TmpNode IsNot Nothing Then Local_IP_ADDR = TmpNode.InnerText
 
+            TmpNode = Node1.SelectSingleNode("Console_Shell_Exec")
+            If TmpNode IsNot Nothing Then Console_Shell_Exec = TmpNode.InnerText
+
+            TmpNode = Node1.SelectSingleNode("Console_Main_Arguments")
+            If TmpNode IsNot Nothing Then Console_Main_Arguments = TmpNode.InnerText
+
+            TmpNode = Node1.SelectSingleNode("Console_Mux_Arguments")
+            If TmpNode IsNot Nothing Then Console_Mux_Arguments = TmpNode.InnerText
 
 
             If Man_Who_CanWork IsNot Nothing Then
@@ -322,8 +358,11 @@ Module Module1
         Form2.ExeViaSay_Checkbox.Checked = EXECommand_ViaSay
         Form2.WaitBusyLongAsCrash_NumericUpDown.Value = WaitBusyLongAsCrash
 
-        Form3.Iagree_CheckBox.Checked = IsAgree
+        Form2.Console_Shell_Exec_Textbox.Text = Console_Shell_Exec
+        Form2.Console_Main_Arguments_Textbox.Text = Console_Main_Arguments
+        Form2.Console_Mux_Arguments_Textbox.Text = Console_Mux_Arguments
 
+        Form3.Iagree_CheckBox.Checked = IsAgree
 
         '=======for IP
 
@@ -555,7 +594,7 @@ Module Module1
 
     End Function
 
-    Public Function Ticket_Return(TheString As String, CheckTarget As String) As String
+    Public Function Ticket_Return(TheString As String) As String  ', CheckTarget As String) As String
 
         Ticket_Return = "-2"
 
@@ -571,15 +610,27 @@ Module Module1
     End Function
 
 
-    Public Function Locate_Return(TheString As String, CheckTarget As String) As String
+    Public Function Locate_Return(TheString As String, CheckTarget1 As String, CheckTarget2 As String) As String
 
         Locate_Return = "-2"
-        If CheckTarget Is Nothing Then Exit Function
+        If CheckTarget1 Is Nothing Then Exit Function
 
         Dim TheStringUp As String = TheString.ToUpper
         Dim TheStringWorking As String
 
-        If InStr(TheStringUp, CheckTarget.ToUpper) = 0 Then Exit Function
+        If (InStr(TheStringUp, CheckTarget1.ToUpper) > 0) Then
+            If InStr(TheStringUp, " UNKNOWN ") > 0 Then
+                Locate_Return = "-4"
+            End If
+        End If
+
+        If (InStr(TheStringUp, CheckTarget2.ToUpper) > 0) Then
+            If InStr(TheStringUp, "NO BIOME") > 0 Then
+                Locate_Return = "-4"
+            End If
+        End If
+
+        If InStr(TheStringUp, CheckTarget2.ToUpper) = 0 Then Exit Function
 
         Dim TMP_IDX, TMP_IDX2 As Integer
         TMP_IDX = InStr(TheStringUp, "INFO]: THE NEAREST ")
@@ -630,17 +681,25 @@ Module Module1
 
     End Function
 
-    Public Sub What_RU_Waiting(ByRef WaitingStr As String, WaitingTimes_ds As Integer)
+    Public Sub What_RU_Waiting(ByRef WaitingStr As String, WaitingTimes_ds As Integer, ByRef WaitingFlag As Boolean)
 
-        WaitingTimes_ds = WaitingTimes_ds * 10
         Dim LoopWait As Integer = 0
         Do
-            System.Threading.Thread.Sleep(10)
+            Task.Delay(100).Wait()
             My.Application.DoEvents()
-            If (WaitingStr <> "-1") And (WaitingStr <> "-2") Then Exit Do
+            If (WaitingStr <> "-1") And (WaitingStr <> "-2") Then
+                WaitingFlag = False
+                Exit Do
+            End If
             LoopWait += 1
         Loop Until LoopWait = WaitingTimes_ds
 
+        WaitingFlag = False
+
+    End Sub
+
+    Private Async Sub sleep1()
+        Await Task.Delay(10)
     End Sub
 
     Public Function Get_All_MCCommand(TheString As String)

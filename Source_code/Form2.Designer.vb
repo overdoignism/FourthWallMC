@@ -47,6 +47,7 @@ Partial Class Form2
         Me.BackupPar_Textbox = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.Label31 = New System.Windows.Forms.Label()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.ExeViaSay_Checkbox = New System.Windows.Forms.CheckBox()
         Me.EssentialsDetected = New System.Windows.Forms.Label()
@@ -66,10 +67,15 @@ Partial Class Form2
         Me.Label11 = New System.Windows.Forms.Label()
         Me.EXEside_Prefix_Checkbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.L_IPaddr_Combobox = New System.Windows.Forms.ComboBox()
+        Me.Label34 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.WaitBusyLongAsCrash_NumericUpDown = New System.Windows.Forms.NumericUpDown()
         Me.Label30 = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.DetAETimeS_Textbox = New System.Windows.Forms.TextBox()
@@ -91,10 +97,14 @@ Partial Class Form2
         Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.WaitBusyLongAsCrash_NumericUpDown = New System.Windows.Forms.NumericUpDown()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.Label33 = New System.Windows.Forms.Label()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Console_Main_Arguments_Textbox = New System.Windows.Forms.TextBox()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.Console_Mux_Arguments_Textbox = New System.Windows.Forms.TextBox()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.Console_Shell_Exec_Textbox = New System.Windows.Forms.TextBox()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.Label35 = New System.Windows.Forms.Label()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -102,11 +112,12 @@ Partial Class Form2
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.WaitBusyLongAsCrash_NumericUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.ComPortSPD_NumericUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage4.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        CType(Me.WaitBusyLongAsCrash_NumericUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'BrowseJAR_Button
@@ -240,7 +251,7 @@ Partial Class Form2
         '
         'RCPassword_Textbox
         '
-        Me.RCPassword_Textbox.Location = New System.Drawing.Point(186, 45)
+        Me.RCPassword_Textbox.Location = New System.Drawing.Point(171, 45)
         Me.RCPassword_Textbox.MaxLength = 15
         Me.RCPassword_Textbox.Name = "RCPassword_Textbox"
         Me.RCPassword_Textbox.Size = New System.Drawing.Size(161, 21)
@@ -250,7 +261,7 @@ Partial Class Form2
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(183, 29)
+        Me.Label6.Location = New System.Drawing.Point(168, 29)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(63, 15)
         Me.Label6.TabIndex = 16
@@ -335,16 +346,23 @@ Partial Class Form2
         Me.GroupBox5.Controls.Add(Me.Label20)
         Me.GroupBox5.Controls.Add(Me.Label16)
         Me.GroupBox5.Controls.Add(Me.Label15)
-        Me.GroupBox5.Controls.Add(Me.Autoexe_Textbox)
-        Me.GroupBox5.Controls.Add(Me.Label10)
         Me.GroupBox5.Controls.Add(Me.PRIID_Textbox)
         Me.GroupBox5.Controls.Add(Me.Label11)
-        Me.GroupBox5.Location = New System.Drawing.Point(23, 37)
+        Me.GroupBox5.Location = New System.Drawing.Point(23, 28)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(771, 252)
+        Me.GroupBox5.Size = New System.Drawing.Size(771, 224)
         Me.GroupBox5.TabIndex = 23
         Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "EXE console"
+        Me.GroupBox5.Text = "Script console"
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(377, 149)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(244, 15)
+        Me.Label31.TabIndex = 40
+        Me.Label31.Text = """CommandBlock"" all have privilege (by ""@"")"
         '
         'Label25
         '
@@ -352,7 +370,7 @@ Partial Class Form2
         Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label25.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(394, 208)
+        Me.Label25.Location = New System.Drawing.Point(379, 172)
         Me.Label25.Name = "Label25"
         Me.Label25.Padding = New System.Windows.Forms.Padding(2)
         Me.Label25.Size = New System.Drawing.Size(322, 22)
@@ -362,7 +380,7 @@ Partial Class Form2
         'ExeViaSay_Checkbox
         '
         Me.ExeViaSay_Checkbox.AutoSize = True
-        Me.ExeViaSay_Checkbox.Location = New System.Drawing.Point(394, 162)
+        Me.ExeViaSay_Checkbox.Location = New System.Drawing.Point(379, 126)
         Me.ExeViaSay_Checkbox.Name = "ExeViaSay_Checkbox"
         Me.ExeViaSay_Checkbox.Size = New System.Drawing.Size(176, 19)
         Me.ExeViaSay_Checkbox.TabIndex = 38
@@ -424,7 +442,7 @@ Partial Class Form2
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(391, 131)
+        Me.Label18.Location = New System.Drawing.Point(376, 77)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(321, 15)
         Me.Label18.TabIndex = 32
@@ -441,7 +459,7 @@ Partial Class Form2
         '
         'MCFilter_Textbox
         '
-        Me.MCFilter_Textbox.Location = New System.Drawing.Point(394, 107)
+        Me.MCFilter_Textbox.Location = New System.Drawing.Point(379, 53)
         Me.MCFilter_Textbox.Name = "MCFilter_Textbox"
         Me.MCFilter_Textbox.Size = New System.Drawing.Size(320, 21)
         Me.MCFilter_Textbox.TabIndex = 30
@@ -449,11 +467,11 @@ Partial Class Form2
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(391, 90)
+        Me.Label20.Location = New System.Drawing.Point(376, 36)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(120, 15)
+        Me.Label20.Size = New System.Drawing.Size(144, 15)
         Me.Label20.TabIndex = 29
-        Me.Label20.Text = "MC→EXE Flood filter"
+        Me.Label20.Text = "MC→Console Flood filter"
         '
         'Label16
         '
@@ -475,7 +493,7 @@ Partial Class Form2
         '
         'Autoexe_Textbox
         '
-        Me.Autoexe_Textbox.Location = New System.Drawing.Point(394, 53)
+        Me.Autoexe_Textbox.Location = New System.Drawing.Point(379, 49)
         Me.Autoexe_Textbox.MaxLength = 65535
         Me.Autoexe_Textbox.Name = "Autoexe_Textbox"
         Me.Autoexe_Textbox.Size = New System.Drawing.Size(320, 21)
@@ -484,11 +502,11 @@ Partial Class Form2
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(391, 35)
+        Me.Label10.Location = New System.Drawing.Point(376, 31)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(301, 15)
+        Me.Label10.Size = New System.Drawing.Size(223, 15)
         Me.Label10.TabIndex = 24
-        Me.Label10.Text = "The auto-exec after EXE start (Leave blank if not used)"
+        Me.Label10.Text = "The auto-exec when Main console start:"
         '
         'PRIID_Textbox
         '
@@ -514,7 +532,7 @@ Partial Class Form2
         Me.EXEside_Prefix_Checkbox.Checked = True
         Me.EXEside_Prefix_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.EXEside_Prefix_Checkbox.Enabled = False
-        Me.EXEside_Prefix_Checkbox.Location = New System.Drawing.Point(23, 317)
+        Me.EXEside_Prefix_Checkbox.Location = New System.Drawing.Point(437, 557)
         Me.EXEside_Prefix_Checkbox.Name = "EXEside_Prefix_Checkbox"
         Me.EXEside_Prefix_Checkbox.Size = New System.Drawing.Size(383, 19)
         Me.EXEside_Prefix_Checkbox.TabIndex = 22
@@ -525,6 +543,8 @@ Partial Class Form2
         'GroupBox4
         '
         Me.GroupBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.GroupBox4.Controls.Add(Me.L_IPaddr_Combobox)
+        Me.GroupBox4.Controls.Add(Me.Label34)
         Me.GroupBox4.Controls.Add(Me.Label5)
         Me.GroupBox4.Controls.Add(Me.ManPortNum)
         Me.GroupBox4.Controls.Add(Me.Label6)
@@ -535,6 +555,25 @@ Partial Class Form2
         Me.GroupBox4.TabIndex = 22
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Remote control"
+        '
+        'L_IPaddr_Combobox
+        '
+        Me.L_IPaddr_Combobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.L_IPaddr_Combobox.FormattingEnabled = True
+        Me.L_IPaddr_Combobox.Items.AddRange(New Object() {"Any"})
+        Me.L_IPaddr_Combobox.Location = New System.Drawing.Point(363, 45)
+        Me.L_IPaddr_Combobox.Name = "L_IPaddr_Combobox"
+        Me.L_IPaddr_Combobox.Size = New System.Drawing.Size(163, 23)
+        Me.L_IPaddr_Combobox.TabIndex = 19
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(361, 29)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(100, 15)
+        Me.Label34.TabIndex = 18
+        Me.Label34.Text = "Local IP address"
         '
         'TabControl1
         '
@@ -603,6 +642,36 @@ Partial Class Form2
         Me.GroupBox2.TabIndex = 25
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "What to execute if MCS abnormal termination:"
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label33.Location = New System.Drawing.Point(228, 208)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(140, 15)
+        Me.Label33.TabIndex = 32
+        Me.Label33.Text = "(in minutes. 0 = not use)"
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(120, 188)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(574, 15)
+        Me.Label32.TabIndex = 31
+        Me.Label32.Text = "How long does it not return from BUSY mode, identify as crashed, and execute acti" &
+    "ons (include kill task)."
+        '
+        'WaitBusyLongAsCrash_NumericUpDown
+        '
+        Me.WaitBusyLongAsCrash_NumericUpDown.Location = New System.Drawing.Point(123, 206)
+        Me.WaitBusyLongAsCrash_NumericUpDown.Maximum = New Decimal(New Integer() {120, 0, 0, 0})
+        Me.WaitBusyLongAsCrash_NumericUpDown.Name = "WaitBusyLongAsCrash_NumericUpDown"
+        Me.WaitBusyLongAsCrash_NumericUpDown.ReadOnly = True
+        Me.WaitBusyLongAsCrash_NumericUpDown.Size = New System.Drawing.Size(90, 21)
+        Me.WaitBusyLongAsCrash_NumericUpDown.TabIndex = 30
+        Me.WaitBusyLongAsCrash_NumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label30
         '
@@ -783,6 +852,7 @@ Partial Class Form2
         '
         'TabPage4
         '
+        Me.TabPage4.Controls.Add(Me.GroupBox3)
         Me.TabPage4.Controls.Add(Me.Label24)
         Me.TabPage4.Controls.Add(Me.GroupBox5)
         Me.TabPage4.Controls.Add(Me.EXEside_Prefix_Checkbox)
@@ -790,7 +860,7 @@ Partial Class Form2
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Size = New System.Drawing.Size(820, 572)
         Me.TabPage4.TabIndex = 3
-        Me.TabPage4.Text = "EXE Console setting"
+        Me.TabPage4.Text = "Script Console setting"
         Me.TabPage4.UseVisualStyleBackColor = True
         '
         'Label24
@@ -799,7 +869,7 @@ Partial Class Form2
         Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label24.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(110, 33)
+        Me.Label24.Location = New System.Drawing.Point(127, 24)
         Me.Label24.Name = "Label24"
         Me.Label24.Padding = New System.Windows.Forms.Padding(2)
         Me.Label24.Size = New System.Drawing.Size(444, 22)
@@ -822,44 +892,87 @@ Partial Class Form2
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Backup setting"
         '
-        'Label31
+        'GroupBox3
         '
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(392, 185)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(244, 15)
-        Me.Label31.TabIndex = 40
-        Me.Label31.Text = """CommandBlock"" all have privilege (by ""@"")"
+        Me.GroupBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(242, Byte), Integer))
+        Me.GroupBox3.Controls.Add(Me.Label35)
+        Me.GroupBox3.Controls.Add(Me.Console_Main_Arguments_Textbox)
+        Me.GroupBox3.Controls.Add(Me.Label43)
+        Me.GroupBox3.Controls.Add(Me.Console_Mux_Arguments_Textbox)
+        Me.GroupBox3.Controls.Add(Me.Label46)
+        Me.GroupBox3.Controls.Add(Me.Console_Shell_Exec_Textbox)
+        Me.GroupBox3.Controls.Add(Me.Label47)
+        Me.GroupBox3.Controls.Add(Me.Autoexe_Textbox)
+        Me.GroupBox3.Controls.Add(Me.Label10)
+        Me.GroupBox3.Location = New System.Drawing.Point(23, 277)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(771, 165)
+        Me.GroupBox3.TabIndex = 38
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Console Shell settings  (If you don't know the purpose, please do not modify it. " &
+    ")"
         '
-        'WaitBusyLongAsCrash_NumericUpDown
+        'Console_Main_Arguments_Textbox
         '
-        Me.WaitBusyLongAsCrash_NumericUpDown.Location = New System.Drawing.Point(123, 206)
-        Me.WaitBusyLongAsCrash_NumericUpDown.Maximum = New Decimal(New Integer() {120, 0, 0, 0})
-        Me.WaitBusyLongAsCrash_NumericUpDown.Name = "WaitBusyLongAsCrash_NumericUpDown"
-        Me.WaitBusyLongAsCrash_NumericUpDown.ReadOnly = True
-        Me.WaitBusyLongAsCrash_NumericUpDown.Size = New System.Drawing.Size(90, 21)
-        Me.WaitBusyLongAsCrash_NumericUpDown.TabIndex = 30
-        Me.WaitBusyLongAsCrash_NumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.Console_Main_Arguments_Textbox.Location = New System.Drawing.Point(24, 120)
+        Me.Console_Main_Arguments_Textbox.Name = "Console_Main_Arguments_Textbox"
+        Me.Console_Main_Arguments_Textbox.Size = New System.Drawing.Size(320, 21)
+        Me.Console_Main_Arguments_Textbox.TabIndex = 30
+        Me.Console_Main_Arguments_Textbox.Text = "-NoExit -Command"
         '
-        'Label32
+        'Label43
         '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(120, 188)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(574, 15)
-        Me.Label32.TabIndex = 31
-        Me.Label32.Text = "How long does it not return from BUSY mode, identify as crashed, and execute acti" &
-    "ons (include kill task)."
+        Me.Label43.AutoSize = True
+        Me.Label43.Location = New System.Drawing.Point(23, 102)
+        Me.Label43.Name = "Label43"
+        Me.Label43.Size = New System.Drawing.Size(239, 15)
+        Me.Label43.TabIndex = 29
+        Me.Label43.Text = "Main console auto-exec launch parameter:"
         '
-        'Label33
+        'Console_Mux_Arguments_Textbox
         '
-        Me.Label33.AutoSize = True
-        Me.Label33.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label33.Location = New System.Drawing.Point(228, 208)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(140, 15)
-        Me.Label33.TabIndex = 32
-        Me.Label33.Text = "(in minutes. 0 = not use)"
+        Me.Console_Mux_Arguments_Textbox.Location = New System.Drawing.Point(379, 120)
+        Me.Console_Mux_Arguments_Textbox.MaxLength = 65535
+        Me.Console_Mux_Arguments_Textbox.Name = "Console_Mux_Arguments_Textbox"
+        Me.Console_Mux_Arguments_Textbox.Size = New System.Drawing.Size(320, 21)
+        Me.Console_Mux_Arguments_Textbox.TabIndex = 23
+        Me.Console_Mux_Arguments_Textbox.Text = "-Command"
+        '
+        'Label46
+        '
+        Me.Label46.AutoSize = True
+        Me.Label46.Location = New System.Drawing.Point(376, 102)
+        Me.Label46.Name = "Label46"
+        Me.Label46.Size = New System.Drawing.Size(178, 15)
+        Me.Label46.TabIndex = 24
+        Me.Label46.Text = "Mux console launch parameter:"
+        '
+        'Console_Shell_Exec_Textbox
+        '
+        Me.Console_Shell_Exec_Textbox.Location = New System.Drawing.Point(24, 49)
+        Me.Console_Shell_Exec_Textbox.MaxLength = 65535
+        Me.Console_Shell_Exec_Textbox.Name = "Console_Shell_Exec_Textbox"
+        Me.Console_Shell_Exec_Textbox.Size = New System.Drawing.Size(320, 21)
+        Me.Console_Shell_Exec_Textbox.TabIndex = 18
+        Me.Console_Shell_Exec_Textbox.Text = "Powershell.exe"
+        '
+        'Label47
+        '
+        Me.Label47.AutoSize = True
+        Me.Label47.Location = New System.Drawing.Point(21, 32)
+        Me.Label47.Name = "Label47"
+        Me.Label47.Size = New System.Drawing.Size(258, 15)
+        Me.Label47.TabIndex = 19
+        Me.Label47.Text = "The Shell (Filename or command name only):"
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(376, 73)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(144, 15)
+        Me.Label35.TabIndex = 31
+        Me.Label35.Text = "(Leave blank if not used.)"
         '
         'Form2
         '
@@ -883,6 +996,7 @@ Partial Class Form2
         Me.TabPage2.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.WaitBusyLongAsCrash_NumericUpDown, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.ComPortSPD_NumericUpDown, System.ComponentModel.ISupportInitialize).EndInit()
@@ -890,7 +1004,8 @@ Partial Class Form2
         Me.TabPage4.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
-        CType(Me.WaitBusyLongAsCrash_NumericUpDown, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -968,4 +1083,14 @@ Partial Class Form2
     Friend WithEvents Label33 As Label
     Friend WithEvents Label32 As Label
     Friend WithEvents WaitBusyLongAsCrash_NumericUpDown As NumericUpDown
+    Friend WithEvents Label34 As Label
+    Friend WithEvents L_IPaddr_Combobox As ComboBox
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents Console_Main_Arguments_Textbox As TextBox
+    Friend WithEvents Label43 As Label
+    Friend WithEvents Console_Mux_Arguments_Textbox As TextBox
+    Friend WithEvents Label46 As Label
+    Friend WithEvents Console_Shell_Exec_Textbox As TextBox
+    Friend WithEvents Label47 As Label
+    Friend WithEvents Label35 As Label
 End Class
