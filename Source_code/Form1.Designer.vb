@@ -43,10 +43,13 @@ Partial Class Form1
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Kill_Mux_Con = New System.Windows.Forms.Button()
         Me.EXE_Textbox = New System.Windows.Forms.RichTextBox()
+        Me.RestartCon_Button = New System.Windows.Forms.Button()
         Me.EXECON_Stat_Label = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Send2Exe_TextBox = New System.Windows.Forms.TextBox()
+        Me.ModeExeFW_Button = New System.Windows.Forms.Button()
         Me.Send2EXE_Button = New System.Windows.Forms.Button()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Button6 = New System.Windows.Forms.Button()
@@ -83,7 +86,6 @@ Partial Class Form1
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Command_err_ListBox = New System.Windows.Forms.ListBox()
         Me.Note_ListBox = New System.Windows.Forms.ListBox()
-        Me.ModeExeFW_Button = New System.Windows.Forms.Button()
         Me.SP1Mon = New System.Windows.Forms.Timer(Me.components)
         Me.Label6 = New System.Windows.Forms.Label()
         Me.COMState_Label = New System.Windows.Forms.Label()
@@ -91,11 +93,10 @@ Partial Class Form1
         Me.WaitPanel = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.BusyCrash = New System.Windows.Forms.Timer(Me.components)
-        Me.RestartCon_Button = New System.Windows.Forms.Button()
         Me.BoxRefreshTimer = New System.Windows.Forms.Timer(Me.components)
         Me.QueueEXE_RunnerTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PauseText_Button = New System.Windows.Forms.Button()
-        Me.Kill_Mux_Con = New System.Windows.Forms.Button()
+        Me.Stop_Button = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -109,7 +110,7 @@ Partial Class Form1
         'StartButton
         '
         Me.StartButton.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.StartButton.Location = New System.Drawing.Point(12, 11)
+        Me.StartButton.Location = New System.Drawing.Point(11, 11)
         Me.StartButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(121, 58)
@@ -156,7 +157,7 @@ Partial Class Form1
         'SetupButton
         '
         Me.SetupButton.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.SetupButton.Location = New System.Drawing.Point(12, 139)
+        Me.SetupButton.Location = New System.Drawing.Point(11, 209)
         Me.SetupButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.SetupButton.Name = "SetupButton"
         Me.SetupButton.Size = New System.Drawing.Size(121, 58)
@@ -208,7 +209,7 @@ Partial Class Form1
         'BackupButton
         '
         Me.BackupButton.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.BackupButton.Location = New System.Drawing.Point(12, 75)
+        Me.BackupButton.Location = New System.Drawing.Point(11, 143)
         Me.BackupButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BackupButton.Name = "BackupButton"
         Me.BackupButton.Size = New System.Drawing.Size(121, 58)
@@ -219,7 +220,7 @@ Partial Class Form1
         'KillTaskButton
         '
         Me.KillTaskButton.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.KillTaskButton.Location = New System.Drawing.Point(11, 503)
+        Me.KillTaskButton.Location = New System.Drawing.Point(11, 499)
         Me.KillTaskButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.KillTaskButton.Name = "KillTaskButton"
         Me.KillTaskButton.Size = New System.Drawing.Size(121, 58)
@@ -230,7 +231,7 @@ Partial Class Form1
         'HelpAbout_Button
         '
         Me.HelpAbout_Button.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.HelpAbout_Button.Location = New System.Drawing.Point(11, 567)
+        Me.HelpAbout_Button.Location = New System.Drawing.Point(11, 565)
         Me.HelpAbout_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.HelpAbout_Button.Name = "HelpAbout_Button"
         Me.HelpAbout_Button.Size = New System.Drawing.Size(121, 58)
@@ -254,7 +255,7 @@ Partial Class Form1
         '
         Me.ModeRC_Button.BackColor = System.Drawing.Color.White
         Me.ModeRC_Button.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.ModeRC_Button.Location = New System.Drawing.Point(11, 205)
+        Me.ModeRC_Button.Location = New System.Drawing.Point(11, 275)
         Me.ModeRC_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ModeRC_Button.Name = "ModeRC_Button"
         Me.ModeRC_Button.Size = New System.Drawing.Size(121, 58)
@@ -317,6 +318,17 @@ Partial Class Form1
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Script console"
         '
+        'Kill_Mux_Con
+        '
+        Me.Kill_Mux_Con.Font = New System.Drawing.Font("Arial", 9.0!)
+        Me.Kill_Mux_Con.Location = New System.Drawing.Point(262, 543)
+        Me.Kill_Mux_Con.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Kill_Mux_Con.Name = "Kill_Mux_Con"
+        Me.Kill_Mux_Con.Size = New System.Drawing.Size(121, 58)
+        Me.Kill_Mux_Con.TabIndex = 37
+        Me.Kill_Mux_Con.Text = "Kill all Mux"
+        Me.Kill_Mux_Con.UseVisualStyleBackColor = True
+        '
         'EXE_Textbox
         '
         Me.EXE_Textbox.BackColor = System.Drawing.Color.Black
@@ -330,6 +342,17 @@ Partial Class Form1
         Me.EXE_Textbox.TabIndex = 29
         Me.EXE_Textbox.Text = ""
         Me.EXE_Textbox.WordWrap = False
+        '
+        'RestartCon_Button
+        '
+        Me.RestartCon_Button.Font = New System.Drawing.Font("Arial", 9.0!)
+        Me.RestartCon_Button.Location = New System.Drawing.Point(134, 543)
+        Me.RestartCon_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.RestartCon_Button.Name = "RestartCon_Button"
+        Me.RestartCon_Button.Size = New System.Drawing.Size(121, 58)
+        Me.RestartCon_Button.TabIndex = 36
+        Me.RestartCon_Button.Text = "Restart Main"
+        Me.RestartCon_Button.UseVisualStyleBackColor = True
         '
         'EXECON_Stat_Label
         '
@@ -361,6 +384,18 @@ Partial Class Form1
         Me.Send2Exe_TextBox.Name = "Send2Exe_TextBox"
         Me.Send2Exe_TextBox.Size = New System.Drawing.Size(538, 26)
         Me.Send2Exe_TextBox.TabIndex = 26
+        '
+        'ModeExeFW_Button
+        '
+        Me.ModeExeFW_Button.BackColor = System.Drawing.Color.White
+        Me.ModeExeFW_Button.Font = New System.Drawing.Font("Arial", 9.0!)
+        Me.ModeExeFW_Button.Location = New System.Drawing.Point(6, 543)
+        Me.ModeExeFW_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.ModeExeFW_Button.Name = "ModeExeFW_Button"
+        Me.ModeExeFW_Button.Size = New System.Drawing.Size(121, 58)
+        Me.ModeExeFW_Button.TabIndex = 25
+        Me.ModeExeFW_Button.Text = "Flood way (Main)"
+        Me.ModeExeFW_Button.UseVisualStyleBackColor = False
         '
         'Send2EXE_Button
         '
@@ -596,7 +631,7 @@ Partial Class Form1
         Me.GroupBox1.Size = New System.Drawing.Size(961, 207)
         Me.GroupBox1.TabIndex = 53
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "These information is generated after latest time server start."
+        Me.GroupBox1.Text = "These information is generated after latest time 4WMC start or server start."
         '
         'Label10
         '
@@ -611,7 +646,7 @@ Partial Class Form1
         '
         'Queue_TextBox
         '
-        Me.Queue_TextBox.Location = New System.Drawing.Point(657, 49)
+        Me.Queue_TextBox.Location = New System.Drawing.Point(642, 49)
         Me.Queue_TextBox.Name = "Queue_TextBox"
         Me.Queue_TextBox.ReadOnly = True
         Me.Queue_TextBox.Size = New System.Drawing.Size(170, 21)
@@ -625,27 +660,27 @@ Partial Class Form1
         Me.Label14.ForeColor = System.Drawing.Color.White
         Me.Label14.Location = New System.Drawing.Point(20, 142)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(316, 16)
+        Me.Label14.Size = New System.Drawing.Size(328, 16)
         Me.Label14.TabIndex = 36
-        Me.Label14.Text = "EXE console initialization folder full path (latest):"
+        Me.Label14.Text = "Script console initialization folder full path (latest):"
         '
         'Label19
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
         Me.Label19.ForeColor = System.Drawing.Color.White
-        Me.Label19.Location = New System.Drawing.Point(654, 30)
+        Me.Label19.Location = New System.Drawing.Point(639, 30)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(200, 16)
+        Me.Label19.Size = New System.Drawing.Size(241, 16)
         Me.Label19.TabIndex = 51
-        Me.Label19.Text = "# instruction queuing function:"
+        Me.Label19.Text = "# instruction queuing (Main console):"
         '
         'Label23
         '
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
         Me.Label23.ForeColor = System.Drawing.Color.White
-        Me.Label23.Location = New System.Drawing.Point(232, 30)
+        Me.Label23.Location = New System.Drawing.Point(227, 30)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(147, 16)
         Me.Label23.TabIndex = 38
@@ -668,7 +703,7 @@ Partial Class Form1
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
         Me.Label15.ForeColor = System.Drawing.Color.White
-        Me.Label15.Location = New System.Drawing.Point(442, 30)
+        Me.Label15.Location = New System.Drawing.Point(432, 30)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(113, 16)
         Me.Label15.TabIndex = 39
@@ -705,7 +740,7 @@ Partial Class Form1
         '
         'EssX_Det_TextBox
         '
-        Me.EssX_Det_TextBox.Location = New System.Drawing.Point(235, 49)
+        Me.EssX_Det_TextBox.Location = New System.Drawing.Point(230, 49)
         Me.EssX_Det_TextBox.Name = "EssX_Det_TextBox"
         Me.EssX_Det_TextBox.ReadOnly = True
         Me.EssX_Det_TextBox.Size = New System.Drawing.Size(170, 21)
@@ -733,7 +768,7 @@ Partial Class Form1
         '
         'ServerLiveTime_Textbox
         '
-        Me.ServerLiveTime_Textbox.Location = New System.Drawing.Point(445, 49)
+        Me.ServerLiveTime_Textbox.Location = New System.Drawing.Point(435, 49)
         Me.ServerLiveTime_Textbox.Name = "ServerLiveTime_Textbox"
         Me.ServerLiveTime_Textbox.ReadOnly = True
         Me.ServerLiveTime_Textbox.Size = New System.Drawing.Size(170, 21)
@@ -770,18 +805,6 @@ Partial Class Form1
         Me.Note_ListBox.Name = "Note_ListBox"
         Me.Note_ListBox.Size = New System.Drawing.Size(932, 139)
         Me.Note_ListBox.TabIndex = 45
-        '
-        'ModeExeFW_Button
-        '
-        Me.ModeExeFW_Button.BackColor = System.Drawing.Color.White
-        Me.ModeExeFW_Button.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.ModeExeFW_Button.Location = New System.Drawing.Point(6, 543)
-        Me.ModeExeFW_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.ModeExeFW_Button.Name = "ModeExeFW_Button"
-        Me.ModeExeFW_Button.Size = New System.Drawing.Size(121, 58)
-        Me.ModeExeFW_Button.TabIndex = 25
-        Me.ModeExeFW_Button.Text = "Flood way (Main)"
-        Me.ModeExeFW_Button.UseVisualStyleBackColor = False
         '
         'SP1Mon
         '
@@ -846,17 +869,6 @@ Partial Class Form1
         '
         Me.BusyCrash.Interval = 1000
         '
-        'RestartCon_Button
-        '
-        Me.RestartCon_Button.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.RestartCon_Button.Location = New System.Drawing.Point(134, 543)
-        Me.RestartCon_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.RestartCon_Button.Name = "RestartCon_Button"
-        Me.RestartCon_Button.Size = New System.Drawing.Size(121, 58)
-        Me.RestartCon_Button.TabIndex = 36
-        Me.RestartCon_Button.Text = "Restart Main"
-        Me.RestartCon_Button.UseVisualStyleBackColor = True
-        '
         'BoxRefreshTimer
         '
         Me.BoxRefreshTimer.Enabled = True
@@ -870,7 +882,7 @@ Partial Class Form1
         '
         Me.PauseText_Button.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.PauseText_Button.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.PauseText_Button.Location = New System.Drawing.Point(11, 437)
+        Me.PauseText_Button.Location = New System.Drawing.Point(11, 433)
         Me.PauseText_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PauseText_Button.Name = "PauseText_Button"
         Me.PauseText_Button.Size = New System.Drawing.Size(121, 58)
@@ -878,16 +890,17 @@ Partial Class Form1
         Me.PauseText_Button.Text = "Pause Text"
         Me.PauseText_Button.UseVisualStyleBackColor = False
         '
-        'Kill_Mux_Con
+        'Stop_Button
         '
-        Me.Kill_Mux_Con.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.Kill_Mux_Con.Location = New System.Drawing.Point(262, 543)
-        Me.Kill_Mux_Con.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Kill_Mux_Con.Name = "Kill_Mux_Con"
-        Me.Kill_Mux_Con.Size = New System.Drawing.Size(121, 58)
-        Me.Kill_Mux_Con.TabIndex = 37
-        Me.Kill_Mux_Con.Text = "Kill all Mux"
-        Me.Kill_Mux_Con.UseVisualStyleBackColor = True
+        Me.Stop_Button.Enabled = False
+        Me.Stop_Button.Font = New System.Drawing.Font("Arial", 9.0!)
+        Me.Stop_Button.Location = New System.Drawing.Point(11, 77)
+        Me.Stop_Button.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Stop_Button.Name = "Stop_Button"
+        Me.Stop_Button.Size = New System.Drawing.Size(121, 58)
+        Me.Stop_Button.TabIndex = 38
+        Me.Stop_Button.Text = "Stop Server"
+        Me.Stop_Button.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -895,6 +908,7 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.ClientSize = New System.Drawing.Size(1181, 700)
+        Me.Controls.Add(Me.Stop_Button)
         Me.Controls.Add(Me.PauseText_Button)
         Me.Controls.Add(Me.WaitPanel)
         Me.Controls.Add(Me.Panel1)
@@ -1006,4 +1020,5 @@ Partial Class Form1
     Friend WithEvents Label19 As Label
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Kill_Mux_Con As Button
+    Friend WithEvents Stop_Button As Button
 End Class

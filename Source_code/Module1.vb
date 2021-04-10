@@ -60,10 +60,6 @@ Module Module1
     Public Man_COM_TxFilter As String = ""
     Public Man_COM_TxFilterList() As String
 
-    Public Console_Shell_Exec As String = "Powershell.exe"
-    Public Console_Main_Arguments As String = "-NoExit -Command"
-    Public Console_Mux_Arguments As String = "-Command"
-
     Public ZIP_EXE_Location As String
     Public ZIP_Launch_Parameter As String
     Public ZIP_TIME_Format As String = "yyyyMMddHHmmss"
@@ -106,7 +102,12 @@ Module Module1
     Public Queued_EXE_Command_WalkedIDX As Integer = 0
     Public Queued_EXE_Command_Enable As Boolean = False
 
-
+    Public What_is_the_OS As String
+    Public Console_Shell_Exec As String = "Powershell.exe"
+    Public Console_Main_Arguments As String = "-NoExit -Command"
+    Public Console_Mux_Arguments As String = "-Command"
+    Public PDSC As String = "\"
+    Public GUI_OpenFolder As String = "explorer.exe"
     Public Sub Before_Save()
 
         MCServer_JAR_BAT_Location = Form2.JARPATH_Textbox.Text
@@ -144,10 +145,11 @@ Module Module1
 
         WaitBusyLongAsCrash = Form2.WaitBusyLongAsCrash_NumericUpDown.Value
 
-
         Console_Shell_Exec = Form2.Console_Shell_Exec_Textbox.Text
         Console_Main_Arguments = Form2.Console_Main_Arguments_Textbox.Text
         Console_Mux_Arguments = Form2.Console_Mux_Arguments_Textbox.Text
+
+        GUI_OpenFolder = Form2.GUI_FolderOpen_TXTBOX.Text
 
         Make_List_Array()
         SaveXML()
@@ -156,7 +158,7 @@ Module Module1
     Public Sub SaveXML()
 
         Try
-            Dim Save_XML As New XmlTextWriter(Origial_Path + "\Setting.xml", Encoding.UTF8)
+            Dim Save_XML As New XmlTextWriter(Origial_Path + PDSC + "Setting.xml", Encoding.UTF8)
             Save_XML.WriteStartDocument()
             Save_XML.Formatting = Formatting.Indented
             Save_XML.WriteStartElement("Setup")
@@ -188,7 +190,7 @@ Module Module1
             createNode(Save_XML, "Console_Shell_Exec", Console_Shell_Exec)
             createNode(Save_XML, "Console_Main_Arguments", Console_Main_Arguments)
             createNode(Save_XML, "Console_Mux_Arguments", Console_Mux_Arguments)
-
+            createNode(Save_XML, "GUI_OpenFolder", GUI_OpenFolder)
 
             Save_XML.WriteEndElement()
             Save_XML.Flush()
@@ -210,7 +212,7 @@ Module Module1
 
 
         If LoadFile = "" Then
-            LoadFile_Fin = Origial_Path + "\Setting.xml"
+            LoadFile_Fin = Origial_Path + PDSC + "Setting.xml"
         Else
             If Not My.Computer.FileSystem.FileExists(LoadFile) Then
                 Return "ERROR-File not exist."
@@ -310,6 +312,8 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("Console_Mux_Arguments")
             If TmpNode IsNot Nothing Then Console_Mux_Arguments = TmpNode.InnerText
 
+            TmpNode = Node1.SelectSingleNode("GUI_OpenFolder")
+            If TmpNode IsNot Nothing Then GUI_OpenFolder = TmpNode.InnerText
 
             If Man_Who_CanWork IsNot Nothing Then
                 Make_List_Array()
@@ -361,6 +365,7 @@ Module Module1
         Form2.Console_Shell_Exec_Textbox.Text = Console_Shell_Exec
         Form2.Console_Main_Arguments_Textbox.Text = Console_Main_Arguments
         Form2.Console_Mux_Arguments_Textbox.Text = Console_Mux_Arguments
+        Form2.GUI_FolderOpen_TXTBOX.Text = GUI_OpenFolder
 
         Form3.Iagree_CheckBox.Checked = IsAgree
 
@@ -508,7 +513,6 @@ Module Module1
             End If
         End If
 
-
         If GeekCommandRtnV2.IsUsable Then Return GeekCommandRtnV2
 
         Return GeekCommandRtnV1
@@ -530,7 +534,6 @@ Module Module1
         Return OutputFF
 
     End Function
-
 
     Public Function The_Man_has_right_V1(Check_Sender_String As String, Check_Sendto_String As String) As Boolean
 
@@ -608,7 +611,6 @@ Module Module1
         End If
 
     End Function
-
 
     Public Function Locate_Return(TheString As String, CheckTarget1 As String, CheckTarget2 As String) As String
 
@@ -696,10 +698,6 @@ Module Module1
 
         WaitingFlag = False
 
-    End Sub
-
-    Private Async Sub sleep1()
-        Await Task.Delay(10)
     End Sub
 
     Public Function Get_All_MCCommand(TheString As String)
@@ -791,7 +789,6 @@ Module Module1
         End If
     End Sub
 
-
     Public Sub Get_All_IP_Addr()
 
         Form2.L_IPaddr_Combobox.Items.Clear()
@@ -803,7 +800,6 @@ Module Module1
 
         Dim strHostName As String = Dns.GetHostName()
         Dim IPHostE As IPHostEntry = Dns.GetHostEntry(strHostName)
-
 
         For Each IP_ADDRS As IPAddress In IPHostE.AddressList
             If IP_ADDRS.AddressFamily = Sockets.AddressFamily.InterNetwork Then
@@ -867,5 +863,65 @@ Module Module1
         Form2.ComPortList.SelectedIndex = 0
 
     End Sub
+
+    Public Function Test_EULA(EULA_FILE As String) As Boolean
+
+        Try
+            If Not My.Computer.FileSystem.FileExists(EULA_FILE + PDSC + "eula.txt") Then
+                Return False
+            End If
+
+            Dim EULA_R As IO.StreamReader = My.Computer.FileSystem.OpenTextFileReader(EULA_FILE + PDSC + "eula.txt")
+            Dim Eula_File_Str As String
+            Dim Tmpidx1 As Integer
+
+            Do Until EULA_R.EndOfStream
+                Eula_File_Str = EULA_R.ReadLine
+                Tmpidx1 = InStr(Eula_File_Str.ToLower, "eula=true")
+                If InStr(Eula_File_Str.ToLower, "eula=true") > 0 Then
+                    EULA_R.Close()
+                    Return True
+                End If
+            Loop
+            EULA_R.Close()
+
+        Catch ex As Exception
+
+        End Try
+        Return False
+
+    End Function
+
+    Public Sub DetectOS_and_var()
+
+        What_is_the_OS = Environment.OSVersion.VersionString
+        PDSC = Path.DirectorySeparatorChar
+
+        If InStr(What_is_the_OS.ToUpper, "MICROSOFT WINDOWS") > 0 Then
+            Console_Shell_Exec = "Powershell.exe"
+            Console_Main_Arguments = "-NoExit -Command"
+            Console_Mux_Arguments = "-Command"
+            GUI_OpenFolder = "explorer.exe"
+        End If
+
+    End Sub
+
+    Public Function GSet_Jar_as_Work_folder(folder_path As String, set_self_folder As Boolean) As String
+
+        Try
+            If Not My.Computer.FileSystem.FileExists(folder_path) Then
+                Return ""
+            End If
+
+            Dim SerWorkingDir As String
+            SerWorkingDir = My.Computer.FileSystem.GetFileInfo(folder_path).DirectoryName
+            If set_self_folder Then Directory.SetCurrentDirectory(SerWorkingDir)
+
+            Return SerWorkingDir
+        Catch ex As Exception
+            Return ""
+        End Try
+
+    End Function
 
 End Module

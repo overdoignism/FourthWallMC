@@ -61,10 +61,10 @@ Partial Class Form2
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.Autoexe_Textbox = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.PRIID_Textbox = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.Autoexe_Textbox = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.EXEside_Prefix_Checkbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.L_IPaddr_Combobox = New System.Windows.Forms.ComboBox()
@@ -95,16 +95,18 @@ Partial Class Form2
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Label35 = New System.Windows.Forms.Label()
         Me.Console_Main_Arguments_Textbox = New System.Windows.Forms.TextBox()
         Me.Label43 = New System.Windows.Forms.Label()
         Me.Console_Mux_Arguments_Textbox = New System.Windows.Forms.TextBox()
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Console_Shell_Exec_Textbox = New System.Windows.Forms.TextBox()
         Me.Label47 = New System.Windows.Forms.Label()
-        Me.Label35 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.GUI_FolderOpen_TXTBOX = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -116,8 +118,8 @@ Partial Class Form2
         Me.GroupBox1.SuspendLayout()
         CType(Me.ComPortSPD_NumericUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage4.SuspendLayout()
-        Me.TabPage3.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
         Me.SuspendLayout()
         '
         'BrowseJAR_Button
@@ -491,23 +493,6 @@ Partial Class Form2
         Me.Label15.TabIndex = 25
         Me.Label15.Text = "1. CONSOLE is an ID (Always available)"
         '
-        'Autoexe_Textbox
-        '
-        Me.Autoexe_Textbox.Location = New System.Drawing.Point(379, 49)
-        Me.Autoexe_Textbox.MaxLength = 65535
-        Me.Autoexe_Textbox.Name = "Autoexe_Textbox"
-        Me.Autoexe_Textbox.Size = New System.Drawing.Size(320, 21)
-        Me.Autoexe_Textbox.TabIndex = 23
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(376, 31)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(223, 15)
-        Me.Label10.TabIndex = 24
-        Me.Label10.Text = "The auto-exec when Main console start:"
-        '
         'PRIID_Textbox
         '
         Me.PRIID_Textbox.Location = New System.Drawing.Point(24, 53)
@@ -525,6 +510,23 @@ Partial Class Form2
         Me.Label11.Size = New System.Drawing.Size(215, 15)
         Me.Label11.TabIndex = 19
         Me.Label11.Text = "Who has privilege? (ID, not nickname)"
+        '
+        'Autoexe_Textbox
+        '
+        Me.Autoexe_Textbox.Location = New System.Drawing.Point(379, 49)
+        Me.Autoexe_Textbox.MaxLength = 65535
+        Me.Autoexe_Textbox.Name = "Autoexe_Textbox"
+        Me.Autoexe_Textbox.Size = New System.Drawing.Size(320, 21)
+        Me.Autoexe_Textbox.TabIndex = 23
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(376, 31)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(223, 15)
+        Me.Label10.TabIndex = 24
+        Me.Label10.Text = "The auto-exec when Main console start:"
         '
         'EXEside_Prefix_Checkbox
         '
@@ -863,38 +865,11 @@ Partial Class Form2
         Me.TabPage4.Text = "Script Console setting"
         Me.TabPage4.UseVisualStyleBackColor = True
         '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label24.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(127, 24)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Padding = New System.Windows.Forms.Padding(2)
-        Me.Label24.Size = New System.Drawing.Size(444, 22)
-        Me.Label24.TabIndex = 37
-        Me.Label24.Text = " ( Execute command in world is best with Spigot / PaperMC Server )"
-        '
-        'TabPage3
-        '
-        Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(236, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TabPage3.Controls.Add(Me.BrowseBackup_Button)
-        Me.TabPage3.Controls.Add(Me.Label7)
-        Me.TabPage3.Controls.Add(Me.BackupTimeS_Textbox)
-        Me.TabPage3.Controls.Add(Me.BackupPar_Textbox)
-        Me.TabPage3.Controls.Add(Me.Label8)
-        Me.TabPage3.Controls.Add(Me.BackupExe_Textbox)
-        Me.TabPage3.Controls.Add(Me.Label9)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 24)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(820, 572)
-        Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "Backup setting"
-        '
         'GroupBox3
         '
         Me.GroupBox3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(242, Byte), Integer))
+        Me.GroupBox3.Controls.Add(Me.GUI_FolderOpen_TXTBOX)
+        Me.GroupBox3.Controls.Add(Me.Label36)
         Me.GroupBox3.Controls.Add(Me.Label35)
         Me.GroupBox3.Controls.Add(Me.Console_Main_Arguments_Textbox)
         Me.GroupBox3.Controls.Add(Me.Label43)
@@ -906,11 +881,20 @@ Partial Class Form2
         Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Location = New System.Drawing.Point(23, 277)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(771, 165)
+        Me.GroupBox3.Size = New System.Drawing.Size(771, 238)
         Me.GroupBox3.TabIndex = 38
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Console Shell settings  (If you don't know the purpose, please do not modify it. " &
     ")"
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(376, 73)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(144, 15)
+        Me.Label35.TabIndex = 31
+        Me.Label35.Text = "(Leave blank if not used.)"
         '
         'Console_Main_Arguments_Textbox
         '
@@ -965,14 +949,51 @@ Partial Class Form2
         Me.Label47.TabIndex = 19
         Me.Label47.Text = "The Shell (Filename or command name only):"
         '
-        'Label35
+        'Label24
         '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(376, 73)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(144, 15)
-        Me.Label35.TabIndex = 31
-        Me.Label35.Text = "(Leave blank if not used.)"
+        Me.Label24.AutoSize = True
+        Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label24.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(127, 24)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Padding = New System.Windows.Forms.Padding(2)
+        Me.Label24.Size = New System.Drawing.Size(444, 22)
+        Me.Label24.TabIndex = 37
+        Me.Label24.Text = " ( Execute command in world is best with Spigot / PaperMC Server )"
+        '
+        'TabPage3
+        '
+        Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(236, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TabPage3.Controls.Add(Me.BrowseBackup_Button)
+        Me.TabPage3.Controls.Add(Me.Label7)
+        Me.TabPage3.Controls.Add(Me.BackupTimeS_Textbox)
+        Me.TabPage3.Controls.Add(Me.BackupPar_Textbox)
+        Me.TabPage3.Controls.Add(Me.Label8)
+        Me.TabPage3.Controls.Add(Me.BackupExe_Textbox)
+        Me.TabPage3.Controls.Add(Me.Label9)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 24)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Size = New System.Drawing.Size(820, 572)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Backup setting"
+        '
+        'GUI_FolderOpen_TXTBOX
+        '
+        Me.GUI_FolderOpen_TXTBOX.Location = New System.Drawing.Point(24, 192)
+        Me.GUI_FolderOpen_TXTBOX.Name = "GUI_FolderOpen_TXTBOX"
+        Me.GUI_FolderOpen_TXTBOX.Size = New System.Drawing.Size(320, 21)
+        Me.GUI_FolderOpen_TXTBOX.TabIndex = 33
+        Me.GUI_FolderOpen_TXTBOX.Text = "explorer.exe"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(23, 174)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(188, 15)
+        Me.Label36.TabIndex = 32
+        Me.Label36.Text = "Command for open folder in GUI:"
         '
         'Form2
         '
@@ -1002,10 +1023,10 @@ Partial Class Form2
         CType(Me.ComPortSPD_NumericUpDown, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage4.ResumeLayout(False)
         Me.TabPage4.PerformLayout()
-        Me.TabPage3.ResumeLayout(False)
-        Me.TabPage3.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        Me.TabPage3.ResumeLayout(False)
+        Me.TabPage3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1093,4 +1114,6 @@ Partial Class Form2
     Friend WithEvents Console_Shell_Exec_Textbox As TextBox
     Friend WithEvents Label47 As Label
     Friend WithEvents Label35 As Label
+    Friend WithEvents GUI_FolderOpen_TXTBOX As TextBox
+    Friend WithEvents Label36 As Label
 End Class

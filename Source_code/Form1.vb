@@ -8,7 +8,6 @@ Imports System.Runtime.InteropServices
 Imports System.Net.Sockets
 
 Public Class Form1
-
     Structure ClientWorker
         Dim TheSocket As Sockets.TcpClient
         Dim IsUsing As Boolean
@@ -19,7 +18,7 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
-    Const FwmcVer As String = "0.90"
+    Const FwmcVer As String = "0.91"
 
     Const CM_Type_W As String = "#"
     Const CM_Type_W2 As String = "@"
@@ -44,7 +43,6 @@ Public Class Form1
     Dim ZIP_Process As New System.Diagnostics.Process()
 
     Public Shared Get_Process_Error_String As String
-    Public Shared ErrorHappend As Boolean
 
     Const Saved_String_Max2 As Integer = 2047
     Public Shared Saved_String_IDX2 As Integer = 0
@@ -132,6 +130,8 @@ Public Class Form1
         RestartCon_Button.Text = "Restart Main" + vbCrLf + "Console"
         Kill_Mux_Con.Text = "Kill all Mux" + vbCrLf + "Console"
 
+        DetectOS_and_var()
+
         '=====Serial Port init
         'SP1 serial port...
         'The code is for Compatible with .net 5
@@ -140,14 +140,18 @@ Public Class Form1
         Man_COM_Port = "off"
         '======================
 
+        '=========Load settings
         Origial_Path = Directory.GetCurrentDirectory
-
-        If My.Computer.FileSystem.FileExists(Origial_Path + "\Setting.xml") Then
+        If My.Computer.FileSystem.FileExists(Origial_Path + PDSC + "Setting.xml") Then
             Dim ErrorTest As String = LoadXML()
             If ErrorTest <> "" Then MsgBox("(Loading setting)" + ErrorTest, "", "Error")
         End If
 
-        'Fix wired bug
+        '=========Detect working folder and set
+        SerWorkingDir = GSet_Jar_as_Work_folder(MCServer_JAR_BAT_Location, True)
+        If SerWorkingDir <> "" Then SerWorkingPath_TextBox.Text = SerWorkingDir
+
+        '============Fix wired bug
         TabControl1.SelectedIndex = 1
         My.Application.DoEvents()
         TabControl1.SelectedIndex = 0
@@ -157,8 +161,8 @@ Public Class Form1
         CheckForIllegalCrossThreadCalls = False
 
         Try
-            If My.Computer.FileSystem.FileExists(Origial_Path + "\FontToLoad.otf") Then
-                LoadFont = New Font(LoadFontFile(Origial_Path + "\FontToLoad.otf"), 9, FontStyle.Regular)
+            If My.Computer.FileSystem.FileExists(Origial_Path + PDSC + "FontToLoad.otf") Then
+                LoadFont = New Font(LoadFontFile(Origial_Path + PDSC + "FontToLoad.otf"), 9, FontStyle.Regular)
                 MCS_Richtexbox.Font = LoadFont
                 EXE_Textbox.Font = LoadFont
                 Form3.Help_RichTextBox.Font = LoadFont
@@ -177,7 +181,6 @@ Public Class Form1
         Catch ex As Exception
 
         End Try
-
 
         If My.Application.CommandLineArgs().Count > 0 Then
             If My.Application.CommandLineArgs(0).ToLower = "now" Then
@@ -517,7 +520,6 @@ Public Class Form1
                 If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString, Return_PreFix, Mux_slot)
                 Return 1
             End If
-
 
         ElseIf Command_Mode = "eq" Then
 
@@ -896,7 +898,8 @@ Public Class Form1
 
     End Sub
 
-    Private Function Start_MC_Server_Process(The_JAVA_Arguments As String, The_FileName As String, The_JAR_BAT_File As String, The_MC_Arguments As String) As String
+    Private Function Start_MC_Server_Process(The_JAVA_Arguments As String, The_FileName As String, The_JAR_BAT_File As String,
+                                             The_MC_Arguments As String, Optional ButtonClick As Boolean = False) As String
 
         If MC_Server_WorkState <> 0 Then Return "NOT-OFF"
 
@@ -911,12 +914,6 @@ Public Class Form1
 
         Try
 
-            If Not My.Computer.FileSystem.FileExists(The_JAR_BAT_File) Then
-                MCS_Richtexbox.Text += vbCrLf + "Server JAR file / Batch file not present. Please setup first."
-                Start_MC_Server_Process = "NEED-SETUP"
-                Exit Function
-            End If
-
             If The_JAR_BAT_File.Length > 5 Then
 
                 If The_JAR_BAT_File.Substring(The_JAR_BAT_File.Length - 4, 4).ToLower = ".bat" Then
@@ -925,48 +922,85 @@ Public Class Form1
                     MCServer_BAT_Mode = True
                 Else
 
-                    If The_FileName.Length >= 4 Then
-                        If The_FileName.Substring(The_FileName.Length - 4).ToUpper <> ".EXE" Then The_FileName = The_FileName + ".exe"
-                    End If
+                    '=================================== Windows code ===============================
+                    If InStr(What_is_the_OS.ToUpper, "MICROSOFT WINDOWS") > 0 Then
 
-                    If Not My.Computer.FileSystem.FileExists(The_FileName) Then
+                        If The_FileName.Length >= 4 Then
+                            If The_FileName.Substring(The_FileName.Length - 4).ToUpper <> ".EXE" Then The_FileName = The_FileName + ".exe"
+                        End If
 
-                        Dim pathStr() As String = Environment.GetEnvironmentVariable("path").Split(";")
-                        Dim pathTry As String
-                        Dim pathTryGet As Boolean = False
+                        If Not My.Computer.FileSystem.FileExists(The_FileName) Then
 
-                        For Each pathTry In pathStr
-                            If My.Computer.FileSystem.FileExists(pathTry + "\" + The_FileName) Then
-                                The_FileName = pathTry + "\" + The_FileName
-                                pathTryGet = True
-                                Exit For
+                            Dim pathStr() As String = Environment.GetEnvironmentVariable("path").Split(";")
+                            Dim pathTry As String
+                            Dim pathTryGet As Boolean = False
+
+                            For Each pathTry In pathStr
+                                If My.Computer.FileSystem.FileExists(pathTry + "\" + The_FileName) Then
+                                    The_FileName = pathTry + "\" + The_FileName
+                                    pathTryGet = True
+                                    Exit For
+                                End If
+                            Next
+
+                            If pathTryGet = False Then
+                                MCS_Richtexbox.Text += vbCrLf + "JVM java.exe not present. Please setup first."
+                                Return "NEED-SETUP"
                             End If
-                        Next
 
-                        If pathTryGet = False Then
+                        End If
+
+                    Else '=================== ND =============================================================
+
+                        If Not My.Computer.FileSystem.FileExists(The_FileName) Then
                             MCS_Richtexbox.Text += vbCrLf + "JVM java.exe not present. Please setup first."
-                            Start_MC_Server_Process = "NEED-SETUP"
-                            Exit Function
+                            Return "NEED-SETUP"
                         End If
 
                     End If
+
                     Launch_File = The_FileName
                     The_Arguments = The_JAVA_Arguments + " -jar " + """" + The_JAR_BAT_File + """ " + The_MC_Arguments
                     MCServer_BAT_Mode = False
                 End If
             End If
 
-            SerWorkingDir = My.Computer.FileSystem.GetFileInfo(The_JAR_BAT_File).DirectoryName
-            SerWorkingPath_TextBox.Text = SerWorkingDir
-            Directory.SetCurrentDirectory(SerWorkingDir)
-            MC_Server_WorkState = 1
+            '====================Working folder==========
+            SerWorkingDir = GSet_Jar_as_Work_folder(The_JAR_BAT_File, True)
 
-            If (SerWorkingDir <> ExeWorkingDir) AndAlso (Mux(0).Is_Working = True) Then
-                Add_to_NoteListbox("You may need restart EXE console to work properly.", "Server working folder is different from EXE console's one.")
+            If SerWorkingDir = "" Then
+                MCS_Richtexbox.Text += vbCrLf + "Server JAR file / Batch file not present. Please setup first."
+                Return "NEED-SETUP"
+            Else
+                SerWorkingPath_TextBox.Text = SerWorkingDir
+
+                If (SerWorkingDir <> ExeWorkingDir) AndAlso (Mux(0).Is_Working = True) Then 'warning
+                    Add_to_NoteListbox("You may need restart Main script console to work properly.", "WARN:Server working folder is different from Main script console's one.")
+                End If
             End If
 
-            If My.Computer.FileSystem.DirectoryExists(".\plugins") Then
-                Dim FindEssPlugIn() As String = Directory.GetFiles(".\plugins\", "Essentials*.jar")
+            '=====================EULA========================
+            If Not Test_EULA(SerWorkingDir) Then
+                If ButtonClick = True Then
+                    If MsgBox("Eula.txt is not exist, or not set true." + vbCrLf + vbCrLf + "Do you agreement the EULA: https://account.mojang.com/documents/minecraft_eula ?", MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.No Then
+                        MCS_Richtexbox.Text += "abort."
+                        Exit Function
+                    Else
+                        Dim EULA As IO.StreamWriter = My.Computer.FileSystem.OpenTextFileWriter(SerWorkingDir + PDSC + "eula.txt", False, UTF8Encoding.UTF8)
+                        EULA.WriteLine("#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).")
+                        EULA.WriteLine("eula=true")
+                        EULA.Close()
+                    End If
+                Else
+                    MCS_Richtexbox.Text += "abort."
+                    Return "NO-EULA"
+                End If
+            End If
+
+            '======================plugin detect============
+            If My.Computer.FileSystem.DirectoryExists("." + PDSC + "plugins") Then
+                Dim FindEssPlugIn() As String = Directory.GetFiles("." + PDSC +
+                                                                   "plugins" + Path.DirectorySeparatorChar, "Essentials*.jar")
                 If FindEssPlugIn IsNot Nothing AndAlso FindEssPlugIn.Length > 0 Then
                     IsEssentialsX_Installed = 2
                 Else
@@ -977,7 +1011,9 @@ Public Class Form1
             End If
 
             ShowEssX_Det(EssX_Det_TextBox)
+            '================================================
 
+            MC_Server_WorkState = 1
             StartButton.Enabled = False
             BackupButton.Enabled = False
             My.Application.DoEvents()
@@ -987,8 +1023,6 @@ Public Class Form1
             Saved_String_IDX2 = 1
 
             MC_Process = New System.Diagnostics.Process()
-
-            ErrorHappend = False
 
             With MC_Process.StartInfo
                 .WorkingDirectory = ""
@@ -1017,7 +1051,6 @@ Public Class Form1
             MC_Process.BeginErrorReadLine()
 
             MC_IS_LAUNCHED = True
-            'KillTaskButton.Enabled = True
 
             ServerStart_Tick2 = DateDiff(DateInterval.Second, New Date(2010, 1, 1, 12, 0, 0), Now)
             Start_MC_Server_Process = "OK"
@@ -1074,7 +1107,7 @@ Public Class Form1
             End If
             '======================================
 
-            '================Flood To EXE=============MC→Main EXE
+            '================Flood To Man console=============MC→Main
             If Man_Flood_ToEXE = 2 Then
                 If Man_EXE_FDFilterList IsNot Nothing Then
                     For Each Tmp_String2 As String In Man_EXE_FDFilterList
@@ -1149,14 +1182,11 @@ Public Class Form1
 
                     End If
 
-
                     '================================================ GeekCommand Detect
 
                     Dim GeekCommand As GeekCommand_Rtn = Para_Go(Tmp_String_Org, EXECommand_ViaSay)
 
                     If GeekCommand.IsUsable Then
-
-
 
                         '=============================================== Multi-Console Command Detect ==========================
 
@@ -1185,9 +1215,6 @@ Public Class Form1
 
                                 End If
                             End If
-
-
-
 
                         End If
 
@@ -1339,8 +1366,6 @@ Public Class Form1
 
             ZIP_Process = New System.Diagnostics.Process()
 
-            ErrorHappend = False
-
             With ZIP_Process.StartInfo
                 .WorkingDirectory = ""
                 .FileName = The_FileName
@@ -1378,7 +1403,6 @@ Public Class Form1
             Add_to_NoteListbox("Start_Server_Backup_Process():" + ex.Message)
         End Try
 
-
     End Function
     Private Sub ZipExitHandler(sendingProcess As Object, ByVal e As System.EventArgs)
 
@@ -1395,8 +1419,6 @@ Public Class Form1
 
         Try
 
-            ErrorHappend = False
-
             If The_Arguments IsNot Nothing Then
                 If The_Arguments <> "" Then
                     If Mux_Slot = 0 Then
@@ -1407,22 +1429,17 @@ Public Class Form1
                 End If
             End If
 
-
+            '===================== Main script console
             If Mux_Slot = 0 Then
-                If MCServer_JAR_BAT_Location <> "" Then
-                    If My.Computer.FileSystem.FileExists(MCServer_JAR_BAT_Location) Then
-                        ExeWorkingDir = My.Computer.FileSystem.GetFileInfo(MCServer_JAR_BAT_Location).DirectoryName
-                        EXEWorkingPath_TextBox.Text = ExeWorkingDir
-                    End If
-                Else
-                    EXE_Textbox.Text = "Console will not start-up until the server setup done."
-                    Start_EXE_Process = "NEED-SETUP"
-                    Exit Function
-                End If
-            End If
+                'detect main script console working folder 
+                If SerWorkingDir = "" Then SerWorkingDir = GSet_Jar_as_Work_folder(MCServer_JAR_BAT_Location, True)
+                ExeWorkingDir = SerWorkingDir
+                EXEWorkingPath_TextBox.Text = ExeWorkingDir
 
-            If (SerWorkingDir <> "") AndAlso (SerWorkingDir <> ExeWorkingDir) Then
-                Add_to_NoteListbox("Server working folder is different from EXE console's one.")
+                If ExeWorkingDir = "" Then
+                    EXE_Textbox.Text = "Main scrtipt console will not start-up until the server setup done."
+                    Return "NEED-SETUP"
+                End If
             End If
 
             Mux(Mux_Slot).Script_Process = New System.Diagnostics.Process()
@@ -1463,7 +1480,6 @@ Public Class Form1
             Mux(Mux_Slot).The_Cake_Var = ""
 
             Start_EXE_Process = "OK"
-            'DebugActiveProcess(EXE_Process.Id)
 
         Catch ex As Exception
 
@@ -1617,7 +1633,7 @@ Public Class Form1
             Exit Sub
         End If
 
-        Start_MC_Server_Process(JVM_Launch_Parameter, JVM_JAVA_EXE_Location, MCServer_JAR_BAT_Location, MCServer_Launch_Parameter)
+        Start_MC_Server_Process(JVM_Launch_Parameter, JVM_JAVA_EXE_Location, MCServer_JAR_BAT_Location, MCServer_Launch_Parameter, True)
 
     End Sub
 
@@ -1630,7 +1646,6 @@ Public Class Form1
         Form2.Show()
         Form2.BringToFront()
     End Sub
-
 
     Private Sub Abnormal_WorkStop()
         InNeed_Detect_AbnormalEnd = False
@@ -1665,6 +1680,7 @@ Public Class Form1
                 BackupButton.Enabled = True
                 WaitBLAC_Count = 0
                 BusyCrash.Enabled = False
+                Stop_Button.Enabled = False
 
                 If InNeed_Detect_AbnormalEnd = True Then
                     Add_to_NoteListbox("An abnormal stop has detected. It's " + (Det_AE_Times + 1).ToString + " times")
@@ -1677,6 +1693,7 @@ Public Class Form1
 
                 StartButton.Enabled = False
                 BackupButton.Enabled = False
+                Stop_Button.Enabled = False
 
             Case 2
 
@@ -1685,7 +1702,7 @@ Public Class Form1
 
                 StartButton.Enabled = False
                 BackupButton.Enabled = False
-
+                Stop_Button.Enabled = True
                 WaitBLAC_Count = 0
                 BusyCrash.Enabled = False
 
@@ -1758,8 +1775,6 @@ Public Class Form1
                 ModeExeFW_Button.BackColor = Color.Pink
                 ModeExeFW_Button.Text = "Flood way (Main)" + vbCrLf + "MC→Console (2)" + vbCrLf + "Flooding"
         End Select
-
-
 
     End Sub
     Public Sub SendTo_Console(ModeSelect As Integer)
@@ -1870,7 +1885,6 @@ Public Class Form1
         End Select
 
     End Sub
-
 
     Private Sub ManServerTimeOutTimer_Tick(sender As Object, e As EventArgs) Handles ManServerTimeOutTimer.Tick
 
@@ -2341,7 +2355,7 @@ Public Class Form1
 
         If SerWorkingPath_TextBox.Text <> "" Then
             If My.Computer.FileSystem.DirectoryExists(SerWorkingPath_TextBox.Text) Then
-                Process.Start("explorer.exe", SerWorkingPath_TextBox.Text)
+                Process.Start(GUI_OpenFolder, SerWorkingPath_TextBox.Text)
             End If
         End If
 
@@ -2351,7 +2365,7 @@ Public Class Form1
 
         If EXEWorkingPath_TextBox.Text <> "" Then
             If My.Computer.FileSystem.DirectoryExists(EXEWorkingPath_TextBox.Text) Then
-                Process.Start("explorer.exe", EXEWorkingPath_TextBox.Text)
+                Process.Start(GUI_OpenFolder, EXEWorkingPath_TextBox.Text)
             End If
         End If
 
@@ -2482,6 +2496,10 @@ Public Class Form1
        + "Are you sure?", MsgBoxStyle.YesNo, "WARNING") = MsgBoxResult.No Then Exit Sub
 
         Kill_All_Mux_Console()
+    End Sub
+
+    Private Sub Stop_Button_Click(sender As Object, e As EventArgs) Handles Stop_Button.Click
+        Write_To_Console("stop")
     End Sub
 End Class
 
