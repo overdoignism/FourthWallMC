@@ -18,7 +18,7 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
-    Const FwmcVer As String = "0.91"
+    Const FwmcVer As String = "0.92"
 
     Const CM_Type_W As String = "#"
     Const CM_Type_W2 As String = "@"
@@ -36,6 +36,8 @@ Public Class Form1
     Const TCP_timeout_s As Integer = 21
     Const Get_timeout_ds As Integer = 50
     Const CloseForm_wait_ds As Integer = 200
+
+    Const FwmcWorker As String = "!_4WMC.Worker"
 
     Private cpuCounter As System.Diagnostics.PerformanceCounter
 
@@ -115,7 +117,7 @@ Public Class Form1
 
     Dim OneTime_A_Listbox_Act As Boolean
     Dim ExeWorkingDir As String = ""
-    Dim SerWorkingDir As String = ""
+    Public SerWorkingDir As String = ""
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -123,12 +125,16 @@ Public Class Form1
         Get_All_IP_Addr()
         ReDim Send2Recent(0)(9)
         ReDim Send2Recent(1)(9)
-        Man_Who_LastSending = "CONSOLE"
+        Man_Who_LastSending = FwmcWorker
+        Man_Who_LastSending_wBack = "CONSOLE"
         Form2.COMLineEnd.SelectedIndex = 0
         Add_to_NoteListbox("FourthWallMC System start.")
         Me.Text = "FourthWallMC v" + FwmcVer + " < You don't need to break it, we put window on the wall. >  By overdoingism Lab."
         RestartCon_Button.Text = "Restart Main" + vbCrLf + "Console"
         Kill_Mux_Con.Text = "Kill all Mux" + vbCrLf + "Console"
+        RCState_Label.ForeColor = Color.FromArgb(255, 128, 128, 255)
+        ModeRC_Button.Text = "Work Mode" + vbCrLf + "Normal (0)"
+        ModeExeFW_Button.Text = "Flood way (Main)" + vbCrLf + "MC←Console"
 
         DetectOS_and_var()
 
@@ -171,11 +177,6 @@ Public Class Form1
             MCS_Richtexbox.LanguageOption = RichTextBoxLanguageOptions.UIFonts
             EXE_Textbox.LanguageOption = RichTextBoxLanguageOptions.UIFonts
 
-            'The .net component is shitty
-            Form3.Help_RichTextBox.LanguageOption = RichTextBoxLanguageOptions.UIFonts
-            Form3.Visible = True
-            Form3.Visible = False
-            Form3.Help_RichTextBox.Text = My.Resources.HelpResource
             Add_to_NoteListbox("FontToLoad.otf found and loaded.")
             My.Application.DoEvents()
         Catch ex As Exception
@@ -188,11 +189,7 @@ Public Class Form1
             End If
         End If
 
-        RCState_Label.ForeColor = Color.FromArgb(255, 128, 128, 255)
-        ModeRC_Button.Text = "Work Mode" + vbCrLf + "Normal (0)"
-        ModeExeFW_Button.Text = "Flood way (Main)" + vbCrLf + "MC←Console"
-
-        Start_EXE_Process(Man_EXE_FirstExec, 0, "Main")
+        Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", FwmcWorker)
 
     End Sub
 
@@ -441,13 +438,6 @@ Public Class Form1
                 Return 1
         End Select
 
-        'If Command_str = "" Then
-        '    If RCorEXE_Mode = 0 Then SendToClients("BAD", TmpClientWork.TheSocket)
-        '    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BAD", Return_PreFix, Mux_slot)
-        '    Command_err_ListBox.Items.Insert(0, "PGC5:" + Command_Mode + ";" + Command_str + ";" + RCorEXE_Mode.ToString)
-        '    Return 1
-        'End If
-
         If Command_Mode = "sy" Then
 
             If MC_Server_WorkState = 2 Then
@@ -505,13 +495,28 @@ Public Class Form1
                     WorkString = "OK"
 
                 Case "kill3"
-                    Restart_EXEConsole()
+                    Restart_EXEConsole("!_CM_KILL3")
                     WorkString = "OK"
 
                 Case "sender"
-                    If RCorEXE_Mode = 0 Then SendToClients(Man_Who_LastSending_ForCheck, TmpClientWork.TheSocket)
-                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Man_Who_LastSending_ForCheck, Return_PreFix, Mux_slot)
-                    Return 1
+                    If RCorEXE_Mode = 0 Then WorkString = "!_N/A"
+                    If RCorEXE_Mode = 1 Then
+                        If Mux(Mux_slot).Last_Sender <> "" Then
+                            WorkString = Mux(Mux_slot).Last_Sender
+                        Else
+                            WorkString = "!_N/A"
+                        End If
+                    End If
+
+                Case "launcher"
+                    If RCorEXE_Mode = 0 Then WorkString = "!_N/A"
+                    If RCorEXE_Mode = 1 Then
+                        If Mux(Mux_slot).Last_Sender <> "" Then
+                            WorkString = Mux(Mux_slot).The_Launcher
+                        Else
+                            WorkString = "!_N/A"
+                        End If
+                    End If
 
             End Select
 
@@ -530,12 +535,18 @@ Public Class Form1
                         QueueEXE_RunnerTimer.Enabled = False
                         Queue_TextBox.Text = "Queuing"
                     End If
+                    If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK", Return_PreFix, Mux_slot)
+                    Return 1
                 Case "stop"
                     If Queued_EXE_Command_Enable = True Then
                         Queued_EXE_Command_Enable = False
                         QueueEXE_RunnerTimer.Enabled = True
                         Queue_TextBox.Text = "Stopped and Launching"
                     End If
+                    If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK", Return_PreFix, Mux_slot)
+                    Return 1
                 Case "clear"
                     Clear_EXE_Queue(False)
                     If Queued_EXE_Command_Enable Then
@@ -543,6 +554,9 @@ Public Class Form1
                     Else
                         Queue_TextBox.Text = "Stopped"
                     End If
+                    If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK", Return_PreFix, Mux_slot)
+                    Return 1
                 Case Else
                     WrongFmt = 1
             End Select
@@ -591,7 +605,6 @@ Public Class Form1
             If (Command_str.Length < 2) OrElse (Command_str.Substring(1, 1) <> ";") Then
                 WrongFmt = 1
             Else
-
                 variableString(Val(Command_str.Substring(0, 1))) = Command_str.Substring(2)
 
                 If RCorEXE_Mode = 0 Then SendToClients("OK", TmpClientWork.TheSocket)
@@ -634,7 +647,7 @@ Public Class Form1
                 Case "info1"
                     If RCorEXE_Mode = 1 Then
                         EXE_Write_To_Console("(" + Mux_slot.ToString + ")SSP:" + Mux(Mux_slot).Script_Specify_Prefix +
-                                           ";ASP:" + Mux(Mux_slot).Alias_Specify_Prefix, Return_PreFix, Mux_slot)
+                                           ";ASP:" + Mux(Mux_slot).Alias_Specify_Prefix + ";", Return_PreFix, Mux_slot)
                     End If
                     Return 1
             End Select
@@ -657,6 +670,30 @@ Public Class Form1
                         Mux(Mux_slot).Alias_Specify_Prefix = Command_str.Substring(3)
                         If RCorEXE_Mode = 1 Then EXE_Write_To_Console("OK", Return_PreFix, Mux_slot)
                         Return 1
+                    Case "go;"
+
+                        Dim TmpStr() As String = Command_str.Substring(3).Split(";")
+
+                        If UBound(TmpStr) = 1 Then
+                            Dim Launcher As String = ""
+                            If RCorEXE_Mode = 0 Then Launcher = "Socket script"
+                            If RCorEXE_Mode = 1 Then Launcher = Mux(Mux_slot).Script_Specify_Prefix
+                            Select Case Launch_Cake_Form_Prefix(TmpStr(0), TmpStr(1), Launcher)
+                                Case -1
+                                    WorkString = "SLOT FULL"
+                                Case -2
+                                    WorkString = "DUPLICATE NAME"
+                                Case 1
+                                    WorkString = "OK"
+                            End Select
+                        Else
+                            WorkString = "BAD*"
+                        End If
+
+                        If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
+                        If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString, Return_PreFix, Mux_slot)
+                        Return 1
+
                     Case Else
                         WrongFmt = 1
                 End Select
@@ -997,6 +1034,19 @@ Public Class Form1
                 End If
             End If
 
+            '================server.properties==============
+            If Not My.Computer.FileSystem.FileExists(SerWorkingDir + PDSC + "server.properties") Then
+                If ButtonClick = True Then
+                    Dim Res As DialogResult = Form5.ShowDialog
+                    Select Case Res
+                        Case DialogResult.OK
+                        Case DialogResult.Cancel
+                            Return ("CANCELED")
+                    End Select
+                End If
+            End If
+
+
             '======================plugin detect============
             If My.Computer.FileSystem.DirectoryExists("." + PDSC + "plugins") Then
                 Dim FindEssPlugIn() As String = Directory.GetFiles("." + PDSC +
@@ -1057,7 +1107,7 @@ Public Class Form1
             InNeed_Detect_AbnormalEnd = True
 
             If Not Mux(0).Is_Working Then
-                Start_EXE_Process(Man_EXE_FirstExec, 0, "Main")
+                Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", FwmcWorker)
             End If
 
         Catch ex As Exception
@@ -1188,7 +1238,7 @@ Public Class Form1
 
                     If GeekCommand.IsUsable Then
 
-                        '=============================================== Multi-Console Command Detect ==========================
+                        '=============================================== Mux console Command Detect ==========================
 
                         Dim InputPrefix As String
                         'init var / split prefix
@@ -1202,7 +1252,7 @@ Public Class Form1
                                 If (TmpIdx1 >= 2) AndAlso (TmpIdx1 > TmpIdx2) Then 'Launch
 
                                     InputPrefix = GeekCommand.TheMessagePart.Substring(0, TmpIdx1 - 1)
-                                    If Not Launch_Cake_Form_Prefix(InputPrefix, GeekCommand.TheMessagePart.Substring(TmpIdx1)) Then
+                                    If Not Launch_Cake_Form_Prefix(InputPrefix, GeekCommand.TheMessagePart.Substring(TmpIdx1), Man_Who_LastSending) Then
                                         'MUX is full, what to do
                                     End If
 
@@ -1211,21 +1261,23 @@ Public Class Form1
                                     InputPrefix = GeekCommand.TheMessagePart.Substring(0, TmpIdx2 - 1)
 
                                     Dim Mux_Slot As Integer = Get_Cake_Slot_From_Prefix(InputPrefix)
-                                    If Mux_Slot > -1 Then EXE_Write_To_Console(GeekCommand.TheMessagePart.Substring(TmpIdx2), "", Mux_Slot)
+                                    If Mux_Slot > -1 Then
+                                        Mux(Mux_Slot).Last_Sender = Man_Who_LastSending
+                                        EXE_Write_To_Console(GeekCommand.TheMessagePart.Substring(TmpIdx2), "", Mux_Slot)
+                                    End If
 
                                 End If
                             End If
 
                         End If
 
-                        '=========================================================================
-
+                        '=============================================== Main console Command Detect ==========================
 
                         Select Case GeekCommand.TheCommandPart
 
-                            Case CM_Type_W 'Output to EXE, EXE w back
+                            Case CM_Type_W 'Output to main console, console w back
 
-                                If Not Mux(0).Is_Working Then Start_EXE_Process(Man_EXE_FirstExec, 0, "Main")
+                                If Not Mux(0).Is_Working Then Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", Man_Who_LastSending)
 
                                 If Queued_EXE_Command_Enable = True Then
 
@@ -1233,21 +1285,25 @@ Public Class Form1
                                         If Queued_EXE_Command(0) = "" Then
                                             Queued_EXE_Command_StoredIDX = 0
                                             Queued_EXE_Command(Queued_EXE_Command_StoredIDX) = GeekCommand.TheMessagePart
+                                            Queued_EXE_Command_Sender(Queued_EXE_Command_StoredIDX) = Man_Who_LastSending
                                         End If
                                     Else
                                         If Queued_EXE_Command(Queued_EXE_Command_StoredIDX + 1) = "" Then
                                             Queued_EXE_Command_StoredIDX += 1
                                             Queued_EXE_Command(Queued_EXE_Command_StoredIDX) = GeekCommand.TheMessagePart
+                                            Queued_EXE_Command_Sender(Queued_EXE_Command_StoredIDX) = Man_Who_LastSending
                                         End If
                                     End If
 
                                 Else
+                                    Mux(0).Last_Sender = Man_Who_LastSending
                                     EXE_Write_To_Console(GeekCommand.TheMessagePart, "", 0)
                                 End If
 
                             Case CM_Type_W2
 
-                                If Not Mux(0).Is_Working Then Start_EXE_Process(Man_EXE_FirstExec, 0, "Main")
+                                If Not Mux(0).Is_Working Then Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", Man_Who_LastSending)
+                                Mux(0).Last_Sender = Man_Who_LastSending
                                 EXE_Write_To_Console(GeekCommand.TheMessagePart, "", 0)
 
                             Case CM_Type_VarWri 'Var Write
@@ -1275,14 +1331,14 @@ Public Class Form1
 
                                 Select Case GeekCommand.TheMessagePart.ToUpper
                                     Case "RSTC"
-                                        Restart_EXEConsole()
+                                        Restart_EXEConsole(Man_Who_LastSending)
                                     Case "KILLMUX"
                                         Kill_All_Mux_Console()
                                     Case "SHOWMUX"
                                         For TmpIdx1 = 0 To 9
                                             If Mux(TmpIdx1).Is_Working Then
                                                 Write_To_Console("say (" + TmpIdx1.ToString + ")SSP:" + Mux(TmpIdx1).Script_Specify_Prefix +
-                                                                    ";ASP:" + Mux(TmpIdx1).Alias_Specify_Prefix)
+                                                                    ";ASP:" + Mux(TmpIdx1).Alias_Specify_Prefix + ";")
                                             End If
                                         Next
                                     Case Else
@@ -1411,7 +1467,7 @@ Public Class Form1
 
     End Sub
 
-    Private Function Start_EXE_Process(The_Arguments As String, Mux_Slot As Integer, Default_Script_Prefix As String) As String
+    Private Function Start_EXE_Process(The_Arguments As String, Mux_Slot As Integer, Default_Script_Prefix As String, The_Launcher As String) As String
 
         Start_EXE_Process = ""
         Clear_EXE_Queue(True)
@@ -1478,6 +1534,8 @@ Public Class Form1
             Mux(Mux_Slot).Alias_Specify_Prefix = Default_Script_Prefix
             Mux(Mux_Slot).Script_Exec_Total_String = The_Arguments 'not need?
             Mux(Mux_Slot).The_Cake_Var = ""
+            Mux(Mux_Slot).Last_Sender = The_Launcher
+            Mux(Mux_Slot).The_Launcher = The_Launcher
 
             Start_EXE_Process = "OK"
 
@@ -1536,12 +1594,6 @@ Public Class Form1
 
                 If Tmp_String_Org.Length >= 5 Then
 
-                    ''ServerState Control
-                    If Tmp_String_Org.Substring(1, 1) = CM_ServerState_Flag Then
-                        ResultCode = Get_Full_MCServer_Control(Tmp_String_Org.Substring(2))
-                        Exit Sub
-                    End If
-
                     Dim Command_Mode As String = Tmp_String_Org.ToLower.Substring(2, 2)
                     Dim Command_Str As String = Tmp_String_Org.Substring(5)
 
@@ -1578,7 +1630,7 @@ Public Class Form1
 
                 '====================EXE foold to MC ===============
                 If Man_Flood_ToEXE = 1 Then 'MC←EXE
-                    If Mux_Slot = 0 Then Write_To_Console("w " + Man_Who_LastSending + " " + Tmp_String_Org)
+                    If Mux_Slot = 0 Then Write_To_Console("w " + Man_Who_LastSending_wBack + " " + Tmp_String_Org)
                 End If
 
             End If
@@ -2086,8 +2138,14 @@ Public Class Form1
 
     End Sub
     Private Sub HelpButton_Click(sender As Object, e As EventArgs) Handles HelpAbout_Button.Click
+
+        'The .net component is really shitty
         Form3.Show()
         Form3.BringToFront()
+        Form3.Iagree_CheckBox.Checked = IsAgree
+        Form3.Help_RichTextBox.LanguageOption = RichTextBoxLanguageOptions.UIFonts
+        Form3.Help_RichTextBox.Text = My.Resources.HelpResource
+
     End Sub
     Private Sub MCS_Richtexbox_LinkClicked(sender As Object, e As LinkClickedEventArgs) Handles MCS_Richtexbox.LinkClicked
         System.Diagnostics.Process.Start(e.LinkText)
@@ -2217,18 +2275,18 @@ Public Class Form1
 
         If MsgBox("Restart Console will terminate the working of console," + vbCrLf + vbCrLf +
                   "It's not a routine means, are you really want to do?", MsgBoxStyle.OkCancel, "Alert") = MsgBoxResult.Ok Then
-            Restart_EXEConsole()
+            Restart_EXEConsole(FwmcWorker)
         End If
 
     End Sub
 
-    Sub Restart_EXEConsole()
+    Sub Restart_EXEConsole(Who_is_launcher As String)
 
         Add_to_NoteListbox("Restart_EXEConsole():Main")
         Try
             Kill_EXE_Console_ByMux(0)
             System.Threading.Thread.Sleep(100)
-            Start_EXE_Process(Man_EXE_FirstExec, 0, "Main")
+            Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", Who_is_launcher)
         Catch ex As Exception
             Add_to_NoteListbox("Restart_EXEConsole():" + ex.Message)
         End Try
@@ -2305,6 +2363,8 @@ Public Class Form1
         Dim Queued_EXE_Command_WalkTo As Integer = (Queued_EXE_Command_WalkedIDX + 1) Mod (Queued_EXE_MAX_depth + 1)
         If Queued_EXE_Command(Queued_EXE_Command_WalkTo) <> "" Then
             EXE_Write_To_Console(Queued_EXE_Command(Queued_EXE_Command_WalkTo), "", 0)
+            Mux(0).Last_Sender = Queued_EXE_Command_Sender(Queued_EXE_Command_WalkTo)
+            Queued_EXE_Command_Sender(Queued_EXE_Command_WalkTo) = ""
             Queued_EXE_Command(Queued_EXE_Command_WalkTo) = ""
             Queued_EXE_Command_WalkedIDX = Queued_EXE_Command_WalkTo
         Else
@@ -2413,9 +2473,11 @@ Public Class Form1
         Return -1
     End Function
 
-    Private Function Launch_Cake_Form_Prefix(Mux_Prefix As String, Launch_Command As String) As Integer
+    Private Function Launch_Cake_Form_Prefix(Mux_Prefix As String, Launch_Command As String, Who_is_launcher As String) As Integer
 
         Dim Last_Get_Idle As Integer = -1
+
+        If (Mux_Prefix = "") Or (Launch_Command = "") Then Return -3
 
         For TmpIdx1 = 1 To HowManyMux_Arry
 
@@ -2429,7 +2491,7 @@ Public Class Form1
         Next
 
         If Last_Get_Idle > -1 Then
-            Start_EXE_Process(Launch_Command, Last_Get_Idle, Mux_Prefix)
+            Start_EXE_Process(Launch_Command, Last_Get_Idle, Mux_Prefix, Who_is_launcher)
             Return 1
         Else
             Return -1
@@ -2447,6 +2509,7 @@ Public Class Form1
         Mux(Mux_Slot).Script_Exec_Total_String = ""
         Mux(Mux_Slot).Alias_Specify_Prefix = ""
         Mux(Mux_Slot).The_Cake_Var = ""
+        Mux(Mux_Slot).Last_Sender = ""
 
         'ReDim EXE_Saved_String2(EXE_Saved_String_Max2)
         'EXE_Saved_String2(0) = "Starting Console with server folder." + vbCrLf
@@ -2501,5 +2564,6 @@ Public Class Form1
     Private Sub Stop_Button_Click(sender As Object, e As EventArgs) Handles Stop_Button.Click
         Write_To_Console("stop")
     End Sub
+
 End Class
 

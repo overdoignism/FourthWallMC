@@ -26,7 +26,6 @@ Public Class Form2
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles SetupOK_Button.Click
 
         Before_Save()
-        'Me.Hide()
         Me.Close()
 
     End Sub
@@ -34,8 +33,6 @@ Public Class Form2
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles SetupCancel_Button.Click
 
         Make_Value_In_Box()
-        'Me.Hide()
-        'Me.Visible = False
         Me.Close()
 
     End Sub
@@ -87,5 +84,17 @@ Public Class Form2
         End If
     End Sub
 
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+        MsgBox("Benefits with EssentialsX Plugin:" + vbCrLf + vbCrLf +
+        "1. CONSOLE is an ID. (Always available)" + vbCrLf + vbCrLf +
+        "2. CommandBlock is workable.", 0, "Help")
+    End Sub
 
+    Private Sub CSPID_Chk_CheckedChanged(sender As Object, e As EventArgs) Handles CSPID_Chk.CheckedChanged
+        If CSPID_Chk.Checked Then
+            Label38.Text = "Who has NOT command sending privilege? (ID, not nickname)"
+        Else
+            Label38.Text = "Who has command sending privilege? (ID, not nickname)"
+        End If
+    End Sub
 End Class

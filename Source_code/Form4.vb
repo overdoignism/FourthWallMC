@@ -1,9 +1,4 @@
 ﻿Public Class Form4
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Form1.MCS_ConsoleTextbox.Text = TextBox4.Text
-        Form1.SendTo_Console(0)
-    End Sub
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Form1.MCS_ConsoleTextbox.Text = TextBox2.Text + " true"
         Form1.SendTo_Console(0)
@@ -47,5 +42,23 @@
         Form1.SendTo_Console(0)
     End Sub
 
+    Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
+        Form1.MCS_ConsoleTextbox.Text = TextBox6.Text + " true"
+        Form1.SendTo_Console(0)
+    End Sub
 
+    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
+        Form1.MCS_ConsoleTextbox.Text = TextBox6.Text + " false"
+        Form1.SendTo_Console(0)
+    End Sub
+
+    Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+        Form1.MCS_ConsoleTextbox.Text = TextBox7.Text + " true"
+        Form1.SendTo_Console(0)
+    End Sub
+
+    Private Sub Button13_Click(sender As Object, e As EventArgs) Handles Button13.Click
+        Form1.MCS_ConsoleTextbox.Text = TextBox7.Text + " false"
+        Form1.SendTo_Console(0)
+    End Sub
 End Class

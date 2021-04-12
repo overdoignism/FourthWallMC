@@ -1,6 +1,8 @@
 ﻿Public Class Form3
     Private Sub Ok_Button_Click(sender As Object, e As EventArgs) Handles Ok_Button.Click
 
+        Get_All_IP_Addr()
+        MakeInterface_IN_COMBOBOX()
         Before_Save()
         Me.Hide()
 

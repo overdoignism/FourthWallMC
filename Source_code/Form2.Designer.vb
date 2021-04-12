@@ -47,20 +47,22 @@ Partial Class Form2
         Me.BackupPar_Textbox = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.ExeViaSay_Checkbox = New System.Windows.Forms.CheckBox()
-        Me.EssentialsDetected = New System.Windows.Forms.Label()
+        Me.CSPID_Chk = New System.Windows.Forms.CheckBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.CSPID_Textbox = New System.Windows.Forms.TextBox()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.CBlockat_CheckBox = New System.Windows.Forms.CheckBox()
+        Me.Label38 = New System.Windows.Forms.Label()
         Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.CBlockat_CheckBox = New System.Windows.Forms.CheckBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.EssentialsDetected = New System.Windows.Forms.Label()
+        Me.ExeViaSay_Checkbox = New System.Windows.Forms.CheckBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
-        Me.Label21 = New System.Windows.Forms.Label()
         Me.MCFilter_Textbox = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
         Me.PRIID_Textbox = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Autoexe_Textbox = New System.Windows.Forms.TextBox()
@@ -96,6 +98,8 @@ Partial Class Form2
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.GUI_FolderOpen_TXTBOX = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.Console_Main_Arguments_Textbox = New System.Windows.Forms.TextBox()
         Me.Label43 = New System.Windows.Forms.Label()
@@ -105,8 +109,6 @@ Partial Class Form2
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.GUI_FolderOpen_TXTBOX = New System.Windows.Forms.TextBox()
-        Me.Label36 = New System.Windows.Forms.Label()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -334,37 +336,120 @@ Partial Class Form2
         'GroupBox5
         '
         Me.GroupBox5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(242, Byte), Integer))
-        Me.GroupBox5.Controls.Add(Me.Label31)
-        Me.GroupBox5.Controls.Add(Me.Label25)
-        Me.GroupBox5.Controls.Add(Me.ExeViaSay_Checkbox)
-        Me.GroupBox5.Controls.Add(Me.EssentialsDetected)
+        Me.GroupBox5.Controls.Add(Me.CSPID_Chk)
+        Me.GroupBox5.Controls.Add(Me.Button1)
+        Me.GroupBox5.Controls.Add(Me.Label37)
+        Me.GroupBox5.Controls.Add(Me.CSPID_Textbox)
         Me.GroupBox5.Controls.Add(Me.Label23)
-        Me.GroupBox5.Controls.Add(Me.CBlockat_CheckBox)
+        Me.GroupBox5.Controls.Add(Me.Label38)
         Me.GroupBox5.Controls.Add(Me.Label22)
+        Me.GroupBox5.Controls.Add(Me.Label31)
+        Me.GroupBox5.Controls.Add(Me.CBlockat_CheckBox)
+        Me.GroupBox5.Controls.Add(Me.Label25)
+        Me.GroupBox5.Controls.Add(Me.EssentialsDetected)
+        Me.GroupBox5.Controls.Add(Me.ExeViaSay_Checkbox)
         Me.GroupBox5.Controls.Add(Me.Label17)
         Me.GroupBox5.Controls.Add(Me.Label18)
-        Me.GroupBox5.Controls.Add(Me.Label21)
         Me.GroupBox5.Controls.Add(Me.MCFilter_Textbox)
         Me.GroupBox5.Controls.Add(Me.Label20)
-        Me.GroupBox5.Controls.Add(Me.Label16)
-        Me.GroupBox5.Controls.Add(Me.Label15)
         Me.GroupBox5.Controls.Add(Me.PRIID_Textbox)
         Me.GroupBox5.Controls.Add(Me.Label11)
         Me.GroupBox5.Location = New System.Drawing.Point(23, 28)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(771, 224)
+        Me.GroupBox5.Size = New System.Drawing.Size(771, 289)
         Me.GroupBox5.TabIndex = 23
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Script console"
         '
+        'CSPID_Chk
+        '
+        Me.CSPID_Chk.AutoSize = True
+        Me.CSPID_Chk.Checked = True
+        Me.CSPID_Chk.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CSPID_Chk.Location = New System.Drawing.Point(25, 176)
+        Me.CSPID_Chk.Name = "CSPID_Chk"
+        Me.CSPID_Chk.Size = New System.Drawing.Size(192, 19)
+        Me.CSPID_Chk.TabIndex = 45
+        Me.CSPID_Chk.Text = "Use as block list (→ has NOT)"
+        Me.CSPID_Chk.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(397, 68)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(219, 33)
+        Me.Button1.TabIndex = 44
+        Me.Button1.Text = "Help: With EssentialsX Plug-in"
+        Me.Button1.UseVisualStyleBackColor = False
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(21, 153)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(301, 15)
+        Me.Label37.TabIndex = 43
+        Me.Label37.Text = "(Leave blank as ALL, Case sensitive,  Separate use ; )"
+        '
+        'CSPID_Textbox
+        '
+        Me.CSPID_Textbox.Location = New System.Drawing.Point(24, 129)
+        Me.CSPID_Textbox.MaxLength = 65535
+        Me.CSPID_Textbox.Name = "CSPID_Textbox"
+        Me.CSPID_Textbox.Size = New System.Drawing.Size(320, 21)
+        Me.CSPID_Textbox.TabIndex = 41
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Label23.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.Location = New System.Drawing.Point(397, 44)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(147, 16)
+        Me.Label23.TabIndex = 36
+        Me.Label23.Text = "EssentialsX Detected: "
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(21, 112)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(350, 15)
+        Me.Label38.TabIndex = 42
+        Me.Label38.Text = "Who has NOT command sending privilege? (ID, not nickname)"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(394, 131)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(253, 15)
+        Me.Label22.TabIndex = 34
+        Me.Label22.Text = "Else use full ""CommandBlock at x,y,z"" to work"
+        '
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(377, 149)
+        Me.Label31.Location = New System.Drawing.Point(397, 251)
         Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(244, 15)
+        Me.Label31.Size = New System.Drawing.Size(201, 15)
         Me.Label31.TabIndex = 40
-        Me.Label31.Text = """CommandBlock"" all have privilege (by ""@"")"
+        Me.Label31.Text = """CommandBlock"" all have privilege."
+        '
+        'CBlockat_CheckBox
+        '
+        Me.CBlockat_CheckBox.AutoSize = True
+        Me.CBlockat_CheckBox.Checked = True
+        Me.CBlockat_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CBlockat_CheckBox.Location = New System.Drawing.Point(399, 108)
+        Me.CBlockat_CheckBox.Name = "CBlockat_CheckBox"
+        Me.CBlockat_CheckBox.Size = New System.Drawing.Size(217, 19)
+        Me.CBlockat_CheckBox.TabIndex = 35
+        Me.CBlockat_CheckBox.Text = """CommandBlock"" all have privilege"
+        Me.CBlockat_CheckBox.UseVisualStyleBackColor = True
         '
         'Label25
         '
@@ -372,65 +457,33 @@ Partial Class Form2
         Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label25.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(379, 172)
+        Me.Label25.Location = New System.Drawing.Point(397, 201)
         Me.Label25.Name = "Label25"
         Me.Label25.Padding = New System.Windows.Forms.Padding(2)
         Me.Label25.Size = New System.Drawing.Size(322, 22)
         Me.Label25.TabIndex = 39
         Me.Label25.Text = "This option is useful for vanilla/forge etc., server."
         '
-        'ExeViaSay_Checkbox
-        '
-        Me.ExeViaSay_Checkbox.AutoSize = True
-        Me.ExeViaSay_Checkbox.Location = New System.Drawing.Point(379, 126)
-        Me.ExeViaSay_Checkbox.Name = "ExeViaSay_Checkbox"
-        Me.ExeViaSay_Checkbox.Size = New System.Drawing.Size(176, 19)
-        Me.ExeViaSay_Checkbox.TabIndex = 38
-        Me.ExeViaSay_Checkbox.Text = "Execute command via ""say"""
-        Me.ExeViaSay_Checkbox.UseVisualStyleBackColor = True
-        '
         'EssentialsDetected
         '
         Me.EssentialsDetected.AutoSize = True
         Me.EssentialsDetected.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.EssentialsDetected.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EssentialsDetected.Location = New System.Drawing.Point(324, 110)
+        Me.EssentialsDetected.Location = New System.Drawing.Point(541, 44)
         Me.EssentialsDetected.Name = "EssentialsDetected"
         Me.EssentialsDetected.Size = New System.Drawing.Size(16, 16)
         Me.EssentialsDetected.TabIndex = 37
         Me.EssentialsDetected.Text = "?"
         '
-        'Label23
+        'ExeViaSay_Checkbox
         '
-        Me.Label23.AutoSize = True
-        Me.Label23.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label23.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(180, 110)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(147, 16)
-        Me.Label23.TabIndex = 36
-        Me.Label23.Text = "EssentialsX Detected: "
-        '
-        'CBlockat_CheckBox
-        '
-        Me.CBlockat_CheckBox.AutoSize = True
-        Me.CBlockat_CheckBox.Checked = True
-        Me.CBlockat_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CBlockat_CheckBox.Location = New System.Drawing.Point(23, 172)
-        Me.CBlockat_CheckBox.Name = "CBlockat_CheckBox"
-        Me.CBlockat_CheckBox.Size = New System.Drawing.Size(217, 19)
-        Me.CBlockat_CheckBox.TabIndex = 35
-        Me.CBlockat_CheckBox.Text = """CommandBlock"" all have privilege"
-        Me.CBlockat_CheckBox.UseVisualStyleBackColor = True
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(18, 195)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(253, 15)
-        Me.Label22.TabIndex = 34
-        Me.Label22.Text = "Else use full ""CommandBlock at x,y,z"" to work"
+        Me.ExeViaSay_Checkbox.AutoSize = True
+        Me.ExeViaSay_Checkbox.Location = New System.Drawing.Point(399, 228)
+        Me.ExeViaSay_Checkbox.Name = "ExeViaSay_Checkbox"
+        Me.ExeViaSay_Checkbox.Size = New System.Drawing.Size(213, 19)
+        Me.ExeViaSay_Checkbox.TabIndex = 38
+        Me.ExeViaSay_Checkbox.Text = "Execute / send command via ""say"""
+        Me.ExeViaSay_Checkbox.UseVisualStyleBackColor = True
         '
         'Label17
         '
@@ -444,24 +497,15 @@ Partial Class Form2
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(376, 77)
+        Me.Label18.Location = New System.Drawing.Point(21, 253)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(321, 15)
         Me.Label18.TabIndex = 32
         Me.Label18.Text = "(Leave blank if not used, Case sensitive,  Separate use ; )"
         '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(21, 111)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(148, 15)
-        Me.Label21.TabIndex = 31
-        Me.Label21.Text = "With EssentialsX Plug-in: "
-        '
         'MCFilter_Textbox
         '
-        Me.MCFilter_Textbox.Location = New System.Drawing.Point(379, 53)
+        Me.MCFilter_Textbox.Location = New System.Drawing.Point(24, 229)
         Me.MCFilter_Textbox.Name = "MCFilter_Textbox"
         Me.MCFilter_Textbox.Size = New System.Drawing.Size(320, 21)
         Me.MCFilter_Textbox.TabIndex = 30
@@ -469,29 +513,11 @@ Partial Class Form2
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(376, 36)
+        Me.Label20.Location = New System.Drawing.Point(21, 212)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(144, 15)
         Me.Label20.TabIndex = 29
         Me.Label20.Text = "MC→Console Flood filter"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(19, 151)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(162, 15)
-        Me.Label16.TabIndex = 26
-        Me.Label16.Text = "2. CommandBlock workable"
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(19, 131)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(225, 15)
-        Me.Label15.TabIndex = 25
-        Me.Label15.Text = "1. CONSOLE is an ID (Always available)"
         '
         'PRIID_Textbox
         '
@@ -507,13 +533,13 @@ Partial Class Form2
         Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(21, 36)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(215, 15)
+        Me.Label11.Size = New System.Drawing.Size(303, 15)
         Me.Label11.TabIndex = 19
-        Me.Label11.Text = "Who has privilege? (ID, not nickname)"
+        Me.Label11.Text = "Who has script executing privilege? (ID, not nickname)"
         '
         'Autoexe_Textbox
         '
-        Me.Autoexe_Textbox.Location = New System.Drawing.Point(379, 49)
+        Me.Autoexe_Textbox.Location = New System.Drawing.Point(381, 105)
         Me.Autoexe_Textbox.MaxLength = 65535
         Me.Autoexe_Textbox.Name = "Autoexe_Textbox"
         Me.Autoexe_Textbox.Size = New System.Drawing.Size(320, 21)
@@ -522,7 +548,7 @@ Partial Class Form2
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(376, 31)
+        Me.Label10.Location = New System.Drawing.Point(378, 87)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(223, 15)
         Me.Label10.TabIndex = 24
@@ -556,7 +582,7 @@ Partial Class Form2
         Me.GroupBox4.Size = New System.Drawing.Size(771, 96)
         Me.GroupBox4.TabIndex = 22
         Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Remote control"
+        Me.GroupBox4.Text = "Socket script setting (Remote control)"
         '
         'L_IPaddr_Combobox
         '
@@ -879,18 +905,35 @@ Partial Class Form2
         Me.GroupBox3.Controls.Add(Me.Label47)
         Me.GroupBox3.Controls.Add(Me.Autoexe_Textbox)
         Me.GroupBox3.Controls.Add(Me.Label10)
-        Me.GroupBox3.Location = New System.Drawing.Point(23, 277)
+        Me.GroupBox3.Location = New System.Drawing.Point(23, 334)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(771, 238)
+        Me.GroupBox3.Size = New System.Drawing.Size(771, 201)
         Me.GroupBox3.TabIndex = 38
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Console Shell settings  (If you don't know the purpose, please do not modify it. " &
     ")"
         '
+        'GUI_FolderOpen_TXTBOX
+        '
+        Me.GUI_FolderOpen_TXTBOX.Location = New System.Drawing.Point(24, 158)
+        Me.GUI_FolderOpen_TXTBOX.Name = "GUI_FolderOpen_TXTBOX"
+        Me.GUI_FolderOpen_TXTBOX.Size = New System.Drawing.Size(320, 21)
+        Me.GUI_FolderOpen_TXTBOX.TabIndex = 33
+        Me.GUI_FolderOpen_TXTBOX.Text = "explorer.exe"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(23, 140)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(188, 15)
+        Me.Label36.TabIndex = 32
+        Me.Label36.Text = "Command for open folder in GUI:"
+        '
         'Label35
         '
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(376, 73)
+        Me.Label35.Location = New System.Drawing.Point(378, 129)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(144, 15)
         Me.Label35.TabIndex = 31
@@ -898,7 +941,7 @@ Partial Class Form2
         '
         'Console_Main_Arguments_Textbox
         '
-        Me.Console_Main_Arguments_Textbox.Location = New System.Drawing.Point(24, 120)
+        Me.Console_Main_Arguments_Textbox.Location = New System.Drawing.Point(24, 105)
         Me.Console_Main_Arguments_Textbox.Name = "Console_Main_Arguments_Textbox"
         Me.Console_Main_Arguments_Textbox.Size = New System.Drawing.Size(320, 21)
         Me.Console_Main_Arguments_Textbox.TabIndex = 30
@@ -907,7 +950,7 @@ Partial Class Form2
         'Label43
         '
         Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(23, 102)
+        Me.Label43.Location = New System.Drawing.Point(23, 87)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(239, 15)
         Me.Label43.TabIndex = 29
@@ -915,7 +958,7 @@ Partial Class Form2
         '
         'Console_Mux_Arguments_Textbox
         '
-        Me.Console_Mux_Arguments_Textbox.Location = New System.Drawing.Point(379, 120)
+        Me.Console_Mux_Arguments_Textbox.Location = New System.Drawing.Point(381, 51)
         Me.Console_Mux_Arguments_Textbox.MaxLength = 65535
         Me.Console_Mux_Arguments_Textbox.Name = "Console_Mux_Arguments_Textbox"
         Me.Console_Mux_Arguments_Textbox.Size = New System.Drawing.Size(320, 21)
@@ -925,7 +968,7 @@ Partial Class Form2
         'Label46
         '
         Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(376, 102)
+        Me.Label46.Location = New System.Drawing.Point(378, 33)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(178, 15)
         Me.Label46.TabIndex = 24
@@ -933,7 +976,7 @@ Partial Class Form2
         '
         'Console_Shell_Exec_Textbox
         '
-        Me.Console_Shell_Exec_Textbox.Location = New System.Drawing.Point(24, 49)
+        Me.Console_Shell_Exec_Textbox.Location = New System.Drawing.Point(24, 51)
         Me.Console_Shell_Exec_Textbox.MaxLength = 65535
         Me.Console_Shell_Exec_Textbox.Name = "Console_Shell_Exec_Textbox"
         Me.Console_Shell_Exec_Textbox.Size = New System.Drawing.Size(320, 21)
@@ -943,7 +986,7 @@ Partial Class Form2
         'Label47
         '
         Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(21, 32)
+        Me.Label47.Location = New System.Drawing.Point(21, 34)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(258, 15)
         Me.Label47.TabIndex = 19
@@ -977,23 +1020,6 @@ Partial Class Form2
         Me.TabPage3.Size = New System.Drawing.Size(820, 572)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Backup setting"
-        '
-        'GUI_FolderOpen_TXTBOX
-        '
-        Me.GUI_FolderOpen_TXTBOX.Location = New System.Drawing.Point(24, 192)
-        Me.GUI_FolderOpen_TXTBOX.Name = "GUI_FolderOpen_TXTBOX"
-        Me.GUI_FolderOpen_TXTBOX.Size = New System.Drawing.Size(320, 21)
-        Me.GUI_FolderOpen_TXTBOX.TabIndex = 33
-        Me.GUI_FolderOpen_TXTBOX.Text = "explorer.exe"
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(23, 174)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(188, 15)
-        Me.Label36.TabIndex = 32
-        Me.Label36.Text = "Command for open folder in GUI:"
         '
         'Form2
         '
@@ -1069,8 +1095,6 @@ Partial Class Form2
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Label12 As Label
     Friend WithEvents Label13 As Label
-    Friend WithEvents Label16 As Label
-    Friend WithEvents Label15 As Label
     Friend WithEvents COMFilter_Textbox As TextBox
     Friend WithEvents Label14 As Label
     Friend WithEvents ComPortSPD_NumericUpDown As NumericUpDown
@@ -1079,7 +1103,6 @@ Partial Class Form2
     Friend WithEvents Label19 As Label
     Friend WithEvents MCFilter_Textbox As TextBox
     Friend WithEvents Label20 As Label
-    Friend WithEvents Label21 As Label
     Friend WithEvents Label17 As Label
     Friend WithEvents Label18 As Label
     Friend WithEvents CBlockat_CheckBox As CheckBox
@@ -1116,4 +1139,9 @@ Partial Class Form2
     Friend WithEvents Label35 As Label
     Friend WithEvents GUI_FolderOpen_TXTBOX As TextBox
     Friend WithEvents Label36 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Label37 As Label
+    Friend WithEvents CSPID_Textbox As TextBox
+    Friend WithEvents Label38 As Label
+    Friend WithEvents CSPID_Chk As CheckBox
 End Class
