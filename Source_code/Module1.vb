@@ -451,11 +451,17 @@ Module Module1
         Dim TmpString As String
 
         '==============================Who can Execute==================
-        TmpString = "CONSOLE;" + Man_Who_CanWork
-        TmpString = Replace(TmpString, " ;", ";")
-        TmpString = Replace(TmpString, "; ", ";")
-        Man_Who_CanWorkList = TmpString.Split(CType(";", Char()), StringSplitOptions.RemoveEmptyEntries)
+        TmpString = Man_Who_CanWork
+        If TmpString <> "" Then
+            TmpString = Replace(TmpString, " ;", ";")
+            TmpString = Replace(TmpString, "; ", ";")
+            Man_Who_CanWorkList = TmpString.Split(CType(";", Char()), StringSplitOptions.RemoveEmptyEntries)
+        Else
+            ReDim Man_Who_CanWorkList(0)
+            Man_Who_CanWorkList(0) = ""
+        End If
 
+        '==============================Who can send==================
         TmpString = Man_Who_CanSend
         If TmpString <> "" Then
             TmpString = Replace(TmpString, " ;", ";")
@@ -582,6 +588,8 @@ Module Module1
             End If
         End If
 
+        If Man_Who_CanWorkList(0) = "" Then Return False
+
         For Each TestOP_List As String In Man_Who_CanWorkList
             If Check_Sender_String = TestOP_List Then  'Normal player send
                 If Check_Sender_String = Check_Sendto_String Then
@@ -607,6 +615,8 @@ Module Module1
             Man_Who_LastSending = "@_CommandBlock"
             Return True
         End If
+
+        If Man_Who_CanWorkList(0) = "" Then Return False
 
         For Each TestOP_List As String In Man_Who_CanWorkList
             If Check_Sender_String = TestOP_List Then

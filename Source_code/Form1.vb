@@ -18,11 +18,10 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
-    Const FwmcVer As String = "0.92"
+    Const FwmcVer As String = "0.92a"
 
     Const CM_Type_W As String = "#"
     Const CM_Type_W2 As String = "@"
-
     Const CM_Type_VarWri As String = "$"
     Const CM_ServerState_Flag As String = "*"
     Const CM_ServerGetFlag As String = "+"
@@ -1589,8 +1588,6 @@ Public Class Form1
             '==================== MC + injection end ==========================
 
             If Tmp_String_Org.Substring(0, 1) = "~" Then
-
-                Dim ResultCode As Integer
 
                 If Tmp_String_Org.Length >= 5 Then
 
