@@ -18,7 +18,7 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
-    Const FwmcVer As String = "0.92a"
+    Const FwmcVer As String = "0.93"
 
     Const CM_Type_W As String = "#"
     Const CM_Type_W2 As String = "@"
@@ -855,12 +855,13 @@ Public Class Form1
                     What_RU_Waiting(IARR_Return(Mux_slot), Get_timeout_ds, I_Asking_RawRead(Mux_slot))
 
                     If RCorEXE_Mode = 0 Then SendToClients(IARR_Return(Mux_slot), TmpClientWork.TheSocket)
+                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IARR_Return(Mux_slot), Return_PreFix, Mux_slot)
 
                     'Because raw read back is so big to cause crash. It's a fix but not sure why.
-                    If RCorEXE_Mode = 1 Then
-                        Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread(IARR_Return(Mux_slot), Return_PreFix, Mux_slot, Return_PreFix))
-                        thread.Start()
-                    End If
+                    'If RCorEXE_Mode = 1 Then
+                    '    Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread(IARR_Return(Mux_slot), Return_PreFix, Mux_slot))
+                    '    thread.Start()
+                    'End If
 
                     Return 1
 
@@ -1641,24 +1642,32 @@ Public Class Form1
 
         If Not Mux(Mux_Slot).Is_Working Then Exit Sub
 
-        Try
-            Mux(Mux_Slot).Script_myStreamWriter = Mux(Mux_Slot).Script_Process.StandardInput
-            Mux(Mux_Slot).Script_myStreamWriter.WriteLine(ThePreFix + Write_Str_Data)
-        Catch ex As Exception
 
-            Mux(Mux_Slot).Is_Working = False '??
-            Add_to_NoteListbox("Write_to_Script(" + Write_Str_Data + "," + ThePreFix + "," + Mux_Slot.ToString + "):" + ex.Message)
-        End Try
+        If Write_Str_Data.Length <= 256 Then
+
+            Try
+                Mux(Mux_Slot).Script_myStreamWriter = Mux(Mux_Slot).Script_Process.StandardInput
+                Mux(Mux_Slot).Script_myStreamWriter.WriteLine(ThePreFix + Write_Str_Data)
+            Catch ex As Exception
+
+                Mux(Mux_Slot).Is_Working = False '??
+                Add_to_NoteListbox("Write_to_Script(" + Write_Str_Data + "," + ThePreFix + "," + Mux_Slot.ToString + "):" + ex.Message)
+            End Try
+
+        Else
+
+            Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread(IARR_Return(Mux_Slot), ThePreFix, Mux_Slot))
+            thread.Start()
+
+        End If
 
     End Sub
 
-    Public Sub EXE_Write_To_Console_Thread(Write_Str_Data As String, ThePreFix As String, Mux_Slot As Integer, Return_PreFix As String)
-
-        If Not Mux(0).Is_Working Then Exit Sub
+    Public Sub EXE_Write_To_Console_Thread(Write_Str_Data As String, ThePreFix As String, Mux_Slot As Integer)
 
         Try
             Mux(Mux_Slot).Script_myStreamWriter = Mux(Mux_Slot).Script_Process.StandardInput
-            Mux(Mux_Slot).Script_myStreamWriter.WriteLine(Return_PreFix + Write_Str_Data)
+            Mux(Mux_Slot).Script_myStreamWriter.WriteLine(ThePreFix + Write_Str_Data)
         Catch ex As Exception
             Mux(Mux_Slot).Is_Working = False
             Add_to_NoteListbox("Write_to_Script(" + Write_Str_Data + "," + ThePreFix + "," + Mux_Slot.ToString + "):" + ex.Message)
