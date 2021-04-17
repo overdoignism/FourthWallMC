@@ -7,6 +7,26 @@ Imports System.Runtime.InteropServices
 Imports System.Management
 
 Module Module1
+
+    Public Const FwmcVer As String = "0.94"
+
+    Public Const CM_Type_W As String = "#"
+    Public Const CM_Type_W2 As String = "&"
+    Public Const CM_Type_VarWri As String = "$"
+    Public Const CM_ServerState_Flag As String = "*"
+    Public Const CM_ServerGetFlag As String = "+"
+    Public Const CM_ServerGetFlag_NoBack As String = "-"
+    Public Const CM_MakeSubScripts As String = "!"
+
+    Public Const WM_VSCROLL As Integer = 277
+    Public Const SB_PAGEBOTTOM As Integer = 7
+
+    Public Const TCP_timeout_s As Integer = 21
+    Public Const Get_timeout_ds As Integer = 50
+    Public Const CloseForm_wait_ds As Integer = 200
+
+    Public Const FwmcWorker As String = "!_4WMC.Worker"
+
     Public Structure ScriptCake
         Dim Script_Process As System.Diagnostics.Process
         Dim Script_myStreamWriter As System.IO.StreamWriter
@@ -679,13 +699,12 @@ Module Module1
     End Function
 
     Public Function The_Man_has_Sending_right_MessageTest(TotalMessage As String) As Boolean
-        If TotalMessage.Substring(0, 1) <> "!" Then Return False
+        If TotalMessage.Substring(0, 1) <> CM_MakeSubScripts Then Return False
         If TotalMessage.Length <= 3 Then Return False
-        Dim TmpIdx1 As Integer = InStr(TotalMessage, "@")
-            If TmpIdx1 < 3 Then Return False
-            Dim Tmpidx2 As Integer = InStr(TotalMessage, "#")
-            If Tmpidx2 > TmpIdx1 Then Return False
-            Return True
+        Dim TmpIdx1 As Integer = InStr(TotalMessage, CM_Type_W2)
+        If TmpIdx1 < 3 Then Return False
+        If InStr(TotalMessage, CM_Type_W) > TmpIdx1 Then Return False
+        Return True
     End Function
 
     Public Function Check_If_Misjudge(TheString As String) As Boolean

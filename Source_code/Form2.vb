@@ -72,7 +72,6 @@ Public Class Form2
         Get_All_IP_Addr()
         Make_SerialPort_List()
         Make_Value_In_Box()
-        ShowEssX_Det(EssentialsDetected)
 
     End Sub
 
@@ -96,5 +95,13 @@ Public Class Form2
         Else
             Label38.Text = "Who has command sending privilege? (ID, not nickname)"
         End If
+    End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
+        MsgBox("Check this box if:" + vbCrLf + vbCrLf +
+        "1. You are using the vanilla type server, and need call script in game." + vbCrLf + vbCrLf +
+        "2. You need CommandBlock workable without EssentialsX Plugin." + vbCrLf + " ( CommandBlock all have privilege in this mode. )" +
+        vbCrLf + vbCrLf + "This option may cause bad visual feelings, or some security concerns." +
+        vbCrLf + "Please take a consideration by yourself.", 0, "Help")
     End Sub
 End Class

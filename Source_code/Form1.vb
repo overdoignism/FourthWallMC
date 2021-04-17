@@ -18,26 +18,6 @@ Public Class Form1
     ' Because Multi-thread works. I don't want process what the sync/async/lock or something.
     ' Anyway it's work.
 
-    Const FwmcVer As String = "0.93"
-
-    Const CM_Type_W As String = "#"
-    Const CM_Type_W2 As String = "@"
-    Const CM_Type_VarWri As String = "$"
-    Const CM_ServerState_Flag As String = "*"
-    Const CM_ServerGetFlag As String = "+"
-    Const CM_ServerGetFlag_NoBack As String = "-"
-
-    Const CM_MakeSubScripts As String = "!"
-
-    Const WM_VSCROLL As Integer = 277
-    Const SB_PAGEBOTTOM As Integer = 7
-
-    Const TCP_timeout_s As Integer = 21
-    Const Get_timeout_ds As Integer = 50
-    Const CloseForm_wait_ds As Integer = 200
-
-    Const FwmcWorker As String = "!_4WMC.Worker"
-
     Private cpuCounter As System.Diagnostics.PerformanceCounter
 
     Dim MC_Process As New System.Diagnostics.Process()

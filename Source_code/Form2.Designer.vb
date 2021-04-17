@@ -51,13 +51,10 @@ Partial Class Form2
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.CSPID_Textbox = New System.Windows.Forms.TextBox()
-        Me.Label23 = New System.Windows.Forms.Label()
         Me.Label38 = New System.Windows.Forms.Label()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.CBlockat_CheckBox = New System.Windows.Forms.CheckBox()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.EssentialsDetected = New System.Windows.Forms.Label()
         Me.ExeViaSay_Checkbox = New System.Windows.Forms.CheckBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -109,6 +106,9 @@ Partial Class Form2
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -122,6 +122,8 @@ Partial Class Form2
         Me.TabPage4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.TabPage3.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
         Me.SuspendLayout()
         '
         'BrowseJAR_Button
@@ -336,18 +338,13 @@ Partial Class Form2
         'GroupBox5
         '
         Me.GroupBox5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(242, Byte), Integer))
+        Me.GroupBox5.Controls.Add(Me.GroupBox7)
+        Me.GroupBox5.Controls.Add(Me.GroupBox6)
         Me.GroupBox5.Controls.Add(Me.CSPID_Chk)
-        Me.GroupBox5.Controls.Add(Me.Button1)
         Me.GroupBox5.Controls.Add(Me.Label37)
         Me.GroupBox5.Controls.Add(Me.CSPID_Textbox)
-        Me.GroupBox5.Controls.Add(Me.Label23)
         Me.GroupBox5.Controls.Add(Me.Label38)
-        Me.GroupBox5.Controls.Add(Me.Label22)
         Me.GroupBox5.Controls.Add(Me.Label31)
-        Me.GroupBox5.Controls.Add(Me.CBlockat_CheckBox)
-        Me.GroupBox5.Controls.Add(Me.Label25)
-        Me.GroupBox5.Controls.Add(Me.EssentialsDetected)
-        Me.GroupBox5.Controls.Add(Me.ExeViaSay_Checkbox)
         Me.GroupBox5.Controls.Add(Me.Label17)
         Me.GroupBox5.Controls.Add(Me.Label18)
         Me.GroupBox5.Controls.Add(Me.MCFilter_Textbox)
@@ -376,12 +373,12 @@ Partial Class Form2
         'Button1
         '
         Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Button1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(397, 68)
+        Me.Button1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(264, 90)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(219, 33)
+        Me.Button1.Size = New System.Drawing.Size(76, 33)
         Me.Button1.TabIndex = 44
-        Me.Button1.Text = "Help: With EssentialsX Plug-in"
+        Me.Button1.Text = "Help"
         Me.Button1.UseVisualStyleBackColor = False
         '
         'Label37
@@ -401,17 +398,6 @@ Partial Class Form2
         Me.CSPID_Textbox.Size = New System.Drawing.Size(320, 21)
         Me.CSPID_Textbox.TabIndex = 41
         '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label23.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(397, 44)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(147, 16)
-        Me.Label23.TabIndex = 36
-        Me.Label23.Text = "EssentialsX Detected: "
-        '
         'Label38
         '
         Me.Label38.AutoSize = True
@@ -424,61 +410,39 @@ Partial Class Form2
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(394, 131)
+        Me.Label22.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(14, 60)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(253, 15)
+        Me.Label22.Size = New System.Drawing.Size(320, 15)
         Me.Label22.TabIndex = 34
-        Me.Label22.Text = "Else use full ""CommandBlock at x,y,z"" to work"
+        Me.Label22.Text = "Else use full ""CommandBlock at x,y,z"" to make each work."
         '
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(397, 251)
+        Me.Label31.Location = New System.Drawing.Point(541, 146)
         Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(201, 15)
+        Me.Label31.Size = New System.Drawing.Size(0, 15)
         Me.Label31.TabIndex = 40
-        Me.Label31.Text = """CommandBlock"" all have privilege."
         '
         'CBlockat_CheckBox
         '
         Me.CBlockat_CheckBox.AutoSize = True
         Me.CBlockat_CheckBox.Checked = True
         Me.CBlockat_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CBlockat_CheckBox.Location = New System.Drawing.Point(399, 108)
+        Me.CBlockat_CheckBox.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CBlockat_CheckBox.Location = New System.Drawing.Point(17, 32)
         Me.CBlockat_CheckBox.Name = "CBlockat_CheckBox"
         Me.CBlockat_CheckBox.Size = New System.Drawing.Size(217, 19)
         Me.CBlockat_CheckBox.TabIndex = 35
         Me.CBlockat_CheckBox.Text = """CommandBlock"" all have privilege"
         Me.CBlockat_CheckBox.UseVisualStyleBackColor = True
         '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label25.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(397, 201)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Padding = New System.Windows.Forms.Padding(2)
-        Me.Label25.Size = New System.Drawing.Size(322, 22)
-        Me.Label25.TabIndex = 39
-        Me.Label25.Text = "This option is useful for vanilla/forge etc., server."
-        '
-        'EssentialsDetected
-        '
-        Me.EssentialsDetected.AutoSize = True
-        Me.EssentialsDetected.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.EssentialsDetected.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EssentialsDetected.Location = New System.Drawing.Point(541, 44)
-        Me.EssentialsDetected.Name = "EssentialsDetected"
-        Me.EssentialsDetected.Size = New System.Drawing.Size(16, 16)
-        Me.EssentialsDetected.TabIndex = 37
-        Me.EssentialsDetected.Text = "?"
-        '
         'ExeViaSay_Checkbox
         '
         Me.ExeViaSay_Checkbox.AutoSize = True
-        Me.ExeViaSay_Checkbox.Location = New System.Drawing.Point(399, 228)
+        Me.ExeViaSay_Checkbox.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ExeViaSay_Checkbox.Location = New System.Drawing.Point(17, 36)
         Me.ExeViaSay_Checkbox.Name = "ExeViaSay_Checkbox"
         Me.ExeViaSay_Checkbox.Size = New System.Drawing.Size(213, 19)
         Me.ExeViaSay_Checkbox.TabIndex = 38
@@ -1021,6 +985,44 @@ Partial Class Form2
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Backup setting"
         '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.Location = New System.Drawing.Point(264, 28)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(78, 33)
+        Me.Button2.TabIndex = 46
+        Me.Button2.Text = "Help"
+        Me.Button2.UseVisualStyleBackColor = False
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.GroupBox6.Controls.Add(Me.CBlockat_CheckBox)
+        Me.GroupBox6.Controls.Add(Me.Label22)
+        Me.GroupBox6.Controls.Add(Me.Button1)
+        Me.GroupBox6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox6.Location = New System.Drawing.Point(389, 39)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(359, 135)
+        Me.GroupBox6.TabIndex = 47
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Work with EssentialsX plugin"
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.GroupBox7.Controls.Add(Me.ExeViaSay_Checkbox)
+        Me.GroupBox7.Controls.Add(Me.Button2)
+        Me.GroupBox7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox7.Location = New System.Drawing.Point(389, 191)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(359, 83)
+        Me.GroupBox7.TabIndex = 48
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "For vanilla/forge etc., server."
+        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1053,6 +1055,10 @@ Partial Class Form2
         Me.GroupBox3.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1107,10 +1113,7 @@ Partial Class Form2
     Friend WithEvents Label18 As Label
     Friend WithEvents CBlockat_CheckBox As CheckBox
     Friend WithEvents Label22 As Label
-    Friend WithEvents EssentialsDetected As Label
-    Friend WithEvents Label23 As Label
     Friend WithEvents Label24 As Label
-    Friend WithEvents Label25 As Label
     Friend WithEvents ExeViaSay_Checkbox As CheckBox
     Friend WithEvents TabPage4 As TabPage
     Friend WithEvents GroupBox2 As GroupBox
@@ -1144,4 +1147,7 @@ Partial Class Form2
     Friend WithEvents CSPID_Textbox As TextBox
     Friend WithEvents Label38 As Label
     Friend WithEvents CSPID_Chk As CheckBox
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents Button2 As Button
+    Friend WithEvents GroupBox7 As GroupBox
 End Class
