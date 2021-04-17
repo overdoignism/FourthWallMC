@@ -11,7 +11,7 @@ Module Module1
     Public Const FwmcVer As String = "0.94"
 
     Public Const CM_Type_W As String = "#"
-    Public Const CM_Type_W2 As String = "&"
+    Public Const CM_Type_W2 As String = "%"
     Public Const CM_Type_VarWri As String = "$"
     Public Const CM_ServerState_Flag As String = "*"
     Public Const CM_ServerGetFlag As String = "+"
