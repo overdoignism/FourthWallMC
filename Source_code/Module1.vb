@@ -8,7 +8,7 @@ Imports System.Management
 
 Module Module1
 
-    Public Const FwmcVer As String = "0.94"
+    Public Const FwmcVer As String = "1.0"
 
     Public Const CM_Type_W As String = "#"
     Public Const CM_Type_W2 As String = "%"
@@ -23,6 +23,7 @@ Module Module1
 
     Public Const TCP_timeout_s As Integer = 21
     Public Const Get_timeout_ds As Integer = 50
+    Public Const Get_timeout_ds_4WMCWroker As Integer = 100
     Public Const CloseForm_wait_ds As Integer = 200
 
     Public Const FwmcWorker As String = "!_4WMC.Worker"
@@ -46,11 +47,16 @@ Module Module1
 
     End Structure
 
-
     Public Structure GeekCommand_Rtn
         Dim TheCommandPart As String
         Dim TheMessagePart As String
         Dim IsUsable As Boolean
+    End Structure
+
+    Public Structure The4WMC_Worker_Return
+        Dim The_ID_Code As String
+        Dim The_Return_Str As String
+        Dim WorkingState As Integer
     End Structure
 
     Public IsAgree As Boolean
@@ -68,7 +74,6 @@ Module Module1
 
     Public Man_Who_CanWork As String = "who1;who2"
     Public Man_Who_CanWorkList() As String
-
     Public Man_Who_CanSend As String = ""
     Public Man_Who_CanSendList() As String
     Public Man_Who_CanOrNot As Integer = 1
@@ -76,12 +81,11 @@ Module Module1
     Public Man_Who_LastSending As String
     Public Man_Who_LastSending_wBack As String
     'Public Man_ThisTime_W2Say As Boolean Abolished 
-    Public Man_Use_InJ As Boolean = True
+    'Public Man_Use_InJ As Boolean = True
     Public Man_EXE_FirstExec As String
     Public Man_Flood_ToEXE As Integer '0=None 1=EXE2F  2=F2EXE
     Public Man_EXE_FDFilter As String
     Public Man_EXE_FDFilterList() As String
-    Public Man_CBAT_Workable As Integer = 1
 
     Public Man_COM_Port As String
     Public Man_COM_Buad As Integer = 9600
@@ -101,12 +105,13 @@ Module Module1
     Public DAE_TIME_Format As String = "yyyyMMddHHmmss"
 
     Public EXECommand_ViaSay As Boolean
+    Public EXECommand_ViaW As Boolean = True
+    Public EXECommand_Via4WMCWorker As Single = 0
 
     'Public BurstMode As Integer = 0
     Public Origial_Path As String
 
     'Detect EssentialsX Installed
-    Public IsEssentialsX_Installed As Integer
     Public FthWallMC_Server_Bypass As Integer
 
     Public LogInlayer() As String
@@ -152,10 +157,7 @@ Module Module1
         ZIP_Launch_Parameter = Form2.BackupPar_Textbox.Text
         ZIP_TIME_Format = Form2.BackupTimeS_Textbox.Text
 
-        Man_CBAT_Workable = Form2.CBlockat_CheckBox.CheckState
-
         Man_Who_CanWork = Form2.PRIID_Textbox.Text
-        Man_Use_InJ = Form2.EXEside_Prefix_Checkbox.Checked
         Man_EXE_FirstExec = Form2.Autoexe_Textbox.Text
         Man_EXE_FDFilter = Form2.MCFilter_Textbox.Text
 
@@ -185,6 +187,8 @@ Module Module1
         Man_Who_CanOrNot = Form2.CSPID_Chk.CheckState
         Man_Who_CanSend = Form2.CSPID_Textbox.Text
 
+        EXECommand_ViaW = Form2.CESx_CheckBox.Checked
+
         Make_List_Array()
         SaveXML()
     End Sub
@@ -206,7 +210,6 @@ Module Module1
             createNode(Save_XML, "ZIP_EXE_Location", ZIP_EXE_Location)
             createNode(Save_XML, "ZIP_Launch_Parameter", ZIP_Launch_Parameter)
             createNode(Save_XML, "ZIP_TIME_Format", ZIP_TIME_Format)
-            createNode(Save_XML, "Man_Use_InJ", Man_Use_InJ)
             createNode(Save_XML, "Man_EXE_FirstExec", Man_EXE_FirstExec)
             createNode(Save_XML, "Man_COM_Port", Man_COM_Port)
             createNode(Save_XML, "Man_COM_Buad", Man_COM_Buad.ToString)
@@ -214,9 +217,7 @@ Module Module1
             createNode(Save_XML, "Man_COM_LineEnd", Man_COM_LineEnd)
             createNode(Save_XML, "Man_EXE_FDFilter", Man_EXE_FDFilter)
             createNode(Save_XML, "IsAgree", IsAgree)
-            createNode(Save_XML, "Man_CBAT_Workable", Man_CBAT_Workable)
             createNode(Save_XML, "Det_AE_Run", Det_AE_Run)
-            createNode(Save_XML, "EXECommand_ViaSay", EXECommand_ViaSay)
             createNode(Save_XML, "Det_AE_RunPara", Det_AE_RunPara)
             createNode(Save_XML, "DAE_TIME_Format", DAE_TIME_Format)
             createNode(Save_XML, "WaitBusyLongAsCrash", WaitBusyLongAsCrash)
@@ -227,6 +228,10 @@ Module Module1
             createNode(Save_XML, "GUI_OpenFolder", GUI_OpenFolder)
             createNode(Save_XML, "Man_Who_CanSend", Man_Who_CanSend)
             createNode(Save_XML, "Man_Who_CanOrNot", Man_Who_CanOrNot)
+
+            createNode(Save_XML, "EXECommand_ViaSay", EXECommand_ViaSay)
+            createNode(Save_XML, "EXECommand_ViaW", EXECommand_ViaW)
+
 
             Save_XML.WriteEndElement()
             Save_XML.Flush()
@@ -293,9 +298,6 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("ZIP_TIME_Format")
             If TmpNode IsNot Nothing Then ZIP_TIME_Format = TmpNode.InnerText
 
-            TmpNode = Node1.SelectSingleNode("Man_Use_InJ")
-            If TmpNode IsNot Nothing Then Man_Use_InJ = TmpNode.InnerText
-
             TmpNode = Node1.SelectSingleNode("Man_EXE_FirstExec")
             If TmpNode IsNot Nothing Then Man_EXE_FirstExec = TmpNode.InnerText
 
@@ -317,9 +319,6 @@ Module Module1
 
             TmpNode = Node1.SelectSingleNode("IsAgree")
             If TmpNode IsNot Nothing Then IsAgree = TmpNode.InnerText
-
-            TmpNode = Node1.SelectSingleNode("Man_CBAT_Workable")
-            If TmpNode IsNot Nothing Then Man_CBAT_Workable = TmpNode.InnerText
 
             TmpNode = Node1.SelectSingleNode("Det_AE_Run")
             If TmpNode IsNot Nothing Then Det_AE_Run = TmpNode.InnerText
@@ -357,6 +356,9 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("Man_Who_CanOrNot")
             If TmpNode IsNot Nothing Then Man_Who_CanOrNot = Val(TmpNode.InnerText)
 
+            TmpNode = Node1.SelectSingleNode("EXECommand_ViaW")
+            If TmpNode IsNot Nothing Then EXECommand_ViaW = TmpNode.InnerText
+
             If Man_Who_CanWork IsNot Nothing Then
                 Make_List_Array()
             Else
@@ -390,10 +392,8 @@ Module Module1
         Form2.Autoexe_Textbox.Text = Man_EXE_FirstExec
         Form2.COMFilter_Textbox.Text = Man_COM_TxFilter
         Form2.MCFilter_Textbox.Text = Man_EXE_FDFilter
-        Form2.CBlockat_CheckBox.CheckState = Man_CBAT_Workable
 
         Form2.ManPortNum.Value = Man_Port_Number
-        Form2.EXEside_Prefix_Checkbox.Checked = Man_Use_InJ
 
         Form2.ComPortList.Text = Man_COM_Port
         Form2.COMLineEnd.SelectedIndex = Man_COM_LineEnd
@@ -404,6 +404,7 @@ Module Module1
         Form2.DetAETimeS_Textbox.Text = DAE_TIME_Format
 
         Form2.ExeViaSay_Checkbox.Checked = EXECommand_ViaSay
+        Form2.CESx_CheckBox.Checked = EXECommand_ViaW
         Form2.WaitBusyLongAsCrash_NumericUpDown.Value = WaitBusyLongAsCrash
 
         Form2.Console_Shell_Exec_Textbox.Text = Console_Shell_Exec
@@ -506,11 +507,11 @@ Module Module1
         End If
 
     End Sub
-    Public Function Para_Go(TheString As String, ExeViaSay As Boolean) As GeekCommand_Rtn
+    Public Function Para_Go(TheString As String) As GeekCommand_Rtn
 
-        Dim GeekCommandRtnV1, GeekCommandRtnV2 As New GeekCommand_Rtn
-        GeekCommandRtnV1.IsUsable = False
-        GeekCommandRtnV2.IsUsable = False
+        Dim GeekCommandRtn As New GeekCommand_Rtn
+        GeekCommandRtn.IsUsable = False
+        'GeekCommandRtnV2.IsUsable = False
 
         Dim Get_AfterW As String
         Dim Get_SenderID As String
@@ -519,29 +520,58 @@ Module Module1
         Dim Tmp_Index1, Tmp_Index2, Tmp_Index3 As Integer
         Dim TheStringUP As String = TheString.ToUpper
 
-        '==========================V1 detect========================
-        Tmp_Index2 = InStr(TheStringUP, "]:") + 3 'L=2
-        Tmp_Index3 = InStr(TheStringUP, " ISSUED SERVER COMMAND: /W ") 'L=27
-        If ((Tmp_Index3 > Tmp_Index2) AndAlso (TheStringUP.Length > Tmp_Index3 + 27 + 6)) Then
 
-            Get_SenderID = TheString.Substring(Tmp_Index2 - 1, Tmp_Index3 - Tmp_Index2) 'Get SenderID
-            Get_AfterW = TheString.Substring(Tmp_Index3 + 26) 'Get AfterW
-            Tmp_Index1 = InStr(Get_AfterW, " ") 'Get SendToID
-            Get_SendToID = Get_AfterW.Substring(0, Tmp_Index1).Trim
+        'Public EXECommand_ViaSay As Boolean
+        'Public EXECommand_ViaW As Boolean
+        'Public EXECommand_Via4WMCWorker As Single
 
-            Get_AfterID = Get_AfterW.Substring(Tmp_Index1)
-            If Get_AfterID.Length > 2 Then
-                If The_Man_has_right_V1(Get_SenderID, Get_SendToID) OrElse The_Man_has_Sending_right_V1(Get_SenderID, Get_SendToID, Get_AfterID) Then
-                    GeekCommandRtnV1.TheCommandPart = Get_AfterID.Substring(0, 1)
-                    GeekCommandRtnV1.TheMessagePart = Get_AfterID.Substring(1)
-                    GeekCommandRtnV1.IsUsable = True
+        '========================== 4WMC Worker detect =====================
+        If EXECommand_Via4WMCWorker > 0 Then
+            Tmp_Index2 = InStr(TheStringUP, "INFO]: [4WMC-WORKER] <CMD>")
+            Tmp_Index3 = InStr(TheStringUP, "INFO]: ")
+
+            If (Tmp_Index2 > 0) AndAlso (Tmp_Index2 = Tmp_Index3) Then
+                Tmp_Index2 += 26
+                Tmp_Index3 = InStr(Tmp_Index2 + 1, TheString, " ")
+                Get_SenderID = TheString.Substring(Tmp_Index2, Tmp_Index3 - Tmp_Index2).TrimEnd
+                Get_AfterID = TheString.Substring(Tmp_Index3).TrimEnd
+
+                If The_Man_has_right_V2(Get_SenderID) OrElse The_Man_has_Sending_right_V2(Get_SenderID, Get_AfterID) Then
+                    GeekCommandRtn.TheCommandPart = Get_AfterID.Substring(0, 1)
+                    GeekCommandRtn.TheMessagePart = Get_AfterID.Substring(1)
+                    GeekCommandRtn.IsUsable = True
                 End If
             End If
+            If GeekCommandRtn.IsUsable Then Return GeekCommandRtn
         End If
-        If GeekCommandRtnV1.IsUsable Then Return GeekCommandRtnV1
+
+
+        '==========================V1 detect========================
+        If EXECommand_ViaW Then
+            Tmp_Index2 = InStr(TheStringUP, "]:") + 3 'L=2
+            Tmp_Index3 = InStr(TheStringUP, " ISSUED SERVER COMMAND: /W ") 'L=27
+            If ((Tmp_Index3 > Tmp_Index2) AndAlso (TheStringUP.Length > Tmp_Index3 + 27 + 6)) Then
+
+                Get_SenderID = TheString.Substring(Tmp_Index2 - 1, Tmp_Index3 - Tmp_Index2) 'Get SenderID
+                Get_AfterW = TheString.Substring(Tmp_Index3 + 26) 'Get AfterW
+                Tmp_Index1 = InStr(Get_AfterW, " ") 'Get SendToID
+                Get_SendToID = Get_AfterW.Substring(0, Tmp_Index1).Trim
+
+                Get_AfterID = Get_AfterW.Substring(Tmp_Index1)
+                If Get_AfterID.Length > 2 Then
+                    If The_Man_has_right_V1(Get_SenderID, Get_SendToID) OrElse The_Man_has_Sending_right_V1(Get_SenderID, Get_SendToID, Get_AfterID) Then
+                        GeekCommandRtn.TheCommandPart = Get_AfterID.Substring(0, 1)
+                        GeekCommandRtn.TheMessagePart = Get_AfterID.Substring(1)
+                        GeekCommandRtn.IsUsable = True
+                    End If
+                End If
+            End If
+            If GeekCommandRtn.IsUsable Then Return GeekCommandRtn
+        End If
+
 
         '==========================V2 detect 1 ========================
-        If ExeViaSay Then
+        If EXECommand_ViaSay Then
             Tmp_Index2 = InStr(TheStringUP, "]: <") + 4
             Tmp_Index3 = InStr(Tmp_Index2, TheStringUP, ">")
             If (Tmp_Index3 > Tmp_Index2) AndAlso (Tmp_Index2 > 0) Then
@@ -549,18 +579,19 @@ Module Module1
                 Get_AfterID = TheString.Substring(Tmp_Index3).Trim
                 If Get_AfterID.Length > 2 Then
                     If The_Man_has_right_V2(Get_SenderID) OrElse The_Man_has_Sending_right_V2(Get_SenderID, Get_AfterID) Then
-                        GeekCommandRtnV2.TheCommandPart = Get_AfterID.Substring(0, 1)
-                        GeekCommandRtnV2.TheMessagePart = Get_AfterID.Substring(1)
-                        GeekCommandRtnV2.IsUsable = True
+                        GeekCommandRtn.TheCommandPart = Get_AfterID.Substring(0, 1)
+                        GeekCommandRtn.TheMessagePart = Get_AfterID.Substring(1)
+                        GeekCommandRtn.IsUsable = True
                     End If
                 End If
             End If
+            If GeekCommandRtn.IsUsable Then Return GeekCommandRtn
         End If
-        If GeekCommandRtnV2.IsUsable Then Return GeekCommandRtnV2
+
 
 
         '==========================V2 detect 2 ========================
-        If ExeViaSay Then
+        If EXECommand_ViaSay Then
             Tmp_Index2 = InStr(TheStringUP, "]: [") + 4
             Tmp_Index3 = InStr(Tmp_Index2, TheStringUP, "]")
             If (Tmp_Index3 > Tmp_Index2) AndAlso (Tmp_Index2 > 0) Then
@@ -568,16 +599,17 @@ Module Module1
                 Get_AfterID = TheString.Substring(Tmp_Index3).Trim
                 If Get_AfterID.Length > 2 Then
                     If The_Man_has_right_V2(Get_SenderID) OrElse The_Man_has_Sending_right_V2(Get_SenderID, Get_AfterID) Then
-                        GeekCommandRtnV2.TheCommandPart = Get_AfterID.Substring(0, 1)
-                        GeekCommandRtnV2.TheMessagePart = Get_AfterID.Substring(1)
-                        GeekCommandRtnV2.IsUsable = True
+                        GeekCommandRtn.TheCommandPart = Get_AfterID.Substring(0, 1)
+                        GeekCommandRtn.TheMessagePart = Get_AfterID.Substring(1)
+                        GeekCommandRtn.IsUsable = True
                     End If
                 End If
             End If
+            If GeekCommandRtn.IsUsable Then Return GeekCommandRtn
         End If
-        If GeekCommandRtnV2.IsUsable Then Return GeekCommandRtnV2
 
-        Return GeekCommandRtnV1
+
+        Return GeekCommandRtn
 
     End Function
 
@@ -599,29 +631,23 @@ Module Module1
 
     Public Function The_Man_has_right_V1(Check_Sender_String As String, Check_Sendto_String As String) As Boolean
 
-        If (Check_Sender_String.Length >= 15) AndAlso (Man_CBAT_Workable = 1) Then 'CommandBlock send all pass
+        If (Check_Sender_String.Length >= 15) Then 'CommandBlock send all pass
             If (Check_Sender_String.Substring(0, 15) = "CommandBlock at") Then
                 If (Check_Sendto_String = "CommandBlock") Then
-                    Man_Who_LastSending = "@_" + Check_Sender_String
+                    Man_Who_LastSending = "@_" + Replace(Check_Sender_String, " at ", ":")
                     Return True
                 End If
             End If
         End If
 
         If Man_Who_CanWorkList(0) = "" Then Return False
+        If Check_Sender_String <> Check_Sendto_String Then Return False
 
         For Each TestOP_List As String In Man_Who_CanWorkList
             If Check_Sender_String = TestOP_List Then  'Normal player send
-                If Check_Sender_String = Check_Sendto_String Then
-                    Man_Who_LastSending = Check_Sender_String
-                    Man_Who_LastSending_wBack = Man_Who_LastSending
-                    Return True
-                ElseIf (Check_Sender_String.Length > 15) AndAlso (Check_Sender_String.Substring(0, 15) = "CommandBlock at") Then 'CommandBlock send need set
-                    If (Check_Sendto_String = "CommandBlock") Then
-                        Man_Who_LastSending = "@_" + Check_Sender_String.Substring(0, 15)
-                        Return True
-                    End If
-                End If
+                Man_Who_LastSending = Check_Sender_String
+                Man_Who_LastSending_wBack = Man_Who_LastSending
+                Return True
             End If
         Next
 
@@ -630,6 +656,16 @@ Module Module1
     End Function
 
     Public Function The_Man_has_right_V2(Check_Sender_String As String) As Boolean
+
+        If Check_Sender_String.StartsWith("*CommandBlock:") Then
+            Man_Who_LastSending = "@_" + Replace(Check_Sender_String, "*", "")
+            Return True
+        End If
+
+        If Check_Sender_String.StartsWith("*CONSOLE") Then
+            Man_Who_LastSending = "@_" + Replace(Check_Sender_String, "*", "")
+            Return True
+        End If
 
         If Check_Sender_String = "@" Then
             Man_Who_LastSending = "@_CommandBlock"
@@ -653,6 +689,7 @@ Module Module1
     Public Function The_Man_has_Sending_right_V1(Check_Sender_String As String, Check_Sendto_String As String, TotalMessage As String) As Boolean
 
         If Not The_Man_has_Sending_right_MessageTest(TotalMessage) Then Return False
+        If Check_Sender_String <> Check_Sendto_String Then Return False
 
         Dim TrueOrFalse As Boolean = False
         If Man_Who_CanOrNot = 0 Then TrueOrFalse = True
@@ -663,10 +700,8 @@ Module Module1
 
         For Each TestOP_List As String In Man_Who_CanSendList
             If Check_Sender_String = TestOP_List Then
-                If Check_Sender_String = Check_Sendto_String Then
-                    If TrueOrFalse Then Man_Who_LastSending = Check_Sender_String
-                    Return TrueOrFalse
-                End If
+                If TrueOrFalse Then Man_Who_LastSending = Check_Sender_String
+                Return TrueOrFalse
             End If
         Next
 
@@ -698,6 +733,7 @@ Module Module1
 
     End Function
 
+
     Public Function The_Man_has_Sending_right_MessageTest(TotalMessage As String) As Boolean
         If TotalMessage.Substring(0, 1) <> CM_MakeSubScripts Then Return False
         If TotalMessage.Length <= 3 Then Return False
@@ -709,12 +745,11 @@ Module Module1
 
     Public Function Check_If_Misjudge(TheString As String) As Boolean
 
-        TheString = Replace(TheString, " [MINECRAFT/DEDICATEDSERVER]", "")
-
-        If InStr(TheString, "INFO]: * @") > 0 Then Return False
-        If (InStr(TheString, "INFO]: <") > 0) Then Return False
-        If (InStr(TheString, "INFO]: [") > 0) Then Return False
+        'TheString = Replace(TheString, " [MINECRAFT/DEDICATEDSERVER]", "")
+        If InStr(TheString, "]: * @") > 0 Then Return False
+        If (InStr(TheString, "]: <") > 0) Then Return False
         If (InStr(TheString, "ISSUED SERVER COMMAND:") > 0) Then Return False
+        If (InStr(TheString, "]: [") > 0) Then Return False
 
         Return True
 
@@ -722,9 +757,9 @@ Module Module1
 
     Public Function Ticket_Return(TheString As String) As String  ', CheckTarget As String) As String
 
-        Ticket_Return = "-2"
+        Ticket_Return = "#Er2"
 
-        If InStr(TheString.ToUpper, " UNKNOWN DIMENSION") > 0 Then Return "-4"
+        If InStr(TheString.ToUpper, " UNKNOWN DIMENSION") > 0 Then Return "#Er4"
 
         Dim TMP_TICK1_IDX As Integer
         TMP_TICK1_IDX = InStr(TheString.ToUpper, " THE TIME IS ")
@@ -737,7 +772,7 @@ Module Module1
 
     Public Function Locate_Return(TheString As String, CheckTarget1 As String, CheckTarget2 As String) As String
 
-        Locate_Return = "-2"
+        Locate_Return = "#Er2"
         If CheckTarget1 Is Nothing Then Exit Function
 
         Dim TheStringUp As String = TheString.ToUpper
@@ -745,13 +780,13 @@ Module Module1
 
         If (InStr(TheStringUp, CheckTarget1.ToUpper) > 0) Then
             If InStr(TheStringUp, " UNKNOWN ") > 0 Then
-                Locate_Return = "-4"
+                Locate_Return = "#Er4"
             End If
         End If
 
         If (InStr(TheStringUp, CheckTarget2.ToUpper) > 0) Then
             If InStr(TheStringUp, "NO BIOME") > 0 Then
-                Locate_Return = "-4"
+                Locate_Return = "#Er4"
             End If
         End If
 
@@ -782,7 +817,7 @@ Module Module1
 
     Public Function RawRead_Return(TheString As String, CheckTarget() As String) As String
 
-        RawRead_Return = "-2"
+        RawRead_Return = "#Er2"
         If CheckTarget Is Nothing Then Exit Function
 
         Dim TheStringUp As String = TheString.ToUpper
@@ -792,7 +827,7 @@ Module Module1
 
         If CheckTarget(2) <> "" Then
             If InStr(TheStringUp, CheckTarget(2).ToUpper) > 0 Then
-                Return "-4"
+                Return "#Er4"
             End If
         End If
 
@@ -812,7 +847,7 @@ Module Module1
         Do
             Task.Delay(100).Wait()
             My.Application.DoEvents()
-            If (WaitingStr <> "-1") And (WaitingStr <> "-2") Then
+            If (WaitingStr <> "#Er1") And (WaitingStr <> "#Er2") Then
                 WaitingFlag = False
                 Exit Do
             End If
@@ -820,6 +855,21 @@ Module Module1
         Loop Until LoopWait = WaitingTimes_ds
 
         WaitingFlag = False
+
+    End Sub
+    Public Sub Waiting_4_4WMCWorker(ByRef WaitingFor As The4WMC_Worker_Return, WaitingTimes_ds As Integer)
+
+        Dim LoopWait As Integer = 0
+        Do
+            Task.Delay(100).Wait()
+            My.Application.DoEvents()
+            If WaitingFor.WorkingState = 2 Then
+                Exit Sub
+            End If
+            LoopWait += 1
+        Loop Until LoopWait = WaitingTimes_ds
+
+        WaitingFor.The_Return_Str = "#Er2"
 
     End Sub
 
@@ -953,17 +1003,7 @@ Module Module1
 
     End Sub
 
-    Public Sub ShowEssX_Det(ByRef Comp1 As Object)
 
-        Select Case IsEssentialsX_Installed
-            Case 0
-                Comp1.Text = "?"
-            Case 1
-                Comp1.Text = "NO"
-            Case 2
-                Comp1.Text = "YES"
-        End Select
-    End Sub
 
     Public Function GetLiveTime2(MC_Server_WorkState As Integer) As String
 
@@ -1044,6 +1084,45 @@ Module Module1
         Catch ex As Exception
             Return ""
         End Try
+
+    End Function
+
+    Public Function Gen_Rnd_IDcode() As String
+
+        Dim RndNum As New Random()
+        Dim TmpStr As String
+
+        TmpStr = Int32_to_x62(RndNum.Next(240000, 14500000))
+        TmpStr += Int32_to_x62(RndNum.Next(240000, 14500000))
+
+        Return TmpStr
+
+    End Function
+
+    Public Function Int32_to_x62(InVal As Integer) As String
+
+        Dim x62Str() As Char = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C",
+        "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+        "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+        "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
+
+        Dim OutputStr As String = ""
+
+        Dim Tmp1, Tmp2 As Integer
+
+        Tmp2 = InVal
+
+        Do
+
+            Tmp1 = Tmp2 Mod 62
+
+            Tmp2 = (Tmp2 - Tmp1) / 62
+
+            OutputStr = x62Str(Tmp1) + OutputStr
+
+        Loop While Tmp2 > 0
+
+        Return OutputStr
 
     End Function
 

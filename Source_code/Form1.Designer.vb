@@ -69,7 +69,6 @@ Partial Class Form1
         Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.Queue_TextBox = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
@@ -77,9 +76,8 @@ Partial Class Form1
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Button7 = New System.Windows.Forms.Button()
-        Me.ServerType_TextBox = New System.Windows.Forms.TextBox()
         Me.SerWorkingPath_TextBox = New System.Windows.Forms.TextBox()
-        Me.EssX_Det_TextBox = New System.Windows.Forms.TextBox()
+        Me.AssiPlug_Det_TextBox = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.EXEWorkingPath_TextBox = New System.Windows.Forms.TextBox()
         Me.ServerLiveTime_Textbox = New System.Windows.Forms.TextBox()
@@ -97,6 +95,9 @@ Partial Class Form1
         Me.QueueEXE_RunnerTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PauseText_Button = New System.Windows.Forms.Button()
         Me.Stop_Button = New System.Windows.Forms.Button()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.ServerType_Label = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -169,11 +170,11 @@ Partial Class Form1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.Label1.Location = New System.Drawing.Point(196, 10)
+        Me.Label1.Location = New System.Drawing.Point(216, 10)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(178, 16)
+        Me.Label1.Size = New System.Drawing.Size(155, 16)
         Me.Label1.TabIndex = 10
-        Me.Label1.Text = "Socket Script RemoteCon: "
+        Me.Label1.Text = "Socket Script Console: "
         '
         'MCServerRefreshTimer
         '
@@ -184,11 +185,11 @@ Partial Class Form1
         '
         Me.MCSState_Label.AutoSize = True
         Me.MCSState_Label.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.MCSState_Label.Location = New System.Drawing.Point(16, 10)
+        Me.MCSState_Label.Location = New System.Drawing.Point(152, 10)
         Me.MCSState_Label.Name = "MCSState_Label"
-        Me.MCSState_Label.Size = New System.Drawing.Size(147, 16)
+        Me.MCSState_Label.Size = New System.Drawing.Size(34, 16)
         Me.MCSState_Label.TabIndex = 11
-        Me.MCSState_Label.Text = "Minecraft Server: OFF"
+        Me.MCSState_Label.Text = "OFF"
         '
         'ManServerTimeOutTimer
         '
@@ -242,12 +243,10 @@ Partial Class Form1
         'RCState_Label
         '
         Me.RCState_Label.AutoSize = True
-        Me.RCState_Label.BackColor = System.Drawing.Color.Black
-        Me.RCState_Label.Font = New System.Drawing.Font("Arial Black", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.RCState_Label.ForeColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.RCState_Label.Location = New System.Drawing.Point(384, 9)
+        Me.RCState_Label.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RCState_Label.Location = New System.Drawing.Point(377, 10)
         Me.RCState_Label.Name = "RCState_Label"
-        Me.RCState_Label.Size = New System.Drawing.Size(37, 18)
+        Me.RCState_Label.Size = New System.Drawing.Size(34, 16)
         Me.RCState_Label.TabIndex = 18
         Me.RCState_Label.Text = "OFF"
         '
@@ -611,7 +610,6 @@ Partial Class Form1
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.Queue_TextBox)
         Me.GroupBox1.Controls.Add(Me.Label14)
         Me.GroupBox1.Controls.Add(Me.Label19)
@@ -619,9 +617,8 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.Button8)
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.Button7)
-        Me.GroupBox1.Controls.Add(Me.ServerType_TextBox)
         Me.GroupBox1.Controls.Add(Me.SerWorkingPath_TextBox)
-        Me.GroupBox1.Controls.Add(Me.EssX_Det_TextBox)
+        Me.GroupBox1.Controls.Add(Me.AssiPlug_Det_TextBox)
         Me.GroupBox1.Controls.Add(Me.Label18)
         Me.GroupBox1.Controls.Add(Me.EXEWorkingPath_TextBox)
         Me.GroupBox1.Controls.Add(Me.ServerLiveTime_Textbox)
@@ -632,17 +629,6 @@ Partial Class Form1
         Me.GroupBox1.TabIndex = 53
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "These information is generated after latest time 4WMC start or server start."
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.Label10.ForeColor = System.Drawing.Color.White
-        Me.Label10.Location = New System.Drawing.Point(20, 30)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(148, 16)
-        Me.Label10.TabIndex = 34
-        Me.Label10.Text = "Detected Server Type:"
         '
         'Queue_TextBox
         '
@@ -680,11 +666,11 @@ Partial Class Form1
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
         Me.Label23.ForeColor = System.Drawing.Color.White
-        Me.Label23.Location = New System.Drawing.Point(227, 30)
+        Me.Label23.Location = New System.Drawing.Point(20, 30)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(147, 16)
+        Me.Label23.Size = New System.Drawing.Size(159, 16)
         Me.Label23.TabIndex = 38
-        Me.Label23.Text = "EssentialsX Detected: "
+        Me.Label23.Text = "Assist plug-in Detected: "
         '
         'Button8
         '
@@ -721,15 +707,6 @@ Partial Class Form1
         Me.Button7.Text = "Open"
         Me.Button7.UseVisualStyleBackColor = True
         '
-        'ServerType_TextBox
-        '
-        Me.ServerType_TextBox.Location = New System.Drawing.Point(23, 49)
-        Me.ServerType_TextBox.Name = "ServerType_TextBox"
-        Me.ServerType_TextBox.ReadOnly = True
-        Me.ServerType_TextBox.Size = New System.Drawing.Size(170, 21)
-        Me.ServerType_TextBox.TabIndex = 40
-        Me.ServerType_TextBox.Text = "Vanilla (or ND)"
-        '
         'SerWorkingPath_TextBox
         '
         Me.SerWorkingPath_TextBox.Location = New System.Drawing.Point(24, 108)
@@ -738,14 +715,14 @@ Partial Class Form1
         Me.SerWorkingPath_TextBox.Size = New System.Drawing.Size(803, 21)
         Me.SerWorkingPath_TextBox.TabIndex = 48
         '
-        'EssX_Det_TextBox
+        'AssiPlug_Det_TextBox
         '
-        Me.EssX_Det_TextBox.Location = New System.Drawing.Point(230, 49)
-        Me.EssX_Det_TextBox.Name = "EssX_Det_TextBox"
-        Me.EssX_Det_TextBox.ReadOnly = True
-        Me.EssX_Det_TextBox.Size = New System.Drawing.Size(170, 21)
-        Me.EssX_Det_TextBox.TabIndex = 41
-        Me.EssX_Det_TextBox.Text = "?"
+        Me.AssiPlug_Det_TextBox.Location = New System.Drawing.Point(24, 49)
+        Me.AssiPlug_Det_TextBox.Name = "AssiPlug_Det_TextBox"
+        Me.AssiPlug_Det_TextBox.ReadOnly = True
+        Me.AssiPlug_Det_TextBox.Size = New System.Drawing.Size(391, 21)
+        Me.AssiPlug_Det_TextBox.TabIndex = 41
+        Me.AssiPlug_Det_TextBox.Text = "?"
         '
         'Label18
         '
@@ -815,7 +792,7 @@ Partial Class Form1
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.Label6.Location = New System.Drawing.Point(496, 9)
+        Me.Label6.Location = New System.Drawing.Point(468, 10)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(42, 16)
         Me.Label6.TabIndex = 26
@@ -825,7 +802,7 @@ Partial Class Form1
         '
         Me.COMState_Label.AutoSize = True
         Me.COMState_Label.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.COMState_Label.Location = New System.Drawing.Point(544, 9)
+        Me.COMState_Label.Location = New System.Drawing.Point(516, 10)
         Me.COMState_Label.Name = "COMState_Label"
         Me.COMState_Label.Size = New System.Drawing.Size(34, 16)
         Me.COMState_Label.TabIndex = 27
@@ -834,6 +811,9 @@ Partial Class Form1
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.SeaShell
+        Me.Panel1.Controls.Add(Me.ServerType_Label)
+        Me.Panel1.Controls.Add(Me.Label16)
+        Me.Panel1.Controls.Add(Me.Label12)
         Me.Panel1.Controls.Add(Me.MCSState_Label)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.COMState_Label)
@@ -901,6 +881,36 @@ Partial Class Form1
         Me.Stop_Button.TabIndex = 38
         Me.Stop_Button.Text = "Stop Server"
         Me.Stop_Button.UseVisualStyleBackColor = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Label12.Location = New System.Drawing.Point(29, 10)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(117, 16)
+        Me.Label12.TabIndex = 28
+        Me.Label12.Text = "Minecraft Server:"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Label16.Location = New System.Drawing.Point(591, 10)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(148, 16)
+        Me.Label16.TabIndex = 39
+        Me.Label16.Text = "Detected Server Type:"
+        '
+        'ServerType_Label
+        '
+        Me.ServerType_Label.AutoSize = True
+        Me.ServerType_Label.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ServerType_Label.Location = New System.Drawing.Point(748, 10)
+        Me.ServerType_Label.Name = "ServerType_Label"
+        Me.ServerType_Label.Size = New System.Drawing.Size(99, 16)
+        Me.ServerType_Label.TabIndex = 40
+        Me.ServerType_Label.Text = "Vanilla (or ND)"
         '
         'Form1
         '
@@ -991,7 +1001,6 @@ Partial Class Form1
     Friend WithEvents Label7 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Button6 As Button
-    Friend WithEvents Label10 As Label
     Friend WithEvents BusyCrash As Timer
     Friend WithEvents RestartCon_Button As Button
     Friend WithEvents EXECON_Stat_Label As Label
@@ -1006,8 +1015,7 @@ Partial Class Form1
     Friend WithEvents Label14 As Label
     Friend WithEvents ServerLiveTime_Textbox As TextBox
     Friend WithEvents EXEWorkingPath_TextBox As TextBox
-    Friend WithEvents EssX_Det_TextBox As TextBox
-    Friend WithEvents ServerType_TextBox As TextBox
+    Friend WithEvents AssiPlug_Det_TextBox As TextBox
     Friend WithEvents Label15 As Label
     Friend WithEvents Label23 As Label
     Friend WithEvents Label17 As Label
@@ -1021,4 +1029,7 @@ Partial Class Form1
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Kill_Mux_Con As Button
     Friend WithEvents Stop_Button As Button
+    Friend WithEvents Label12 As Label
+    Friend WithEvents ServerType_Label As Label
+    Friend WithEvents Label16 As Label
 End Class

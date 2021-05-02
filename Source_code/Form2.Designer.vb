@@ -47,15 +47,19 @@ Partial Class Form2
         Me.BackupPar_Textbox = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.CSPID_Chk = New System.Windows.Forms.CheckBox()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.ExeViaSay_Checkbox = New System.Windows.Forms.CheckBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.CESx_CheckBox = New System.Windows.Forms.CheckBox()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.CSPID_Chk = New System.Windows.Forms.CheckBox()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.CSPID_Textbox = New System.Windows.Forms.TextBox()
         Me.Label38 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
         Me.Label31 = New System.Windows.Forms.Label()
-        Me.CBlockat_CheckBox = New System.Windows.Forms.CheckBox()
-        Me.ExeViaSay_Checkbox = New System.Windows.Forms.CheckBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.MCFilter_Textbox = New System.Windows.Forms.TextBox()
@@ -64,7 +68,6 @@ Partial Class Form2
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Autoexe_Textbox = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.EXEside_Prefix_Checkbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.L_IPaddr_Combobox = New System.Windows.Forms.ComboBox()
         Me.Label34 = New System.Windows.Forms.Label()
@@ -104,13 +107,12 @@ Partial Class Form2
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Console_Shell_Exec_Textbox = New System.Windows.Forms.TextBox()
         Me.Label47 = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
+        Me.GroupBox8.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -122,8 +124,6 @@ Partial Class Form2
         Me.TabPage4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
-        Me.GroupBox7.SuspendLayout()
         Me.SuspendLayout()
         '
         'BrowseJAR_Button
@@ -338,6 +338,7 @@ Partial Class Form2
         'GroupBox5
         '
         Me.GroupBox5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(242, Byte), Integer))
+        Me.GroupBox5.Controls.Add(Me.GroupBox8)
         Me.GroupBox5.Controls.Add(Me.GroupBox7)
         Me.GroupBox5.Controls.Add(Me.GroupBox6)
         Me.GroupBox5.Controls.Add(Me.CSPID_Chk)
@@ -358,6 +359,99 @@ Partial Class Form2
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Script console"
         '
+        'GroupBox8
+        '
+        Me.GroupBox8.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.GroupBox8.Controls.Add(Me.Label15)
+        Me.GroupBox8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox8.Location = New System.Drawing.Point(396, 34)
+        Me.GroupBox8.Name = "GroupBox8"
+        Me.GroupBox8.Size = New System.Drawing.Size(359, 65)
+        Me.GroupBox8.TabIndex = 49
+        Me.GroupBox8.TabStop = False
+        Me.GroupBox8.Text = "Work with 4WMC-Worker"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(15, 28)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(186, 15)
+        Me.Label15.TabIndex = 45
+        Me.Label15.Text = "It's auto detect. Recommended."
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.GroupBox7.Controls.Add(Me.ExeViaSay_Checkbox)
+        Me.GroupBox7.Controls.Add(Me.Button2)
+        Me.GroupBox7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox7.Location = New System.Drawing.Point(396, 205)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(359, 65)
+        Me.GroupBox7.TabIndex = 48
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "For vanilla/forge server or Command Block w/o EssX"
+        '
+        'ExeViaSay_Checkbox
+        '
+        Me.ExeViaSay_Checkbox.AutoSize = True
+        Me.ExeViaSay_Checkbox.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ExeViaSay_Checkbox.Location = New System.Drawing.Point(17, 28)
+        Me.ExeViaSay_Checkbox.Name = "ExeViaSay_Checkbox"
+        Me.ExeViaSay_Checkbox.Size = New System.Drawing.Size(219, 19)
+        Me.ExeViaSay_Checkbox.TabIndex = 38
+        Me.ExeViaSay_Checkbox.Text = "Execute / send command via "" say """
+        Me.ExeViaSay_Checkbox.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.Location = New System.Drawing.Point(264, 20)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(78, 33)
+        Me.Button2.TabIndex = 46
+        Me.Button2.Text = "Help"
+        Me.Button2.UseVisualStyleBackColor = False
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.GroupBox6.Controls.Add(Me.CESx_CheckBox)
+        Me.GroupBox6.Controls.Add(Me.Button1)
+        Me.GroupBox6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox6.Location = New System.Drawing.Point(396, 119)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(359, 65)
+        Me.GroupBox6.TabIndex = 47
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Work with EssentialsX plugin"
+        '
+        'CESx_CheckBox
+        '
+        Me.CESx_CheckBox.AutoSize = True
+        Me.CESx_CheckBox.Checked = True
+        Me.CESx_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CESx_CheckBox.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CESx_CheckBox.Location = New System.Drawing.Point(17, 28)
+        Me.CESx_CheckBox.Name = "CESx_CheckBox"
+        Me.CESx_CheckBox.Size = New System.Drawing.Size(232, 19)
+        Me.CESx_CheckBox.TabIndex = 45
+        Me.CESx_CheckBox.Text = "Execute / send command via "" w self """
+        Me.CESx_CheckBox.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(264, 19)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(76, 33)
+        Me.Button1.TabIndex = 44
+        Me.Button1.Text = "Help"
+        Me.Button1.UseVisualStyleBackColor = False
+        '
         'CSPID_Chk
         '
         Me.CSPID_Chk.AutoSize = True
@@ -369,17 +463,6 @@ Partial Class Form2
         Me.CSPID_Chk.TabIndex = 45
         Me.CSPID_Chk.Text = "Use as block list (→ has NOT)"
         Me.CSPID_Chk.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Button1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(264, 90)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(76, 33)
-        Me.Button1.TabIndex = 44
-        Me.Button1.Text = "Help"
-        Me.Button1.UseVisualStyleBackColor = False
         '
         'Label37
         '
@@ -407,47 +490,13 @@ Partial Class Form2
         Me.Label38.TabIndex = 42
         Me.Label38.Text = "Who has NOT command sending privilege? (ID, not nickname)"
         '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label22.Location = New System.Drawing.Point(14, 60)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(320, 15)
-        Me.Label22.TabIndex = 34
-        Me.Label22.Text = "Else use full ""CommandBlock at x,y,z"" to make each work."
-        '
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(541, 146)
+        Me.Label31.Location = New System.Drawing.Point(543, 216)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(0, 15)
         Me.Label31.TabIndex = 40
-        '
-        'CBlockat_CheckBox
-        '
-        Me.CBlockat_CheckBox.AutoSize = True
-        Me.CBlockat_CheckBox.Checked = True
-        Me.CBlockat_CheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CBlockat_CheckBox.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CBlockat_CheckBox.Location = New System.Drawing.Point(17, 32)
-        Me.CBlockat_CheckBox.Name = "CBlockat_CheckBox"
-        Me.CBlockat_CheckBox.Size = New System.Drawing.Size(217, 19)
-        Me.CBlockat_CheckBox.TabIndex = 35
-        Me.CBlockat_CheckBox.Text = """CommandBlock"" all have privilege"
-        Me.CBlockat_CheckBox.UseVisualStyleBackColor = True
-        '
-        'ExeViaSay_Checkbox
-        '
-        Me.ExeViaSay_Checkbox.AutoSize = True
-        Me.ExeViaSay_Checkbox.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ExeViaSay_Checkbox.Location = New System.Drawing.Point(17, 36)
-        Me.ExeViaSay_Checkbox.Name = "ExeViaSay_Checkbox"
-        Me.ExeViaSay_Checkbox.Size = New System.Drawing.Size(213, 19)
-        Me.ExeViaSay_Checkbox.TabIndex = 38
-        Me.ExeViaSay_Checkbox.Text = "Execute / send command via ""say"""
-        Me.ExeViaSay_Checkbox.UseVisualStyleBackColor = True
         '
         'Label17
         '
@@ -517,20 +566,6 @@ Partial Class Form2
         Me.Label10.Size = New System.Drawing.Size(223, 15)
         Me.Label10.TabIndex = 24
         Me.Label10.Text = "The auto-exec when Main console start:"
-        '
-        'EXEside_Prefix_Checkbox
-        '
-        Me.EXEside_Prefix_Checkbox.AutoSize = True
-        Me.EXEside_Prefix_Checkbox.Checked = True
-        Me.EXEside_Prefix_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.EXEside_Prefix_Checkbox.Enabled = False
-        Me.EXEside_Prefix_Checkbox.Location = New System.Drawing.Point(437, 557)
-        Me.EXEside_Prefix_Checkbox.Name = "EXEside_Prefix_Checkbox"
-        Me.EXEside_Prefix_Checkbox.Size = New System.Drawing.Size(383, 19)
-        Me.EXEside_Prefix_Checkbox.TabIndex = 22
-        Me.EXEside_Prefix_Checkbox.Text = "EXE side start with ~(tilde) is server command injection (invisible)"
-        Me.EXEside_Prefix_Checkbox.UseVisualStyleBackColor = True
-        Me.EXEside_Prefix_Checkbox.Visible = False
         '
         'GroupBox4
         '
@@ -845,9 +880,7 @@ Partial Class Form2
         'TabPage4
         '
         Me.TabPage4.Controls.Add(Me.GroupBox3)
-        Me.TabPage4.Controls.Add(Me.Label24)
         Me.TabPage4.Controls.Add(Me.GroupBox5)
-        Me.TabPage4.Controls.Add(Me.EXEside_Prefix_Checkbox)
         Me.TabPage4.Location = New System.Drawing.Point(4, 24)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Size = New System.Drawing.Size(820, 572)
@@ -956,19 +989,6 @@ Partial Class Form2
         Me.Label47.TabIndex = 19
         Me.Label47.Text = "The Shell (Filename or command name only):"
         '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label24.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(127, 24)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Padding = New System.Windows.Forms.Padding(2)
-        Me.Label24.Size = New System.Drawing.Size(444, 22)
-        Me.Label24.TabIndex = 37
-        Me.Label24.Text = " ( Execute command in world is best with Spigot / PaperMC Server )"
-        '
         'TabPage3
         '
         Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(236, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -985,44 +1005,6 @@ Partial Class Form2
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Backup setting"
         '
-        'Button2
-        '
-        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Button2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(264, 28)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(78, 33)
-        Me.Button2.TabIndex = 46
-        Me.Button2.Text = "Help"
-        Me.Button2.UseVisualStyleBackColor = False
-        '
-        'GroupBox6
-        '
-        Me.GroupBox6.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.GroupBox6.Controls.Add(Me.CBlockat_CheckBox)
-        Me.GroupBox6.Controls.Add(Me.Label22)
-        Me.GroupBox6.Controls.Add(Me.Button1)
-        Me.GroupBox6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox6.Location = New System.Drawing.Point(389, 39)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(359, 135)
-        Me.GroupBox6.TabIndex = 47
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Work with EssentialsX plugin"
-        '
-        'GroupBox7
-        '
-        Me.GroupBox7.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.GroupBox7.Controls.Add(Me.ExeViaSay_Checkbox)
-        Me.GroupBox7.Controls.Add(Me.Button2)
-        Me.GroupBox7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox7.Location = New System.Drawing.Point(389, 191)
-        Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(359, 83)
-        Me.GroupBox7.TabIndex = 48
-        Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "For vanilla/forge etc., server."
-        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1037,6 +1019,12 @@ Partial Class Form2
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
+        Me.GroupBox8.ResumeLayout(False)
+        Me.GroupBox8.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
@@ -1050,15 +1038,10 @@ Partial Class Form2
         Me.GroupBox1.PerformLayout()
         CType(Me.ComPortSPD_NumericUpDown, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage4.ResumeLayout(False)
-        Me.TabPage4.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
-        Me.GroupBox7.ResumeLayout(False)
-        Me.GroupBox7.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1091,7 +1074,6 @@ Partial Class Form2
     Friend WithEvents PRIID_Textbox As TextBox
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents EXEside_Prefix_Checkbox As CheckBox
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
@@ -1111,9 +1093,6 @@ Partial Class Form2
     Friend WithEvents Label20 As Label
     Friend WithEvents Label17 As Label
     Friend WithEvents Label18 As Label
-    Friend WithEvents CBlockat_CheckBox As CheckBox
-    Friend WithEvents Label22 As Label
-    Friend WithEvents Label24 As Label
     Friend WithEvents ExeViaSay_Checkbox As CheckBox
     Friend WithEvents TabPage4 As TabPage
     Friend WithEvents GroupBox2 As GroupBox
@@ -1150,4 +1129,7 @@ Partial Class Form2
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents Button2 As Button
     Friend WithEvents GroupBox7 As GroupBox
+    Friend WithEvents CESx_CheckBox As CheckBox
+    Friend WithEvents GroupBox8 As GroupBox
+    Friend WithEvents Label15 As Label
 End Class

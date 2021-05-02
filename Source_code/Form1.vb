@@ -89,6 +89,9 @@ Public Class Form1
     Dim IALB_Argu_Findwhat2(HowManyMux_ArryADD1) As String
     Dim IALB_Return(HowManyMux_ArryADD1) As String
 
+    '4WMC-Worker Working
+    Dim The_4WMC_ID_Code(0) As The4WMC_Worker_Return
+
     'Raw Read Back
     Dim I_Asking_RawRead(HowManyMux_ArryADD1) As Boolean
     Dim IARR_Argu_Findwhat(HowManyMux_ArryADD1)() As String
@@ -111,7 +114,6 @@ Public Class Form1
         Me.Text = "FourthWallMC v" + FwmcVer + " < You don't need to break it, we put window on the wall. >  By overdoingism Lab."
         RestartCon_Button.Text = "Restart Main" + vbCrLf + "Console"
         Kill_Mux_Con.Text = "Kill all Mux" + vbCrLf + "Console"
-        RCState_Label.ForeColor = Color.FromArgb(255, 128, 128, 255)
         ModeRC_Button.Text = "Work Mode" + vbCrLf + "Normal (0)"
         ModeExeFW_Button.Text = "Flood way (Main)" + vbCrLf + "MC←Console"
 
@@ -254,6 +256,7 @@ Public Class Form1
 
                 FthWallMC_Server = TmpState
                 RCState_Label.Text = "ERROR"
+                RCState_Label.ForeColor = Color.DarkRed
                 Add_to_NoteListbox("Stop_Management_Server():" + ex.Message)
                 Return False
 
@@ -262,6 +265,7 @@ Public Class Form1
         End If
 
         RCState_Label.Text = "OFF"
+        RCState_Label.ForeColor = Color.Black
         MCServerRefreshTimer.Enabled = True
 
         Return True
@@ -410,6 +414,7 @@ Public Class Form1
             Case "gb" 'Get Biome
             Case "rr" 'Raw Read
             Case "in" 'MC server command insert
+            Case "4w"
             Case Else
                 If RCorEXE_Mode = 0 Then SendToClients("BAD", TmpClientWork.TheSocket)
                 If RCorEXE_Mode = 1 Then EXE_Write_To_Console("BAD", Return_PreFix, Mux_slot)
@@ -690,29 +695,28 @@ Public Class Form1
 
                 If Command_Mode = "cm" Then
 
-                    If Command_str = "" Then
-                        WorkString = "BAD*"
-                    ElseIf MC_Server_WorkState = 2 Then
-                        WorkString = "NOT-OFF"
-                    ElseIf MC_Server_WorkState = 1 Then
-                        WorkString = "BUSY"
-                    Else
-                        Select Case Command_str.ToLower
-                            Case "start"
+                    Select Case Command_str.ToLower
+                        Case "start"
+                            If MC_Server_WorkState <> 0 Then
+                                WorkString = "NOT-OFF"
+                            Else
                                 WorkString = Start_MC_Server_Process(JVM_Launch_Parameter, JVM_JAVA_EXE_Location, MCServer_JAR_BAT_Location, MCServer_Launch_Parameter)
-                            Case "backup"
+                            End If
+                        Case "backup"
+                            If MC_Server_WorkState <> 0 Then
+                                WorkString = "NOT-OFF"
+                            Else
                                 WorkString = Start_Server_Backup_Process(ZIP_Launch_Parameter, ZIP_EXE_Location, ZIP_TIME_Format)
-                            Case Else
-                                WrongFmt = 1
-                        End Select
-                    End If
+                            End If
+                        Case Else
+                            WrongFmt = 1
+                    End Select
 
                     If WrongFmt = 0 Then
                         If RCorEXE_Mode = 0 Then SendToClients(WorkString, TmpClientWork.TheSocket)
                         If RCorEXE_Mode = 1 Then EXE_Write_To_Console(WorkString, Return_PreFix, Mux_slot)
                         Return 1
                     End If
-
 
                 ElseIf Command_Mode = "bk" Then
 
@@ -837,13 +841,118 @@ Public Class Form1
                     If RCorEXE_Mode = 0 Then SendToClients(IARR_Return(Mux_slot), TmpClientWork.TheSocket)
                     If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IARR_Return(Mux_slot), Return_PreFix, Mux_slot)
 
-                    'Because raw read back is so big to cause crash. It's a fix but not sure why.
-                    'If RCorEXE_Mode = 1 Then
-                    '    Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread(IARR_Return(Mux_slot), Return_PreFix, Mux_slot))
-                    '    thread.Start()
-                    'End If
-
                     Return 1
+
+                ElseIf Command_Mode = "4w" Then
+
+                    Do 'Fake Loop 2
+
+                        If Command_str = "" Then
+                            WrongFmt = 1
+                            Exit Do
+                        End If
+
+                        Dim IDCode As String
+                        Dim TotalCommand As String
+                        Dim Argus() As String = Command_str.ToLower.Split(";")
+
+                        Select Case Argus(0)
+                            Case "fwsgetinf"
+                                'Get server base datas for 4WMC console. Console Only.
+                                'usage: /fwsgetinf <IdCode>
+                                'Retuen: Server Motd / version / full version / Minecraft Versions / is HC / bond IP / port
+                            Case "fwlistw"
+                                'Get world name list.
+                                'usage: /fwts <message>
+                            Case "fwwgetinfs"
+                                'Get world static datas for 4WMC console. 
+                                'usage: /fwra <message>
+                                'Return : world type / max height / Sea level / World Spawn XYZ
+                            Case "fwwgetinfm"
+                                'Get world motion datas for 4WMC console. 
+                                '/fwlistw <IdCode> 
+                                'Return : weater / ticket
+                            Case "fwwget1h"
+                                'Get highest block for 4WMC console. 
+                                'usage: /fwwgetinf <world name> <IdCode>
+                                'Return : MOTION_BLOCKING / MOTION_BLOCKING_NO_LEAVES / OCEAN_FLOOR / WORLD_SURFACE
+                                'https://hub.spigotmc.org/javadocs/spigot/org/bukkit/HeightMap.html
+                            Case "fwwgetp"
+                                'Get a location data for 4WMC console. 
+                                'usage: /fwwgetp <world name> <X> <Y> <Z> <IdCode>
+                                'Return : Biome type / Temperature / Humidity   
+                            Case "fwcexpo"
+                                'Creating an explosion.
+                            Case "fwctree"
+                                'Creating a tree.
+                                'https://hub.spigotmc.org/javadocs/spigot/org/bukkit/TreeType.html
+                            Case "fwsetbio"
+                                'Set biome of a location.
+                                'https://hub.spigotmc.org/javadocs/spigot/org/bukkit/block/Biome.html
+                            Case "fwpgetpos"
+                                'Get player location datas for 4WMC console. 
+                                'usage: /fwpgetpos <player name> <IdCode>
+                                'Return : XYZ / Yaw / Pitch
+                            Case "fwpgetspa"
+                                'Get player spawn bed location for 4WMC console. 
+                                'usage: /fwpgetspa <player name> <IdCode>
+                                'Return: XYZ
+                            Case "fwpgetval"
+                                'Get base player body datas for 4WMC console.
+                                'usage: /fwpgetval <player name> <IdCode>
+                                'Retuen: Health / food / exp
+                            Case "fwver"
+                                'Get 4WMC Worker version.
+                                If RCorEXE_Mode = 0 Then SendToClients(Format(EXECommand_Via4WMCWorker, "0.00"), TmpClientWork.TheSocket)
+                                If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Format(EXECommand_Via4WMCWorker, "0.00"), Return_PreFix, Mux_slot)
+                                Return 1
+                            Case Else
+                                WrongFmt = 1
+                                Exit Do
+                        End Select
+
+                        If EXECommand_Via4WMCWorker <= 0 Then
+                            If RCorEXE_Mode = 0 Then SendToClients("#Er6", TmpClientWork.TheSocket)
+                            If RCorEXE_Mode = 1 Then EXE_Write_To_Console("#Er6", Return_PreFix, Mux_slot)
+                            Return 1
+                        End If
+
+                        IDCode = Gen_Rnd_IDcode()
+                        TotalCommand = Replace(Command_str, ";", " ") + " " + IDCode
+
+                        Dim Tmp4WMC_Idx As Integer
+                        Dim NeedAdd As Boolean = True
+
+                        For Tmp4WMC_Idx = 0 To UBound(The_4WMC_ID_Code)
+                            If The_4WMC_ID_Code(Tmp4WMC_Idx).WorkingState = 0 Then
+                                The_4WMC_ID_Code(Tmp4WMC_Idx).The_Return_Str = "#Er1"
+                                The_4WMC_ID_Code(Tmp4WMC_Idx).The_ID_Code = IDCode
+                                The_4WMC_ID_Code(Tmp4WMC_Idx).WorkingState = 1
+                                NeedAdd = False
+                                Exit For
+                            End If
+                        Next
+
+                        If NeedAdd Then
+                            Tmp4WMC_Idx = UBound(The_4WMC_ID_Code) + 1
+                            ReDim Preserve The_4WMC_ID_Code(Tmp4WMC_Idx)
+                            The_4WMC_ID_Code(Tmp4WMC_Idx).The_Return_Str = "#Er1"
+                            The_4WMC_ID_Code(Tmp4WMC_Idx).The_ID_Code = IDCode
+                            The_4WMC_ID_Code(Tmp4WMC_Idx).WorkingState = 1
+                        End If
+
+                        Write_To_Console(TotalCommand)
+                        Waiting_4_4WMCWorker(The_4WMC_ID_Code(Tmp4WMC_Idx), Get_timeout_ds_4WMCWroker)
+
+                        If RCorEXE_Mode = 0 Then SendToClients(The_4WMC_ID_Code(Tmp4WMC_Idx).The_Return_Str, TmpClientWork.TheSocket)
+                        If RCorEXE_Mode = 1 Then EXE_Write_To_Console(The_4WMC_ID_Code(Tmp4WMC_Idx).The_Return_Str, Return_PreFix, Mux_slot)
+
+                        The_4WMC_ID_Code(Tmp4WMC_Idx).WorkingState = 0
+                        The_4WMC_ID_Code(Tmp4WMC_Idx).The_ID_Code = ""
+                        The_4WMC_ID_Code(Tmp4WMC_Idx).The_Return_Str = ""
+                        Return 1
+
+                    Loop
 
                 Else
 
@@ -893,7 +1002,7 @@ Public Class Form1
 
     End Sub
 
-    Sub SendToClients(ByVal Data As String, ByRef NowClient As Sockets.TcpClient)
+    Sub SendToClients(Data As String, ByRef NowClient As Sockets.TcpClient)
 
         If FthWallMC_Server = 2 Then
 
@@ -925,8 +1034,8 @@ Public Class Form1
         MCS_Richtexbox.Text = "Starting Minecraft Server..."
         Start_MC_Server_Process = ""
         MCServerType = "Vanilla (or ND)"
-        ServerType_TextBox.Text = MCServerType
-        IsEssentialsX_Installed = 0
+        ServerType_Label.Text = MCServerType
+        AssiPlug_Det_TextBox.Text = ""
         Add_to_NoteListbox("Start_MC_Server_Process()")
 
         Try
@@ -1025,23 +1134,6 @@ Public Class Form1
                     End Select
                 End If
             End If
-
-
-            '======================plugin detect============
-            If My.Computer.FileSystem.DirectoryExists("." + PDSC + "plugins") Then
-                Dim FindEssPlugIn() As String = Directory.GetFiles("." + PDSC +
-                                                                   "plugins" + Path.DirectorySeparatorChar, "Essentials*.jar")
-                If FindEssPlugIn IsNot Nothing AndAlso FindEssPlugIn.Length > 0 Then
-                    IsEssentialsX_Installed = 2
-                Else
-                    IsEssentialsX_Installed = 1
-                End If
-            Else
-                IsEssentialsX_Installed = 1
-            End If
-
-            ShowEssX_Det(EssX_Det_TextBox)
-            '================================================
 
             MC_Server_WorkState = 1
             StartButton.Enabled = False
@@ -1165,56 +1257,74 @@ Public Class Form1
 
                 If MC_Server_WorkState = 2 Then
 
-                    If Check_If_Misjudge(Tmp_String) Then 'Need check
-
-                        If MC_Server_WorkState = 2 Then 'Stop detect 
-                            '"SERVER THREAD/" " [MINECRAFT/DEDICATEDSERVER]"
-
-                            If InStr(Tmp_String, "]: STOPPING SERVER") > 5 Then
-                                InNeed_Detect_AbnormalEnd = False
-                                MC_Server_WorkState = 1
-
-                                If WaitBusyLongAsCrash > 0 Then
-                                    WaitBLAC_Count = 0
-                                    BusyCrash.Enabled = True
+                    '=================== Get Command process return from 4WMC worker =================
+                    If EXECommand_Via4WMCWorker >= 1 Then
+                        TmpIdx1 = InStr(Tmp_String, "]: [4WMC-WORKER] <RTN>")
+                        TmpIdx2 = InStr(Tmp_String, "]: ")
+                        If (TmpIdx1 > 0) AndAlso (TmpIdx1 = TmpIdx2) Then
+                            Dim Get_IDcode, Return_Data As String
+                            TmpIdx1 += 22
+                            TmpIdx2 = InStr(TmpIdx1 + 1, Tmp_String, " ")
+                            Get_IDcode = Tmp_String_Org.Substring(TmpIdx1, TmpIdx2 - TmpIdx1).TrimEnd
+                            Return_Data = Tmp_String_Org.Substring(TmpIdx2).TrimEnd
+                            Dim UB As Integer = UBound(The_4WMC_ID_Code)
+                            For IDX_TMP_01 As Integer = 0 To UB
+                                If The_4WMC_ID_Code(IDX_TMP_01).WorkingState = 1 Then
+                                    If Get_IDcode = The_4WMC_ID_Code(IDX_TMP_01).The_ID_Code Then
+                                        The_4WMC_ID_Code(IDX_TMP_01).The_Return_Str = Return_Data
+                                        The_4WMC_ID_Code(IDX_TMP_01).WorkingState = 2
+                                        Exit Do
+                                    End If
                                 End If
+                            Next
+                        End If
+                    End If
 
-                                Exit Do
+                    '=================================== Need check ===============================
+                    If Check_If_Misjudge(Tmp_String) Then
 
+                        '=================================== Stop detect ===============================
+                        If InStr(Tmp_String, "]: STOPPING SERVER") > 5 Then
+                            InNeed_Detect_AbnormalEnd = False
+                            MC_Server_WorkState = 1
+                            If WaitBusyLongAsCrash > 0 Then
+                                WaitBLAC_Count = 0
+                                BusyCrash.Enabled = True
                             End If
+                            Exit Do
                         End If
 
-                        If ParseLogInOut(Tmp_String_Org) Then Exit Do 'Login-out Detect
+                        '=================== Login-out Detect ============================================
+                        If ParseLogInOut(Tmp_String_Org) Then Exit Do
 
-                        For IDX_TMP_01 As Integer = 0 To 10   ' Get Command process return
-
+                        '=================== Get Command process return ==================================
+                        For IDX_TMP_01 As Integer = 0 To 10
                             '============= Get tick command =========
                             If I_Asking_Tick(IDX_TMP_01) Then
                                 Time_TickReturn(IDX_TMP_01) = Ticket_Return(Tmp_String_Org)
                             End If
-
                             '============= Get Locate =========
                             If I_Asking_Locate(IDX_TMP_01) Then
                                 IAL_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IAL_Argu_Findwhat(IDX_TMP_01), IAL_Argu_Findwhat2(IDX_TMP_01))
                             End If
-
                             '============= Get LocateBiome =========
                             If I_Asking_LocateBiome(IDX_TMP_01) Then
                                 IALB_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IALB_Argu_Findwhat(IDX_TMP_01), IALB_Argu_Findwhat2(IDX_TMP_01))
                             End If
-
                             '============= Raw Read Back =========
                             If I_Asking_RawRead(IDX_TMP_01) Then
                                 IARR_Return(IDX_TMP_01) = RawRead_Return(Tmp_String_Org, IARR_Argu_Findwhat(IDX_TMP_01))
                             End If
-
                         Next
 
                     End If
 
+                    '=================================================================================
+
+
                     '================================================ GeekCommand Detect
 
-                    Dim GeekCommand As GeekCommand_Rtn = Para_Go(Tmp_String_Org, EXECommand_ViaSay)
+                    Dim GeekCommand As GeekCommand_Rtn = Para_Go(Tmp_String_Org)
 
                     If GeekCommand.IsUsable Then
 
@@ -1337,15 +1447,25 @@ Public Class Form1
 
                     End If
 
+                    '========================================= Detect in Busy
                 ElseIf MC_Server_WorkState = 1 Then
 
                     If (MCServerType = "Vanilla (or ND)") OrElse (MCServerType = "CraftBukkit") Then 'Server type detect
                         MCServerType = GetServerBrand(Tmp_String, MCServerType)
+                        'Exit Do
                     End If
 
                     If InStr(Tmp_String, "]: DONE") > 5 Then 'Start detect
                         MC_Server_WorkState = 2
                         Exit Do
+                    End If
+
+                    Dim Pos As Integer = InStr(Tmp_String_Org, "[4WMC-Worker] 4WMC init done.")
+                    If Pos > 0 Then
+                        EXECommand_Via4WMCWorker = Val(Tmp_String.Substring(Pos + 30, 3))
+                        AssiPlug_Det_TextBox.Text += "[4WMC-Worker v" + Format(EXECommand_Via4WMCWorker, "0.00") + "] "
+                    ElseIf InStr(Tmp_String_Org, "[Essentials] Enabling Essentials v2") > 0 Then
+                        AssiPlug_Det_TextBox.Text += "[EssentialsV2] "
                     End If
 
                 End If
@@ -1636,6 +1756,7 @@ Public Class Form1
 
         Else
 
+            'Because raw read back is so big to cause crash. It's a fix but not sure why.
             Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread(IARR_Return(Mux_Slot), ThePreFix, Mux_Slot))
             thread.Start()
 
@@ -1712,7 +1833,8 @@ Public Class Form1
 
             Case 0
 
-                MCSState_Label.Text = "Minecraft Server: OFF"
+                MCSState_Label.Text = "OFF"
+                MCSState_Label.ForeColor = Color.Black
 
                 StartButton.Enabled = True
                 BackupButton.Enabled = True
@@ -1727,7 +1849,8 @@ Public Class Form1
 
             Case 1
 
-                MCSState_Label.Text = "Minecraft Server: BUSY"
+                MCSState_Label.Text = "BUSY"
+                MCSState_Label.ForeColor = Color.DarkBlue
 
                 StartButton.Enabled = False
                 BackupButton.Enabled = False
@@ -1735,8 +1858,9 @@ Public Class Form1
 
             Case 2
 
-                MCSState_Label.Text = "Minecraft Server: ON"
-                ServerType_TextBox.Text = MCServerType
+                MCSState_Label.Text = "ON"
+                MCSState_Label.ForeColor = Color.DarkGreen
+                ServerType_Label.Text = MCServerType
 
                 StartButton.Enabled = False
                 BackupButton.Enabled = False
@@ -1781,13 +1905,14 @@ Public Class Form1
         Select Case FthWallMC_Server
             Case 0
                 RCState_Label.Text = "OFF"
-                RCState_Label.ForeColor = Color.FromArgb(255, 128, 128, 255)
+                RCState_Label.ForeColor = Color.Black
             Case 1
                 RCState_Label.Text = "Try"
-                RCState_Label.ForeColor = Color.FromArgb(255, 238, 238, 128)
+                RCState_Label.ForeColor = Color.Blue
             Case 2
                 RCState_Label.Text = "ON"
-                RCState_Label.ForeColor = Color.FromArgb(255, 64, 238, 64)
+                RCState_Label.ForeColor = Color.DarkGreen
+
         End Select
 
         Select Case FthWallMC_Server_Bypass
@@ -2550,6 +2675,7 @@ Public Class Form1
     Private Sub Stop_Button_Click(sender As Object, e As EventArgs) Handles Stop_Button.Click
         Write_To_Console("stop")
     End Sub
+
 
 End Class
 

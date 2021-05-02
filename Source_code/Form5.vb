@@ -1,13 +1,14 @@
 ﻿Public Class Form5
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
 
+        Dim utf8WithoutBom As System.Text.Encoding = New System.Text.UTF8Encoding(False)
+
         Dim TheWriter As System.IO.StreamWriter =
-            My.Computer.FileSystem.OpenTextFileWriter(Form1.SerWorkingDir + PDSC + "server.properties", False)
+            My.Computer.FileSystem.OpenTextFileWriter(Form1.SerWorkingDir + PDSC + "server.properties", False, utf8WithoutBom)
 
         Try
-            TheWriter.WriteLine("#Minecraft server properties")
-            TheWriter.WriteLine("#" + Now.ToString)
-
+            'TheWriter.WriteLine("#Minecraft server properties")
+            'TheWriter.WriteLine("#" + Now.ToString)
             TheWriter.WriteLine("motd=" + Motd_TextBox.Text)
             TheWriter.WriteLine("server-port=" + serverp_TextBox.Text)
             TheWriter.WriteLine("server-ip=" + serverip_TextBox.Text)
@@ -32,8 +33,6 @@
             Me.DialogResult = DialogResult.Cancel
 
         End Try
-
-
 
     End Sub
 

@@ -86,7 +86,7 @@ Public Class Form2
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         MsgBox("Benefits with EssentialsX Plugin:" + vbCrLf + vbCrLf +
         "1. CONSOLE is an ID." + vbCrLf + vbCrLf +
-        "2. CommandBlock is workable.", 0, "Help")
+        "2. CommandBlock is all workable.", 0, "Help")
     End Sub
 
     Private Sub CSPID_Chk_CheckedChanged(sender As Object, e As EventArgs) Handles CSPID_Chk.CheckedChanged
@@ -104,4 +104,6 @@ Public Class Form2
         vbCrLf + vbCrLf + "This option may cause bad visual feelings, or some security concerns." +
         vbCrLf + "Please take a consideration by yourself.", 0, "Help")
     End Sub
+
+
 End Class
