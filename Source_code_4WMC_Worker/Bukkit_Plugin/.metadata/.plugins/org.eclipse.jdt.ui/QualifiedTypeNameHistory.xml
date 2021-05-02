@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.bukkit.command.CommandSender"/>
+    <fullyQualifiedTypeName name="org.bukkit.command.Command"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.bukkit.Bukkit"/>
+    <fullyQualifiedTypeName name="org.bukkit.World"/>
+    <fullyQualifiedTypeName name="org.bukkit.command.RemoteConsoleCommandSender"/>
+    <fullyQualifiedTypeName name="org.bukkit.block.Biome"/>
+    <fullyQualifiedTypeName name="org.bukkit.TreeType"/>
+</qualifiedTypeNameHistroy>

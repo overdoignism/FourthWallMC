@@ -1,0 +1,51 @@
+main: FourthWallMC.Plugin.main
+name: 4WMC-Worker
+version: 1.0
+author: overdoingism Lab.
+description: FourthWallMC Plugin for bukkit
+commands:
+  fwts:
+    description: Send the Command message to Console for 4WMC. (Target-selector parsed.)
+    usage: /fwts <message>
+  fwra:
+    description: Send the Command message to Console for 4WMC. (Raw message.)
+    usage: /fwra <message>
+  fwsgetinf:
+    description: Get server base datas for 4WMC console. Console Only.
+    usage: /fwsgetinf <IdCode>
+  fwlistw:
+    description: Get world name list. Console Only.
+    usage: /fwlistw <IdCode> 
+  fwwgetinfs:
+    description: Get world static datas for 4WMC console. Console Only.
+    usage: /fwwgetinfs <world name> <IdCode>
+  fwwgetinfm:
+    description: Get world motion datas for 4WMC console. Console Only.
+    usage: /fwwgetinfm <world name> <IdCode>
+  fwwget1h:
+    description: Get highest block for 4WMC console. Console Only.
+    usage: /fwwget1h <world name> <X> <Y> <IdCode>
+  fwwgetp:
+    description: Get a location data for 4WMC console. Console Only.
+    usage: /fwwgetp <world name> <X> <Y> <Z> <IdCode>   
+  fwcexpo:
+    description: Creating an explosion. Console Only.
+    usage: /fwcexpo <world name> <X> <Y> <Z> <Power> <Isfile=0/1> <BreakBlock=0/1> <IdCode>
+  fwctree:
+    description: Creating a tree. Console Only.
+    usage: /fwctree <world name> <tree name> <X> <Y> <Z> <IdCode>
+  fwsetbio:  
+    description: Set biome of a location. Console Only.
+    usage: /fwsetbio <world name> <biome name> <X> <Y> <Z>  <IdCode>
+  fwpgetpos:
+    description: Get player location datas for 4WMC console. Console Only.
+    usage: /fwpgetpos <player name> <IdCode>
+  fwpgetspa:
+    description: Get player spawn bed location for 4WMC console. Console Only.
+    usage: /fwpgetspa <player name> <IdCode>
+  fwpgetval:
+    description: Get base player body datas for 4WMC console. Console Only.
+    usage: /fwpgetval <player name> <IdCode>
+  ffff:
+    description: test.
+    usage: /ffff

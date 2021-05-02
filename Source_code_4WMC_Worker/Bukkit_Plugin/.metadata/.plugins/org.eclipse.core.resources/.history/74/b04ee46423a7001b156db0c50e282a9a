@@ -1,0 +1,408 @@
+package FourthWallMC.Plugin;
+
+import org.bukkit.Bukkit;
+import org.bukkit.HeightMap;
+import org.bukkit.Location;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Biome;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.List;
+
+
+
+public class main extends JavaPlugin {
+	
+	String ver = "1.0"; 
+
+    @Override
+    public void onEnable() {
+    	 getLogger().info("4WMC init done. [" + ver + "]");
+    }
+    
+    @Override
+    public void onDisable() {
+    }
+    
+    @Override
+    public boolean onCommand(CommandSender sender,
+                             Command command,
+                             String label,
+                             String[] args) {
+    	
+        if (command.getName().equalsIgnoreCase("fwts")) {
+
+            String str = "";
+            
+            for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
+            	
+            	if (TestTargetSelect(args[Theidx1])) {
+                	try {
+                    	List<org.bukkit.entity.Entity> EntList;
+                    	EntList = org.bukkit.Bukkit.selectEntities(sender,args[Theidx1]);
+                		
+                        for(org.bukkit.entity.Entity element : EntList) {
+                        	str = str + element.getName() + " ";
+                        }
+                	}
+                	catch(java.lang.IllegalArgumentException e)	{
+                		str =  str + args[Theidx1] + " ";
+                	}
+            	}
+            	else {
+                	str =  str + args[Theidx1] + " ";
+            	}
+            }
+       	
+            if (!str.equals("")) {
+            	getLogger().info(sender.getName() + " " + str);
+            }
+
+            return true;
+        }
+
+        if (command.getName().equalsIgnoreCase("fwra")) {
+        
+            String str = "";
+        	for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
+            	str =  str + args[Theidx1] + " ";
+        	}
+
+            if (!str.equals("")) {
+            	getLogger().info(sender.getName() + " " + str);
+            }
+        	
+            return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwlistw")) {        	
+        	if (args.length == 1) {  
+        		getLogger().info(args[0] + " " + GetWorldList());
+                return true;
+        	}
+        	else {
+        		getLogger().info(GetWorldList());
+                return true;
+        	}
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwget")) {
+        	
+        	//args[0] = IdCode, args[1] = CommandType, args[2] = world name, args[x] = args
+        	
+        	if (!sender.getName().equals("@") && !sender.getName().equals("CONSOLE")) {return true;}
+        	       	
+        	if (args.length == 3) {           	
+            	 if (args[1].equalsIgnoreCase("getworldinfo")) {
+                     getLogger().info(args[0] + " " + GetWorldInfo(args[2]));
+                     return true;
+                 }
+            }
+        	
+        	if (args.length == 5) {           	
+        		if (args[1].equalsIgnoreCase("get1stblock")) {
+        			
+        			int TheX;
+        			int TheZ;
+        			
+        	        try {
+            			TheX = Integer.parseInt(args[3]);
+            			TheZ = Integer.parseInt(args[4]);
+        	        }
+        	        catch (NumberFormatException ex) {
+        	            return false;
+        	        }
+        			       		 
+                    getLogger().info(args[0] + " " + GetHeightestBlock(args[2], TheX, TheZ));
+                    return true;
+                }
+           }
+        	
+        	
+        	if (args.length == 6) {           	
+        		if (args[1].equalsIgnoreCase("getposInfo")) {
+        			
+        			int TheX;
+        			int TheY;
+        			int TheZ;
+        			
+        	        try {
+            			TheX = Integer.parseInt(args[3]);
+            			TheY = Integer.parseInt(args[4]);
+            			TheZ = Integer.parseInt(args[5]);
+        	        }
+        	        catch (NumberFormatException ex) {
+        	            return false;
+        	        }
+        			       		 
+                    getLogger().info(args[0] + " " + GetPosInfo(args[2], TheX,TheY, TheZ));
+                    return true;
+                }
+           }
+        	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwcexpo")) {
+        	
+        	if (!sender.getName().equals("@") && !sender.getName().equals("CONSOLE")) {return true;}
+        	if (args.length == 8) {           	
+        	
+                String str = "";
+                String Worldname = "";
+    			double TheX;
+    			double TheY;
+    			double TheZ;
+    			float Pwr;
+        		
+        		try {
+        			Worldname = args[1];
+        			TheX = Double.parseDouble(args[2]);
+        			TheY = Double.parseDouble(args[3]);
+        			TheZ = Double.parseDouble(args[4]);
+        			Pwr = Float.parseFloat(args[5]);
+        			str = CreateExpo(Worldname,TheX,TheY,TheZ,Pwr,(Integer.parseInt(args[6])==1),(Integer.parseInt(args[7])==1));
+        			getLogger().info(args[0] + " " + str);
+        			return true;
+    	        }
+    	        catch (NumberFormatException ex) {
+    	            return false;
+    	        }     		
+        	}
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpget")) {
+        	
+        	if (!sender.getName().equals("@") && !sender.getName().equals("CONSOLE")) {return true;}
+        	
+        	if (args.length == 2) {
+        		
+        		String str = "";
+        		double TmpDbl;
+        		org.bukkit.entity.Player Player;
+        		Location loc;
+        		
+        		
+           		Player = Bukkit.getPlayer(args[1]);
+           		
+           		if (Player != null) {
+            		str = Player.getWorld().getName();
+            		loc = Player.getLocation();
+            		str = str + ";" + String.valueOf(loc.getBlockX());
+                    str = str + ";" + String.valueOf(loc.getBlockY());
+                	str = str + ";" + String.valueOf(loc.getBlockZ());
+            		TmpDbl = Math.round(Player.getHealth()*100.0)/100.0;       		
+            		str = str + ";" + String.valueOf(TmpDbl);
+            		str = str + ";" + String.valueOf(Player.getFoodLevel());
+            		str = str + ";" + String.valueOf(Player.getLevel());
+            		getLogger().info(args[0] + " " + str);
+           		}
+           		else {
+            		getLogger().info(args[0] + " PlayerNotFound");
+           		}
+           		
+    			return true;
+
+        	}
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpset")) {
+        		
+        	if (args.length != 4)	{	return false;	}
+
+       		org.bukkit.entity.Player Player;       		
+       		Player = Bukkit.getPlayer(args[2]);
+       		
+       		if (!(Player != null)) {
+            	getLogger().info(args[0] + " PlayerNotFound");
+            	return true;
+           	}
+           		
+            	if (args.length == 4) {           	
+            		if (args[1].equalsIgnoreCase("sethealth")) {
+            			
+            			try {
+            				
+            				if (Double.parseDouble(args[3]) > Player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue()) {
+                                getLogger().info(args[0] + " ValueOver");
+                                return true;
+            				}
+            				Player.setHealth(Double.parseDouble(args[3]));	
+            	        }
+            	        catch (NumberFormatException ex) {
+            	            return false;
+            	        }             			       		 
+                        getLogger().info(args[0] + " OK");
+                        return true;
+                    }
+            		else if (args[1].equalsIgnoreCase("setfood")) {
+            			try {
+            				Player.setFoodLevel(Integer.parseInt(args[3]));	
+            	        }
+            	        catch (NumberFormatException ex) {
+            	            return false;
+            	        }             			       		 
+                        getLogger().info(args[0] + " OK");
+                        return true;
+            		}
+            		else if (args[1].equalsIgnoreCase("setexplvl")) {
+            			try {
+            				int Val1;
+            				Val1 = Integer.parseInt(args[3]);
+            				if (Val1 < 0) {
+                                getLogger().info(args[0] + " ValueOver");
+                                return true;
+            				}
+            				Player.setLevel(Integer.parseInt(args[3]));	
+            	        }
+            	        catch (NumberFormatException ex) {
+            	            return false;
+            	        }             			       		 
+                        getLogger().info(args[0] + " OK");
+                        return true;
+            		}
+            	}
+        	}
+        
+        return false;
+    }
+    
+    //==========================================================================================================================
+    
+    static boolean TestTargetSelect(String TheStr) {
+    	if (TheStr.startsWith("@p"))	{return true;}
+    	if (TheStr.startsWith("@r"))	{return true;}
+    	if (TheStr.startsWith("@a"))	{return true;}
+    	if (TheStr.startsWith("@e"))	{return true;}
+    	if (TheStr.startsWith("@s"))	{return true;}
+    	return false;
+    }
+	
+	public String GetWorldInfo(String Worldname) {
+    	String Tmpstr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+         if (element.getName().equals(Worldname)) {
+        	if (element.isThundering())     {Tmpstr = "Thundering;";}
+        	else if (element.hasStorm())    {Tmpstr = "Storm;";}        	 
+        	else 							{Tmpstr = "Clear;";}
+        	       	
+        	Tmpstr = Tmpstr + String.valueOf(element.getMaxHeight()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(element.getSeaLevel());
+        	
+        	return Tmpstr;
+         }
+        }
+        return "WorldNotFound";    	
+    }
+	
+	
+	public String GetHeightestBlock(String Worldname, int X, int Z) {
+		
+    	int TmpInt;
+    	String TmpStr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+        	if (element.getName().equals(Worldname)) {
+        		
+        		try {
+             		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING);  
+             		TmpStr = String.valueOf(TmpInt);
+             		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING_NO_LEAVES);  
+             		TmpStr = TmpStr + ";"+ String.valueOf(TmpInt);
+             		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR);  
+             		TmpStr = TmpStr + ";"+ String.valueOf(TmpInt);
+             		/* TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR_WG);  
+             		TmpStr = TmpStr + ";"+ String.valueOf(TmpInt); */
+             		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE);  
+             		TmpStr = TmpStr + ";"+ String.valueOf(TmpInt);
+             		/* TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE_WG);  
+             		TmpStr = TmpStr + ";"+ String.valueOf(TmpInt); */
+        		}
+        		catch(java.lang.IllegalArgumentException e) {
+        			return "InvalidPara";
+        		}
+
+        		return TmpStr;
+        	}
+        }
+        return "WorldNotFound";
+    }
+	
+	public String GetPosInfo(String Worldname, int X, int Y, int Z) {
+		
+    	double TmpDouble;
+    	Biome Thebiome;
+    	String TmpStr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+        	if (element.getName().equals(Worldname)) {
+        		
+        		try {
+        			
+        			Thebiome = element.getBiome(X,Y,Z);
+        			TmpStr = Thebiome.name();
+          			TmpDouble = element.getTemperature(X,Y,Z);        			
+        			TmpDouble = Math.round(TmpDouble*100.0)/100.0;
+        			TmpStr = TmpStr + ";" + String.valueOf(TmpDouble);
+        			TmpDouble = element.getHumidity(X,Y,Z);        			
+        			TmpDouble = Math.round(TmpDouble*100.0)/100.0;
+        			TmpStr = TmpStr + ";" + String.valueOf(TmpDouble);
+        		}
+        		catch(java.lang.IllegalArgumentException e) {
+        			return "InvalidPara";
+        		}
+
+        		return TmpStr;
+        	}
+        }
+        return "WorldNotFound";
+    }
+
+	public String GetWorldList() {
+    	String Tmpstr = "";
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {       	
+        	Tmpstr = Tmpstr + element.getName() + ";";
+        }
+        Tmpstr = Tmpstr + "?";
+        Tmpstr = Tmpstr.replace(";?", "");
+        
+        return Tmpstr;
+    }
+   
+	public String CreateExpo(String Worldname, double x, double y, double z, float power,boolean setFire, boolean breakBlocks) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	if (element.getName().equals(Worldname)) {
+        		if (element.createExplosion(x,y,z,power,setFire,breakBlocks)) {
+        			return "OK";
+        		}
+        		else {
+        			return "FAIL";
+        		}
+        	}
+        }
+		return "WorldNotFound";
+	}
+	
+}
+

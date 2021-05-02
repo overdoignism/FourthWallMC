@@ -1,0 +1,28 @@
+main: FourthWallMC.Plugin.main
+name: 4WMC-Worker
+version: 1.0
+author: overdoingism Lab.
+description: FourthWallMC Plugin for bukkit
+commands:
+  fwts:
+    description: Send the Command message to Console for 4WMC. (Target-selector parsed.)
+    usage: /fwts message
+  fwra:
+    description: Send the Command message to Console for 4WMC. (Raw message.)
+    usage: /fwra message
+  fwlistw:
+    description: Get world name list. Console Only.
+    usage: /fwlistw <IdCode> 
+  fwwget:
+    description: Get world datas for 4WMC console. Console Only.
+    usage: /fwwget <IdCode> <getworldinfo/get1stblock/getposInfo> <world name> <Args1> <Args2>... 
+  fwpget:
+    description: Get player datas for 4WMC console. Console Only.
+    usage: /fwpget <IdCode> <player name> 
+  fwpset:
+    description: Set player datas for 4WMC console. Console Only.
+    usage: /fwpset <IdCode> <sethealth/setfood/setexplvl> <player name> <Args1> <Args2>... 
+  fwcexpo:
+    description: Creating Explosions. Console Only.
+    usage: /fwcexpo <IdCode> <X> <Y> <Z> <Power> <Isfile=1> <BreakBlock=1>
+ 

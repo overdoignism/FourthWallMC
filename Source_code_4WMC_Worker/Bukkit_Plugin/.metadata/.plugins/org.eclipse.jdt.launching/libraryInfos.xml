@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+    <libraryInfo home="C:\Program Files\AdoptOpenJDK\jdk-11.0.11.9-hotspot" version="11.0.11"/>
+    <libraryInfo home="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64" version="1.8.0_51">
+        <bootpath>
+            <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\lib\resources.jar"/>
+            <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\lib\rt.jar"/>
+            <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\lib\sunrsasign.jar"/>
+            <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\lib\jsse.jar"/>
+            <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\lib\jce.jar"/>
+            <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\lib\charsets.jar"/>
+            <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\lib\jfr.jar"/>
+            <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\classes"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\lib\ext"/>
+            <entry path="C:\WINDOWS\Sun\Java\lib\ext"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\lib\endorsed"/>
+        </endorsedDirs>
+    </libraryInfo>
+    <libraryInfo home="C:\Program Files\AdoptOpenJDK\jdk-16.0.0.36-hotspot" version="16"/>
+</libraryInfos>
