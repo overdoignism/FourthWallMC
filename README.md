@@ -11,7 +11,6 @@ Developed by overdoingism Lab. 這是開源軟體，採用 LGPL V3 授權。
 
 ----------------------------------------------------
 
-
 Thanks for using FourthWallMC, it's a Minecraft Server wrapper, not plugin/mod/datapack.  
 As the name, like the 4th wall, but it has window.
 
