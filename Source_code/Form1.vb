@@ -25,7 +25,7 @@ Public Class Form1
 
     Public Shared Get_Process_Error_String As String
 
-    Const Saved_String_Max2 As Integer = 2047
+    Const Saved_String_Max2 As Integer = 4095
     Public Shared Saved_String_IDX2 As Integer = 0
     Public Shared Saved_String2(Saved_String_Max2) As String
     Public Shared Show_String2 As String
@@ -33,7 +33,7 @@ Public Class Form1
     'Private Delegate Sub UpdateUICB(ByVal MyText As String, ByVal c As Control)
     Public myStreamWriter As StreamWriter
 
-    Const EXE_Saved_String_Max2 As Integer = 2047
+    Const EXE_Saved_String_Max2 As Integer = 4095
     Public Shared EXE_Saved_String_IDX2 As Integer = 0
     Public Shared EXE_Saved_String2(EXE_Saved_String_Max2) As String
     Public Shared EXE_Show_String2 As String
@@ -71,31 +71,19 @@ Public Class Form1
     Dim Send2IdxLast() As Integer = {0, 0}
 
     'Get the time tick
-    Dim I_Asking_Tick(HowManyMux_ArryADD1) As Boolean
-    Dim Time_AskMap(HowManyMux_ArryADD1) As String
-    Dim Time_TickReturn(HowManyMux_ArryADD1) As String
+    Dim I_Asking_Tick(HowManyMux_ArryADD1) As Little_Return
 
     'Get the locate
-    Dim I_Asking_Locate(HowManyMux_ArryADD1) As Boolean
-    Dim IAL_Argu_Pos(HowManyMux_ArryADD1) As String
-    Dim IAL_Argu_Findwhat(HowManyMux_ArryADD1) As String
-    Dim IAL_Argu_Findwhat2(HowManyMux_ArryADD1) As String
-    Dim IAL_Return(HowManyMux_ArryADD1) As String
+    Dim I_Asking_Locate(HowManyMux_ArryADD1) As Little_Return
 
     'Get the locatebiome
-    Dim I_Asking_LocateBiome(HowManyMux_ArryADD1) As Boolean
-    Dim IALB_Argu_Pos(HowManyMux_ArryADD1) As String
-    Dim IALB_Argu_Findwhat(HowManyMux_ArryADD1) As String
-    Dim IALB_Argu_Findwhat2(HowManyMux_ArryADD1) As String
-    Dim IALB_Return(HowManyMux_ArryADD1) As String
+    Dim I_Asking_LocateBiome(HowManyMux_ArryADD1) As Little_Return
+
+    'Raw Read Back
+    Dim I_Asking_RawRead(HowManyMux_ArryADD1) As Little_Return
 
     '4WMC-Worker Working
     Dim The_4WMC_ID_Code(0) As The4WMC_Worker_Return
-
-    'Raw Read Back
-    Dim I_Asking_RawRead(HowManyMux_ArryADD1) As Boolean
-    Dim IARR_Argu_Findwhat(HowManyMux_ArryADD1)() As String
-    Dim IARR_Return(HowManyMux_ArryADD1) As String
 
     Dim OneTime_A_Listbox_Act As Boolean
     Dim ExeWorkingDir As String = ""
@@ -116,7 +104,7 @@ Public Class Form1
         Kill_Mux_Con.Text = "Kill all Mux" + vbCrLf + "Console"
         ModeRC_Button.Text = "Work Mode" + vbCrLf + "Normal (0)"
         ModeExeFW_Button.Text = "Flood way (Main)" + vbCrLf + "MC←Console"
-
+        Pan_MCServer.BringToFront()
         DetectOS_and_var()
 
         '=====Serial Port init
@@ -138,11 +126,6 @@ Public Class Form1
         SerWorkingDir = GSet_Jar_as_Work_folder(MCServer_JAR_BAT_Location, True)
         If SerWorkingDir <> "" Then SerWorkingPath_TextBox.Text = SerWorkingDir
 
-        '============Fix wired bug
-        TabControl1.SelectedIndex = 1
-        My.Application.DoEvents()
-        TabControl1.SelectedIndex = 0
-        My.Application.DoEvents()
 
         '??? What this for
         CheckForIllegalCrossThreadCalls = False
@@ -170,7 +153,7 @@ Public Class Form1
             End If
         End If
 
-        Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", FwmcWorker)
+        Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", FwmcWorker, "?")
 
     End Sub
 
@@ -483,10 +466,22 @@ Public Class Form1
                     WorkString = "OK"
 
                 Case "sender"
+
                     If RCorEXE_Mode = 0 Then WorkString = "!_N/A"
                     If RCorEXE_Mode = 1 Then
                         If Mux(Mux_slot).Last_Sender <> "" Then
                             WorkString = Mux(Mux_slot).Last_Sender
+                        Else
+                            WorkString = "!_N/A"
+                        End If
+                    End If
+
+                Case "sender2"
+
+                    If RCorEXE_Mode = 0 Then WorkString = "!_N/A"
+                    If RCorEXE_Mode = 1 Then
+                        If Mux(Mux_slot).Last_Sender <> "" Then
+                            WorkString = Mux(Mux_slot).Last_Sender + ";" + Mux(Mux_slot).Last_Sender_World
                         Else
                             WorkString = "!_N/A"
                         End If
@@ -630,8 +625,27 @@ Public Class Form1
             Select Case Command_str
                 Case "info1"
                     If RCorEXE_Mode = 1 Then
-                        EXE_Write_To_Console("(" + Mux_slot.ToString + ")SSP:" + Mux(Mux_slot).Script_Specify_Prefix +
-                                           ";ASP:" + Mux(Mux_slot).Alias_Specify_Prefix + ";", Return_PreFix, Mux_slot)
+                        EXE_Write_To_Console(Mux_slot.ToString + ";" + Mux(Mux_slot).Script_Specify_Prefix + ";" +
+                                             Mux(Mux_slot).Alias_Specify_Prefix, Return_PreFix, Mux_slot)
+
+                        '"(" + Mux_slot.ToString + ")SSP:" + Mux(Mux_slot).Script_Specify_Prefix +
+                        '                  ";ASP:" + Mux(Mux_slot).Alias_Specify_Prefix + ";", Return_PreFix, Mux_slot)
+                    End If
+                    Return 1
+                Case "info2"
+                    If RCorEXE_Mode = 1 Then
+
+                        For idxx As Integer = 0 To HowManyMux_Arry
+                            If Mux(idxx).Is_Working Then
+                                WorkString += idxx.ToString + ";" + Mux(idxx).Script_Specify_Prefix + ";" +
+                                             Mux(idxx).Alias_Specify_Prefix + ";"
+                            End If
+                        Next
+
+                        WorkString += "?"
+                        WorkString = Replace(WorkString, ";?", "")
+
+                        EXE_Write_To_Console(WorkString, Return_PreFix, Mux_slot)
                     End If
                     Return 1
             End Select
@@ -662,7 +676,7 @@ Public Class Form1
                             Dim Launcher As String = ""
                             If RCorEXE_Mode = 0 Then Launcher = "Socket script"
                             If RCorEXE_Mode = 1 Then Launcher = Mux(Mux_slot).Script_Specify_Prefix
-                            Select Case Launch_Cake_Form_Prefix(TmpStr(0), TmpStr(1), Launcher)
+                            Select Case Launch_Cake_Form_Prefix(TmpStr(0), TmpStr(1), Launcher, "?")
                                 Case -1
                                     WorkString = "SLOT FULL"
                                 Case -2
@@ -759,62 +773,78 @@ Public Class Form1
 
                 ElseIf Command_Mode = "gt" Then
 
-                    I_Asking_Tick(Mux_slot) = True
-                    Time_TickReturn(Mux_slot) = "-1"
-                    Time_AskMap(Mux_slot) = Command_str
+                    I_Asking_Tick(Mux_slot).TheReturn = "#Er1"
+                    I_Asking_Tick(Mux_slot).WorkingState = 1
+                    I_Asking_Tick(Mux_slot).Argu = Command_str
+                    I_Asking_Tick(Mux_slot).ReturnPrefix = Return_PreFix
+                    I_Asking_Tick(Mux_slot).TheMuxSlot = Mux_slot
+                    I_Asking_Tick(Mux_slot).WaitingCount = Get_timeout_ds
 
-                    Write_To_Console("execute in " + Time_AskMap(Mux_slot) + " run time query daytime")
-                    What_RU_Waiting(Time_TickReturn(Mux_slot), Get_timeout_ds, I_Asking_Tick(Mux_slot))
+                    Write_To_Console("execute in " + I_Asking_Tick(Mux_slot).Argu + " run time query daytime")
 
-                    If RCorEXE_Mode = 0 Then SendToClients(Time_TickReturn(Mux_slot), TmpClientWork.TheSocket)
-                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Time_TickReturn(Mux_slot), Return_PreFix, Mux_slot)
+                    If RCorEXE_Mode = 0 Then
+                        I_Asking_Tick(Mux_slot).IsSocket = True
+                        What_RU_Waiting(I_Asking_Tick(Mux_slot).TheReturn, Get_timeout_ds, I_Asking_Tick(Mux_slot).WorkingState)
+                        SendToClients(I_Asking_Tick(Mux_slot).TheReturn, TmpClientWork.TheSocket)
+                        ClearLittleWorker(I_Asking_Tick(Mux_slot))
+                    End If
 
                     Return 1
 
                 ElseIf Command_Mode = "gl" Then
 
-                    IAL_Return(Mux_slot) = "-1"
                     Dim Argus() As String = Command_str.Split(";")
 
                     If UBound(Argus) < 2 Then
                         WrongFmt = 1
                     Else
-                        I_Asking_Locate(Mux_slot) = True
-                        IAL_Argu_Pos(Mux_slot) = Argus(0) '/positioned 500 100 500 /as Overdoingism
-                        IAL_Argu_Findwhat(Mux_slot) = Argus(1)
-                        IAL_Argu_Findwhat2(Mux_slot) = Argus(2) '/ocean
+                        I_Asking_Locate(Mux_slot).TheReturn = "#Er1"
+                        I_Asking_Locate(Mux_slot).WorkingState = 1
+                        I_Asking_Locate(Mux_slot).Argu = Argus(0) '/positioned 500 100 500 /as Overdoingism
+                        I_Asking_Locate(Mux_slot).Argu_Findwhat1 = Argus(1)
+                        I_Asking_Locate(Mux_slot).Argu_Findwhat2 = Argus(2) '/ocean
+                        I_Asking_Locate(Mux_slot).ReturnPrefix = Return_PreFix
+                        I_Asking_Locate(Mux_slot).TheMuxSlot = Mux_slot
+                        I_Asking_Locate(Mux_slot).WaitingCount = Get_timeout_ds
                         If Argus(1) <> "" Then Argus(1) = " in " + Argus(1) '/in the_nether
+                        Write_To_Console("execute " + I_Asking_Locate(Mux_slot).Argu + Argus(1) + " run locate " + Argus(2))
 
-                        Write_To_Console("execute " + IAL_Argu_Pos(Mux_slot) + Argus(1) + " run locate " + Argus(2))
-                        What_RU_Waiting(IAL_Return(Mux_slot), Get_timeout_ds, I_Asking_Locate(Mux_slot))
-
-                        If RCorEXE_Mode = 0 Then SendToClients(IAL_Return(Mux_slot), TmpClientWork.TheSocket)
-                        If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IAL_Return(Mux_slot), Return_PreFix, Mux_slot)
-
+                        If RCorEXE_Mode = 0 Then
+                            I_Asking_Locate(Mux_slot).IsSocket = True
+                            What_RU_Waiting(I_Asking_Locate(Mux_slot).TheReturn, Get_timeout_ds, I_Asking_Locate(Mux_slot).WorkingState)
+                            SendToClients(I_Asking_Locate(Mux_slot).TheReturn, TmpClientWork.TheSocket)
+                            ClearLittleWorker(I_Asking_Locate(Mux_slot))
+                        End If
                         Return 1
+
                     End If
 
                 ElseIf Command_Mode = "gb" Then
 
-                    IALB_Return(Mux_slot) = "-1"
                     Dim Argus() As String = Command_str.Split(";")
 
                     If UBound(Argus) < 2 Then
                         WrongFmt = 1
                     Else
-                        I_Asking_LocateBiome(Mux_slot) = True
-                        IALB_Argu_Pos(Mux_slot) = Argus(0) '/positioned 500 100 500 /as Overdoingism
-                        IALB_Argu_Findwhat(Mux_slot) = Argus(1)
-                        IALB_Argu_Findwhat2(Mux_slot) = Argus(2) '/ocean
+                        I_Asking_LocateBiome(Mux_slot).TheReturn = "#Er1"
+                        I_Asking_LocateBiome(Mux_slot).WorkingState = 1
+                        I_Asking_LocateBiome(Mux_slot).Argu = Argus(0) '/positioned 500 100 500 /as Overdoingism
+                        I_Asking_LocateBiome(Mux_slot).Argu_Findwhat1 = Argus(1)
+                        I_Asking_LocateBiome(Mux_slot).Argu_Findwhat2 = Argus(2) '/ocean
+                        I_Asking_LocateBiome(Mux_slot).ReturnPrefix = Return_PreFix
+                        I_Asking_LocateBiome(Mux_slot).TheMuxSlot = Mux_slot
+                        I_Asking_LocateBiome(Mux_slot).WaitingCount = Get_timeout_ds
                         If Argus(1) <> "" Then Argus(1) = " in " + Argus(1) '/in the_nether
+                        Write_To_Console("execute " + I_Asking_LocateBiome(Mux_slot).Argu + Argus(1) + " run locatebiome " + Argus(2))
 
-                        Write_To_Console("execute " + IALB_Argu_Pos(Mux_slot) + Argus(1) + " run locatebiome " + Argus(2))
-                        What_RU_Waiting(IALB_Return(Mux_slot), Get_timeout_ds, I_Asking_LocateBiome(Mux_slot))
-
-                        If RCorEXE_Mode = 0 Then SendToClients(IALB_Return(Mux_slot), TmpClientWork.TheSocket)
-                        If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IALB_Return(Mux_slot), Return_PreFix, Mux_slot)
-
+                        If RCorEXE_Mode = 0 Then
+                            I_Asking_LocateBiome(Mux_slot).IsSocket = True
+                            What_RU_Waiting(I_Asking_LocateBiome(Mux_slot).TheReturn, Get_timeout_ds, I_Asking_LocateBiome(Mux_slot).WorkingState)
+                            SendToClients(I_Asking_LocateBiome(Mux_slot).TheReturn, TmpClientWork.TheSocket)
+                            ClearLittleWorker(I_Asking_LocateBiome(Mux_slot))
+                        End If
                         Return 1
+
                     End If
 
                 ElseIf Command_Mode = "rr" Then
@@ -822,25 +852,30 @@ Public Class Form1
                     Dim ErrFlag As Integer = 0
 
                     'Error control
-                    IARR_Return(Mux_slot) = "-1"
+
                     Dim ParseArray() As String = Command_str.Split(";")
                     If ParseArray.Length < 4 Then ErrFlag = 1
                     Dim All_MCCommand As String = Get_All_MCCommand(Command_str)
                     If All_MCCommand = "" Then ErrFlag = 1
                     If ErrFlag = 1 Then Return 1
 
-                    ReDim IARR_Argu_Findwhat(Mux_slot)(2)
-                    IARR_Argu_Findwhat(Mux_slot)(0) = ParseArray(0) 'Yes 1
-                    IARR_Argu_Findwhat(Mux_slot)(1) = ParseArray(1) 'Yes 2
-                    IARR_Argu_Findwhat(Mux_slot)(2) = ParseArray(2) 'No 1
+                    I_Asking_RawRead(Mux_slot).TheReturn = "#Er1"
+                    I_Asking_RawRead(Mux_slot).WorkingState = 1
+                    I_Asking_RawRead(Mux_slot).Argu_Findwhat1 = ParseArray(0)
+                    I_Asking_RawRead(Mux_slot).Argu_Findwhat2 = ParseArray(1)
+                    I_Asking_RawRead(Mux_slot).Argu_Findwhat3 = ParseArray(2)
+                    I_Asking_RawRead(Mux_slot).ReturnPrefix = Return_PreFix
+                    I_Asking_RawRead(Mux_slot).TheMuxSlot = Mux_slot
+                    I_Asking_RawRead(Mux_slot).WaitingCount = Get_timeout_ds
 
-                    I_Asking_RawRead(Mux_slot) = True
                     Write_To_Console(All_MCCommand)
-                    What_RU_Waiting(IARR_Return(Mux_slot), Get_timeout_ds, I_Asking_RawRead(Mux_slot))
 
-                    If RCorEXE_Mode = 0 Then SendToClients(IARR_Return(Mux_slot), TmpClientWork.TheSocket)
-                    If RCorEXE_Mode = 1 Then EXE_Write_To_Console(IARR_Return(Mux_slot), Return_PreFix, Mux_slot)
-
+                    If RCorEXE_Mode = 0 Then
+                        I_Asking_RawRead(Mux_slot).IsSocket = True
+                        What_RU_Waiting(I_Asking_RawRead(Mux_slot).TheReturn, Get_timeout_ds, I_Asking_RawRead(Mux_slot).WorkingState)
+                        SendToClients(I_Asking_RawRead(Mux_slot).TheReturn, TmpClientWork.TheSocket)
+                        ClearLittleWorker(I_Asking_RawRead(Mux_slot))
+                    End If
                     Return 1
 
                 ElseIf Command_Mode = "4w" Then
@@ -860,7 +895,7 @@ Public Class Form1
                             Case "fwsgetinf"
                                 'Get server base datas for 4WMC console. Console Only.
                                 'usage: /fwsgetinf <IdCode>
-                                'Retuen: Server Motd / version / full version / Minecraft Versions / is HC / bond IP / port
+                                'Retuen: Server Motd / full version / Minecraft Versions / is HC / bond IP / port
                             Case "fwlistw"
                                 'Get world name list.
                                 'usage: /fwts <message>
@@ -892,7 +927,7 @@ Public Class Form1
                             Case "fwpgetpos"
                                 'Get player location datas for 4WMC console. 
                                 'usage: /fwpgetpos <player name> <IdCode>
-                                'Return : XYZ / Yaw / Pitch
+                                'Return : World name / XYZ / Yaw / Pitch
                             Case "fwpgetspa"
                                 'Get player spawn bed location for 4WMC console. 
                                 'usage: /fwpgetspa <player name> <IdCode>
@@ -906,6 +941,7 @@ Public Class Form1
                                 If RCorEXE_Mode = 0 Then SendToClients(Format(EXECommand_Via4WMCWorker, "0.00"), TmpClientWork.TheSocket)
                                 If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Format(EXECommand_Via4WMCWorker, "0.00"), Return_PreFix, Mux_slot)
                                 Return 1
+                            Case "fwztest"
                             Case Else
                                 WrongFmt = 1
                                 Exit Do
@@ -925,9 +961,6 @@ Public Class Form1
 
                         For Tmp4WMC_Idx = 0 To UBound(The_4WMC_ID_Code)
                             If The_4WMC_ID_Code(Tmp4WMC_Idx).WorkingState = 0 Then
-                                The_4WMC_ID_Code(Tmp4WMC_Idx).The_Return_Str = "#Er1"
-                                The_4WMC_ID_Code(Tmp4WMC_Idx).The_ID_Code = IDCode
-                                The_4WMC_ID_Code(Tmp4WMC_Idx).WorkingState = 1
                                 NeedAdd = False
                                 Exit For
                             End If
@@ -936,20 +969,29 @@ Public Class Form1
                         If NeedAdd Then
                             Tmp4WMC_Idx = UBound(The_4WMC_ID_Code) + 1
                             ReDim Preserve The_4WMC_ID_Code(Tmp4WMC_Idx)
-                            The_4WMC_ID_Code(Tmp4WMC_Idx).The_Return_Str = "#Er1"
-                            The_4WMC_ID_Code(Tmp4WMC_Idx).The_ID_Code = IDCode
-                            The_4WMC_ID_Code(Tmp4WMC_Idx).WorkingState = 1
                         End If
 
+                        The_4WMC_ID_Code(Tmp4WMC_Idx).TheReturn = "#Er1"
+                        The_4WMC_ID_Code(Tmp4WMC_Idx).The_ID_Code = IDCode
+                        The_4WMC_ID_Code(Tmp4WMC_Idx).WorkingState = 1
+                        The_4WMC_ID_Code(Tmp4WMC_Idx).WaitingCount = Get_timeout_ds_4WMCWroker
+                        The_4WMC_ID_Code(Tmp4WMC_Idx).ReturnPrefix = Return_PreFix
+
                         Write_To_Console(TotalCommand)
-                        Waiting_4_4WMCWorker(The_4WMC_ID_Code(Tmp4WMC_Idx), Get_timeout_ds_4WMCWroker)
 
-                        If RCorEXE_Mode = 0 Then SendToClients(The_4WMC_ID_Code(Tmp4WMC_Idx).The_Return_Str, TmpClientWork.TheSocket)
-                        If RCorEXE_Mode = 1 Then EXE_Write_To_Console(The_4WMC_ID_Code(Tmp4WMC_Idx).The_Return_Str, Return_PreFix, Mux_slot)
+                        If RCorEXE_Mode = 0 Then
+                            The_4WMC_ID_Code(Tmp4WMC_Idx).TheMuxSolt = -1
+                            The_4WMC_ID_Code(Tmp4WMC_Idx).IsSocket = True
+                            Waiting_4_4WMCWorker(The_4WMC_ID_Code(Tmp4WMC_Idx), Get_timeout_ds_4WMCWroker)
+                            SendToClients(The_4WMC_ID_Code(Tmp4WMC_Idx).TheReturn, TmpClientWork.TheSocket)
+                        End If
 
-                        The_4WMC_ID_Code(Tmp4WMC_Idx).WorkingState = 0
-                        The_4WMC_ID_Code(Tmp4WMC_Idx).The_ID_Code = ""
-                        The_4WMC_ID_Code(Tmp4WMC_Idx).The_Return_Str = ""
+                        If RCorEXE_Mode = 1 Then
+                            The_4WMC_ID_Code(Tmp4WMC_Idx).TheMuxSolt = Mux_slot
+                            The_4WMC_ID_Code(Tmp4WMC_Idx).IsSocket = False
+                            The_4WMC_ID_Code(Tmp4WMC_Idx).TheReturn = "#Er2"
+                        End If
+
                         Return 1
 
                     Loop
@@ -1177,9 +1219,10 @@ Public Class Form1
             ServerStart_Tick2 = DateDiff(DateInterval.Second, New Date(2010, 1, 1, 12, 0, 0), Now)
             Start_MC_Server_Process = "OK"
             InNeed_Detect_AbnormalEnd = True
+            InNeed_Detect_AbnormalEnd_PASS = False
 
             If Not Mux(0).Is_Working Then
-                Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", FwmcWorker)
+                Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", FwmcWorker, "?")
             End If
 
         Catch ex As Exception
@@ -1202,6 +1245,28 @@ Public Class Form1
     '        c.Text = MyText
     '    End If
     'End Sub
+
+    Private Sub ClearWorker(ByRef theWorker As The4WMC_Worker_Return)
+        theWorker.WaitingCount = 0
+        theWorker.WorkingState = 0
+        theWorker.TheMuxSolt = 0
+        theWorker.IsSocket = False
+        theWorker.ReturnPrefix = ""
+        theWorker.The_ID_Code = ""
+        theWorker.TheReturn = ""
+    End Sub
+
+    Private Sub ClearLittleWorker(ByRef theWorker As Little_Return)
+        theWorker.Argu = ""
+        theWorker.Argu_Findwhat1 = ""
+        theWorker.Argu_Findwhat2 = ""
+        theWorker.IsSocket = False
+        theWorker.ReturnPrefix = ""
+        theWorker.TheReturn = ""
+        theWorker.WaitingCount = 0
+        theWorker.WorkingState = 0
+        theWorker.TheMuxSlot = 0
+    End Sub
 
     Sub OutputHandler(sendingProcess As Object, outLine As DataReceivedEventArgs)
 
@@ -1271,8 +1336,15 @@ Public Class Form1
                             For IDX_TMP_01 As Integer = 0 To UB
                                 If The_4WMC_ID_Code(IDX_TMP_01).WorkingState = 1 Then
                                     If Get_IDcode = The_4WMC_ID_Code(IDX_TMP_01).The_ID_Code Then
-                                        The_4WMC_ID_Code(IDX_TMP_01).The_Return_Str = Return_Data
+                                        The_4WMC_ID_Code(IDX_TMP_01).TheReturn = Return_Data
                                         The_4WMC_ID_Code(IDX_TMP_01).WorkingState = 2
+
+                                        If Not The_4WMC_ID_Code(IDX_TMP_01).IsSocket Then
+                                            EXE_Write_To_Console(The_4WMC_ID_Code(IDX_TMP_01).TheReturn,
+                                                                 The_4WMC_ID_Code(IDX_TMP_01).ReturnPrefix, The_4WMC_ID_Code(IDX_TMP_01).TheMuxSolt)
+                                            ClearWorker(The_4WMC_ID_Code(IDX_TMP_01))
+                                        End If
+
                                         Exit Do
                                     End If
                                 End If
@@ -1285,7 +1357,7 @@ Public Class Form1
 
                         '=================================== Stop detect ===============================
                         If InStr(Tmp_String, "]: STOPPING SERVER") > 5 Then
-                            InNeed_Detect_AbnormalEnd = False
+                            If InNeed_Detect_AbnormalEnd_PASS Then InNeed_Detect_AbnormalEnd = False
                             MC_Server_WorkState = 1
                             If WaitBusyLongAsCrash > 0 Then
                                 WaitBLAC_Count = 0
@@ -1298,22 +1370,63 @@ Public Class Form1
                         If ParseLogInOut(Tmp_String_Org) Then Exit Do
 
                         '=================== Get Command process return ==================================
-                        For IDX_TMP_01 As Integer = 0 To 10
+                        For IDX_TMP01 As Integer = 0 To 10
                             '============= Get tick command =========
-                            If I_Asking_Tick(IDX_TMP_01) Then
-                                Time_TickReturn(IDX_TMP_01) = Ticket_Return(Tmp_String_Org)
+                            If I_Asking_Tick(IDX_TMP01).WorkingState = 1 Then ' I_Asking_Tick(IDX_TMP_01) Then
+                                I_Asking_Tick(IDX_TMP01).TheReturn = Ticket_Return(Tmp_String_Org)
+                                If I_Asking_Tick(IDX_TMP01).TheReturn <> "#Er2" Then
+                                    I_Asking_Tick(IDX_TMP01).WorkingState = 2
+                                    If Not I_Asking_Tick(IDX_TMP01).IsSocket Then
+                                        EXE_Write_To_Console(I_Asking_Tick(IDX_TMP01).TheReturn, I_Asking_Tick(IDX_TMP01).ReturnPrefix,
+                                                             I_Asking_Tick(IDX_TMP01).TheMuxSlot)
+                                        ClearLittleWorker(I_Asking_Tick(IDX_TMP01))
+                                    End If
+                                    Exit Do
+                                End If
                             End If
                             '============= Get Locate =========
-                            If I_Asking_Locate(IDX_TMP_01) Then
-                                IAL_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IAL_Argu_Findwhat(IDX_TMP_01), IAL_Argu_Findwhat2(IDX_TMP_01))
+                            If I_Asking_Locate(IDX_TMP01).WorkingState = 1 Then
+                                I_Asking_Locate(IDX_TMP01).TheReturn = Locate_Return(Tmp_String_Org, I_Asking_Locate(IDX_TMP01).Argu_Findwhat1,
+                                                                                     I_Asking_Locate(IDX_TMP01).Argu_Findwhat2)
+                                If I_Asking_Locate(IDX_TMP01).TheReturn <> "#Er2" Then
+                                    I_Asking_Locate(IDX_TMP01).WorkingState = 2
+                                    If Not I_Asking_Locate(IDX_TMP01).IsSocket Then
+                                        EXE_Write_To_Console(I_Asking_Locate(IDX_TMP01).TheReturn, I_Asking_Locate(IDX_TMP01).ReturnPrefix,
+                                                             I_Asking_Locate(IDX_TMP01).TheMuxSlot)
+                                        ClearLittleWorker(I_Asking_Locate(IDX_TMP01))
+                                    End If
+                                    Exit Do
+                                End If
                             End If
+
                             '============= Get LocateBiome =========
-                            If I_Asking_LocateBiome(IDX_TMP_01) Then
-                                IALB_Return(IDX_TMP_01) = Locate_Return(Tmp_String_Org, IALB_Argu_Findwhat(IDX_TMP_01), IALB_Argu_Findwhat2(IDX_TMP_01))
+                            If I_Asking_LocateBiome(IDX_TMP01).WorkingState = 1 Then
+                                I_Asking_LocateBiome(IDX_TMP01).TheReturn = Locate_Return(Tmp_String_Org, I_Asking_LocateBiome(IDX_TMP01).Argu_Findwhat1,
+                                                                                     I_Asking_LocateBiome(IDX_TMP01).Argu_Findwhat2)
+                                If I_Asking_LocateBiome(IDX_TMP01).TheReturn <> "#Er2" Then
+                                    I_Asking_LocateBiome(IDX_TMP01).WorkingState = 2
+                                    If Not I_Asking_LocateBiome(IDX_TMP01).IsSocket Then
+                                        EXE_Write_To_Console(I_Asking_LocateBiome(IDX_TMP01).TheReturn, I_Asking_LocateBiome(IDX_TMP01).ReturnPrefix,
+                                                             I_Asking_LocateBiome(IDX_TMP01).TheMuxSlot)
+                                        ClearLittleWorker(I_Asking_LocateBiome(IDX_TMP01))
+                                    End If
+                                    Exit Do
+                                End If
                             End If
-                            '============= Raw Read Back =========
-                            If I_Asking_RawRead(IDX_TMP_01) Then
-                                IARR_Return(IDX_TMP_01) = RawRead_Return(Tmp_String_Org, IARR_Argu_Findwhat(IDX_TMP_01))
+
+                            '=============Raw Read Back =========
+                            If I_Asking_RawRead(IDX_TMP01).WorkingState = 1 Then
+                                I_Asking_RawRead(IDX_TMP01).TheReturn = RawRead_Return(Tmp_String_Org, I_Asking_RawRead(IDX_TMP01))
+
+                                If I_Asking_RawRead(IDX_TMP01).TheReturn <> "#Er2" Then
+                                    I_Asking_RawRead(IDX_TMP01).WorkingState = 2
+                                    If Not I_Asking_RawRead(IDX_TMP01).IsSocket Then
+                                        EXE_Write_To_Console(I_Asking_RawRead(IDX_TMP01).TheReturn, I_Asking_RawRead(IDX_TMP01).ReturnPrefix,
+                                                             I_Asking_RawRead(IDX_TMP01).TheMuxSlot)
+                                        ClearLittleWorker(I_Asking_RawRead(IDX_TMP01))
+                                    End If
+                                    Exit Do
+                                End If
                             End If
                         Next
 
@@ -1342,8 +1455,9 @@ Public Class Form1
                                 If (TmpIdx1 >= 2) AndAlso (TmpIdx1 > TmpIdx2) Then 'Launch
 
                                     InputPrefix = GeekCommand.TheMessagePart.Substring(0, TmpIdx1 - 1)
-                                    If Not Launch_Cake_Form_Prefix(InputPrefix, GeekCommand.TheMessagePart.Substring(TmpIdx1), Man_Who_LastSending) Then
-                                        'MUX is full, what to do
+
+                                    If Not Launch_Cake_Form_Prefix(InputPrefix, GeekCommand.TheMessagePart.Substring(TmpIdx1), Man_Who_LastSending, Man_Who_LastSending_World) Then
+                                        Add_to_NoteListbox("Mux slot is full: " + GeekCommand.TheMessagePart)
                                     End If
 
                                 ElseIf (TmpIdx2 >= 2) AndAlso (TmpIdx2 > TmpIdx1) Then 'Send command
@@ -1353,6 +1467,7 @@ Public Class Form1
                                     Dim Mux_Slot As Integer = Get_Cake_Slot_From_Prefix(InputPrefix)
                                     If Mux_Slot > -1 Then
                                         Mux(Mux_Slot).Last_Sender = Man_Who_LastSending
+                                        Mux(Mux_Slot).Last_Sender_World = Man_Who_LastSending_World
                                         EXE_Write_To_Console(GeekCommand.TheMessagePart.Substring(TmpIdx2), "", Mux_Slot)
                                     End If
 
@@ -1367,7 +1482,7 @@ Public Class Form1
 
                             Case CM_Type_W 'Output to main console, console w back
 
-                                If Not Mux(0).Is_Working Then Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", Man_Who_LastSending)
+                                If Not Mux(0).Is_Working Then Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", Man_Who_LastSending, "?")
 
                                 If Queued_EXE_Command_Enable = True Then
 
@@ -1392,7 +1507,7 @@ Public Class Form1
 
                             Case CM_Type_W2
 
-                                If Not Mux(0).Is_Working Then Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", Man_Who_LastSending)
+                                If Not Mux(0).Is_Working Then Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", Man_Who_LastSending, "?")
                                 Mux(0).Last_Sender = Man_Who_LastSending
                                 EXE_Write_To_Console(GeekCommand.TheMessagePart, "", 0)
 
@@ -1420,6 +1535,8 @@ Public Class Form1
                                 End If
 
                                 Select Case GeekCommand.TheMessagePart.ToUpper
+                                    Case "STOP"
+                                        If Stop_Check Then InNeed_Detect_AbnormalEnd_PASS = True
                                     Case "RSTC"
                                         Restart_EXEConsole(Man_Who_LastSending)
                                     Case "KILLMUX"
@@ -1462,7 +1579,8 @@ Public Class Form1
 
                     Dim Pos As Integer = InStr(Tmp_String_Org, "[4WMC-Worker] 4WMC init done.")
                     If Pos > 0 Then
-                        EXECommand_Via4WMCWorker = Val(Tmp_String.Substring(Pos + 30, 3))
+                        EXECommand_Via4WMCWorker = Val(Tmp_String.Substring(Pos + 30, 4))
+                        'MsgBox(Tmp_String.Substring(Pos + 30, 3), 0, "")
                         AssiPlug_Det_TextBox.Text += "[4WMC-Worker v" + Format(EXECommand_Via4WMCWorker, "0.00") + "] "
                     ElseIf InStr(Tmp_String_Org, "[Essentials] Enabling Essentials v2") > 0 Then
                         AssiPlug_Det_TextBox.Text += "[EssentialsV2] "
@@ -1567,7 +1685,7 @@ Public Class Form1
 
     End Sub
 
-    Private Function Start_EXE_Process(The_Arguments As String, Mux_Slot As Integer, Default_Script_Prefix As String, The_Launcher As String) As String
+    Private Function Start_EXE_Process(The_Arguments As String, Mux_Slot As Integer, Default_Script_Prefix As String, The_Launcher As String, The_LWorld As String) As String
 
         Start_EXE_Process = ""
         Clear_EXE_Queue(True)
@@ -1635,6 +1753,7 @@ Public Class Form1
             Mux(Mux_Slot).Script_Exec_Total_String = The_Arguments 'not need?
             Mux(Mux_Slot).The_Cake_Var = ""
             Mux(Mux_Slot).Last_Sender = The_Launcher
+            Mux(Mux_Slot).Last_Sender_World = The_LWorld
             Mux(Mux_Slot).The_Launcher = The_Launcher
 
             Start_EXE_Process = "OK"
@@ -1757,7 +1876,8 @@ Public Class Form1
         Else
 
             'Because raw read back is so big to cause crash. It's a fix but not sure why.
-            Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread(IARR_Return(Mux_Slot), ThePreFix, Mux_Slot))
+            Add_to_NoteListbox("A big console out. (>256)")
+            Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread(Write_Str_Data, ThePreFix, Mux_Slot))
             thread.Start()
 
         End If
@@ -1868,11 +1988,11 @@ Public Class Form1
                 WaitBLAC_Count = 0
                 BusyCrash.Enabled = False
 
-                If TabControl1.SelectedIndex = 3 Then
-                    Dim NowTicket As Long = GetLiveTime2(MC_Server_WorkState)
+                'If TabControl1.SelectedIndex = 3 Then
+                Dim NowTicket As Long = GetLiveTime2(MC_Server_WorkState)
                     Dim ts As TimeSpan = TimeSpan.FromSeconds(NowTicket)
                     ServerLiveTime_Textbox.Text = NowTicket.ToString + " (" + (NowTicket \ 86400).ToString + ":" + (New DateTime(ts.Ticks)).ToString("HH:mm:ss") + ")"
-                End If
+                'End If
 
         End Select
 
@@ -2397,7 +2517,7 @@ Public Class Form1
         Try
             Kill_EXE_Console_ByMux(0)
             System.Threading.Thread.Sleep(100)
-            Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", Who_is_launcher)
+            Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", Who_is_launcher, "?")
         Catch ex As Exception
             Add_to_NoteListbox("Restart_EXEConsole():" + ex.Message)
         End Try
@@ -2584,7 +2704,7 @@ Public Class Form1
         Return -1
     End Function
 
-    Private Function Launch_Cake_Form_Prefix(Mux_Prefix As String, Launch_Command As String, Who_is_launcher As String) As Integer
+    Private Function Launch_Cake_Form_Prefix(Mux_Prefix As String, Launch_Command As String, Who_is_launcher As String, Who_is_LWorld As String) As Integer
 
         Dim Last_Get_Idle As Integer = -1
 
@@ -2602,7 +2722,7 @@ Public Class Form1
         Next
 
         If Last_Get_Idle > -1 Then
-            Start_EXE_Process(Launch_Command, Last_Get_Idle, Mux_Prefix, Who_is_launcher)
+            Start_EXE_Process(Launch_Command, Last_Get_Idle, Mux_Prefix, Who_is_launcher, Who_is_LWorld)
             Return 1
         Else
             Return -1
@@ -2621,10 +2741,6 @@ Public Class Form1
         Mux(Mux_Slot).Alias_Specify_Prefix = ""
         Mux(Mux_Slot).The_Cake_Var = ""
         Mux(Mux_Slot).Last_Sender = ""
-
-        'ReDim EXE_Saved_String2(EXE_Saved_String_Max2)
-        'EXE_Saved_String2(0) = "Starting Console with server folder." + vbCrLf
-        'EXE_Saved_String_IDX2 = 1
 
     End Sub
 
@@ -2647,6 +2763,8 @@ Public Class Form1
                 If Read_then_Clear Then Mux(Idx01).The_Cake_Var = ""
             End If
         Next
+
+        Total_Str = Total_Str.TrimEnd(";")
 
         If Total_Str <> "" Then
             Return Total_Str
@@ -2674,6 +2792,96 @@ Public Class Form1
 
     Private Sub Stop_Button_Click(sender As Object, e As EventArgs) Handles Stop_Button.Click
         Write_To_Console("stop")
+    End Sub
+
+    Private Sub FwmcWorkerCleaner_Tick(sender As Object, e As EventArgs) Handles TheWorkerCleaner.Tick
+
+
+        Dim TMP_IDX01 As Integer
+        Dim WorkerUpper As Integer = UBound(The_4WMC_ID_Code)
+        For TMP_IDX01 = 0 To WorkerUpper
+            If The_4WMC_ID_Code(TMP_IDX01).WorkingState = 1 Then
+                If Not The_4WMC_ID_Code(TMP_IDX01).IsSocket Then
+                    If The_4WMC_ID_Code(TMP_IDX01).WaitingCount > 0 Then
+                        The_4WMC_ID_Code(TMP_IDX01).WaitingCount -= 1
+                    Else
+                        EXE_Write_To_Console(The_4WMC_ID_Code(TMP_IDX01).TheReturn,
+                                             The_4WMC_ID_Code(TMP_IDX01).ReturnPrefix, The_4WMC_ID_Code(TMP_IDX01).TheMuxSolt)
+                        ClearWorker(The_4WMC_ID_Code(TMP_IDX01))
+                    End If
+                End If
+            End If
+        Next
+
+
+        For TMP_IDX01 = 0 To HowManyMux_ArryADD1
+
+            If I_Asking_Tick(TMP_IDX01).WorkingState = 1 Then
+                If Not I_Asking_Tick(TMP_IDX01).IsSocket Then
+                    If I_Asking_Tick(TMP_IDX01).WaitingCount > 0 Then
+                        I_Asking_Tick(TMP_IDX01).WaitingCount -= 1
+                    Else
+                        EXE_Write_To_Console(I_Asking_Tick(TMP_IDX01).TheReturn,
+                                             I_Asking_Tick(TMP_IDX01).ReturnPrefix, I_Asking_Tick(TMP_IDX01).TheMuxSlot)
+                        ClearLittleWorker(I_Asking_Tick(TMP_IDX01))
+                    End If
+                End If
+            End If
+
+            If I_Asking_Locate(TMP_IDX01).WorkingState = 1 Then
+                If Not I_Asking_Locate(TMP_IDX01).IsSocket Then
+                    If I_Asking_Locate(TMP_IDX01).WaitingCount > 0 Then
+                        I_Asking_Locate(TMP_IDX01).WaitingCount -= 1
+                    Else
+                        EXE_Write_To_Console(I_Asking_Locate(TMP_IDX01).TheReturn,
+                                             I_Asking_Locate(TMP_IDX01).ReturnPrefix, I_Asking_Locate(TMP_IDX01).TheMuxSlot)
+                        ClearLittleWorker(I_Asking_Locate(TMP_IDX01))
+                    End If
+                End If
+            End If
+
+            If I_Asking_LocateBiome(TMP_IDX01).WorkingState = 1 Then
+                If Not I_Asking_LocateBiome(TMP_IDX01).IsSocket Then
+                    If I_Asking_LocateBiome(TMP_IDX01).WaitingCount > 0 Then
+                        I_Asking_LocateBiome(TMP_IDX01).WaitingCount -= 1
+                    Else
+                        EXE_Write_To_Console(I_Asking_LocateBiome(TMP_IDX01).TheReturn,
+                                             I_Asking_LocateBiome(TMP_IDX01).ReturnPrefix, I_Asking_LocateBiome(TMP_IDX01).TheMuxSlot)
+                        ClearLittleWorker(I_Asking_LocateBiome(TMP_IDX01))
+                    End If
+                End If
+            End If
+
+            If I_Asking_RawRead(TMP_IDX01).WorkingState = 1 Then
+                If Not I_Asking_RawRead(TMP_IDX01).IsSocket Then
+                    If I_Asking_RawRead(TMP_IDX01).WaitingCount > 0 Then
+                        I_Asking_RawRead(TMP_IDX01).WaitingCount -= 1
+                    Else
+                        EXE_Write_To_Console(I_Asking_RawRead(TMP_IDX01).TheReturn,
+                                             I_Asking_RawRead(TMP_IDX01).ReturnPrefix, I_Asking_RawRead(TMP_IDX01).TheMuxSlot)
+                        ClearLittleWorker(I_Asking_RawRead(TMP_IDX01))
+                    End If
+                End If
+            End If
+
+        Next
+
+    End Sub
+
+    Private Sub PanMC_Btn_Click(sender As Object, e As EventArgs) Handles PanMC_Btn.Click
+        Pan_MCServer.BringToFront()
+    End Sub
+
+    Private Sub PanConsole_Btn_Click(sender As Object, e As EventArgs) Handles PanConsole_Btn.Click
+        Pan_Console.BringToFront()
+    End Sub
+
+    Private Sub PanPlayer_Btn_Click(sender As Object, e As EventArgs) Handles PanPlayer_Btn.Click
+        Pan_Player.BringToFront()
+    End Sub
+
+    Private Sub PanInfo_Btn_Click(sender As Object, e As EventArgs) Handles PanInfo_Btn.Click
+        Pan_Info.BringToFront()
     End Sub
 
 

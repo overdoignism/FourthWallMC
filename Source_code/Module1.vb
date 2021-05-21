@@ -8,7 +8,7 @@ Imports System.Management
 
 Module Module1
 
-    Public Const FwmcVer As String = "1.0"
+    Public Const FwmcVer As String = "1.10"
 
     Public Const CM_Type_W As String = "#"
     Public Const CM_Type_W2 As String = "%"
@@ -26,7 +26,7 @@ Module Module1
     Public Const Get_timeout_ds_4WMCWroker As Integer = 100
     Public Const CloseForm_wait_ds As Integer = 200
 
-    Public Const FwmcWorker As String = "!_4WMC.Worker"
+    Public Const FwmcWorker As String = "!_4WMC"
 
     Public Structure ScriptCake
         Dim Script_Process As System.Diagnostics.Process
@@ -39,13 +39,13 @@ Module Module1
         Dim Alias_Specify_Prefix As String
         Dim Work_start_ticket As Long
         'Dim Is_Recive_Anything_RAW As Integer
-
         Dim The_Cake_Var As String
 
         Dim Last_Sender As String
+        Dim Last_Sender_World As String
         Dim The_Launcher As String
-
     End Structure
+
 
     Public Structure GeekCommand_Rtn
         Dim TheCommandPart As String
@@ -55,8 +55,25 @@ Module Module1
 
     Public Structure The4WMC_Worker_Return
         Dim The_ID_Code As String
-        Dim The_Return_Str As String
+        Dim TheReturn As String
         Dim WorkingState As Integer
+        Dim WaitingCount As Integer
+        Dim ReturnPrefix As String
+        Dim IsSocket As Boolean
+        Dim TheMuxSolt As Integer
+    End Structure
+
+    Public Structure Little_Return
+        Dim Argu As String
+        Dim Argu_Findwhat1 As String
+        Dim Argu_Findwhat2 As String
+        Dim Argu_Findwhat3 As String
+        Dim TheReturn As String
+        Dim ReturnPrefix As String
+        Dim WorkingState As Integer
+        Dim WaitingCount As Integer
+        Dim IsSocket As Boolean
+        Dim TheMuxSlot As Integer
     End Structure
 
     Public IsAgree As Boolean
@@ -80,6 +97,7 @@ Module Module1
 
     Public Man_Who_LastSending As String
     Public Man_Who_LastSending_wBack As String
+    Public Man_Who_LastSending_World As String
     'Public Man_ThisTime_W2Say As Boolean Abolished 
     'Public Man_Use_InJ As Boolean = True
     Public Man_EXE_FirstExec As String
@@ -99,6 +117,7 @@ Module Module1
     Public ZIP_TIME_Format As String = "yyyyMMddHHmmss"
 
     Public InNeed_Detect_AbnormalEnd As Boolean
+    Public InNeed_Detect_AbnormalEnd_PASS As Boolean
     Public Det_AE_Run As String
     Public Det_AE_RunPara As String = "$TIME$ $FAIL$"
     Public Det_AE_Times As Integer
@@ -107,6 +126,7 @@ Module Module1
     Public EXECommand_ViaSay As Boolean
     Public EXECommand_ViaW As Boolean = True
     Public EXECommand_Via4WMCWorker As Single = 0
+    Public Stop_Check As Boolean
 
     'Public BurstMode As Integer = 0
     Public Origial_Path As String
@@ -189,6 +209,8 @@ Module Module1
 
         EXECommand_ViaW = Form2.CESx_CheckBox.Checked
 
+        Stop_Check = Form2.STOP_Chk.Checked
+
         Make_List_Array()
         SaveXML()
     End Sub
@@ -231,6 +253,7 @@ Module Module1
 
             createNode(Save_XML, "EXECommand_ViaSay", EXECommand_ViaSay)
             createNode(Save_XML, "EXECommand_ViaW", EXECommand_ViaW)
+            createNode(Save_XML, "Stop_Check", Stop_Check)
 
 
             Save_XML.WriteEndElement()
@@ -359,6 +382,9 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("EXECommand_ViaW")
             If TmpNode IsNot Nothing Then EXECommand_ViaW = TmpNode.InnerText
 
+            TmpNode = Node1.SelectSingleNode("Stop_Check")
+            If TmpNode IsNot Nothing Then Stop_Check = TmpNode.InnerText
+
             If Man_Who_CanWork IsNot Nothing Then
                 Make_List_Array()
             Else
@@ -411,6 +437,8 @@ Module Module1
         Form2.Console_Main_Arguments_Textbox.Text = Console_Main_Arguments
         Form2.Console_Mux_Arguments_Textbox.Text = Console_Mux_Arguments
         Form2.GUI_FolderOpen_TXTBOX.Text = GUI_OpenFolder
+
+        Form2.STOP_Chk.Checked = Stop_Check
 
         Form3.Iagree_CheckBox.Checked = IsAgree
 
@@ -657,13 +685,19 @@ Module Module1
 
     Public Function The_Man_has_right_V2(Check_Sender_String As String) As Boolean
 
+        Man_Who_LastSending_World = "?"
+        Dim TMP() As String = Check_Sender_String.Split(";")
+        TMP(0) = Replace(TMP(0), ";", "")
+
         If Check_Sender_String.StartsWith("*CommandBlock:") Then
-            Man_Who_LastSending = "@_" + Replace(Check_Sender_String, "*", "")
+            Man_Who_LastSending = "@_" + Replace(TMP(0), "*", "")
+            If UBound(TMP) = 1 Then Man_Who_LastSending_World = TMP(1)
             Return True
         End If
 
         If Check_Sender_String.StartsWith("*CONSOLE") Then
             Man_Who_LastSending = "@_" + Replace(Check_Sender_String, "*", "")
+
             Return True
         End If
 
@@ -675,9 +709,10 @@ Module Module1
         If Man_Who_CanWorkList(0) = "" Then Return False
 
         For Each TestOP_List As String In Man_Who_CanWorkList
-            If Check_Sender_String = TestOP_List Then
-                Man_Who_LastSending = Check_Sender_String
+            If TMP(0) = TestOP_List Then
+                Man_Who_LastSending = TMP(0)
                 Man_Who_LastSending_wBack = Man_Who_LastSending
+                If UBound(TMP) = 1 Then Man_Who_LastSending_World = TMP(1)
                 Return True
             End If
         Next
@@ -716,19 +751,30 @@ Module Module1
 
         Dim TrueOrFalse As Boolean = False
         If Man_Who_CanOrNot = 0 Then TrueOrFalse = True
+
+        Man_Who_LastSending_World = "?"
+        Dim TMP() As String = Check_Sender_String.Split(";")
+        TMP(0) = Replace(TMP(0), ";", "")
+
         If Man_Who_CanSendList(0) = "" Then
-            If TrueOrFalse Then Man_Who_LastSending = "!_ALL"
+            If TrueOrFalse Then
+                If UBound(TMP) = 1 Then Man_Who_LastSending_World = TMP(1)
+                Man_Who_LastSending = "!_ALL"
+            End If
             Return TrueOrFalse
         End If
 
         For Each TestOP_List As String In Man_Who_CanWorkList
-            If Check_Sender_String = TestOP_List Then
-                If TrueOrFalse Then Man_Who_LastSending = Check_Sender_String
+            If TMP(0) = TestOP_List Then
+                If TrueOrFalse Then
+                    Man_Who_LastSending = TMP(0)
+                    If UBound(TMP) = 1 Then Man_Who_LastSending_World = TMP(1)
+                End If
                 Return TrueOrFalse
             End If
         Next
 
-        If Not TrueOrFalse Then Man_Who_LastSending = Check_Sender_String
+        If Not TrueOrFalse Then Man_Who_LastSending = TMP(0)
         Return Not TrueOrFalse
 
     End Function
@@ -815,25 +861,25 @@ Module Module1
 
     End Function
 
-    Public Function RawRead_Return(TheString As String, CheckTarget() As String) As String
+    Public Function RawRead_Return(TheString As String, CheckTarget As Little_Return) As String
 
         RawRead_Return = "#Er2"
-        If CheckTarget Is Nothing Then Exit Function
+        'If CheckTarget Is Nothing Then Exit Function
 
         Dim TheStringUp As String = TheString.ToUpper
         Dim TMP_IDX As Integer
         TMP_IDX = InStr(TheStringUp, "INFO]:")
         If TMP_IDX = 0 Then TMP_IDX = InStr(TheStringUp, "RVER]:")
 
-        If CheckTarget(2) <> "" Then
-            If InStr(TheStringUp, CheckTarget(2).ToUpper) > 0 Then
+        If CheckTarget.Argu_Findwhat3 <> "" Then
+            If InStr(TheStringUp, CheckTarget.Argu_Findwhat3.ToUpper) > 0 Then
                 Return "#Er4"
             End If
         End If
 
         If TMP_IDX > 0 Then
-            If InStr(TheStringUp, CheckTarget(0).ToUpper) > 0 Then
-                If InStr(TheStringUp, CheckTarget(1).ToUpper) > 0 Then
+            If InStr(TheStringUp, CheckTarget.Argu_Findwhat1.ToUpper) > 0 Then
+                If InStr(TheStringUp, CheckTarget.Argu_Findwhat2.ToUpper) > 0 Then
                     RawRead_Return = TheString.Substring(TMP_IDX + 6)
                 End If
             End If
@@ -841,35 +887,51 @@ Module Module1
 
     End Function
 
-    Public Sub What_RU_Waiting(ByRef WaitingStr As String, WaitingTimes_ds As Integer, ByRef WaitingFlag As Boolean)
+    Public Sub What_RU_Waiting(ByRef WaitingStr As String, WaitingTimes_ds As Integer, ByRef WaitingFlag As Integer)
 
         Dim LoopWait As Integer = 0
         Do
             Task.Delay(100).Wait()
             My.Application.DoEvents()
-            If (WaitingStr <> "#Er1") And (WaitingStr <> "#Er2") Then
-                WaitingFlag = False
+            If WaitingFlag = 2 Then
+                WaitingFlag = 3
                 Exit Do
             End If
             LoopWait += 1
         Loop Until LoopWait = WaitingTimes_ds
 
-        WaitingFlag = False
+        WaitingFlag = 3
 
     End Sub
-    Public Sub Waiting_4_4WMCWorker(ByRef WaitingFor As The4WMC_Worker_Return, WaitingTimes_ds As Integer)
+
+    Public Sub What_RU_Waiting2(ByRef WaitingStr As String, WaitingTimes_ds As Integer, ByRef WaitingFlag As Boolean)
 
         Dim LoopWait As Integer = 0
         Do
             Task.Delay(100).Wait()
             My.Application.DoEvents()
-            If WaitingFor.WorkingState = 2 Then
-                Exit Sub
+            If Not WaitingFlag Then
+                Exit Do
             End If
             LoopWait += 1
         Loop Until LoopWait = WaitingTimes_ds
 
-        WaitingFor.The_Return_Str = "#Er2"
+    End Sub
+
+    Public Sub Waiting_4_4WMCWorker(ByRef WaitingFor As The4WMC_Worker_Return, WaitingTimes_ds As Integer)
+
+        Dim LoopWait As Integer = 0
+        Dim WaitingTime As Integer = WaitingTimes_ds * 10
+        Do
+            Task.Delay(10).Wait()
+            My.Application.DoEvents()
+            If WaitingFor.WorkingState = 2 Then
+                Exit Sub
+            End If
+            LoopWait += 1
+        Loop Until LoopWait = WaitingTime
+
+        WaitingFor.TheReturn = "#Er2"
 
     End Sub
 

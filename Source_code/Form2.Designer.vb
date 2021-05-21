@@ -108,6 +108,7 @@ Partial Class Form2
         Me.Console_Shell_Exec_Textbox = New System.Windows.Forms.TextBox()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.STOP_Chk = New System.Windows.Forms.CheckBox()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
@@ -651,6 +652,7 @@ Partial Class Form2
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.GroupBox2.Controls.Add(Me.STOP_Chk)
         Me.GroupBox2.Controls.Add(Me.Label33)
         Me.GroupBox2.Controls.Add(Me.Label32)
         Me.GroupBox2.Controls.Add(Me.WaitBusyLongAsCrash_NumericUpDown)
@@ -663,9 +665,9 @@ Partial Class Form2
         Me.GroupBox2.Controls.Add(Me.BrowseTER_Button)
         Me.GroupBox2.Controls.Add(Me.DetAE_Run_TextBox)
         Me.GroupBox2.Controls.Add(Me.Label26)
-        Me.GroupBox2.Location = New System.Drawing.Point(26, 136)
+        Me.GroupBox2.Location = New System.Drawing.Point(26, 134)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(771, 249)
+        Me.GroupBox2.Size = New System.Drawing.Size(771, 258)
         Me.GroupBox2.TabIndex = 25
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "What to execute if MCS abnormal termination:"
@@ -674,16 +676,16 @@ Partial Class Form2
         '
         Me.Label33.AutoSize = True
         Me.Label33.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label33.Location = New System.Drawing.Point(228, 208)
+        Me.Label33.Location = New System.Drawing.Point(224, 224)
         Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(140, 15)
+        Me.Label33.Size = New System.Drawing.Size(152, 15)
         Me.Label33.TabIndex = 32
-        Me.Label33.Text = "(in minutes. 0 = not use)"
+        Me.Label33.Text = "(x10 seconds. 0 = not use)"
         '
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(120, 188)
+        Me.Label32.Location = New System.Drawing.Point(117, 204)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(574, 15)
         Me.Label32.TabIndex = 31
@@ -692,7 +694,7 @@ Partial Class Form2
         '
         'WaitBusyLongAsCrash_NumericUpDown
         '
-        Me.WaitBusyLongAsCrash_NumericUpDown.Location = New System.Drawing.Point(123, 206)
+        Me.WaitBusyLongAsCrash_NumericUpDown.Location = New System.Drawing.Point(120, 222)
         Me.WaitBusyLongAsCrash_NumericUpDown.Maximum = New Decimal(New Integer() {120, 0, 0, 0})
         Me.WaitBusyLongAsCrash_NumericUpDown.Name = "WaitBusyLongAsCrash_NumericUpDown"
         Me.WaitBusyLongAsCrash_NumericUpDown.ReadOnly = True
@@ -704,7 +706,7 @@ Partial Class Form2
         '
         Me.Label30.AutoSize = True
         Me.Label30.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label30.Location = New System.Drawing.Point(458, 138)
+        Me.Label30.Location = New System.Drawing.Point(458, 132)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(293, 15)
         Me.Label30.TabIndex = 29
@@ -714,7 +716,7 @@ Partial Class Form2
         '
         Me.Label29.AutoSize = True
         Me.Label29.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label29.Location = New System.Drawing.Point(460, 123)
+        Me.Label29.Location = New System.Drawing.Point(460, 117)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(175, 15)
         Me.Label29.TabIndex = 28
@@ -722,7 +724,7 @@ Partial Class Form2
         '
         'DetAETimeS_Textbox
         '
-        Me.DetAETimeS_Textbox.Location = New System.Drawing.Point(119, 150)
+        Me.DetAETimeS_Textbox.Location = New System.Drawing.Point(120, 142)
         Me.DetAETimeS_Textbox.MaxLength = 16
         Me.DetAETimeS_Textbox.Name = "DetAETimeS_Textbox"
         Me.DetAETimeS_Textbox.Size = New System.Drawing.Size(152, 21)
@@ -731,7 +733,7 @@ Partial Class Form2
         '
         'DetAE_Para_TextBox
         '
-        Me.DetAE_Para_TextBox.Location = New System.Drawing.Point(120, 99)
+        Me.DetAE_Para_TextBox.Location = New System.Drawing.Point(120, 93)
         Me.DetAE_Para_TextBox.MaxLength = 1024
         Me.DetAE_Para_TextBox.Name = "DetAE_Para_TextBox"
         Me.DetAE_Para_TextBox.Size = New System.Drawing.Size(631, 21)
@@ -741,7 +743,7 @@ Partial Class Form2
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(120, 135)
+        Me.Label27.Location = New System.Drawing.Point(120, 127)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(169, 15)
         Me.Label27.TabIndex = 24
@@ -750,7 +752,7 @@ Partial Class Form2
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(119, 84)
+        Me.Label28.Location = New System.Drawing.Point(119, 78)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(541, 15)
         Me.Label28.TabIndex = 26
@@ -768,16 +770,16 @@ Partial Class Form2
         '
         'DetAE_Run_TextBox
         '
-        Me.DetAE_Run_TextBox.Location = New System.Drawing.Point(119, 46)
+        Me.DetAE_Run_TextBox.Location = New System.Drawing.Point(120, 42)
         Me.DetAE_Run_TextBox.MaxLength = 1024
         Me.DetAE_Run_TextBox.Name = "DetAE_Run_TextBox"
-        Me.DetAE_Run_TextBox.Size = New System.Drawing.Size(632, 21)
+        Me.DetAE_Run_TextBox.Size = New System.Drawing.Size(630, 21)
         Me.DetAE_Run_TextBox.TabIndex = 4
         '
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(119, 31)
+        Me.Label26.Location = New System.Drawing.Point(119, 27)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(137, 15)
         Me.Label26.TabIndex = 5
@@ -794,7 +796,7 @@ Partial Class Form2
         Me.GroupBox1.Controls.Add(Me.ComPortSPD_NumericUpDown)
         Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.Label13)
-        Me.GroupBox1.Location = New System.Drawing.Point(26, 401)
+        Me.GroupBox1.Location = New System.Drawing.Point(26, 409)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(771, 140)
         Me.GroupBox1.TabIndex = 24
@@ -1005,6 +1007,18 @@ Partial Class Form2
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Backup setting"
         '
+        'STOP_Chk
+        '
+        Me.STOP_Chk.AutoSize = True
+        Me.STOP_Chk.Checked = True
+        Me.STOP_Chk.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.STOP_Chk.Location = New System.Drawing.Point(120, 176)
+        Me.STOP_Chk.Name = "STOP_Chk"
+        Me.STOP_Chk.Size = New System.Drawing.Size(180, 19)
+        Me.STOP_Chk.TabIndex = 46
+        Me.STOP_Chk.Text = "*STOP Command available."
+        Me.STOP_Chk.UseVisualStyleBackColor = True
+        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1132,4 +1146,5 @@ Partial Class Form2
     Friend WithEvents CESx_CheckBox As CheckBox
     Friend WithEvents GroupBox8 As GroupBox
     Friend WithEvents Label15 As Label
+    Friend WithEvents STOP_Chk As CheckBox
 End Class
