@@ -9,6 +9,7 @@ Developed by overdoingism Lab. 這是開源軟體，採用 LGPL V3 授權。
 如果需要說明，請閱讀 Wiki。  
 如果您不想自己編譯，請自BIN資料夾下載可執行檔。
 
+**近期相關說明文件會有較大改版，請等待**
 ----------------------------------------------------
 
 
@@ -21,6 +22,7 @@ Author HAS NO ANY RESPONSIBILITY AND WARRANTY for your using result.
 If need help, please read Wiki.  
 If you don't want compile by yourself, go BIN\ to download the exe file.
 
+**The document has a major update in the near future, pleas hole on.**
 ----------------------------------------------------
 
 
