@@ -1,6 +1,6 @@
 main: FourthWallMC.Plugin.main
 name: 4WMC-Worker
-version: 1.0
+version: 1.10
 author: overdoingism Lab.
 description: FourthWallMC Plugin for bukkit
 commands:
@@ -24,7 +24,7 @@ commands:
     usage: /fwwgetinfm <world name> <IdCode>
   fwwget1h:
     description: Get highest block for 4WMC console. Console Only.
-    usage: /fwwget1h <world name> <X> <Y> <IdCode>
+    usage: /fwwget1h <world name> <X> <Z> <IdCode>
   fwwgetp:
     description: Get a location data for 4WMC console. Console Only.
     usage: /fwwgetp <world name> <X> <Y> <Z> <IdCode>   
@@ -46,6 +46,9 @@ commands:
   fwpgetval:
     description: Get base player body datas for 4WMC console. Console Only.
     usage: /fwpgetval <player name> <IdCode>
+  #fwztest:
+    #description: For develop test. Useless for normal.
+    #usage: /fwztest
   #ffff:
     #description: test.
     #usage: /ffff

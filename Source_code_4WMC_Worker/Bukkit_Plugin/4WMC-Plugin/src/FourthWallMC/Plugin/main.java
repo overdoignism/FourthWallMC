@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.HeightMap;
 import org.bukkit.Location;
 import org.bukkit.TreeType;
+import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Biome;
 import org.bukkit.command.BlockCommandSender;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class main extends JavaPlugin {
 	
-	String ver = "1.0"; 
+	String ver = "1.10"; 
 
     @Override
     public void onEnable() {
@@ -42,6 +43,7 @@ public class main extends JavaPlugin {
     	
         String TrueSenderStr = "";
 
+
         if (sender instanceof BlockCommandSender) {
         	Location Loc;
             final BlockCommandSender bsender = (BlockCommandSender) sender;
@@ -49,7 +51,8 @@ public class main extends JavaPlugin {
             TrueSenderStr = "*CommandBlock:" + 
             		String.valueOf((int) Math.round(Loc.getX())) + "," +
             		String.valueOf((int) Math.round(Loc.getY())) + "," +
-            		String.valueOf((int) Math.round(Loc.getZ())); 
+            		String.valueOf((int) Math.round(Loc.getZ()));
+            TrueSenderStr += ";" + bsender.getBlock().getWorld().getName();
         }
         else if (sender instanceof ConsoleCommandSender) {
             final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
@@ -60,7 +63,10 @@ public class main extends JavaPlugin {
             TrueSenderStr = "*" + Csender.getName();
         }    
         else {
+    		org.bukkit.entity.Player Player;
+       		Player = Bukkit.getPlayerExact(sender.getName());
         	TrueSenderStr = sender.getName();
+        	TrueSenderStr += ";" + Player.getWorld().getName();
         }
     	
    
@@ -172,16 +178,31 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwwget1h")) {
-        	if (args.length == 4) {           	
+        	if ((args.length == 4) || (args.length == 5)) {           	
         		int TheX;
         		int TheZ;
+        		int TheType = 0;
+        		int argsUper = args.length - 1;
         		try {
         			TheX = Integer.parseInt(args[1]);
         			TheZ = Integer.parseInt(args[2]);
-        			Workstr = args[3] + " " + GetHeightestBlock(args[0], TheX, TheZ);
+
+        			if (args.length == 5) 
+        			{
+        				TheType = Integer.parseInt(args[3]);
+        				
+        				if ((TheType >= 5) || (TheType < 0))
+        				{
+        					Workstr = args[argsUper] + " #Er3";
+        		        	getLogger().info("<rtn> " + Workstr);
+        		    		return true;
+        				}
+        			} 
+        			
+        			Workstr = args[argsUper] + " " + GetHeightestBlock(args[0], TheX, TheZ, TheType);
         		}
         		catch (NumberFormatException ex) {
-        			Workstr = args[3] + " #Er3";
+        			Workstr = args[argsUper] + " #Er3";
         		}
         	}
         	else {
@@ -424,7 +445,12 @@ public class main extends JavaPlugin {
     			getLogger().info("<rtn> " + args[args.length-1] + " #Er3");
     			return true;	
         	}
-        }        
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwts")) {
+        	return true;
+        }
+        
         return false;
     }
     
@@ -483,10 +509,10 @@ public class main extends JavaPlugin {
         return "#Er4";    	
     }
 	
-	public String GetHeightestBlock(String Worldname, int X, int Z) {
+	public String GetHeightestBlock(String Worldname, int X, int Z, int TheType) {
 		
     	int TmpInt;
-    	String TmpStr;
+    	String TmpStr1 = "", TmpStr2 = "", TmpStr3 = "", TmpStr4 = "";
     	
     	List<org.bukkit.World> WorldList;
     	WorldList = Bukkit.getWorlds();
@@ -496,23 +522,45 @@ public class main extends JavaPlugin {
         	if (element.getName().equals(Worldname)) {
         		
         		try {
-             		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING);  
-             		TmpStr = String.valueOf(TmpInt);
-             		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING_NO_LEAVES);  
-             		TmpStr = TmpStr + ";"+ String.valueOf(TmpInt);
-             		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR);  
-             		TmpStr = TmpStr + ";"+ String.valueOf(TmpInt);
+        			
+       			
+        			if ((TheType == 0) || (TheType == 1))
+        			{
+        				TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING);  
+        				TmpStr1 = String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 2))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING_NO_LEAVES);  
+                 		TmpStr2 = String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 3))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR);  
+                 		TmpStr3 =  String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 4))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE);  
+                 		TmpStr4 =  String.valueOf(TmpInt);
+        			}
+        			
+        			if (TheType == 0)
+        			{
+        				return TmpStr1 + ";" + TmpStr2 + ";" + TmpStr3 + ";" + TmpStr4;
+        			}
+        			else
+        			{
+        				return TmpStr1 + TmpStr2 + TmpStr3 + TmpStr4;
+        			}
+        			
              		/* TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR_WG);  
-             		TmpStr = TmpStr + ";"+ String.valueOf(TmpInt); */
-             		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE);  
-             		TmpStr = TmpStr + ";"+ String.valueOf(TmpInt);
-             		/* TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE_WG);  
-             		TmpStr = TmpStr + ";"+ String.valueOf(TmpInt); */
+             		   TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE_WG); */
+
         		}
         		catch(java.lang.IllegalArgumentException e) {
         			return "#Er3";
         		}
-        		return TmpStr;
         	}
         }
         return "#Er4";
