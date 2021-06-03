@@ -22,5 +22,18 @@ If you don't want compile by yourself, go BIN\ to download the exe file.
 
 ----------------------------------------------------
 
+v1.11  
+Some bug fix / Change some launcher represent  
+We will use "release building" for max performance after this version.  
 
-![image](https://i.imgur.com/LymWm8D.jpg)
+v1.10  
+UI modified and performance improved / Some bug fix.  
+
+v1.0  
+Add 4WMC Worker plugin for support and API extension.  
+
+v0.94 
+Sending command prefix change from "@" to "%".  
+
+v0.93  
+First public release.
