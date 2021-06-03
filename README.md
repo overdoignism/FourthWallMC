@@ -24,7 +24,7 @@ If you don't want compile by yourself, go BIN\ to download the exe file.
 
 **v1.11**  
 Some bug fix / Change some launcher represent  
-We will use "release building" for max performance after this version.  
+The main execute (Fourthwallmc.exe) will use "release building" for max performance after this version.  
 
 **v1.10**  
 UI modified and performance improved / Some bug fix.  
