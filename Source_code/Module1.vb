@@ -8,7 +8,7 @@ Imports System.Management
 
 Module Module1
 
-    Public Const FwmcVer As String = "1.10"
+    Public Const FwmcVer As String = "1.11"
 
     Public Const CM_Type_W As String = "#"
     Public Const CM_Type_W2 As String = "%"
@@ -27,6 +27,9 @@ Module Module1
     Public Const CloseForm_wait_ds As Integer = 200
 
     Public Const FwmcWorker As String = "!_4WMC"
+    Public Const FwmcSocketWorker As String = "!_SOCKET"
+
+    Public SeqVal As Integer = 256
 
     Public Structure ScriptCake
         Dim Script_Process As System.Diagnostics.Process
@@ -1151,12 +1154,11 @@ Module Module1
 
     Public Function Gen_Rnd_IDcode() As String
 
+        'Randomize()
         Dim RndNum As New Random()
         Dim TmpStr As String
-
         TmpStr = Int32_to_x62(RndNum.Next(240000, 14500000))
-        TmpStr += Int32_to_x62(RndNum.Next(240000, 14500000))
-
+        'TmpStr += Int32_to_x62(RndNum.Next(240000, 14500000))
         Return TmpStr
 
     End Function

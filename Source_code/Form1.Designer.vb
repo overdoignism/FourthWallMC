@@ -798,7 +798,7 @@ Partial Class Form1
         '
         'BusyCrash
         '
-        Me.BusyCrash.Interval = 10000
+        Me.BusyCrash.Interval = 1000
         '
         'BoxRefreshTimer
         '
@@ -969,10 +969,10 @@ Partial Class Form1
         Me.Controls.Add(Me.ExitButton)
         Me.Controls.Add(Me.SetupButton)
         Me.Controls.Add(Me.StartButton)
+        Me.Controls.Add(Me.Pan_Info)
         Me.Controls.Add(Me.Pan_Console)
         Me.Controls.Add(Me.Pan_Player)
         Me.Controls.Add(Me.Pan_MCServer)
-        Me.Controls.Add(Me.Pan_Info)
         Me.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)

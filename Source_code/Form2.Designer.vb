@@ -75,6 +75,7 @@ Partial Class Form2
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.STOP_Chk = New System.Windows.Forms.CheckBox()
         Me.Label33 = New System.Windows.Forms.Label()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.WaitBusyLongAsCrash_NumericUpDown = New System.Windows.Forms.NumericUpDown()
@@ -108,7 +109,7 @@ Partial Class Form2
         Me.Console_Shell_Exec_Textbox = New System.Windows.Forms.TextBox()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.STOP_Chk = New System.Windows.Forms.CheckBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
@@ -652,6 +653,7 @@ Partial Class Form2
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.GroupBox2.Controls.Add(Me.Label16)
         Me.GroupBox2.Controls.Add(Me.STOP_Chk)
         Me.GroupBox2.Controls.Add(Me.Label33)
         Me.GroupBox2.Controls.Add(Me.Label32)
@@ -671,6 +673,18 @@ Partial Class Form2
         Me.GroupBox2.TabIndex = 25
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "What to execute if MCS abnormal termination:"
+        '
+        'STOP_Chk
+        '
+        Me.STOP_Chk.AutoSize = True
+        Me.STOP_Chk.Checked = True
+        Me.STOP_Chk.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.STOP_Chk.Location = New System.Drawing.Point(120, 176)
+        Me.STOP_Chk.Name = "STOP_Chk"
+        Me.STOP_Chk.Size = New System.Drawing.Size(180, 19)
+        Me.STOP_Chk.TabIndex = 46
+        Me.STOP_Chk.Text = "*STOP Command available."
+        Me.STOP_Chk.UseVisualStyleBackColor = True
         '
         'Label33
         '
@@ -695,7 +709,7 @@ Partial Class Form2
         'WaitBusyLongAsCrash_NumericUpDown
         '
         Me.WaitBusyLongAsCrash_NumericUpDown.Location = New System.Drawing.Point(120, 222)
-        Me.WaitBusyLongAsCrash_NumericUpDown.Maximum = New Decimal(New Integer() {120, 0, 0, 0})
+        Me.WaitBusyLongAsCrash_NumericUpDown.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
         Me.WaitBusyLongAsCrash_NumericUpDown.Name = "WaitBusyLongAsCrash_NumericUpDown"
         Me.WaitBusyLongAsCrash_NumericUpDown.ReadOnly = True
         Me.WaitBusyLongAsCrash_NumericUpDown.Size = New System.Drawing.Size(90, 21)
@@ -754,10 +768,9 @@ Partial Class Form2
         Me.Label28.AutoSize = True
         Me.Label28.Location = New System.Drawing.Point(119, 78)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(541, 15)
+        Me.Label28.Size = New System.Drawing.Size(318, 15)
         Me.Label28.TabIndex = 26
-        Me.Label28.Text = "Parameter:  ( Use $TIME$ will be replaced with timestamp, $FAIL$ will be replaced" &
-    " with fail times.)"
+        Me.Label28.Text = "Parameter:  (  $TIME$ = Timestamp, $FAIL$ = Fail times.)"
         '
         'BrowseTER_Button
         '
@@ -781,9 +794,9 @@ Partial Class Form2
         Me.Label26.AutoSize = True
         Me.Label26.Location = New System.Drawing.Point(119, 27)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(137, 15)
+        Me.Label26.Size = New System.Drawing.Size(347, 15)
         Me.Label26.TabIndex = 5
-        Me.Label26.Text = "If not use, leave it blank."
+        Me.Label26.Text = "The program or script for executing. ( If not use, leave it blank. )"
         '
         'GroupBox1
         '
@@ -1007,17 +1020,15 @@ Partial Class Form2
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Backup setting"
         '
-        'STOP_Chk
+        'Label16
         '
-        Me.STOP_Chk.AutoSize = True
-        Me.STOP_Chk.Checked = True
-        Me.STOP_Chk.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.STOP_Chk.Location = New System.Drawing.Point(120, 176)
-        Me.STOP_Chk.Name = "STOP_Chk"
-        Me.STOP_Chk.Size = New System.Drawing.Size(180, 19)
-        Me.STOP_Chk.TabIndex = 46
-        Me.STOP_Chk.Text = "*STOP Command available."
-        Me.STOP_Chk.UseVisualStyleBackColor = True
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(396, 224)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(184, 15)
+        Me.Label16.TabIndex = 47
+        Me.Label16.Text = "*Not count in backup operation."
         '
         'Form2
         '
@@ -1147,4 +1158,5 @@ Partial Class Form2
     Friend WithEvents GroupBox8 As GroupBox
     Friend WithEvents Label15 As Label
     Friend WithEvents STOP_Chk As CheckBox
+    Friend WithEvents Label16 As Label
 End Class

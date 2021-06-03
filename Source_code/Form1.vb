@@ -31,7 +31,6 @@ Public Class Form1
     Public Shared Show_String2 As String
     Public Shared Show_String2_old As String
     'Private Delegate Sub UpdateUICB(ByVal MyText As String, ByVal c As Control)
-    Public myStreamWriter As StreamWriter
 
     Const EXE_Saved_String_Max2 As Integer = 4095
     Public Shared EXE_Saved_String_IDX2 As Integer = 0
@@ -39,6 +38,8 @@ Public Class Form1
     Public Shared EXE_Show_String2 As String
     Public Shared EXE_Show_String2_old As String
     'Private Delegate Sub EXE_UpdateUICB(ByVal MyText As String, ByVal c As Control)
+
+    Public myStreamWriter As StreamWriter
 
     Public FthWallMC_Server As Integer = 0 '0 = Offline 1 = Trying 2= Online
     Public FthWallMC_Server_TcpListerner As Sockets.TcpListener
@@ -465,6 +466,10 @@ Public Class Form1
                     Restart_EXEConsole("!_CM_KILL3")
                     WorkString = "OK"
 
+                Case "path"
+
+                    WorkString = SerWorkingDir
+
                 Case "sender"
 
                     If RCorEXE_Mode = 0 Then WorkString = "!_N/A"
@@ -674,7 +679,7 @@ Public Class Form1
 
                         If UBound(TmpStr) = 1 Then
                             Dim Launcher As String = ""
-                            If RCorEXE_Mode = 0 Then Launcher = "Socket script"
+                            If RCorEXE_Mode = 0 Then Launcher = FwmcSocketWorker
                             If RCorEXE_Mode = 1 Then Launcher = Mux(Mux_slot).Script_Specify_Prefix
                             Select Case Launch_Cake_Form_Prefix(TmpStr(0), TmpStr(1), Launcher, "?")
                                 Case -1
@@ -941,6 +946,8 @@ Public Class Form1
                                 If RCorEXE_Mode = 0 Then SendToClients(Format(EXECommand_Via4WMCWorker, "0.00"), TmpClientWork.TheSocket)
                                 If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Format(EXECommand_Via4WMCWorker, "0.00"), Return_PreFix, Mux_slot)
                                 Return 1
+                            'Case "fwpsetpit"
+                            'Case "fwpsetyaw"
                             Case "fwztest"
                             Case Else
                                 WrongFmt = 1
@@ -953,7 +960,10 @@ Public Class Form1
                             Return 1
                         End If
 
-                        IDCode = Gen_Rnd_IDcode()
+                        IDCode = Gen_Rnd_IDcode() + Hex(SeqVal)
+                        SeqVal += 1
+                        If SeqVal >= 4096 Then SeqVal = 256
+
                         TotalCommand = Replace(Command_str, ";", " ") + " " + IDCode
 
                         Dim Tmp4WMC_Idx As Integer
@@ -1225,13 +1235,23 @@ Public Class Form1
                 Start_EXE_Process(Man_EXE_FirstExec, 0, "Main", FwmcWorker, "?")
             End If
 
+            If WaitBusyLongAsCrash > 0 Then
+                WaitBLAC_Count = 0
+                BusyCrash.Enabled = True
+            End If
+
         Catch ex As Exception
 
             MC_Server_WorkState = 0
             MCS_Richtexbox.Text += vbCrLf + ex.Message + vbCrLf
             Start_MC_Server_Process = "ERROR"
             Add_to_NoteListbox("Start_MC_Server_Process():" + ex.Message)
+            WaitBLAC_Count = 0
+            BusyCrash.Enabled = False
+
         End Try
+
+
 
         PlayerClear()
 
@@ -2491,7 +2511,7 @@ Public Class Form1
 
         WaitBLAC_Count += 1
 
-        If (WaitBLAC_Count * 60) > WaitBusyLongAsCrash Then
+        If WaitBLAC_Count > WaitBusyLongAsCrash * 10 Then
             InNeed_Detect_AbnormalEnd = False
             BusyCrash.Enabled = False
             WaitBLAC_Count = 0
