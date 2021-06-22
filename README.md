@@ -22,11 +22,11 @@ If you don't want compile by yourself, go BIN\ to download the exe file.
 
 ----------------------------------------------------
 
-**v1.2**
-Read Here.
+**v1.2**  
+[Read here.](https://github.com/overdoignism/FourthWallMC/blob/main/history/1.2.md)
 
 **v1.11**  
-Read Here.
+[Read here.](https://github.com/overdoignism/FourthWallMC/blob/main/history/1.11.md)
 
 **v1.10**  
 UI modified and performance improved / Some bug fix.  
