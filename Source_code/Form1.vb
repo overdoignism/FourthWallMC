@@ -6,6 +6,7 @@ Imports System.ComponentModel
 Imports System.IO.Ports
 Imports System.Runtime.InteropServices
 Imports System.Net.Sockets
+Imports System.Runtime
 
 Public Class Form1
     Structure ClientWorker
@@ -39,7 +40,7 @@ Public Class Form1
     Public Shared EXE_Show_String2_old As String
     'Private Delegate Sub EXE_UpdateUICB(ByVal MyText As String, ByVal c As Control)
 
-    Public myStreamWriter As StreamWriter
+    'Public myStreamWriter As StreamWriter
 
     Public FthWallMC_Server As Integer = 0 '0 = Offline 1 = Trying 2= Online
     Public FthWallMC_Server_TcpListerner As Sockets.TcpListener
@@ -463,42 +464,54 @@ Public Class Form1
                     WorkString = "OK"
 
                 Case "kill3"
-                    Restart_EXEConsole("!_CM_KILL3")
+                    Restart_EXEConsole(CNSENDER)
                     WorkString = "OK"
 
                 Case "path"
 
                     WorkString = SerWorkingDir
 
+                Case "pid"
+
+                    If (MC_Server_WorkState = 0) Or (ZIP_IS_LAUNCHED = True) Then
+                        WorkString = "-1"
+                    Else
+                        If MC_IS_LAUNCHED = False Then
+                            WorkString = "-1"
+                        Else
+                            WorkString = MC_Process.Id.ToString
+                        End If
+                    End If
+
                 Case "sender"
 
-                    If RCorEXE_Mode = 0 Then WorkString = "!_N/A"
+                    If RCorEXE_Mode = 0 Then WorkString = NASENDER
                     If RCorEXE_Mode = 1 Then
                         If Mux(Mux_slot).Last_Sender <> "" Then
                             WorkString = Mux(Mux_slot).Last_Sender
                         Else
-                            WorkString = "!_N/A"
+                            WorkString = NASENDER
                         End If
                     End If
 
                 Case "sender2"
 
-                    If RCorEXE_Mode = 0 Then WorkString = "!_N/A"
+                    If RCorEXE_Mode = 0 Then WorkString = NASENDER
                     If RCorEXE_Mode = 1 Then
                         If Mux(Mux_slot).Last_Sender <> "" Then
                             WorkString = Mux(Mux_slot).Last_Sender + ";" + Mux(Mux_slot).Last_Sender_World
                         Else
-                            WorkString = "!_N/A"
+                            WorkString = NASENDER
                         End If
                     End If
 
                 Case "launcher"
-                    If RCorEXE_Mode = 0 Then WorkString = "!_N/A"
+                    If RCorEXE_Mode = 0 Then WorkString = NASENDER
                     If RCorEXE_Mode = 1 Then
                         If Mux(Mux_slot).Last_Sender <> "" Then
                             WorkString = Mux(Mux_slot).The_Launcher
                         Else
-                            WorkString = "!_N/A"
+                            WorkString = NASENDER
                         End If
                     End If
 
@@ -943,8 +956,8 @@ Public Class Form1
                                 'Retuen: Health / food / exp
                             Case "fwver"
                                 'Get 4WMC Worker version.
-                                If RCorEXE_Mode = 0 Then SendToClients(Format(EXECommand_Via4WMCWorker, "0.00"), TmpClientWork.TheSocket)
-                                If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Format(EXECommand_Via4WMCWorker, "0.00"), Return_PreFix, Mux_slot)
+                                If RCorEXE_Mode = 0 Then SendToClients(Format(FWMCWorkerPLUGIN_ver, "0.00"), TmpClientWork.TheSocket)
+                                If RCorEXE_Mode = 1 Then EXE_Write_To_Console(Format(FWMCWorkerPLUGIN_ver, "0.00"), Return_PreFix, Mux_slot)
                                 Return 1
                             'Case "fwpsetpit"
                             'Case "fwpsetyaw"
@@ -954,7 +967,7 @@ Public Class Form1
                                 Exit Do
                         End Select
 
-                        If EXECommand_Via4WMCWorker <= 0 Then
+                        If FWMCWorkerPLUGIN_ver <= 0 Then
                             If RCorEXE_Mode = 0 Then SendToClients("#Er6", TmpClientWork.TheSocket)
                             If RCorEXE_Mode = 1 Then EXE_Write_To_Console("#Er6", Return_PreFix, Mux_slot)
                             Return 1
@@ -1187,18 +1200,18 @@ Public Class Form1
                 End If
             End If
 
+            MC_IS_LAUNCHED = False
             MC_Server_WorkState = 1
             StartButton.Enabled = False
             BackupButton.Enabled = False
             My.Application.DoEvents()
 
-            ReDim Saved_String2(Saved_String_Max2)
-            Saved_String2(0) = "Starting Minecraft Server..." + vbCrLf
-            Saved_String_IDX2 = 1
+            Add_to_Console_Log("Starting Minecraft Server...", True)
 
             MC_Process = New System.Diagnostics.Process()
 
             With MC_Process.StartInfo
+
                 .WorkingDirectory = ""
                 .FileName = Launch_File
                 .RedirectStandardOutput = True
@@ -1240,6 +1253,10 @@ Public Class Form1
                 BusyCrash.Enabled = True
             End If
 
+            If UseANormal Then
+                MC_Process.PriorityClass = ProcessPriorityClass.AboveNormal
+            End If
+
         Catch ex As Exception
 
             MC_Server_WorkState = 0
@@ -1250,8 +1267,6 @@ Public Class Form1
             BusyCrash.Enabled = False
 
         End Try
-
-
 
         PlayerClear()
 
@@ -1330,12 +1345,8 @@ Public Class Form1
             '======================================
 
             '===================================== Console Text Full Buffer
-            Saved_String2(Saved_String_IDX2) = Tmp_String_Org + vbCrLf 'Full Buffer
-            If Saved_String_IDX2 >= Saved_String_Max2 Then
-                Saved_String_IDX2 = 0
-            Else
-                Saved_String_IDX2 += 1
-            End If
+            Add_to_Console_Log(Tmp_String_Org, False)
+
             '======================================
 
             Do 'ALL In Game Command Parsing In this Fake DO-LOOP
@@ -1343,7 +1354,7 @@ Public Class Form1
                 If MC_Server_WorkState = 2 Then
 
                     '=================== Get Command process return from 4WMC worker =================
-                    If EXECommand_Via4WMCWorker >= 1 Then
+                    If FWMCWorkerPLUGIN_ver >= 1 Then
                         TmpIdx1 = InStr(Tmp_String, "]: [4WMC-WORKER] <RTN>")
                         TmpIdx2 = InStr(Tmp_String, "]: ")
                         If (TmpIdx1 > 0) AndAlso (TmpIdx1 = TmpIdx2) Then
@@ -1599,9 +1610,14 @@ Public Class Form1
 
                     Dim Pos As Integer = InStr(Tmp_String_Org, "[4WMC-Worker] 4WMC init done.")
                     If Pos > 0 Then
-                        EXECommand_Via4WMCWorker = Val(Tmp_String.Substring(Pos + 30, 4))
+                        FWMCWorkerPLUGIN_ver = Val(Tmp_String.Substring(Pos + 30, 4))
+
+                        If FWMCWorkerPLUGIN_ver < 1.2 Then
+                            FWMCWARN_Label.Visible = True
+                            Add_to_NoteListbox("Detected the 4WMC-Worker was outdated. Please update to v1.2 or above.")
+                        End If
                         'MsgBox(Tmp_String.Substring(Pos + 30, 3), 0, "")
-                        AssiPlug_Det_TextBox.Text += "[4WMC-Worker v" + Format(EXECommand_Via4WMCWorker, "0.00") + "] "
+                        AssiPlug_Det_TextBox.Text += "[4WMC-Worker v" + Format(FWMCWorkerPLUGIN_ver, "0.00") + "] "
                     ElseIf InStr(Tmp_String_Org, "[Essentials] Enabling Essentials v2") > 0 Then
                         AssiPlug_Det_TextBox.Text += "[EssentialsV2] "
                     End If
@@ -1613,14 +1629,18 @@ Public Class Form1
 
         End If
 
+        'DoGC = True
+
     End Sub
     Public Sub Write_To_Console(Write_Str_Data As String)
 
         If MC_Server_WorkState <> 2 Then Exit Sub
         If Write_Str_Data.ToUpper = "STOP" Then InNeed_Detect_AbnormalEnd = False
 
-        myStreamWriter = MC_Process.StandardInput
-        myStreamWriter.WriteLine(Write_Str_Data)
+        MC_Process.StandardInput.WriteLine(Write_Str_Data)
+
+        'myStreamWriter = MC_Process.StandardInput
+        'myStreamWriter.WriteLine(Write_Str_Data)
 
     End Sub
 
@@ -1628,6 +1648,7 @@ Public Class Form1
 
         MC_Server_WorkState = 0
         MCS_Richtexbox.Text += "Minecraft Server Is Stopped." + vbCrLf
+        MC_IS_LAUNCHED = False
 
     End Sub
 
@@ -1647,6 +1668,7 @@ Public Class Form1
                 Exit Function
             End If
 
+            ZIP_IS_LAUNCHED = False
             MC_Server_WorkState = 1
             Directory.SetCurrentDirectory(My.Computer.FileSystem.GetFileInfo(The_FileName).DirectoryName)
 
@@ -1701,6 +1723,7 @@ Public Class Form1
     Private Sub ZipExitHandler(sendingProcess As Object, ByVal e As System.EventArgs)
 
         MC_Server_WorkState = 0
+        ZIP_IS_LAUNCHED = False
         MCS_Richtexbox.Text += "Backup process End." + vbCrLf
 
     End Sub
@@ -1799,21 +1822,13 @@ Public Class Form1
             Dim Mux_Slot As Integer = Get_Cake_Slot_From_PID(sendingProcess.Id)
             If Mux_Slot < 0 Then Exit Sub
 
-            Dim Logging_Mark As String = "(" + Now.ToString("yyMMdd-hhmmss") + " " + Mux_Slot.ToString + " " + Mux(Mux_Slot).Script_Specify_Prefix + ") "
             Dim Return_PreFix As String = ""
 
             Dim Tmp_String_Org As String = outLine.Data
 
-            'EXE_BoxRefreshTimer.Enabled = False
-            'My.Application.DoEvents()
 
             '===================================== EXE Console Text Buffer (Full buffer)
-            EXE_Saved_String2(EXE_Saved_String_IDX2) = Logging_Mark + Tmp_String_Org + vbCrLf 'Full buffer
-            If EXE_Saved_String_IDX2 >= EXE_Saved_String_Max2 Then
-                EXE_Saved_String_IDX2 = 0
-            Else
-                EXE_Saved_String_IDX2 += 1
-            End If
+            Add_Show_2_EXEConsole(0, Mux_Slot.ToString + " " + Mux(Mux_Slot).Script_Specify_Prefix, Tmp_String_Org)
 
             '==================== MC + injection ==========================
             If Tmp_String_Org.Substring(0, 1) = "*" Then
@@ -1882,11 +1897,19 @@ Public Class Form1
         If Not Mux(Mux_Slot).Is_Working Then Exit Sub
 
 
+        'Because raw read back Is so big to cause crash. It's a fix but not sure why.
+        'Add_to_NoteListbox("A big console out. (>256)")
+        'Dim thread As New Threading.Thread(Sub() EXE_Write_To_Console_Thread(Write_Str_Data, ThePreFix, Mux_Slot))
+        'Thread.Start()
+
         If Write_Str_Data.Length <= 256 Then
 
             Try
-                Mux(Mux_Slot).Script_myStreamWriter = Mux(Mux_Slot).Script_Process.StandardInput
-                Mux(Mux_Slot).Script_myStreamWriter.WriteLine(ThePreFix + Write_Str_Data)
+                'Mux(Mux_Slot).Script_myStreamWriter = Mux(Mux_Slot).Script_Process.StandardInput
+                'Mux(Mux_Slot).Script_myStreamWriter.WriteLine(ThePreFix + Write_Str_Data)
+                Mux(Mux_Slot).Script_Process.StandardInput.WriteLine(ThePreFix + Write_Str_Data)
+                Add_Show_2_EXEConsole(1, Mux_Slot.ToString + " " + Mux(Mux_Slot).Script_Specify_Prefix, ThePreFix + Write_Str_Data)
+
             Catch ex As Exception
 
                 Mux(Mux_Slot).Is_Working = False '??
@@ -1907,14 +1930,37 @@ Public Class Form1
     Public Sub EXE_Write_To_Console_Thread(Write_Str_Data As String, ThePreFix As String, Mux_Slot As Integer)
 
         Try
-            Mux(Mux_Slot).Script_myStreamWriter = Mux(Mux_Slot).Script_Process.StandardInput
-            Mux(Mux_Slot).Script_myStreamWriter.WriteLine(ThePreFix + Write_Str_Data)
+            'Mux(Mux_Slot).Script_myStreamWriter = Mux(Mux_Slot).Script_Process.StandardInput
+            'Mux(Mux_Slot).Script_myStreamWriter.WriteLine(ThePreFix + Write_Str_Data)
+            Mux(Mux_Slot).Script_Process.StandardInput.WriteLine(ThePreFix + Write_Str_Data)
+            Add_Show_2_EXEConsole(1, Mux_Slot.ToString + " " + Mux(Mux_Slot).Script_Specify_Prefix, ThePreFix + Write_Str_Data)
         Catch ex As Exception
             Mux(Mux_Slot).Is_Working = False
             Add_to_NoteListbox("Write_to_Script(" + Write_Str_Data + "," + ThePreFix + "," + Mux_Slot.ToString + "):" + ex.Message)
         End Try
 
         'It's dirty more then political (maybe)
+
+    End Sub
+
+    Private Sub Add_Show_2_EXEConsole(InOrOut As Integer, WhatHead As String, What2Show As String)
+
+        Dim InOutWay As String
+        If InOrOut = 0 Then
+            InOutWay = "<<"
+        Else
+            InOutWay = ">>"
+        End If
+
+        Dim Logging_Mark As String = InOutWay + " (" + Now.ToString("yyMMdd-hhmmss.ff") + " " + WhatHead + ") "
+
+        '===================================== EXE Console Text Buffer (Full buffer)
+        EXE_Saved_String2(EXE_Saved_String_IDX2) = Logging_Mark + What2Show + vbCrLf 'Full buffer
+        If EXE_Saved_String_IDX2 >= EXE_Saved_String_Max2 Then
+            EXE_Saved_String_IDX2 = 0
+        Else
+            EXE_Saved_String_IDX2 += 1
+        End If
 
     End Sub
 
@@ -1969,6 +2015,14 @@ Public Class Form1
 
         If ReallyClose = True Then Exit Sub
 
+        'If DoGC Then
+        '    If CheckBox1.Checked Then
+        '        GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce
+        '        System.GC.Collect(2, GCCollectionMode.Forced, False, True)
+        '        DoGC = False
+        '    End If
+        'End If
+
         Select Case MC_Server_WorkState
 
             Case 0
@@ -2010,8 +2064,8 @@ Public Class Form1
 
                 'If TabControl1.SelectedIndex = 3 Then
                 Dim NowTicket As Long = GetLiveTime2(MC_Server_WorkState)
-                    Dim ts As TimeSpan = TimeSpan.FromSeconds(NowTicket)
-                    ServerLiveTime_Textbox.Text = NowTicket.ToString + " (" + (NowTicket \ 86400).ToString + ":" + (New DateTime(ts.Ticks)).ToString("HH:mm:ss") + ")"
+                Dim ts As TimeSpan = TimeSpan.FromSeconds(NowTicket)
+                ServerLiveTime_Textbox.Text = NowTicket.ToString + " (" + (NowTicket \ 86400).ToString + ":" + (New DateTime(ts.Ticks)).ToString("HH:mm:ss") + ")"
                 'End If
 
         End Select
@@ -2082,20 +2136,53 @@ Public Class Form1
     End Sub
     Public Sub SendTo_Console(ModeSelect As Integer)
 
+        Dim WorkStr As String = MCS_ConsoleTextbox.Text
+
         If ModeSelect = 0 Then
             If MC_Server_WorkState <> 2 Then Exit Sub
-            Write_To_Console(MCS_ConsoleTextbox.Text)
+            If MCS_ConsoleTextbox.Text = "" Then Exit Sub
+
+            If UnicodeSupp Then
+                If FWMCWorkerPLUGIN_ver >= 1.2 Then
+                    If WorkStr.ToUpper.StartsWith("SAY ") Then
+                        If WorkStr.Length > 4 Then
+                            Dim STRBYTE As Byte() = System.Text.Encoding.UTF8.GetBytes(WorkStr.Substring(4))
+                            WorkStr = "fwsay " + System.Convert.ToBase64String(STRBYTE)
+                        End If
+                    ElseIf WorkStr.ToUpper.StartsWith("W ") Then
+                        Dim TMPSTR() As String = WorkStr.Split(" ")
+                        If UBound(TMPSTR) > 1 Then
+                            If (TMPSTR(1) <> "") AndAlso (TMPSTR(2) <> "") Then
+                                WorkStr = ""
+                                For idx As Integer = 2 To UBound(TMPSTR)
+                                    WorkStr += TMPSTR(idx) + " "
+                                Next
+                                Dim STRBYTE As Byte() = System.Text.Encoding.UTF8.GetBytes(WorkStr)
+                                WorkStr = "fwwh " + TMPSTR(1) + " " + System.Convert.ToBase64String(STRBYTE)
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+
+            Write_To_Console(WorkStr)
             Send2Recent(ModeSelect)(Send2IdxLast(ModeSelect)) = MCS_ConsoleTextbox.Text
+            Add_to_Console_Log("(" + Format(Now, "HH:mm:ss") + " ⏎ ) " + MCS_ConsoleTextbox.Text, False)
             MCS_ConsoleTextbox.Text = ""
+
         ElseIf ModeSelect = 1 Then
+
+            If Send2Exe_TextBox.Text = "" Then Exit Sub
             EXE_Write_To_Console(Send2Exe_TextBox.Text, "", 0)
             Send2Recent(ModeSelect)(Send2IdxLast(ModeSelect)) = Send2Exe_TextBox.Text
             Send2Exe_TextBox.Text = ""
+
         End If
 
         Send2IdxLast(ModeSelect) += 1
         If Send2IdxLast(ModeSelect) > 9 Then Send2IdxLast(ModeSelect) = 0
         Send2Idx(ModeSelect) = Send2IdxLast(ModeSelect)
+
 
     End Sub
 
@@ -2243,6 +2330,7 @@ Public Class Form1
                 If Not MC_Process.HasExited Then
                     InNeed_Detect_AbnormalEnd = False
                     MC_Process.Kill()
+                    MC_IS_LAUNCHED = False
                 End If
             End If
         Catch ex As Exception
@@ -2253,6 +2341,7 @@ Public Class Form1
             If ZIP_IS_LAUNCHED Then
                 If Not ZIP_Process.HasExited Then
                     ZIP_Process.Kill()
+                    ZIP_IS_LAUNCHED = False
                 End If
             End If
         Catch ex As Exception
@@ -2904,6 +2993,23 @@ Public Class Form1
         Pan_Info.BringToFront()
     End Sub
 
+
+    Sub Add_to_Console_Log(AddtoStr As String, Restart As Boolean)
+
+        If Not Restart Then
+            Saved_String2(Saved_String_IDX2) = AddtoStr + vbCrLf 'Full Buffer
+            If Saved_String_IDX2 >= Saved_String_Max2 Then
+                Saved_String_IDX2 = 0
+            Else
+                Saved_String_IDX2 += 1
+            End If
+        Else
+            ReDim Saved_String2(Saved_String_Max2)
+            Saved_String2(0) = AddtoStr + vbCrLf
+            Saved_String_IDX2 = 1
+        End If
+
+    End Sub
 
 End Class
 

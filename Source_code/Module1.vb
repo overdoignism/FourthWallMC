@@ -8,7 +8,7 @@ Imports System.Management
 
 Module Module1
 
-    Public Const FwmcVer As String = "1.11"
+    Public Const FwmcVer As String = "1.2"
 
     Public Const CM_Type_W As String = "#"
     Public Const CM_Type_W2 As String = "%"
@@ -26,14 +26,20 @@ Module Module1
     Public Const Get_timeout_ds_4WMCWroker As Integer = 100
     Public Const CloseForm_wait_ds As Integer = 200
 
-    Public Const FwmcWorker As String = "!_4WMC"
-    Public Const FwmcSocketWorker As String = "!_SOCKET"
+    Public Const FwmcWorker As String = "!4WMC"
+    Public Const FwmcSocketWorker As String = "!SOCKET"
+    Public Const ALLSENDER As String = "!ALL"
+    Public Const NASENDER As String = "!NA"
+    Public Const CNSENDER As String = "!COMMAND"
+
+    'Public Const RemoteConsoleSender As String = "@RemoteConsole"
+    Public Const CommandBlockSender As String = "@CommandBlock"
 
     Public SeqVal As Integer = 256
 
     Public Structure ScriptCake
         Dim Script_Process As System.Diagnostics.Process
-        Dim Script_myStreamWriter As System.IO.StreamWriter
+        'Dim Script_myStreamWriter As System.IO.StreamWriter
         Dim Is_Working As Boolean
         Dim Script_Exec_Total_String As String
         Dim PID As Integer
@@ -128,7 +134,7 @@ Module Module1
 
     Public EXECommand_ViaSay As Boolean
     Public EXECommand_ViaW As Boolean = True
-    Public EXECommand_Via4WMCWorker As Single = 0
+    Public FWMCWorkerPLUGIN_ver As Single = 0
     Public Stop_Check As Boolean
 
     'Public BurstMode As Integer = 0
@@ -167,6 +173,10 @@ Module Module1
     Public Console_Mux_Arguments As String = "-Command"
     Public PDSC As String = "\"
     Public GUI_OpenFolder As String = "explorer.exe"
+    Public UseANormal As Boolean
+
+    Public UnicodeSupp As Boolean = True
+    'Public DoGC As Boolean
     Public Sub Before_Save()
 
         MCServer_JAR_BAT_Location = Form2.JARPATH_Textbox.Text
@@ -213,6 +223,9 @@ Module Module1
         EXECommand_ViaW = Form2.CESx_CheckBox.Checked
 
         Stop_Check = Form2.STOP_Chk.Checked
+        UseANormal = Form2.UseAN_Checkbox.Checked
+
+        UnicodeSupp = Form2.UnicodeSup_Checkbox.Checked
 
         Make_List_Array()
         SaveXML()
@@ -257,6 +270,9 @@ Module Module1
             createNode(Save_XML, "EXECommand_ViaSay", EXECommand_ViaSay)
             createNode(Save_XML, "EXECommand_ViaW", EXECommand_ViaW)
             createNode(Save_XML, "Stop_Check", Stop_Check)
+            createNode(Save_XML, "UseANormal", UseANormal)
+
+            createNode(Save_XML, "UnicodeSupp", UnicodeSupp)
 
 
             Save_XML.WriteEndElement()
@@ -388,6 +404,12 @@ Module Module1
             TmpNode = Node1.SelectSingleNode("Stop_Check")
             If TmpNode IsNot Nothing Then Stop_Check = TmpNode.InnerText
 
+            TmpNode = Node1.SelectSingleNode("UseANormal")
+            If TmpNode IsNot Nothing Then UseANormal = TmpNode.InnerText
+
+            TmpNode = Node1.SelectSingleNode("UnicodeSupp")
+            If TmpNode IsNot Nothing Then UnicodeSupp = TmpNode.InnerText
+
             If Man_Who_CanWork IsNot Nothing Then
                 Make_List_Array()
             Else
@@ -442,6 +464,9 @@ Module Module1
         Form2.GUI_FolderOpen_TXTBOX.Text = GUI_OpenFolder
 
         Form2.STOP_Chk.Checked = Stop_Check
+        Form2.UseAN_Checkbox.Checked = UseANormal
+
+        Form2.UnicodeSup_Checkbox.Checked = UnicodeSupp
 
         Form3.Iagree_CheckBox.Checked = IsAgree
 
@@ -554,10 +579,10 @@ Module Module1
 
         'Public EXECommand_ViaSay As Boolean
         'Public EXECommand_ViaW As Boolean
-        'Public EXECommand_Via4WMCWorker As Single
+        'Public FWMCWorkerPLUGIN_ver As Single
 
         '========================== 4WMC Worker detect =====================
-        If EXECommand_Via4WMCWorker > 0 Then
+        If FWMCWorkerPLUGIN_ver > 0 Then
             Tmp_Index2 = InStr(TheStringUP, "INFO]: [4WMC-WORKER] <CMD>")
             Tmp_Index3 = InStr(TheStringUP, "INFO]: ")
 
@@ -665,7 +690,7 @@ Module Module1
         If (Check_Sender_String.Length >= 15) Then 'CommandBlock send all pass
             If (Check_Sender_String.Substring(0, 15) = "CommandBlock at") Then
                 If (Check_Sendto_String = "CommandBlock") Then
-                    Man_Who_LastSending = "@_" + Replace(Check_Sender_String, " at ", ":")
+                    Man_Who_LastSending = "@" + Replace(Check_Sender_String, " at ", ":")
                     Return True
                 End If
             End If
@@ -692,20 +717,25 @@ Module Module1
         Dim TMP() As String = Check_Sender_String.Split(";")
         TMP(0) = Replace(TMP(0), ";", "")
 
-        If Check_Sender_String.StartsWith("*CommandBlock:") Then
-            Man_Who_LastSending = "@_" + Replace(TMP(0), "*", "")
+        If Check_Sender_String = ("@CommandBlock:minecart") Then
+            Man_Who_LastSending = Check_Sender_String
             If UBound(TMP) = 1 Then Man_Who_LastSending_World = TMP(1)
             Return True
         End If
 
-        If Check_Sender_String.StartsWith("*CONSOLE") Then
-            Man_Who_LastSending = "@_" + Replace(Check_Sender_String, "*", "")
+        If Check_Sender_String.StartsWith("@CommandBlock:") Then
+            Man_Who_LastSending = TMP(0) '"@" + Replace(TMP(0), "*", "")
+            If UBound(TMP) = 1 Then Man_Who_LastSending_World = TMP(1)
+            Return True
+        End If
 
+        If Check_Sender_String = ("@CONSOLE") Then
+            Man_Who_LastSending = Check_Sender_String
             Return True
         End If
 
         If Check_Sender_String = "@" Then
-            Man_Who_LastSending = "@_CommandBlock"
+            Man_Who_LastSending = CommandBlockSender
             Return True
         End If
 
@@ -732,7 +762,7 @@ Module Module1
         Dim TrueOrFalse As Boolean = False
         If Man_Who_CanOrNot = 0 Then TrueOrFalse = True
         If Man_Who_CanSendList(0) = "" Then
-            If TrueOrFalse Then Man_Who_LastSending = "!_ALL"
+            If TrueOrFalse Then Man_Who_LastSending = ALLSENDER
             Return TrueOrFalse
         End If
 
@@ -762,7 +792,7 @@ Module Module1
         If Man_Who_CanSendList(0) = "" Then
             If TrueOrFalse Then
                 If UBound(TMP) = 1 Then Man_Who_LastSending_World = TMP(1)
-                Man_Who_LastSending = "!_ALL"
+                Man_Who_LastSending = ALLSENDER
             End If
             Return TrueOrFalse
         End If
@@ -904,20 +934,6 @@ Module Module1
         Loop Until LoopWait = WaitingTimes_ds
 
         WaitingFlag = 3
-
-    End Sub
-
-    Public Sub What_RU_Waiting2(ByRef WaitingStr As String, WaitingTimes_ds As Integer, ByRef WaitingFlag As Boolean)
-
-        Dim LoopWait As Integer = 0
-        Do
-            Task.Delay(100).Wait()
-            My.Application.DoEvents()
-            If Not WaitingFlag Then
-                Exit Do
-            End If
-            LoopWait += 1
-        Loop Until LoopWait = WaitingTimes_ds
 
     End Sub
 

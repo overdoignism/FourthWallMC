@@ -102,6 +102,7 @@ Partial Class Form1
         Me.PanConsole_Btn = New System.Windows.Forms.Button()
         Me.PanPlayer_Btn = New System.Windows.Forms.Button()
         Me.PanInfo_Btn = New System.Windows.Forms.Button()
+        Me.FWMCWARN_Label = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.WaitPanel.SuspendLayout()
@@ -916,7 +917,7 @@ Partial Class Form1
         '
         Me.PanConsole_Btn.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.PanConsole_Btn.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.PanConsole_Btn.Location = New System.Drawing.Point(273, 11)
+        Me.PanConsole_Btn.Location = New System.Drawing.Point(272, 11)
         Me.PanConsole_Btn.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanConsole_Btn.Name = "PanConsole_Btn"
         Me.PanConsole_Btn.Size = New System.Drawing.Size(125, 29)
@@ -928,7 +929,7 @@ Partial Class Form1
         '
         Me.PanPlayer_Btn.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.PanPlayer_Btn.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.PanPlayer_Btn.Location = New System.Drawing.Point(400, 11)
+        Me.PanPlayer_Btn.Location = New System.Drawing.Point(398, 11)
         Me.PanPlayer_Btn.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanPlayer_Btn.Name = "PanPlayer_Btn"
         Me.PanPlayer_Btn.Size = New System.Drawing.Size(125, 29)
@@ -940,7 +941,7 @@ Partial Class Form1
         '
         Me.PanInfo_Btn.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.PanInfo_Btn.Font = New System.Drawing.Font("Arial", 9.0!)
-        Me.PanInfo_Btn.Location = New System.Drawing.Point(527, 11)
+        Me.PanInfo_Btn.Location = New System.Drawing.Point(524, 11)
         Me.PanInfo_Btn.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanInfo_Btn.Name = "PanInfo_Btn"
         Me.PanInfo_Btn.Size = New System.Drawing.Size(125, 29)
@@ -948,12 +949,26 @@ Partial Class Form1
         Me.PanInfo_Btn.Text = "Information"
         Me.PanInfo_Btn.UseVisualStyleBackColor = False
         '
+        'FWMCWARN_Label
+        '
+        Me.FWMCWARN_Label.AutoSize = True
+        Me.FWMCWARN_Label.BackColor = System.Drawing.Color.Black
+        Me.FWMCWARN_Label.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FWMCWARN_Label.ForeColor = System.Drawing.Color.Red
+        Me.FWMCWARN_Label.Location = New System.Drawing.Point(658, 19)
+        Me.FWMCWARN_Label.Name = "FWMCWARN_Label"
+        Me.FWMCWARN_Label.Size = New System.Drawing.Size(413, 14)
+        Me.FWMCWARN_Label.TabIndex = 47
+        Me.FWMCWARN_Label.Text = "Detected the 4WMC-Worker was outdated. Please update to v1.2 or above."
+        Me.FWMCWARN_Label.Visible = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.ClientSize = New System.Drawing.Size(1177, 706)
+        Me.Controls.Add(Me.FWMCWARN_Label)
         Me.Controls.Add(Me.PanInfo_Btn)
         Me.Controls.Add(Me.PanPlayer_Btn)
         Me.Controls.Add(Me.PanConsole_Btn)
@@ -969,10 +984,10 @@ Partial Class Form1
         Me.Controls.Add(Me.ExitButton)
         Me.Controls.Add(Me.SetupButton)
         Me.Controls.Add(Me.StartButton)
+        Me.Controls.Add(Me.Pan_MCServer)
         Me.Controls.Add(Me.Pan_Info)
         Me.Controls.Add(Me.Pan_Console)
         Me.Controls.Add(Me.Pan_Player)
-        Me.Controls.Add(Me.Pan_MCServer)
         Me.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -996,6 +1011,7 @@ Partial Class Form1
         Me.Pan_Info.ResumeLayout(False)
         Me.Pan_Info.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -1078,4 +1094,5 @@ Partial Class Form1
     Friend WithEvents PanConsole_Btn As Button
     Friend WithEvents PanPlayer_Btn As Button
     Friend WithEvents PanInfo_Btn As Button
+    Friend WithEvents FWMCWARN_Label As Label
 End Class

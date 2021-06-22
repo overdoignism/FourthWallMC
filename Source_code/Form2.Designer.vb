@@ -73,8 +73,10 @@ Partial Class Form2
         Me.Label34 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.UseAN_Checkbox = New System.Windows.Forms.CheckBox()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.STOP_Chk = New System.Windows.Forms.CheckBox()
         Me.Label33 = New System.Windows.Forms.Label()
         Me.Label32 = New System.Windows.Forms.Label()
@@ -109,7 +111,7 @@ Partial Class Form2
         Me.Console_Shell_Exec_Textbox = New System.Windows.Forms.TextBox()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.Label16 = New System.Windows.Forms.Label()
+        Me.UnicodeSup_Checkbox = New System.Windows.Forms.CheckBox()
         CType(Me.ManPortNum, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
@@ -364,11 +366,12 @@ Partial Class Form2
         'GroupBox8
         '
         Me.GroupBox8.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.GroupBox8.Controls.Add(Me.UnicodeSup_Checkbox)
         Me.GroupBox8.Controls.Add(Me.Label15)
         Me.GroupBox8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox8.Location = New System.Drawing.Point(396, 34)
+        Me.GroupBox8.Location = New System.Drawing.Point(396, 27)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(359, 65)
+        Me.GroupBox8.Size = New System.Drawing.Size(359, 86)
         Me.GroupBox8.TabIndex = 49
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Work with 4WMC-Worker"
@@ -376,7 +379,7 @@ Partial Class Form2
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(15, 28)
+        Me.Label15.Location = New System.Drawing.Point(15, 26)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(186, 15)
         Me.Label15.TabIndex = 45
@@ -388,7 +391,7 @@ Partial Class Form2
         Me.GroupBox7.Controls.Add(Me.ExeViaSay_Checkbox)
         Me.GroupBox7.Controls.Add(Me.Button2)
         Me.GroupBox7.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox7.Location = New System.Drawing.Point(396, 205)
+        Me.GroupBox7.Location = New System.Drawing.Point(396, 210)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(359, 65)
         Me.GroupBox7.TabIndex = 48
@@ -423,7 +426,7 @@ Partial Class Form2
         Me.GroupBox6.Controls.Add(Me.CESx_CheckBox)
         Me.GroupBox6.Controls.Add(Me.Button1)
         Me.GroupBox6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox6.Location = New System.Drawing.Point(396, 119)
+        Me.GroupBox6.Location = New System.Drawing.Point(396, 129)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(359, 65)
         Me.GroupBox6.TabIndex = 47
@@ -620,6 +623,7 @@ Partial Class Form2
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TabPage1.Controls.Add(Me.UseAN_Checkbox)
         Me.TabPage1.Controls.Add(Me.BrowseJAR_Button)
         Me.TabPage1.Controls.Add(Me.JARPATH_Textbox)
         Me.TabPage1.Controls.Add(Me.Label4)
@@ -636,6 +640,16 @@ Partial Class Form2
         Me.TabPage1.Size = New System.Drawing.Size(820, 572)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "MC server setting"
+        '
+        'UseAN_Checkbox
+        '
+        Me.UseAN_Checkbox.AutoSize = True
+        Me.UseAN_Checkbox.Location = New System.Drawing.Point(117, 245)
+        Me.UseAN_Checkbox.Name = "UseAN_Checkbox"
+        Me.UseAN_Checkbox.Size = New System.Drawing.Size(217, 19)
+        Me.UseAN_Checkbox.TabIndex = 48
+        Me.UseAN_Checkbox.Text = "Use ""Above normal"" priority to start."
+        Me.UseAN_Checkbox.UseVisualStyleBackColor = True
         '
         'TabPage2
         '
@@ -673,6 +687,16 @@ Partial Class Form2
         Me.GroupBox2.TabIndex = 25
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "What to execute if MCS abnormal termination:"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(396, 224)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(184, 15)
+        Me.Label16.TabIndex = 47
+        Me.Label16.Text = "*Not count in backup operation."
         '
         'STOP_Chk
         '
@@ -1020,15 +1044,18 @@ Partial Class Form2
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Backup setting"
         '
-        'Label16
+        'UnicodeSup_Checkbox
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(396, 224)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(184, 15)
-        Me.Label16.TabIndex = 47
-        Me.Label16.Text = "*Not count in backup operation."
+        Me.UnicodeSup_Checkbox.AutoSize = True
+        Me.UnicodeSup_Checkbox.Checked = True
+        Me.UnicodeSup_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.UnicodeSup_Checkbox.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UnicodeSup_Checkbox.Location = New System.Drawing.Point(17, 50)
+        Me.UnicodeSup_Checkbox.Name = "UnicodeSup_Checkbox"
+        Me.UnicodeSup_Checkbox.Size = New System.Drawing.Size(292, 19)
+        Me.UnicodeSup_Checkbox.TabIndex = 46
+        Me.UnicodeSup_Checkbox.Text = "Unicode support for ""say"" / ""w"" (Need v1.2 above)"
+        Me.UnicodeSup_Checkbox.UseVisualStyleBackColor = True
         '
         'Form2
         '
@@ -1159,4 +1186,6 @@ Partial Class Form2
     Friend WithEvents Label15 As Label
     Friend WithEvents STOP_Chk As CheckBox
     Friend WithEvents Label16 As Label
+    Friend WithEvents UseAN_Checkbox As CheckBox
+    Friend WithEvents UnicodeSup_Checkbox As CheckBox
 End Class
