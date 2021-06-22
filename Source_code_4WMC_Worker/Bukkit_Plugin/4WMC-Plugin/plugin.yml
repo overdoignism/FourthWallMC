@@ -1,6 +1,6 @@
 main: FourthWallMC.Plugin.main
 name: 4WMC-Worker
-version: 1.10
+version: 1.2
 author: overdoingism Lab.
 description: FourthWallMC Plugin for bukkit
 commands:
@@ -46,6 +46,12 @@ commands:
   fwpgetval:
     description: Get base player body datas for 4WMC console. Console Only.
     usage: /fwpgetval <player name> <IdCode>
+  fwsay:
+    description: Say to all with base64 decode. Console Only.
+    usage: /fwsay <base64 message>
+  fwwh:
+    description: Whisper to player with base64 decode. Console Only.
+    usage: /fwwh <player name> <base64 message>
   #fwztest:
     #description: For develop test. Useless for normal.
     #usage: /fwztest

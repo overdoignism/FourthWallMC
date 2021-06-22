@@ -12,14 +12,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.minecart.CommandMinecart;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.nio.charset.Charset;
 import java.util.List;
 
 
 
 public class main extends JavaPlugin {
 	
-	String ver = "1.10"; 
+	String ver = "1.2"; 
 
     @Override
     public void onEnable() {
@@ -30,8 +34,6 @@ public class main extends JavaPlugin {
     public void onDisable() {
     }
     
- 
-    
     @Override
     public boolean onCommand(CommandSender sender,
                              Command command,
@@ -41,14 +43,13 @@ public class main extends JavaPlugin {
     	
     	if (args.length == 0) { return false; }
     	
-        String TrueSenderStr = "";
-
+        String TrueSenderStr = ""; 
 
         if (sender instanceof BlockCommandSender) {
         	Location Loc;
             final BlockCommandSender bsender = (BlockCommandSender) sender;
             Loc = bsender.getBlock().getLocation();
-            TrueSenderStr = "*CommandBlock:" + 
+            TrueSenderStr = "@CommandBlock:" +
             		String.valueOf((int) Math.round(Loc.getX())) + "," +
             		String.valueOf((int) Math.round(Loc.getY())) + "," +
             		String.valueOf((int) Math.round(Loc.getZ()));
@@ -56,12 +57,17 @@ public class main extends JavaPlugin {
         }
         else if (sender instanceof ConsoleCommandSender) {
             final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
-            TrueSenderStr = "*" + Csender.getName();
+            TrueSenderStr = "@" + Csender.getName();
         } 
         else if (sender instanceof RemoteConsoleCommandSender) {
             final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
-            TrueSenderStr = "*" + Csender.getName();
+            TrueSenderStr = "@" + Csender.getName();
         }    
+        else if (sender instanceof CommandMinecart) {
+            //final CommandMinecart Csender = (CommandMinecart) sender;
+            TrueSenderStr = "@CommandBlock:minecart";
+            //TrueSenderStr = "*" + Csender.getName();
+        }
         else {
     		org.bukkit.entity.Player Player;
        		Player = Bukkit.getPlayerExact(sender.getName());
@@ -69,7 +75,7 @@ public class main extends JavaPlugin {
         	TrueSenderStr += ";" + Player.getWorld().getName();
         }
     	
-   
+        
         if (command.getName().equalsIgnoreCase("fwts")) {
 
             String str = "";
@@ -447,9 +453,32 @@ public class main extends JavaPlugin {
         	}
         }
         
-        if (command.getName().equalsIgnoreCase("fwts")) {
+        if (command.getName().equalsIgnoreCase("fwsay")) {
+        	
+        	if (args.length == 0) {return true;}       	
+        	byte[] decodedBytes = java.util.Base64.getDecoder().decode(args[0].getBytes());
+        	String decodedStr = new String(decodedBytes, Charset.forName("UTF-8"));
+        	Bukkit.broadcastMessage("[Server] " + decodedStr);
         	return true;
         }
+        
+        if (command.getName().equalsIgnoreCase("fwwh")) {
+        	        	
+        	if (!(args.length <= 1))
+        	{        	        	
+        		for (Player player : Bukkit.getOnlinePlayers()) {
+        			if (player.getName().equals(args[0]))
+        			{
+        				byte[] decodedBytes = java.util.Base64.getDecoder().decode(args[1].getBytes());
+        				String decodedStr = new String(decodedBytes, Charset.forName("UTF-8"));
+        				player.sendMessage("[Server to you] " + decodedStr);
+        				return true;	
+        			}
+           		}
+    			getLogger().info("The Player " + args[0] +" is not found.");	
+    			return true;
+        	}
+        }        
         
         return false;
     }

@@ -7682,3 +7682,4098 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2021-05-02 22:39:25.588 -----------------------------------------------
+eclipse.buildId=4.19.0.I20210303-1800
+java.version=11.0.11
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_TW
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.jface 2 0 2021-05-02 22:39:34.362
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-05-02 22:39:34.362
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@8ee03f5,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5ad40184,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-05-02 22:39:39.154
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\user99'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2021-05-18 07:52:15.261 -----------------------------------------------
+eclipse.buildId=4.19.0.I20210303-1800
+java.version=11.0.11
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_TW
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.jface 2 0 2021-05-18 07:52:42.854
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-05-18 07:52:42.854
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@45b27ad3,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3f908bc0,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-05-18 07:52:49.564
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\user99'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2021-05-18 07:53:59.412 -----------------------------------------------
+eclipse.buildId=4.19.0.I20210303-1800
+java.version=11.0.11
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_TW
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.jface 2 0 2021-05-18 07:54:08.977
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-05-18 07:54:08.978
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4f7ba0af,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5b23c1f6,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-05-18 07:54:14.094
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\user99'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.core.resources 4 2 2021-05-18 07:54:16.445
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 1
+org.eclipse.core.runtime.CoreException: Variable references empty selection: ${project_loc}
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.abort(ResourceResolver.java:111)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.getSelectedResource(ResourceResolver.java:132)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.resolveValue(ResourceResolver.java:47)
+	at org.eclipse.core.internal.variables.DynamicVariable.getValue(DynamicVariable.java:56)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.resolve(StringSubstitutionEngine.java:273)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.substitute(StringSubstitutionEngine.java:196)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.performStringSubstitution(StringSubstitutionEngine.java:91)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:547)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:347)
+	at org.eclipse.core.externaltools.internal.launchConfigurations.ExternalToolsCoreUtil.getLocation(ExternalToolsCoreUtil.java:76)
+	at org.eclipse.ant.internal.launching.launchConfigurations.AntLaunchDelegate.launch(AntLaunchDelegate.java:164)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:711)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.launchBuild(ExternalToolBuilder.java:183)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.doBuildBasedOnScope(ExternalToolBuilder.java:171)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.build(ExternalToolBuilder.java:90)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:846)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:229)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:277)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:330)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:333)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:385)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:406)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-05-18 07:54:16.445
+!MESSAGE Variable references empty selection: ${project_loc}
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-05-18 07:54:16.445
+!MESSAGE Variable references empty selection: ${project_loc}
+
+!ENTRY org.eclipse.core.resources 4 75 2021-05-18 07:54:16.449
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 org.eclipse.core.externaltools 4 75 2021-05-18 07:54:16.449
+!MESSAGE Errors running builder 'Integrated External Tool Builder' on project '4WMC-Plugin'.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Variable references empty selection: ${project_loc}
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.abort(ResourceResolver.java:111)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.getSelectedResource(ResourceResolver.java:132)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.resolveValue(ResourceResolver.java:47)
+	at org.eclipse.core.internal.variables.DynamicVariable.getValue(DynamicVariable.java:56)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.resolve(StringSubstitutionEngine.java:273)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.substitute(StringSubstitutionEngine.java:196)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.performStringSubstitution(StringSubstitutionEngine.java:91)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:547)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:347)
+	at org.eclipse.core.externaltools.internal.launchConfigurations.ExternalToolsCoreUtil.getLocation(ExternalToolsCoreUtil.java:76)
+	at org.eclipse.ant.internal.launching.launchConfigurations.AntLaunchDelegate.launch(AntLaunchDelegate.java:164)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:711)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.launchBuild(ExternalToolBuilder.java:183)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.doBuildBasedOnScope(ExternalToolBuilder.java:171)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.build(ExternalToolBuilder.java:90)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:846)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:229)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:277)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:330)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:333)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:385)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:406)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 2 org.eclipse.debug.core 4 120 2021-05-18 07:54:16.449
+!MESSAGE Variable references empty selection: ${project_loc}
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-05-18 07:54:16.449
+!MESSAGE Variable references empty selection: ${project_loc}
+
+!ENTRY org.eclipse.core.resources 4 2 2021-05-18 09:02:50.542
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 1
+org.eclipse.core.runtime.CoreException: Variable references empty selection: ${project_loc}
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.abort(ResourceResolver.java:111)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.getSelectedResource(ResourceResolver.java:132)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.resolveValue(ResourceResolver.java:47)
+	at org.eclipse.core.internal.variables.DynamicVariable.getValue(DynamicVariable.java:56)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.resolve(StringSubstitutionEngine.java:273)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.substitute(StringSubstitutionEngine.java:196)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.performStringSubstitution(StringSubstitutionEngine.java:91)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:547)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:347)
+	at org.eclipse.core.externaltools.internal.launchConfigurations.ExternalToolsCoreUtil.getLocation(ExternalToolsCoreUtil.java:76)
+	at org.eclipse.ant.internal.launching.launchConfigurations.AntLaunchDelegate.launch(AntLaunchDelegate.java:164)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:711)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.launchBuild(ExternalToolBuilder.java:183)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.doBuildBasedOnScope(ExternalToolBuilder.java:171)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.build(ExternalToolBuilder.java:90)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:846)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:229)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:277)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:330)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:333)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:385)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:406)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-05-18 09:02:50.543
+!MESSAGE Variable references empty selection: ${project_loc}
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-05-18 09:02:50.543
+!MESSAGE Variable references empty selection: ${project_loc}
+
+!ENTRY org.eclipse.core.resources 4 75 2021-05-18 09:02:50.552
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 org.eclipse.core.externaltools 4 75 2021-05-18 09:02:50.552
+!MESSAGE Errors running builder 'Integrated External Tool Builder' on project '4WMC-Plugin'.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Variable references empty selection: ${project_loc}
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.abort(ResourceResolver.java:111)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.getSelectedResource(ResourceResolver.java:132)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.resolveValue(ResourceResolver.java:47)
+	at org.eclipse.core.internal.variables.DynamicVariable.getValue(DynamicVariable.java:56)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.resolve(StringSubstitutionEngine.java:273)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.substitute(StringSubstitutionEngine.java:196)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.performStringSubstitution(StringSubstitutionEngine.java:91)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:547)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:347)
+	at org.eclipse.core.externaltools.internal.launchConfigurations.ExternalToolsCoreUtil.getLocation(ExternalToolsCoreUtil.java:76)
+	at org.eclipse.ant.internal.launching.launchConfigurations.AntLaunchDelegate.launch(AntLaunchDelegate.java:164)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:711)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.launchBuild(ExternalToolBuilder.java:183)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.doBuildBasedOnScope(ExternalToolBuilder.java:171)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.build(ExternalToolBuilder.java:90)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:846)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:229)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:277)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:330)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:333)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:385)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:406)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 2 org.eclipse.debug.core 4 120 2021-05-18 09:02:50.553
+!MESSAGE Variable references empty selection: ${project_loc}
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-05-18 09:02:50.553
+!MESSAGE Variable references empty selection: ${project_loc}
+
+!ENTRY org.eclipse.jdt.core 4 4 2021-05-19 05:57:07.588
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package FourthWallMC.Plugin;
+
+import org.bukkit.Bukkit;
+import org.bukkit.HeightMap;
+import org.bukkit.Location;
+import org.bukkit.TreeType;
+import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Biome;
+import org.bukkit.command.BlockCommandSender;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.RemoteConsoleCommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.List;
+
+
+
+public class main extends JavaPlugin {
+	
+	String ver = "1.10"; 
+
+    @Override
+    public void onEnable() {
+    	 getLogger().info("4WMC init done. [" + ver + "]");
+    }
+    
+    @Override
+    public void onDisable() {
+    }
+    
+ 
+    
+    @Override
+    public boolean onCommand(CommandSender sender,
+                             Command command,
+                             String label,
+                             String[] args) {
+    	
+    	
+    	if (args.length == 0) { return false; }
+    	
+        String TrueSenderStr = "";
+
+
+        if (sender instanceof BlockCommandSender) {
+        	Location Loc;
+            final BlockCommandSender bsender = (BlockCommandSender) sender;
+            Loc = bsender.getBlock().getLocation();
+            TrueSenderStr = "*CommandBlock:" + 
+            		String.valueOf((int) Math.round(Loc.getX())) + "," +
+            		String.valueOf((int) Math.round(Loc.getY())) + "," +
+            		String.valueOf((int) Math.round(Loc.getZ()));
+            TrueSenderStr += ";" + bsender.getBlock().getWorld().getName();
+        }
+        else if (sender instanceof ConsoleCommandSender) {
+            final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
+            TrueSenderStr = "*" + Csender.getName();
+        } 
+        else if (sender instanceof RemoteConsoleCommandSender) {
+            final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
+            TrueSenderStr = "*" + Csender.getName();
+        }    
+        else {
+    		org.bukkit.entity.Player Player;
+       		Player = Bukkit.getPlayerExact(sender.getName());
+        	TrueSenderStr = sender.getName();
+        	TrueSenderStr += ";" + Player.getWorld().getName();
+        }
+    	
+   
+        if (command.getName().equalsIgnoreCase("fwts")) {
+
+            String str = "";
+            
+            for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
+            	
+            	if (TestTargetSelect(args[Theidx1])) {
+                	try {
+                    	List<org.bukkit.entity.Entity> EntList;
+                    	EntList = org.bukkit.Bukkit.selectEntities(sender,args[Theidx1]);
+                		
+                        for(org.bukkit.entity.Entity element : EntList) {
+                        	str = str + element.getName() + " ";
+                        }
+                	}
+                	catch(java.lang.IllegalArgumentException e)	{
+                		str =  str + args[Theidx1] + " ";
+                	}
+            	}
+            	else {
+                	str =  str + args[Theidx1] + " ";
+            	}
+            }
+            if (!str.equals("")) {
+            	getLogger().info("<cmd> " + TrueSenderStr + " " + str);
+            }
+            return true;
+        }
+
+        if (command.getName().equalsIgnoreCase("fwra")) {
+        
+            String str = "";
+        	for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
+            	str =  str + args[Theidx1] + " ";
+        	}
+            if (!str.equals("")) {
+            	getLogger().info("<cmd> " + TrueSenderStr + " " + str);
+            }
+            return true;
+        }
+        
+        
+        /*if (command.getName().equalsIgnoreCase("ffff")) {
+        	Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "say hi");
+        	getLogger().info("ffff");
+        	 return true;
+        }*/
+        
+        if (!sender.getName().equals("@") && !sender.getName().equals("CONSOLE")) {return true;}
+        //===================================================Console only-----
+        
+        String Workstr;
+
+        if (command.getName().equalsIgnoreCase("fwsgetinf")) {        	
+        	if (args.length == 1) {
+        		
+        		String TmpStr = Bukkit.getIp();
+        		if (TmpStr.equals("")) {TmpStr = "*";}
+        		
+            	Workstr = Bukkit.getMotd();
+            	Workstr = Workstr + ";" + Bukkit.getVersion();
+            	Workstr = Workstr + ";" + Bukkit.getBukkitVersion();
+            	Workstr = Workstr + ";" + Boolean.toString(Bukkit.isHardcore());
+            	Workstr = Workstr + ";" + TmpStr;
+            	Workstr = Workstr + ";" + String.valueOf(Bukkit.getPort());      		
+        		Workstr = args[0] + " " + Workstr;
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }        
+        
+        if (command.getName().equalsIgnoreCase("fwlistw")) {        	
+        	if (args.length == 1) {
+        		Workstr = args[0] + " " + GetWorldList();
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetinfs")) {
+        	if (args.length == 2) {           	
+        		Workstr = args[1] + " " + GetWorldInfos(args[0]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetinfm")) {
+        	if (args.length == 2) {           	
+        		Workstr = args[1] + " " + GetWorldInfom(args[0]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwget1h")) {
+        	if ((args.length == 4) || (args.length == 5)) {           	
+        		int TheX;
+        		int TheZ;
+        		int TheType = 0;
+        		int argsUper = args.length - 1;
+        		try {
+        			TheX = Integer.parseInt(args[1]);
+        			TheZ = Integer.parseInt(args[2]);
+
+        			if (args.length == 5) 
+        			{TheType = Integer.parseInt(args[3]);
+        				if (TheType >= 5) || (TheType < 0)
+        			} 
+        			
+        			
+        			Workstr = args[argsUper] + " " + GetHeightestBlock(args[0], TheX, TheZ, TheType);
+        		}
+        		catch (NumberFormatException ex) {
+        			Workstr = args[argsUper] + " #Er3";
+        		}
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetp")) {
+        	if (args.length == 5) {           	
+        			int TheX;
+        			int TheY;
+        			int TheZ;
+        	        try {
+            			TheX = Integer.parseInt(args[1]);
+            			TheY = Integer.parseInt(args[2]);
+            			TheZ = Integer.parseInt(args[3]);
+            			Workstr = args[4] + " " + GetPosInfo(args[0], TheX, TheY, TheZ);
+        	        }
+        	        catch (NumberFormatException ex) {
+            			Workstr = args[4] + " #Er3";
+        	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+        	return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwcexpo")) {
+        	
+        	if (args.length == 8) {           	
+        	
+                String Worldname = "";
+    			double TheX;
+    			double TheY;
+    			double TheZ;
+    			float Pwr;
+        		
+        		try {
+        			Worldname = args[0];
+        			TheX = Double.parseDouble(args[1]);
+        			TheY = Double.parseDouble(args[2]);
+        			TheZ = Double.parseDouble(args[3]);
+        			Pwr = Float.parseFloat(args[4]);
+        			Workstr = args[7] + " " + CreateExpo(Worldname,TheX,TheY,TheZ,Pwr,
+        					(Integer.parseInt(args[5])==1),(Integer.parseInt(args[6])==1));
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	Workstr = args[7] + " #Er3";
+    	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwctree")) {
+        	
+        	if (args.length == 6) {           	
+        		Workstr = args[5] + " " + CreateTree(args[0], args[1], args[2], args[3], args[4]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwsetbio")) {
+        	
+        	if (args.length == 6) {           	
+        	
+    			int TheX;
+    			int TheY;
+    			int TheZ;
+       		
+        		try {
+        			TheX = Integer.parseInt(args[2]);
+        			TheY = Integer.parseInt(args[3]);
+        			TheZ = Integer.parseInt(args[4]);
+        			Workstr = args[5] + " " + SetBio(args[0],args[1],TheX,TheY,TheZ);
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	Workstr = args[5] + " #Er3";
+    	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetpos")) {
+        	if (args.length == 2) {
+        		float TmpFlt;
+        		org.bukkit.entity.Player Player;
+        		Location loc;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+           			Workstr = Player.getWorld().getName();
+            		loc = Player.getLocation();
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockX());
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockY());
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockZ());
+            		TmpFlt = (float) (Math.round(Player.getLocation().getYaw()*100.0)/100.0);  
+            		Workstr = Workstr + ";" + String.valueOf(TmpFlt);
+            		TmpFlt = (float) (Math.round(Player.getLocation().getPitch()*100.0)/100.0);  
+            		Workstr = Workstr + ";" + String.valueOf(TmpFlt);
+            		Workstr = args[1] + " " + Workstr;
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetspa")) {
+        	if (args.length == 2) {
+        		org.bukkit.entity.Player Player;
+        		Location loc;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+           			Workstr = Player.getWorld().getName();
+            		loc = Player.getBedSpawnLocation();
+            		
+            		if (loc != null){
+                		Workstr = args[1] + " " + String.valueOf(loc.getBlockX());
+                		Workstr = Workstr + ";" + String.valueOf(loc.getBlockY());
+                		Workstr = Workstr + ";" + String.valueOf(loc.getBlockZ());
+            		}
+            		else {
+            			Workstr = args[1] + " " + "null";
+            		}
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetval")) {
+        	if (args.length == 2) {
+        		double TmpDbl;
+        		org.bukkit.entity.Player Player;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+            		TmpDbl = Math.round(Player.getHealth()*100.0)/100.0;       		
+            		Workstr = String.valueOf(TmpDbl);
+            		Workstr = Workstr + ";" + String.valueOf(Player.getFoodLevel());
+            		Workstr = Workstr + ";" + String.valueOf(Player.getLevel());
+            		Workstr = args[1] + " " + Workstr;
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpset")) {
+        	
+        	if (args.length == 4) {
+        		
+        		Workstr = args[3] + " #Er3";
+           		org.bukkit.entity.Player Player;       		
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		
+           		if (!(Player != null)) {
+                	getLogger().info("<rtn> " + args[1] + " #Er4");
+                	return true;
+               	}
+               		
+        		if (args[1].equalsIgnoreCase("sethp")) {
+        			
+        			try {
+        				
+        				if (Double.parseDouble(args[2]) > Player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue()) {
+        					Workstr = args[3] + " #Er3";
+        				}
+        				else {
+            				Player.setHealth(Double.parseDouble(args[2]));
+            				Workstr = args[3] + " #Er0";
+        				}
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }      			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+                }
+        		else if (args[1].equalsIgnoreCase("setfood")) {
+        			try {
+        				Player.setFoodLevel(Integer.parseInt(args[2]));
+        				Workstr = args[3] + " #Er0";
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }             			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+        		}
+        		else if (args[1].equalsIgnoreCase("setexplv")) {
+        			try {
+        				int Val1;
+        				Val1 = Integer.parseInt(args[2]);
+        				if (Val1 >= 0) {
+            				Player.setLevel(Integer.parseInt(args[2]));
+            				Workstr = args[3] + " #Er0";	
+        				}
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }             			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+        		}
+        		else {
+        			getLogger().info("<rtn> " + Workstr);
+        			return true;	
+        		}
+        	}
+        	else {
+    			getLogger().info("<rtn> " + args[args.length-1] + " #Er3");
+    			return true;	
+        	}
+        }        
+        return false;
+    }
+    
+    //==========================================================================================================================
+    
+    static boolean TestTargetSelect(String TheStr) {
+    	if (TheStr.startsWith("@p"))	{return true;}
+    	if (TheStr.startsWith("@r"))	{return true;}
+    	if (TheStr.startsWith("@a"))	{return true;}
+    	if (TheStr.startsWith("@e"))	{return true;}
+    	if (TheStr.startsWith("@s"))	{return true;}
+    	return false;
+    }
+    
+	
+	public String GetWorldInfos(String Worldname) {
+    	String Tmpstr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+         if (element.getName().equals(Worldname)) {
+        	
+          	Tmpstr = String.valueOf(element.getEnvironment().name()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(element.getMaxHeight()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(element.getSeaLevel()) + ";";
+        	Location loc = element.getSpawnLocation();
+        	Tmpstr = Tmpstr + String.valueOf(loc.getX()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(loc.getY()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(loc.getZ());
+	
+        	return Tmpstr;
+         }
+        }
+        return "#Er4";    	
+    }
+
+	public String GetWorldInfom(String Worldname) {
+    	String Tmpstr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+         if (element.getName().equals(Worldname)) {
+        	if (element.isThundering())     {Tmpstr = "Thundering;";}
+        	else if (element.hasStorm())    {Tmpstr = "Storm;";}        	 
+        	else 							{Tmpstr = "Clear;";}
+        	Tmpstr = Tmpstr + String.valueOf(element.getTime()) + ";";
+        	return Tmpstr;
+         }
+        }
+        return "#Er4";    	
+    }
+	
+	public String GetHeightestBlock(String Worldname, int X, int Z, int TheType) {
+		
+    	int TmpInt;
+    	String TmpStr1 = "", TmpStr2 = "", TmpStr3 = "", TmpStr4 = "";
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+        	if (element.getName().equals(Worldname)) {
+        		
+        		try {
+        			
+       			
+        			if ((TheType == 0) || (TheType == 1))
+        			{
+        				TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING);  
+        				TmpStr1 = String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 2))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING_NO_LEAVES);  
+                 		TmpStr2 = String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 3))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR);  
+                 		TmpStr3 =  String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 4))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE);  
+                 		TmpStr4 =  String.valueOf(TmpInt);
+        			}
+        			
+        			if (TheType == 0)
+        			{
+        				return TmpStr1 + ";" + TmpStr2 + ";" + TmpStr3 + ";" + TmpStr4;
+        			}
+        			else
+        			{
+        				return TmpStr1 + TmpStr2 + TmpStr3 + TmpStr4;
+        			}
+        			
+             		/* TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR_WG);  
+             		   TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE_WG); */
+
+        		}
+        		catch(java.lang.IllegalArgumentException e) {
+        			return "#Er3";
+        		}
+        	}
+        }
+        return "#Er4";
+    }
+	
+	public String GetPosInfo(String Worldname, int X, int Y, int Z) {
+		
+    	double TmpDouble;
+    	Biome Thebiome;
+    	String TmpStr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+        	if (element.getName().equals(Worldname)) {
+        		
+        		try {
+        			
+        			Thebiome = element.getBiome(X,Y,Z);
+        			TmpStr = Thebiome.name();
+          			TmpDouble = element.getTemperature(X,Y,Z);        			
+        			TmpDouble = Math.round(TmpDouble*100.0)/100.0;
+        			TmpStr = TmpStr + ";" + String.valueOf(TmpDouble);
+        			TmpDouble = element.getHumidity(X,Y,Z);        			
+        			TmpDouble = Math.round(TmpDouble*100.0)/100.0;
+        			TmpStr = TmpStr + ";" + String.valueOf(TmpDouble);
+        		}
+        		catch(java.lang.IllegalArgumentException e) {
+        			return "#Er3";
+        		}
+
+        		return TmpStr;
+        	}
+        }
+        return "#Er4";
+    }
+
+	public String GetWorldList() {
+    	String Tmpstr = "";
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {       	
+        	Tmpstr = Tmpstr + element.getName() + ";";
+        }
+        Tmpstr = Tmpstr + "?";
+        Tmpstr = Tmpstr.replace(";?", "");
+        
+        return Tmpstr;
+    }
+   
+	public String CreateExpo(String Worldname, double x, double y, double z, float power,boolean setFire, boolean breakBlocks) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	if (element.getName().equals(Worldname)) {
+        		if (element.createExplosion(x,y,z,power,setFire,breakBlocks)) {
+        			return "#Er0";
+        		}
+        		else {
+        			return "#Er5";
+        		}
+        	}
+        }
+		return "#Er4";
+	}
+	
+	public String CreateTree(String Worldname,String treetype, String x, String y, String z) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	TreeType tree1;
+    	
+    	try {
+        	tree1 = org.bukkit.TreeType.valueOf(treetype);
+    	}
+    	catch (IllegalArgumentException e) {
+			return "#Er4";
+    	}    	
+    	
+        for(org.bukkit.World element : WorldList) {
+        	if (element.getName().equals(Worldname)) {
+        		try {
+        			Location loc = new Location(element, Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(z));  
+            		if (element.generateTree(loc,tree1)) {
+            			return "#Er0";
+            		}
+            		else {
+            			return "#Er5";
+            		}
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	return "#Er3";
+    	        }
+        	}
+        }
+		return "#Er4";
+	}	
+	
+	public String SetBio(String Worldname, String Bioname, int x, int y, int z) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	
+        	if (element.getName().equals(Worldname)) {
+
+        		Biome TheBiome;
+        		try {
+        			TheBiome = Biome.valueOf(Bioname);
+        			element.setBiome(x, y, z, TheBiome);
+        			return "#Er0";
+        		}
+        		catch (IllegalArgumentException e) { 
+        			return "#Er4";
+        		}
+        	}
+        }
+		return "#Er4";
+	}	
+	
+	
+}
+
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:474)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2021-05-19 05:57:07.591
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:474)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2021-05-19 05:57:07.592
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:474)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.core 4 4 2021-05-19 05:57:07.614
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package FourthWallMC.Plugin;
+
+import org.bukkit.Bukkit;
+import org.bukkit.HeightMap;
+import org.bukkit.Location;
+import org.bukkit.TreeType;
+import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Biome;
+import org.bukkit.command.BlockCommandSender;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.RemoteConsoleCommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.List;
+
+
+
+public class main extends JavaPlugin {
+	
+	String ver = "1.10"; 
+
+    @Override
+    public void onEnable() {
+    	 getLogger().info("4WMC init done. [" + ver + "]");
+    }
+    
+    @Override
+    public void onDisable() {
+    }
+    
+ 
+    
+    @Override
+    public boolean onCommand(CommandSender sender,
+                             Command command,
+                             String label,
+                             String[] args) {
+    	
+    	
+    	if (args.length == 0) { return false; }
+    	
+        String TrueSenderStr = "";
+
+
+        if (sender instanceof BlockCommandSender) {
+        	Location Loc;
+            final BlockCommandSender bsender = (BlockCommandSender) sender;
+            Loc = bsender.getBlock().getLocation();
+            TrueSenderStr = "*CommandBlock:" + 
+            		String.valueOf((int) Math.round(Loc.getX())) + "," +
+            		String.valueOf((int) Math.round(Loc.getY())) + "," +
+            		String.valueOf((int) Math.round(Loc.getZ()));
+            TrueSenderStr += ";" + bsender.getBlock().getWorld().getName();
+        }
+        else if (sender instanceof ConsoleCommandSender) {
+            final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
+            TrueSenderStr = "*" + Csender.getName();
+        } 
+        else if (sender instanceof RemoteConsoleCommandSender) {
+            final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
+            TrueSenderStr = "*" + Csender.getName();
+        }    
+        else {
+    		org.bukkit.entity.Player Player;
+       		Player = Bukkit.getPlayerExact(sender.getName());
+        	TrueSenderStr = sender.getName();
+        	TrueSenderStr += ";" + Player.getWorld().getName();
+        }
+    	
+   
+        if (command.getName().equalsIgnoreCase("fwts")) {
+
+            String str = "";
+            
+            for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
+            	
+            	if (TestTargetSelect(args[Theidx1])) {
+                	try {
+                    	List<org.bukkit.entity.Entity> EntList;
+                    	EntList = org.bukkit.Bukkit.selectEntities(sender,args[Theidx1]);
+                		
+                        for(org.bukkit.entity.Entity element : EntList) {
+                        	str = str + element.getName() + " ";
+                        }
+                	}
+                	catch(java.lang.IllegalArgumentException e)	{
+                		str =  str + args[Theidx1] + " ";
+                	}
+            	}
+            	else {
+                	str =  str + args[Theidx1] + " ";
+            	}
+            }
+            if (!str.equals("")) {
+            	getLogger().info("<cmd> " + TrueSenderStr + " " + str);
+            }
+            return true;
+        }
+
+        if (command.getName().equalsIgnoreCase("fwra")) {
+        
+            String str = "";
+        	for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
+            	str =  str + args[Theidx1] + " ";
+        	}
+            if (!str.equals("")) {
+            	getLogger().info("<cmd> " + TrueSenderStr + " " + str);
+            }
+            return true;
+        }
+        
+        
+        /*if (command.getName().equalsIgnoreCase("ffff")) {
+        	Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "say hi");
+        	getLogger().info("ffff");
+        	 return true;
+        }*/
+        
+        if (!sender.getName().equals("@") && !sender.getName().equals("CONSOLE")) {return true;}
+        //===================================================Console only-----
+        
+        String Workstr;
+
+        if (command.getName().equalsIgnoreCase("fwsgetinf")) {        	
+        	if (args.length == 1) {
+        		
+        		String TmpStr = Bukkit.getIp();
+        		if (TmpStr.equals("")) {TmpStr = "*";}
+        		
+            	Workstr = Bukkit.getMotd();
+            	Workstr = Workstr + ";" + Bukkit.getVersion();
+            	Workstr = Workstr + ";" + Bukkit.getBukkitVersion();
+            	Workstr = Workstr + ";" + Boolean.toString(Bukkit.isHardcore());
+            	Workstr = Workstr + ";" + TmpStr;
+            	Workstr = Workstr + ";" + String.valueOf(Bukkit.getPort());      		
+        		Workstr = args[0] + " " + Workstr;
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }        
+        
+        if (command.getName().equalsIgnoreCase("fwlistw")) {        	
+        	if (args.length == 1) {
+        		Workstr = args[0] + " " + GetWorldList();
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetinfs")) {
+        	if (args.length == 2) {           	
+        		Workstr = args[1] + " " + GetWorldInfos(args[0]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetinfm")) {
+        	if (args.length == 2) {           	
+        		Workstr = args[1] + " " + GetWorldInfom(args[0]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwget1h")) {
+        	if ((args.length == 4) || (args.length == 5)) {           	
+        		int TheX;
+        		int TheZ;
+        		int TheType = 0;
+        		int argsUper = args.length - 1;
+        		try {
+        			TheX = Integer.parseInt(args[1]);
+        			TheZ = Integer.parseInt(args[2]);
+
+        			if (args.length == 5) 
+        			{TheType = Integer.parseInt(args[3]);
+        				if (TheType >= 5) || (TheType < 0)
+        			} 
+        			
+        			
+        			Workstr = args[argsUper] + " " + GetHeightestBlock(args[0], TheX, TheZ, TheType);
+        		}
+        		catch (NumberFormatException ex) {
+        			Workstr = args[argsUper] + " #Er3";
+        		}
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetp")) {
+        	if (args.length == 5) {           	
+        			int TheX;
+        			int TheY;
+        			int TheZ;
+        	        try {
+            			TheX = Integer.parseInt(args[1]);
+            			TheY = Integer.parseInt(args[2]);
+            			TheZ = Integer.parseInt(args[3]);
+            			Workstr = args[4] + " " + GetPosInfo(args[0], TheX, TheY, TheZ);
+        	        }
+        	        catch (NumberFormatException ex) {
+            			Workstr = args[4] + " #Er3";
+        	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+        	return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwcexpo")) {
+        	
+        	if (args.length == 8) {           	
+        	
+                String Worldname = "";
+    			double TheX;
+    			double TheY;
+    			double TheZ;
+    			float Pwr;
+        		
+        		try {
+        			Worldname = args[0];
+        			TheX = Double.parseDouble(args[1]);
+        			TheY = Double.parseDouble(args[2]);
+        			TheZ = Double.parseDouble(args[3]);
+        			Pwr = Float.parseFloat(args[4]);
+        			Workstr = args[7] + " " + CreateExpo(Worldname,TheX,TheY,TheZ,Pwr,
+        					(Integer.parseInt(args[5])==1),(Integer.parseInt(args[6])==1));
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	Workstr = args[7] + " #Er3";
+    	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwctree")) {
+        	
+        	if (args.length == 6) {           	
+        		Workstr = args[5] + " " + CreateTree(args[0], args[1], args[2], args[3], args[4]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwsetbio")) {
+        	
+        	if (args.length == 6) {           	
+        	
+    			int TheX;
+    			int TheY;
+    			int TheZ;
+       		
+        		try {
+        			TheX = Integer.parseInt(args[2]);
+        			TheY = Integer.parseInt(args[3]);
+        			TheZ = Integer.parseInt(args[4]);
+        			Workstr = args[5] + " " + SetBio(args[0],args[1],TheX,TheY,TheZ);
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	Workstr = args[5] + " #Er3";
+    	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetpos")) {
+        	if (args.length == 2) {
+        		float TmpFlt;
+        		org.bukkit.entity.Player Player;
+        		Location loc;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+           			Workstr = Player.getWorld().getName();
+            		loc = Player.getLocation();
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockX());
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockY());
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockZ());
+            		TmpFlt = (float) (Math.round(Player.getLocation().getYaw()*100.0)/100.0);  
+            		Workstr = Workstr + ";" + String.valueOf(TmpFlt);
+            		TmpFlt = (float) (Math.round(Player.getLocation().getPitch()*100.0)/100.0);  
+            		Workstr = Workstr + ";" + String.valueOf(TmpFlt);
+            		Workstr = args[1] + " " + Workstr;
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetspa")) {
+        	if (args.length == 2) {
+        		org.bukkit.entity.Player Player;
+        		Location loc;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+           			Workstr = Player.getWorld().getName();
+            		loc = Player.getBedSpawnLocation();
+            		
+            		if (loc != null){
+                		Workstr = args[1] + " " + String.valueOf(loc.getBlockX());
+                		Workstr = Workstr + ";" + String.valueOf(loc.getBlockY());
+                		Workstr = Workstr + ";" + String.valueOf(loc.getBlockZ());
+            		}
+            		else {
+            			Workstr = args[1] + " " + "null";
+            		}
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetval")) {
+        	if (args.length == 2) {
+        		double TmpDbl;
+        		org.bukkit.entity.Player Player;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+            		TmpDbl = Math.round(Player.getHealth()*100.0)/100.0;       		
+            		Workstr = String.valueOf(TmpDbl);
+            		Workstr = Workstr + ";" + String.valueOf(Player.getFoodLevel());
+            		Workstr = Workstr + ";" + String.valueOf(Player.getLevel());
+            		Workstr = args[1] + " " + Workstr;
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpset")) {
+        	
+        	if (args.length == 4) {
+        		
+        		Workstr = args[3] + " #Er3";
+           		org.bukkit.entity.Player Player;       		
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		
+           		if (!(Player != null)) {
+                	getLogger().info("<rtn> " + args[1] + " #Er4");
+                	return true;
+               	}
+               		
+        		if (args[1].equalsIgnoreCase("sethp")) {
+        			
+        			try {
+        				
+        				if (Double.parseDouble(args[2]) > Player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue()) {
+        					Workstr = args[3] + " #Er3";
+        				}
+        				else {
+            				Player.setHealth(Double.parseDouble(args[2]));
+            				Workstr = args[3] + " #Er0";
+        				}
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }      			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+                }
+        		else if (args[1].equalsIgnoreCase("setfood")) {
+        			try {
+        				Player.setFoodLevel(Integer.parseInt(args[2]));
+        				Workstr = args[3] + " #Er0";
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }             			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+        		}
+        		else if (args[1].equalsIgnoreCase("setexplv")) {
+        			try {
+        				int Val1;
+        				Val1 = Integer.parseInt(args[2]);
+        				if (Val1 >= 0) {
+            				Player.setLevel(Integer.parseInt(args[2]));
+            				Workstr = args[3] + " #Er0";	
+        				}
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }             			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+        		}
+        		else {
+        			getLogger().info("<rtn> " + Workstr);
+        			return true;	
+        		}
+        	}
+        	else {
+    			getLogger().info("<rtn> " + args[args.length-1] + " #Er3");
+    			return true;	
+        	}
+        }        
+        return false;
+    }
+    
+    //==========================================================================================================================
+    
+    static boolean TestTargetSelect(String TheStr) {
+    	if (TheStr.startsWith("@p"))	{return true;}
+    	if (TheStr.startsWith("@r"))	{return true;}
+    	if (TheStr.startsWith("@a"))	{return true;}
+    	if (TheStr.startsWith("@e"))	{return true;}
+    	if (TheStr.startsWith("@s"))	{return true;}
+    	return false;
+    }
+    
+	
+	public String GetWorldInfos(String Worldname) {
+    	String Tmpstr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+         if (element.getName().equals(Worldname)) {
+        	
+          	Tmpstr = String.valueOf(element.getEnvironment().name()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(element.getMaxHeight()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(element.getSeaLevel()) + ";";
+        	Location loc = element.getSpawnLocation();
+        	Tmpstr = Tmpstr + String.valueOf(loc.getX()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(loc.getY()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(loc.getZ());
+	
+        	return Tmpstr;
+         }
+        }
+        return "#Er4";    	
+    }
+
+	public String GetWorldInfom(String Worldname) {
+    	String Tmpstr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+         if (element.getName().equals(Worldname)) {
+        	if (element.isThundering())     {Tmpstr = "Thundering;";}
+        	else if (element.hasStorm())    {Tmpstr = "Storm;";}        	 
+        	else 							{Tmpstr = "Clear;";}
+        	Tmpstr = Tmpstr + String.valueOf(element.getTime()) + ";";
+        	return Tmpstr;
+         }
+        }
+        return "#Er4";    	
+    }
+	
+	public String GetHeightestBlock(String Worldname, int X, int Z, int TheType) {
+		
+    	int TmpInt;
+    	String TmpStr1 = "", TmpStr2 = "", TmpStr3 = "", TmpStr4 = "";
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+        	if (element.getName().equals(Worldname)) {
+        		
+        		try {
+        			
+       			
+        			if ((TheType == 0) || (TheType == 1))
+        			{
+        				TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING);  
+        				TmpStr1 = String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 2))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING_NO_LEAVES);  
+                 		TmpStr2 = String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 3))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR);  
+                 		TmpStr3 =  String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 4))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE);  
+                 		TmpStr4 =  String.valueOf(TmpInt);
+        			}
+        			
+        			if (TheType == 0)
+        			{
+        				return TmpStr1 + ";" + TmpStr2 + ";" + TmpStr3 + ";" + TmpStr4;
+        			}
+        			else
+        			{
+        				return TmpStr1 + TmpStr2 + TmpStr3 + TmpStr4;
+        			}
+        			
+             		/* TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR_WG);  
+             		   TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE_WG); */
+
+        		}
+        		catch(java.lang.IllegalArgumentException e) {
+        			return "#Er3";
+        		}
+        	}
+        }
+        return "#Er4";
+    }
+	
+	public String GetPosInfo(String Worldname, int X, int Y, int Z) {
+		
+    	double TmpDouble;
+    	Biome Thebiome;
+    	String TmpStr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+        	if (element.getName().equals(Worldname)) {
+        		
+        		try {
+        			
+        			Thebiome = element.getBiome(X,Y,Z);
+        			TmpStr = Thebiome.name();
+          			TmpDouble = element.getTemperature(X,Y,Z);        			
+        			TmpDouble = Math.round(TmpDouble*100.0)/100.0;
+        			TmpStr = TmpStr + ";" + String.valueOf(TmpDouble);
+        			TmpDouble = element.getHumidity(X,Y,Z);        			
+        			TmpDouble = Math.round(TmpDouble*100.0)/100.0;
+        			TmpStr = TmpStr + ";" + String.valueOf(TmpDouble);
+        		}
+        		catch(java.lang.IllegalArgumentException e) {
+        			return "#Er3";
+        		}
+
+        		return TmpStr;
+        	}
+        }
+        return "#Er4";
+    }
+
+	public String GetWorldList() {
+    	String Tmpstr = "";
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {       	
+        	Tmpstr = Tmpstr + element.getName() + ";";
+        }
+        Tmpstr = Tmpstr + "?";
+        Tmpstr = Tmpstr.replace(";?", "");
+        
+        return Tmpstr;
+    }
+   
+	public String CreateExpo(String Worldname, double x, double y, double z, float power,boolean setFire, boolean breakBlocks) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	if (element.getName().equals(Worldname)) {
+        		if (element.createExplosion(x,y,z,power,setFire,breakBlocks)) {
+        			return "#Er0";
+        		}
+        		else {
+        			return "#Er5";
+        		}
+        	}
+        }
+		return "#Er4";
+	}
+	
+	public String CreateTree(String Worldname,String treetype, String x, String y, String z) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	TreeType tree1;
+    	
+    	try {
+        	tree1 = org.bukkit.TreeType.valueOf(treetype);
+    	}
+    	catch (IllegalArgumentException e) {
+			return "#Er4";
+    	}    	
+    	
+        for(org.bukkit.World element : WorldList) {
+        	if (element.getName().equals(Worldname)) {
+        		try {
+        			Location loc = new Location(element, Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(z));  
+            		if (element.generateTree(loc,tree1)) {
+            			return "#Er0";
+            		}
+            		else {
+            			return "#Er5";
+            		}
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	return "#Er3";
+    	        }
+        	}
+        }
+		return "#Er4";
+	}	
+	
+	public String SetBio(String Worldname, String Bioname, int x, int y, int z) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	
+        	if (element.getName().equals(Worldname)) {
+
+        		Biome TheBiome;
+        		try {
+        			TheBiome = Biome.valueOf(Bioname);
+        			element.setBiome(x, y, z, TheBiome);
+        			return "#Er0";
+        		}
+        		catch (IllegalArgumentException e) { 
+        			return "#Er4";
+        		}
+        	}
+        }
+		return "#Er4";
+	}	
+	
+	
+}
+
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1231)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:820)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:272)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:264)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:197)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:187)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 2 2021-05-19 05:57:07.615
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core.manipulation".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1231)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:820)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:272)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:264)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:197)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:187)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 0 2021-05-19 05:57:07.616
+!MESSAGE Error in JDT Core during AST creation
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1231)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:820)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:272)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:264)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:197)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:187)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core 4 4 2021-05-19 05:57:07.939
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package FourthWallMC.Plugin;
+
+import org.bukkit.Bukkit;
+import org.bukkit.HeightMap;
+import org.bukkit.Location;
+import org.bukkit.TreeType;
+import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Biome;
+import org.bukkit.command.BlockCommandSender;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.RemoteConsoleCommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.List;
+
+
+
+public class main extends JavaPlugin {
+	
+	String ver = "1.10"; 
+
+    @Override
+    public void onEnable() {
+    	 getLogger().info("4WMC init done. [" + ver + "]");
+    }
+    
+    @Override
+    public void onDisable() {
+    }
+    
+ 
+    
+    @Override
+    public boolean onCommand(CommandSender sender,
+                             Command command,
+                             String label,
+                             String[] args) {
+    	
+    	
+    	if (args.length == 0) { return false; }
+    	
+        String TrueSenderStr = "";
+
+
+        if (sender instanceof BlockCommandSender) {
+        	Location Loc;
+            final BlockCommandSender bsender = (BlockCommandSender) sender;
+            Loc = bsender.getBlock().getLocation();
+            TrueSenderStr = "*CommandBlock:" + 
+            		String.valueOf((int) Math.round(Loc.getX())) + "," +
+            		String.valueOf((int) Math.round(Loc.getY())) + "," +
+            		String.valueOf((int) Math.round(Loc.getZ()));
+            TrueSenderStr += ";" + bsender.getBlock().getWorld().getName();
+        }
+        else if (sender instanceof ConsoleCommandSender) {
+            final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
+            TrueSenderStr = "*" + Csender.getName();
+        } 
+        else if (sender instanceof RemoteConsoleCommandSender) {
+            final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
+            TrueSenderStr = "*" + Csender.getName();
+        }    
+        else {
+    		org.bukkit.entity.Player Player;
+       		Player = Bukkit.getPlayerExact(sender.getName());
+        	TrueSenderStr = sender.getName();
+        	TrueSenderStr += ";" + Player.getWorld().getName();
+        }
+    	
+   
+        if (command.getName().equalsIgnoreCase("fwts")) {
+
+            String str = "";
+            
+            for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
+            	
+            	if (TestTargetSelect(args[Theidx1])) {
+                	try {
+                    	List<org.bukkit.entity.Entity> EntList;
+                    	EntList = org.bukkit.Bukkit.selectEntities(sender,args[Theidx1]);
+                		
+                        for(org.bukkit.entity.Entity element : EntList) {
+                        	str = str + element.getName() + " ";
+                        }
+                	}
+                	catch(java.lang.IllegalArgumentException e)	{
+                		str =  str + args[Theidx1] + " ";
+                	}
+            	}
+            	else {
+                	str =  str + args[Theidx1] + " ";
+            	}
+            }
+            if (!str.equals("")) {
+            	getLogger().info("<cmd> " + TrueSenderStr + " " + str);
+            }
+            return true;
+        }
+
+        if (command.getName().equalsIgnoreCase("fwra")) {
+        
+            String str = "";
+        	for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
+            	str =  str + args[Theidx1] + " ";
+        	}
+            if (!str.equals("")) {
+            	getLogger().info("<cmd> " + TrueSenderStr + " " + str);
+            }
+            return true;
+        }
+        
+        
+        /*if (command.getName().equalsIgnoreCase("ffff")) {
+        	Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "say hi");
+        	getLogger().info("ffff");
+        	 return true;
+        }*/
+        
+        if (!sender.getName().equals("@") && !sender.getName().equals("CONSOLE")) {return true;}
+        //===================================================Console only-----
+        
+        String Workstr;
+
+        if (command.getName().equalsIgnoreCase("fwsgetinf")) {        	
+        	if (args.length == 1) {
+        		
+        		String TmpStr = Bukkit.getIp();
+        		if (TmpStr.equals("")) {TmpStr = "*";}
+        		
+            	Workstr = Bukkit.getMotd();
+            	Workstr = Workstr + ";" + Bukkit.getVersion();
+            	Workstr = Workstr + ";" + Bukkit.getBukkitVersion();
+            	Workstr = Workstr + ";" + Boolean.toString(Bukkit.isHardcore());
+            	Workstr = Workstr + ";" + TmpStr;
+            	Workstr = Workstr + ";" + String.valueOf(Bukkit.getPort());      		
+        		Workstr = args[0] + " " + Workstr;
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }        
+        
+        if (command.getName().equalsIgnoreCase("fwlistw")) {        	
+        	if (args.length == 1) {
+        		Workstr = args[0] + " " + GetWorldList();
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetinfs")) {
+        	if (args.length == 2) {           	
+        		Workstr = args[1] + " " + GetWorldInfos(args[0]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetinfm")) {
+        	if (args.length == 2) {           	
+        		Workstr = args[1] + " " + GetWorldInfom(args[0]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwget1h")) {
+        	if ((args.length == 4) || (args.length == 5)) {           	
+        		int TheX;
+        		int TheZ;
+        		int TheType = 0;
+        		int argsUper = args.length - 1;
+        		try {
+        			TheX = Integer.parseInt(args[1]);
+        			TheZ = Integer.parseInt(args[2]);
+
+        			if (args.length == 5) 
+        			{TheType = Integer.parseInt(args[3]);
+        				if (TheType >= 5) || (TheType < 0)
+        			} 
+        			
+        			
+        			Workstr = args[argsUper] + " " + GetHeightestBlock(args[0], TheX, TheZ, TheType);
+        		}
+        		catch (NumberFormatException ex) {
+        			Workstr = args[argsUper] + " #Er3";
+        		}
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetp")) {
+        	if (args.length == 5) {           	
+        			int TheX;
+        			int TheY;
+        			int TheZ;
+        	        try {
+            			TheX = Integer.parseInt(args[1]);
+            			TheY = Integer.parseInt(args[2]);
+            			TheZ = Integer.parseInt(args[3]);
+            			Workstr = args[4] + " " + GetPosInfo(args[0], TheX, TheY, TheZ);
+        	        }
+        	        catch (NumberFormatException ex) {
+            			Workstr = args[4] + " #Er3";
+        	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+        	return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwcexpo")) {
+        	
+        	if (args.length == 8) {           	
+        	
+                String Worldname = "";
+    			double TheX;
+    			double TheY;
+    			double TheZ;
+    			float Pwr;
+        		
+        		try {
+        			Worldname = args[0];
+        			TheX = Double.parseDouble(args[1]);
+        			TheY = Double.parseDouble(args[2]);
+        			TheZ = Double.parseDouble(args[3]);
+        			Pwr = Float.parseFloat(args[4]);
+        			Workstr = args[7] + " " + CreateExpo(Worldname,TheX,TheY,TheZ,Pwr,
+        					(Integer.parseInt(args[5])==1),(Integer.parseInt(args[6])==1));
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	Workstr = args[7] + " #Er3";
+    	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwctree")) {
+        	
+        	if (args.length == 6) {           	
+        		Workstr = args[5] + " " + CreateTree(args[0], args[1], args[2], args[3], args[4]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwsetbio")) {
+        	
+        	if (args.length == 6) {           	
+        	
+    			int TheX;
+    			int TheY;
+    			int TheZ;
+       		
+        		try {
+        			TheX = Integer.parseInt(args[2]);
+        			TheY = Integer.parseInt(args[3]);
+        			TheZ = Integer.parseInt(args[4]);
+        			Workstr = args[5] + " " + SetBio(args[0],args[1],TheX,TheY,TheZ);
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	Workstr = args[5] + " #Er3";
+    	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetpos")) {
+        	if (args.length == 2) {
+        		float TmpFlt;
+        		org.bukkit.entity.Player Player;
+        		Location loc;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+           			Workstr = Player.getWorld().getName();
+            		loc = Player.getLocation();
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockX());
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockY());
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockZ());
+            		TmpFlt = (float) (Math.round(Player.getLocation().getYaw()*100.0)/100.0);  
+            		Workstr = Workstr + ";" + String.valueOf(TmpFlt);
+            		TmpFlt = (float) (Math.round(Player.getLocation().getPitch()*100.0)/100.0);  
+            		Workstr = Workstr + ";" + String.valueOf(TmpFlt);
+            		Workstr = args[1] + " " + Workstr;
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetspa")) {
+        	if (args.length == 2) {
+        		org.bukkit.entity.Player Player;
+        		Location loc;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+           			Workstr = Player.getWorld().getName();
+            		loc = Player.getBedSpawnLocation();
+            		
+            		if (loc != null){
+                		Workstr = args[1] + " " + String.valueOf(loc.getBlockX());
+                		Workstr = Workstr + ";" + String.valueOf(loc.getBlockY());
+                		Workstr = Workstr + ";" + String.valueOf(loc.getBlockZ());
+            		}
+            		else {
+            			Workstr = args[1] + " " + "null";
+            		}
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetval")) {
+        	if (args.length == 2) {
+        		double TmpDbl;
+        		org.bukkit.entity.Player Player;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+            		TmpDbl = Math.round(Player.getHealth()*100.0)/100.0;       		
+            		Workstr = String.valueOf(TmpDbl);
+            		Workstr = Workstr + ";" + String.valueOf(Player.getFoodLevel());
+            		Workstr = Workstr + ";" + String.valueOf(Player.getLevel());
+            		Workstr = args[1] + " " + Workstr;
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpset")) {
+        	
+        	if (args.length == 4) {
+        		
+        		Workstr = args[3] + " #Er3";
+           		org.bukkit.entity.Player Player;       		
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		
+           		if (!(Player != null)) {
+                	getLogger().info("<rtn> " + args[1] + " #Er4");
+                	return true;
+               	}
+               		
+        		if (args[1].equalsIgnoreCase("sethp")) {
+        			
+        			try {
+        				
+        				if (Double.parseDouble(args[2]) > Player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue()) {
+        					Workstr = args[3] + " #Er3";
+        				}
+        				else {
+            				Player.setHealth(Double.parseDouble(args[2]));
+            				Workstr = args[3] + " #Er0";
+        				}
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }      			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+                }
+        		else if (args[1].equalsIgnoreCase("setfood")) {
+        			try {
+        				Player.setFoodLevel(Integer.parseInt(args[2]));
+        				Workstr = args[3] + " #Er0";
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }             			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+        		}
+        		else if (args[1].equalsIgnoreCase("setexplv")) {
+        			try {
+        				int Val1;
+        				Val1 = Integer.parseInt(args[2]);
+        				if (Val1 >= 0) {
+            				Player.setLevel(Integer.parseInt(args[2]));
+            				Workstr = args[3] + " #Er0";	
+        				}
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }             			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+        		}
+        		else {
+        			getLogger().info("<rtn> " + Workstr);
+        			return true;	
+        		}
+        	}
+        	else {
+    			getLogger().info("<rtn> " + args[args.length-1] + " #Er3");
+    			return true;	
+        	}
+        }        
+        return false;
+    }
+    
+    //==========================================================================================================================
+    
+    static boolean TestTargetSelect(String TheStr) {
+    	if (TheStr.startsWith("@p"))	{return true;}
+    	if (TheStr.startsWith("@r"))	{return true;}
+    	if (TheStr.startsWith("@a"))	{return true;}
+    	if (TheStr.startsWith("@e"))	{return true;}
+    	if (TheStr.startsWith("@s"))	{return true;}
+    	return false;
+    }
+    
+	
+	public String GetWorldInfos(String Worldname) {
+    	String Tmpstr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+         if (element.getName().equals(Worldname)) {
+        	
+          	Tmpstr = String.valueOf(element.getEnvironment().name()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(element.getMaxHeight()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(element.getSeaLevel()) + ";";
+        	Location loc = element.getSpawnLocation();
+        	Tmpstr = Tmpstr + String.valueOf(loc.getX()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(loc.getY()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(loc.getZ());
+	
+        	return Tmpstr;
+         }
+        }
+        return "#Er4";    	
+    }
+
+	public String GetWorldInfom(String Worldname) {
+    	String Tmpstr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+         if (element.getName().equals(Worldname)) {
+        	if (element.isThundering())     {Tmpstr = "Thundering;";}
+        	else if (element.hasStorm())    {Tmpstr = "Storm;";}        	 
+        	else 							{Tmpstr = "Clear;";}
+        	Tmpstr = Tmpstr + String.valueOf(element.getTime()) + ";";
+        	return Tmpstr;
+         }
+        }
+        return "#Er4";    	
+    }
+	
+	public String GetHeightestBlock(String Worldname, int X, int Z, int TheType) {
+		
+    	int TmpInt;
+    	String TmpStr1 = "", TmpStr2 = "", TmpStr3 = "", TmpStr4 = "";
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+        	if (element.getName().equals(Worldname)) {
+        		
+        		try {
+        			
+       			
+        			if ((TheType == 0) || (TheType == 1))
+        			{
+        				TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING);  
+        				TmpStr1 = String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 2))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING_NO_LEAVES);  
+                 		TmpStr2 = String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 3))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR);  
+                 		TmpStr3 =  String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 4))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE);  
+                 		TmpStr4 =  String.valueOf(TmpInt);
+        			}
+        			
+        			if (TheType == 0)
+        			{
+        				return TmpStr1 + ";" + TmpStr2 + ";" + TmpStr3 + ";" + TmpStr4;
+        			}
+        			else
+        			{
+        				return TmpStr1 + TmpStr2 + TmpStr3 + TmpStr4;
+        			}
+        			
+             		/* TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR_WG);  
+             		   TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE_WG); */
+
+        		}
+        		catch(java.lang.IllegalArgumentException e) {
+        			return "#Er3";
+        		}
+        	}
+        }
+        return "#Er4";
+    }
+	
+	public String GetPosInfo(String Worldname, int X, int Y, int Z) {
+		
+    	double TmpDouble;
+    	Biome Thebiome;
+    	String TmpStr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+        	if (element.getName().equals(Worldname)) {
+        		
+        		try {
+        			
+        			Thebiome = element.getBiome(X,Y,Z);
+        			TmpStr = Thebiome.name();
+          			TmpDouble = element.getTemperature(X,Y,Z);        			
+        			TmpDouble = Math.round(TmpDouble*100.0)/100.0;
+        			TmpStr = TmpStr + ";" + String.valueOf(TmpDouble);
+        			TmpDouble = element.getHumidity(X,Y,Z);        			
+        			TmpDouble = Math.round(TmpDouble*100.0)/100.0;
+        			TmpStr = TmpStr + ";" + String.valueOf(TmpDouble);
+        		}
+        		catch(java.lang.IllegalArgumentException e) {
+        			return "#Er3";
+        		}
+
+        		return TmpStr;
+        	}
+        }
+        return "#Er4";
+    }
+
+	public String GetWorldList() {
+    	String Tmpstr = "";
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {       	
+        	Tmpstr = Tmpstr + element.getName() + ";";
+        }
+        Tmpstr = Tmpstr + "?";
+        Tmpstr = Tmpstr.replace(";?", "");
+        
+        return Tmpstr;
+    }
+   
+	public String CreateExpo(String Worldname, double x, double y, double z, float power,boolean setFire, boolean breakBlocks) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	if (element.getName().equals(Worldname)) {
+        		if (element.createExplosion(x,y,z,power,setFire,breakBlocks)) {
+        			return "#Er0";
+        		}
+        		else {
+        			return "#Er5";
+        		}
+        	}
+        }
+		return "#Er4";
+	}
+	
+	public String CreateTree(String Worldname,String treetype, String x, String y, String z) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	TreeType tree1;
+    	
+    	try {
+        	tree1 = org.bukkit.TreeType.valueOf(treetype);
+    	}
+    	catch (IllegalArgumentException e) {
+			return "#Er4";
+    	}    	
+    	
+        for(org.bukkit.World element : WorldList) {
+        	if (element.getName().equals(Worldname)) {
+        		try {
+        			Location loc = new Location(element, Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(z));  
+            		if (element.generateTree(loc,tree1)) {
+            			return "#Er0";
+            		}
+            		else {
+            			return "#Er5";
+            		}
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	return "#Er3";
+    	        }
+        	}
+        }
+		return "#Er4";
+	}	
+	
+	public String SetBio(String Worldname, String Bioname, int x, int y, int z) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	
+        	if (element.getName().equals(Worldname)) {
+
+        		Biome TheBiome;
+        		try {
+        			TheBiome = Biome.valueOf(Bioname);
+        			element.setBiome(x, y, z, TheBiome);
+        			return "#Er0";
+        		}
+        		catch (IllegalArgumentException e) { 
+        			return "#Er4";
+        		}
+        	}
+        }
+		return "#Er4";
+	}	
+	
+	
+}
+
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1231)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:820)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:272)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:264)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:197)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 2 2021-05-19 05:57:07.941
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core.manipulation".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1231)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:820)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:272)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:264)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:197)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 0 2021-05-19 05:57:07.942
+!MESSAGE Error in JDT Core during AST creation
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1231)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:820)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:272)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:264)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:197)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core 4 4 2021-05-19 05:57:08.617
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package FourthWallMC.Plugin;
+
+import org.bukkit.Bukkit;
+import org.bukkit.HeightMap;
+import org.bukkit.Location;
+import org.bukkit.TreeType;
+import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Biome;
+import org.bukkit.command.BlockCommandSender;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.RemoteConsoleCommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.List;
+
+
+
+public class main extends JavaPlugin {
+	
+	String ver = "1.10"; 
+
+    @Override
+    public void onEnable() {
+    	 getLogger().info("4WMC init done. [" + ver + "]");
+    }
+    
+    @Override
+    public void onDisable() {
+    }
+    
+ 
+    
+    @Override
+    public boolean onCommand(CommandSender sender,
+                             Command command,
+                             String label,
+                             String[] args) {
+    	
+    	
+    	if (args.length == 0) { return false; }
+    	
+        String TrueSenderStr = "";
+
+
+        if (sender instanceof BlockCommandSender) {
+        	Location Loc;
+            final BlockCommandSender bsender = (BlockCommandSender) sender;
+            Loc = bsender.getBlock().getLocation();
+            TrueSenderStr = "*CommandBlock:" + 
+            		String.valueOf((int) Math.round(Loc.getX())) + "," +
+            		String.valueOf((int) Math.round(Loc.getY())) + "," +
+            		String.valueOf((int) Math.round(Loc.getZ()));
+            TrueSenderStr += ";" + bsender.getBlock().getWorld().getName();
+        }
+        else if (sender instanceof ConsoleCommandSender) {
+            final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
+            TrueSenderStr = "*" + Csender.getName();
+        } 
+        else if (sender instanceof RemoteConsoleCommandSender) {
+            final ConsoleCommandSender Csender = (ConsoleCommandSender) sender;
+            TrueSenderStr = "*" + Csender.getName();
+        }    
+        else {
+    		org.bukkit.entity.Player Player;
+       		Player = Bukkit.getPlayerExact(sender.getName());
+        	TrueSenderStr = sender.getName();
+        	TrueSenderStr += ";" + Player.getWorld().getName();
+        }
+    	
+   
+        if (command.getName().equalsIgnoreCase("fwts")) {
+
+            String str = "";
+            
+            for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
+            	
+            	if (TestTargetSelect(args[Theidx1])) {
+                	try {
+                    	List<org.bukkit.entity.Entity> EntList;
+                    	EntList = org.bukkit.Bukkit.selectEntities(sender,args[Theidx1]);
+                		
+                        for(org.bukkit.entity.Entity element : EntList) {
+                        	str = str + element.getName() + " ";
+                        }
+                	}
+                	catch(java.lang.IllegalArgumentException e)	{
+                		str =  str + args[Theidx1] + " ";
+                	}
+            	}
+            	else {
+                	str =  str + args[Theidx1] + " ";
+            	}
+            }
+            if (!str.equals("")) {
+            	getLogger().info("<cmd> " + TrueSenderStr + " " + str);
+            }
+            return true;
+        }
+
+        if (command.getName().equalsIgnoreCase("fwra")) {
+        
+            String str = "";
+        	for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
+            	str =  str + args[Theidx1] + " ";
+        	}
+            if (!str.equals("")) {
+            	getLogger().info("<cmd> " + TrueSenderStr + " " + str);
+            }
+            return true;
+        }
+        
+        
+        /*if (command.getName().equalsIgnoreCase("ffff")) {
+        	Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "say hi");
+        	getLogger().info("ffff");
+        	 return true;
+        }*/
+        
+        if (!sender.getName().equals("@") && !sender.getName().equals("CONSOLE")) {return true;}
+        //===================================================Console only-----
+        
+        String Workstr;
+
+        if (command.getName().equalsIgnoreCase("fwsgetinf")) {        	
+        	if (args.length == 1) {
+        		
+        		String TmpStr = Bukkit.getIp();
+        		if (TmpStr.equals("")) {TmpStr = "*";}
+        		
+            	Workstr = Bukkit.getMotd();
+            	Workstr = Workstr + ";" + Bukkit.getVersion();
+            	Workstr = Workstr + ";" + Bukkit.getBukkitVersion();
+            	Workstr = Workstr + ";" + Boolean.toString(Bukkit.isHardcore());
+            	Workstr = Workstr + ";" + TmpStr;
+            	Workstr = Workstr + ";" + String.valueOf(Bukkit.getPort());      		
+        		Workstr = args[0] + " " + Workstr;
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }        
+        
+        if (command.getName().equalsIgnoreCase("fwlistw")) {        	
+        	if (args.length == 1) {
+        		Workstr = args[0] + " " + GetWorldList();
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetinfs")) {
+        	if (args.length == 2) {           	
+        		Workstr = args[1] + " " + GetWorldInfos(args[0]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetinfm")) {
+        	if (args.length == 2) {           	
+        		Workstr = args[1] + " " + GetWorldInfom(args[0]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwget1h")) {
+        	if ((args.length == 4) || (args.length == 5)) {           	
+        		int TheX;
+        		int TheZ;
+        		int TheType = 0;
+        		int argsUper = args.length - 1;
+        		try {
+        			TheX = Integer.parseInt(args[1]);
+        			TheZ = Integer.parseInt(args[2]);
+
+        			if (args.length == 5) 
+        			{TheType = Integer.parseInt(args[3]);
+        				if (TheType >= 5) || (TheType << 0)
+        			} 
+        			
+        			
+        			Workstr = args[argsUper] + " " + GetHeightestBlock(args[0], TheX, TheZ, TheType);
+        		}
+        		catch (NumberFormatException ex) {
+        			Workstr = args[argsUper] + " #Er3";
+        		}
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+    		return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwwgetp")) {
+        	if (args.length == 5) {           	
+        			int TheX;
+        			int TheY;
+        			int TheZ;
+        	        try {
+            			TheX = Integer.parseInt(args[1]);
+            			TheY = Integer.parseInt(args[2]);
+            			TheZ = Integer.parseInt(args[3]);
+            			Workstr = args[4] + " " + GetPosInfo(args[0], TheX, TheY, TheZ);
+        	        }
+        	        catch (NumberFormatException ex) {
+            			Workstr = args[4] + " #Er3";
+        	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+        	getLogger().info("<rtn> " + Workstr);
+        	return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwcexpo")) {
+        	
+        	if (args.length == 8) {           	
+        	
+                String Worldname = "";
+    			double TheX;
+    			double TheY;
+    			double TheZ;
+    			float Pwr;
+        		
+        		try {
+        			Worldname = args[0];
+        			TheX = Double.parseDouble(args[1]);
+        			TheY = Double.parseDouble(args[2]);
+        			TheZ = Double.parseDouble(args[3]);
+        			Pwr = Float.parseFloat(args[4]);
+        			Workstr = args[7] + " " + CreateExpo(Worldname,TheX,TheY,TheZ,Pwr,
+        					(Integer.parseInt(args[5])==1),(Integer.parseInt(args[6])==1));
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	Workstr = args[7] + " #Er3";
+    	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwctree")) {
+        	
+        	if (args.length == 6) {           	
+        		Workstr = args[5] + " " + CreateTree(args[0], args[1], args[2], args[3], args[4]);
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwsetbio")) {
+        	
+        	if (args.length == 6) {           	
+        	
+    			int TheX;
+    			int TheY;
+    			int TheZ;
+       		
+        		try {
+        			TheX = Integer.parseInt(args[2]);
+        			TheY = Integer.parseInt(args[3]);
+        			TheZ = Integer.parseInt(args[4]);
+        			Workstr = args[5] + " " + SetBio(args[0],args[1],TheX,TheY,TheZ);
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	Workstr = args[5] + " #Er3";
+    	        }
+        	}
+        	else {
+        		Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetpos")) {
+        	if (args.length == 2) {
+        		float TmpFlt;
+        		org.bukkit.entity.Player Player;
+        		Location loc;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+           			Workstr = Player.getWorld().getName();
+            		loc = Player.getLocation();
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockX());
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockY());
+            		Workstr = Workstr + ";" + String.valueOf(loc.getBlockZ());
+            		TmpFlt = (float) (Math.round(Player.getLocation().getYaw()*100.0)/100.0);  
+            		Workstr = Workstr + ";" + String.valueOf(TmpFlt);
+            		TmpFlt = (float) (Math.round(Player.getLocation().getPitch()*100.0)/100.0);  
+            		Workstr = Workstr + ";" + String.valueOf(TmpFlt);
+            		Workstr = args[1] + " " + Workstr;
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetspa")) {
+        	if (args.length == 2) {
+        		org.bukkit.entity.Player Player;
+        		Location loc;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+           			Workstr = Player.getWorld().getName();
+            		loc = Player.getBedSpawnLocation();
+            		
+            		if (loc != null){
+                		Workstr = args[1] + " " + String.valueOf(loc.getBlockX());
+                		Workstr = Workstr + ";" + String.valueOf(loc.getBlockY());
+                		Workstr = Workstr + ";" + String.valueOf(loc.getBlockZ());
+            		}
+            		else {
+            			Workstr = args[1] + " " + "null";
+            		}
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpgetval")) {
+        	if (args.length == 2) {
+        		double TmpDbl;
+        		org.bukkit.entity.Player Player;
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		if (Player != null) {
+            		TmpDbl = Math.round(Player.getHealth()*100.0)/100.0;       		
+            		Workstr = String.valueOf(TmpDbl);
+            		Workstr = Workstr + ";" + String.valueOf(Player.getFoodLevel());
+            		Workstr = Workstr + ";" + String.valueOf(Player.getLevel());
+            		Workstr = args[1] + " " + Workstr;
+           		}
+           		else {
+           			Workstr = args[1] + " #Er4";
+           		}
+        	}
+        	else {
+       				Workstr = args[args.length-1] + " #Er3";
+        	}
+			getLogger().info("<rtn> " + Workstr);
+			return true;	
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwpset")) {
+        	
+        	if (args.length == 4) {
+        		
+        		Workstr = args[3] + " #Er3";
+           		org.bukkit.entity.Player Player;       		
+           		Player = Bukkit.getPlayerExact(args[0]);
+           		
+           		if (!(Player != null)) {
+                	getLogger().info("<rtn> " + args[1] + " #Er4");
+                	return true;
+               	}
+               		
+        		if (args[1].equalsIgnoreCase("sethp")) {
+        			
+        			try {
+        				
+        				if (Double.parseDouble(args[2]) > Player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue()) {
+        					Workstr = args[3] + " #Er3";
+        				}
+        				else {
+            				Player.setHealth(Double.parseDouble(args[2]));
+            				Workstr = args[3] + " #Er0";
+        				}
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }      			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+                }
+        		else if (args[1].equalsIgnoreCase("setfood")) {
+        			try {
+        				Player.setFoodLevel(Integer.parseInt(args[2]));
+        				Workstr = args[3] + " #Er0";
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }             			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+        		}
+        		else if (args[1].equalsIgnoreCase("setexplv")) {
+        			try {
+        				int Val1;
+        				Val1 = Integer.parseInt(args[2]);
+        				if (Val1 >= 0) {
+            				Player.setLevel(Integer.parseInt(args[2]));
+            				Workstr = args[3] + " #Er0";	
+        				}
+        	        }
+        	        catch (NumberFormatException ex) {
+        	        }             			       		 
+                    getLogger().info("<rtn> " + Workstr);
+                    return true;
+        		}
+        		else {
+        			getLogger().info("<rtn> " + Workstr);
+        			return true;	
+        		}
+        	}
+        	else {
+    			getLogger().info("<rtn> " + args[args.length-1] + " #Er3");
+    			return true;	
+        	}
+        }        
+        return false;
+    }
+    
+    //==========================================================================================================================
+    
+    static boolean TestTargetSelect(String TheStr) {
+    	if (TheStr.startsWith("@p"))	{return true;}
+    	if (TheStr.startsWith("@r"))	{return true;}
+    	if (TheStr.startsWith("@a"))	{return true;}
+    	if (TheStr.startsWith("@e"))	{return true;}
+    	if (TheStr.startsWith("@s"))	{return true;}
+    	return false;
+    }
+    
+	
+	public String GetWorldInfos(String Worldname) {
+    	String Tmpstr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+         if (element.getName().equals(Worldname)) {
+        	
+          	Tmpstr = String.valueOf(element.getEnvironment().name()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(element.getMaxHeight()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(element.getSeaLevel()) + ";";
+        	Location loc = element.getSpawnLocation();
+        	Tmpstr = Tmpstr + String.valueOf(loc.getX()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(loc.getY()) + ";";
+        	Tmpstr = Tmpstr + String.valueOf(loc.getZ());
+	
+        	return Tmpstr;
+         }
+        }
+        return "#Er4";    	
+    }
+
+	public String GetWorldInfom(String Worldname) {
+    	String Tmpstr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+         if (element.getName().equals(Worldname)) {
+        	if (element.isThundering())     {Tmpstr = "Thundering;";}
+        	else if (element.hasStorm())    {Tmpstr = "Storm;";}        	 
+        	else 							{Tmpstr = "Clear;";}
+        	Tmpstr = Tmpstr + String.valueOf(element.getTime()) + ";";
+        	return Tmpstr;
+         }
+        }
+        return "#Er4";    	
+    }
+	
+	public String GetHeightestBlock(String Worldname, int X, int Z, int TheType) {
+		
+    	int TmpInt;
+    	String TmpStr1 = "", TmpStr2 = "", TmpStr3 = "", TmpStr4 = "";
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+        	if (element.getName().equals(Worldname)) {
+        		
+        		try {
+        			
+       			
+        			if ((TheType == 0) || (TheType == 1))
+        			{
+        				TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING);  
+        				TmpStr1 = String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 2))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.MOTION_BLOCKING_NO_LEAVES);  
+                 		TmpStr2 = String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 3))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR);  
+                 		TmpStr3 =  String.valueOf(TmpInt);
+        			}
+        			if ((TheType == 0) || (TheType == 4))
+        			{
+                 		TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE);  
+                 		TmpStr4 =  String.valueOf(TmpInt);
+        			}
+        			
+        			if (TheType == 0)
+        			{
+        				return TmpStr1 + ";" + TmpStr2 + ";" + TmpStr3 + ";" + TmpStr4;
+        			}
+        			else
+        			{
+        				return TmpStr1 + TmpStr2 + TmpStr3 + TmpStr4;
+        			}
+        			
+             		/* TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.OCEAN_FLOOR_WG);  
+             		   TmpInt = element.getHighestBlockYAt(X,Z,HeightMap.WORLD_SURFACE_WG); */
+
+        		}
+        		catch(java.lang.IllegalArgumentException e) {
+        			return "#Er3";
+        		}
+        	}
+        }
+        return "#Er4";
+    }
+	
+	public String GetPosInfo(String Worldname, int X, int Y, int Z) {
+		
+    	double TmpDouble;
+    	Biome Thebiome;
+    	String TmpStr;
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	        	
+        	if (element.getName().equals(Worldname)) {
+        		
+        		try {
+        			
+        			Thebiome = element.getBiome(X,Y,Z);
+        			TmpStr = Thebiome.name();
+          			TmpDouble = element.getTemperature(X,Y,Z);        			
+        			TmpDouble = Math.round(TmpDouble*100.0)/100.0;
+        			TmpStr = TmpStr + ";" + String.valueOf(TmpDouble);
+        			TmpDouble = element.getHumidity(X,Y,Z);        			
+        			TmpDouble = Math.round(TmpDouble*100.0)/100.0;
+        			TmpStr = TmpStr + ";" + String.valueOf(TmpDouble);
+        		}
+        		catch(java.lang.IllegalArgumentException e) {
+        			return "#Er3";
+        		}
+
+        		return TmpStr;
+        	}
+        }
+        return "#Er4";
+    }
+
+	public String GetWorldList() {
+    	String Tmpstr = "";
+    	
+    	List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {       	
+        	Tmpstr = Tmpstr + element.getName() + ";";
+        }
+        Tmpstr = Tmpstr + "?";
+        Tmpstr = Tmpstr.replace(";?", "");
+        
+        return Tmpstr;
+    }
+   
+	public String CreateExpo(String Worldname, double x, double y, double z, float power,boolean setFire, boolean breakBlocks) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	if (element.getName().equals(Worldname)) {
+        		if (element.createExplosion(x,y,z,power,setFire,breakBlocks)) {
+        			return "#Er0";
+        		}
+        		else {
+        			return "#Er5";
+        		}
+        	}
+        }
+		return "#Er4";
+	}
+	
+	public String CreateTree(String Worldname,String treetype, String x, String y, String z) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	TreeType tree1;
+    	
+    	try {
+        	tree1 = org.bukkit.TreeType.valueOf(treetype);
+    	}
+    	catch (IllegalArgumentException e) {
+			return "#Er4";
+    	}    	
+    	
+        for(org.bukkit.World element : WorldList) {
+        	if (element.getName().equals(Worldname)) {
+        		try {
+        			Location loc = new Location(element, Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(z));  
+            		if (element.generateTree(loc,tree1)) {
+            			return "#Er0";
+            		}
+            		else {
+            			return "#Er5";
+            		}
+    	        }
+    	        catch (NumberFormatException ex) {
+    	        	return "#Er3";
+    	        }
+        	}
+        }
+		return "#Er4";
+	}	
+	
+	public String SetBio(String Worldname, String Bioname, int x, int y, int z) {
+		
+		List<org.bukkit.World> WorldList;
+    	WorldList = Bukkit.getWorlds();
+    	
+        for(org.bukkit.World element : WorldList) {
+        	
+        	if (element.getName().equals(Worldname)) {
+
+        		Biome TheBiome;
+        		try {
+        			TheBiome = Biome.valueOf(Bioname);
+        			element.setBiome(x, y, z, TheBiome);
+        			return "#Er0";
+        		}
+        		catch (IllegalArgumentException e) { 
+        			return "#Er4";
+        		}
+        	}
+        }
+		return "#Er4";
+	}	
+	
+	
+}
+
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:474)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2021-05-19 05:57:08.618
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:474)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2021-05-19 05:57:08.619
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3764)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2203)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2968)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3316)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:474)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+!SESSION 2021-06-18 11:59:45.052 -----------------------------------------------
+eclipse.buildId=4.19.0.I20210303-1800
+java.version=16.0.1
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_TW
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2021-06-18 11:59:54.870
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.jface 2 0 2021-06-18 12:00:00.567
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-06-18 12:00:00.567
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@22c29aa8,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@129b69b2,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-06-18 12:00:11.420
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\user99'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui.ide 4 4 2021-06-18 12:13:12.738
+!MESSAGE Not properly disposed SWT resource
+!STACK 0
+java.lang.Error: SWT Resource was not properly disposed
+	at org.eclipse.swt.graphics.Resource.initNonDisposeTracking(Resource.java:172)
+	at org.eclipse.swt.graphics.Resource.<init>(Resource.java:120)
+	at org.eclipse.swt.graphics.Font.<init>(Font.java:111)
+	at org.eclipse.ui.internal.ide.dialogs.ResourceFilterGroup.createViewerGroup(ResourceFilterGroup.java:625)
+	at org.eclipse.ui.internal.ide.dialogs.ResourceFilterGroup.createContents(ResourceFilterGroup.java:601)
+	at org.eclipse.ui.internal.ide.dialogs.ResourceFilterPage.createContents(ResourceFilterPage.java:52)
+	at org.eclipse.jface.preference.PreferencePage.createControl(PreferencePage.java:244)
+	at org.eclipse.jface.preference.PreferenceDialog.createPageControl(PreferenceDialog.java:1433)
+	at org.eclipse.jface.preference.PreferenceDialog$8.run(PreferenceDialog.java:1196)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.eclipse.jface.preference.PreferenceDialog.showPage(PreferenceDialog.java:1188)
+	at org.eclipse.ui.internal.dialogs.FilteredPreferenceDialog.showPage(FilteredPreferenceDialog.java:630)
+	at org.eclipse.jface.preference.PreferenceDialog$5.lambda$0(PreferenceDialog.java:660)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:74)
+	at org.eclipse.jface.preference.PreferenceDialog$5.selectionChanged(PreferenceDialog.java:657)
+	at org.eclipse.jface.viewers.StructuredViewer$3.run(StructuredViewer.java:823)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.eclipse.jface.viewers.StructuredViewer.firePostSelectionChanged(StructuredViewer.java:820)
+	at org.eclipse.jface.viewers.StructuredViewer.handlePostSelect(StructuredViewer.java:1193)
+	at org.eclipse.swt.events.SelectionListener$1.widgetSelected(SelectionListener.java:84)
+	at org.eclipse.jface.util.OpenStrategy.firePostSelectionEvent(OpenStrategy.java:263)
+	at org.eclipse.jface.util.OpenStrategy.access$5(OpenStrategy.java:258)
+	at org.eclipse.jface.util.OpenStrategy$1.lambda$1(OpenStrategy.java:428)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4001)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3629)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:823)
+	at org.eclipse.jface.window.Window.open(Window.java:799)
+	at org.eclipse.ui.dialogs.PropertyDialogAction.run(PropertyDialogAction.java:153)
+	at org.eclipse.jface.action.Action.runWithEvent(Action.java:474)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:580)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$4(ActionContributionItem.java:414)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4209)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1043)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4026)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3626)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1157)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:644)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:551)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:156)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1461)
+
+!ENTRY org.eclipse.core.resources 4 2 2021-06-18 19:02:47.805
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 1
+org.eclipse.core.runtime.CoreException: Variable references empty selection: ${project_loc}
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.abort(ResourceResolver.java:111)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.getSelectedResource(ResourceResolver.java:132)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.resolveValue(ResourceResolver.java:47)
+	at org.eclipse.core.internal.variables.DynamicVariable.getValue(DynamicVariable.java:56)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.resolve(StringSubstitutionEngine.java:273)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.substitute(StringSubstitutionEngine.java:196)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.performStringSubstitution(StringSubstitutionEngine.java:91)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:547)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:347)
+	at org.eclipse.core.externaltools.internal.launchConfigurations.ExternalToolsCoreUtil.getLocation(ExternalToolsCoreUtil.java:76)
+	at org.eclipse.ant.internal.launching.launchConfigurations.AntLaunchDelegate.launch(AntLaunchDelegate.java:164)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:711)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.launchBuild(ExternalToolBuilder.java:183)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.doBuildBasedOnScope(ExternalToolBuilder.java:171)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.build(ExternalToolBuilder.java:90)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:846)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:229)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:277)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:330)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:333)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:385)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:406)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-06-18 19:02:47.808
+!MESSAGE Variable references empty selection: ${project_loc}
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-06-18 19:02:47.808
+!MESSAGE Variable references empty selection: ${project_loc}
+
+!ENTRY org.eclipse.core.resources 4 75 2021-06-18 19:02:47.815
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 org.eclipse.core.externaltools 4 75 2021-06-18 19:02:47.815
+!MESSAGE Errors running builder 'Integrated External Tool Builder' on project '4WMC-Plugin'.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Variable references empty selection: ${project_loc}
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.abort(ResourceResolver.java:111)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.getSelectedResource(ResourceResolver.java:132)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.resolveValue(ResourceResolver.java:47)
+	at org.eclipse.core.internal.variables.DynamicVariable.getValue(DynamicVariable.java:56)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.resolve(StringSubstitutionEngine.java:273)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.substitute(StringSubstitutionEngine.java:196)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.performStringSubstitution(StringSubstitutionEngine.java:91)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:547)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:347)
+	at org.eclipse.core.externaltools.internal.launchConfigurations.ExternalToolsCoreUtil.getLocation(ExternalToolsCoreUtil.java:76)
+	at org.eclipse.ant.internal.launching.launchConfigurations.AntLaunchDelegate.launch(AntLaunchDelegate.java:164)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:711)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.launchBuild(ExternalToolBuilder.java:183)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.doBuildBasedOnScope(ExternalToolBuilder.java:171)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.build(ExternalToolBuilder.java:90)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:846)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:229)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:277)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:330)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:333)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:385)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:406)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 2 org.eclipse.debug.core 4 120 2021-06-18 19:02:47.816
+!MESSAGE Variable references empty selection: ${project_loc}
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-06-18 19:02:47.816
+!MESSAGE Variable references empty selection: ${project_loc}
+!SESSION 2021-06-19 12:22:02.032 -----------------------------------------------
+eclipse.buildId=4.19.0.I20210303-1800
+java.version=16.0.1
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_TW
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2021-06-19 12:22:08.846
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.jface 2 0 2021-06-19 12:22:12.367
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-06-19 12:22:12.367
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@129b69b2,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@12be4f83,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-06-19 12:22:19.892
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\user99'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2021-06-19 13:49:22.460 -----------------------------------------------
+eclipse.buildId=4.19.0.I20210303-1800
+java.version=16.0.1
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_TW
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.jface 2 0 2021-06-19 13:49:27.441
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-06-19 13:49:27.441
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4491eaeb,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@71262020,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-06-19 13:49:32.271
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\user99'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.debug.core 4 2 2021-06-19 13:50:03.221
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.debug.core".
+!STACK 0
+org.eclipse.buildship.core.internal.GradlePluginsRuntimeException: Cannot resolve working directory expression ${workspace_loc:/4WMC-Mod}.
+	at org.eclipse.buildship.core.internal.launch.BaseRunConfigurationAttributes.getWorkingDir(BaseRunConfigurationAttributes.java:83)
+	at org.eclipse.buildship.core.internal.configuration.DefaultConfigurationManager.loadProjectConfiguration(DefaultConfigurationManager.java:204)
+	at org.eclipse.buildship.core.internal.configuration.DefaultConfigurationManager.loadRunConfiguration(DefaultConfigurationManager.java:166)
+	at org.eclipse.buildship.ui.internal.launch.ConsoleShowingLaunchListener.convertToGradleRunConfigurationAttributes(ConsoleShowingLaunchListener.java:65)
+	at org.eclipse.buildship.ui.internal.launch.ConsoleShowingLaunchListener.launchAdded(ConsoleShowingLaunchListener.java:40)
+	at org.eclipse.debug.internal.core.LaunchManager$LaunchNotifier.run(LaunchManager.java:425)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.debug.internal.core.LaunchManager$LaunchNotifier.notify(LaunchManager.java:415)
+	at org.eclipse.debug.internal.core.LaunchManager.fireUpdate(LaunchManager.java:1027)
+	at org.eclipse.debug.internal.core.LaunchManager.addLaunch(LaunchManager.java:678)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:760)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1021)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$2.run(DebugUIPlugin.java:1224)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.debug.core 4 120 2021-06-19 13:50:03.222
+!MESSAGE An exception occurred during launch change notification.
+!STACK 0
+org.eclipse.buildship.core.internal.GradlePluginsRuntimeException: Cannot resolve working directory expression ${workspace_loc:/4WMC-Mod}.
+	at org.eclipse.buildship.core.internal.launch.BaseRunConfigurationAttributes.getWorkingDir(BaseRunConfigurationAttributes.java:83)
+	at org.eclipse.buildship.core.internal.configuration.DefaultConfigurationManager.loadProjectConfiguration(DefaultConfigurationManager.java:204)
+	at org.eclipse.buildship.core.internal.configuration.DefaultConfigurationManager.loadRunConfiguration(DefaultConfigurationManager.java:166)
+	at org.eclipse.buildship.ui.internal.launch.ConsoleShowingLaunchListener.convertToGradleRunConfigurationAttributes(ConsoleShowingLaunchListener.java:65)
+	at org.eclipse.buildship.ui.internal.launch.ConsoleShowingLaunchListener.launchAdded(ConsoleShowingLaunchListener.java:40)
+	at org.eclipse.debug.internal.core.LaunchManager$LaunchNotifier.run(LaunchManager.java:425)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.debug.internal.core.LaunchManager$LaunchNotifier.notify(LaunchManager.java:415)
+	at org.eclipse.debug.internal.core.LaunchManager.fireUpdate(LaunchManager.java:1027)
+	at org.eclipse.debug.internal.core.LaunchManager.addLaunch(LaunchManager.java:678)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:760)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1021)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$2.run(DebugUIPlugin.java:1224)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 4 0 2021-06-19 14:05:13.175
+!MESSAGE 
+!STACK 0
+java.lang.NullPointerException
+	at java.base/java.util.Objects.requireNonNull(Objects.java:208)
+	at java.base/java.util.ImmutableCollections$MapN.<init>(ImmutableCollections.java:1186)
+	at java.base/java.util.Map.of(Map.java:1329)
+	at org.eclipse.m2e.editor.lemminx.InitializationOptionsProvider.toLemMinXOptions(InitializationOptionsProvider.java:26)
+	at org.eclipse.m2e.editor.lemminx.InitializationOptionsProvider.get(InitializationOptionsProvider.java:22)
+	at org.eclipse.m2e.editor.lemminx.InitializationOptionsProvider.get(InitializationOptionsProvider.java:1)
+	at org.eclipse.wildwebdeveloper.xml.internal.XMLExtensionRegistry.getInitiatizationOptions(XMLExtensionRegistry.java:135)
+	at org.eclipse.wildwebdeveloper.xml.internal.XMLLanguageServer.getInitializationOptions(XMLLanguageServer.java:158)
+	at org.eclipse.lsp4e.LanguageServerWrapper.lambda$5(LanguageServerWrapper.java:352)
+	at java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1146)
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1769)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1756)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:295)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1016)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1665)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1598)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+!SESSION 2021-06-19 14:12:59.570 -----------------------------------------------
+eclipse.buildId=4.19.0.I20210303-1800
+java.version=16.0.1
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_TW
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.jface 2 0 2021-06-19 14:13:10.834
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-06-19 14:13:10.834
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@35ceec81,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@d13379e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-06-19 14:13:15.055
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\user99'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui.ide 4 4 2021-06-19 14:21:01.740
+!MESSAGE Not properly disposed SWT resource
+!STACK 0
+java.lang.Error: SWT Resource was not properly disposed
+	at org.eclipse.swt.graphics.Resource.initNonDisposeTracking(Resource.java:172)
+	at org.eclipse.swt.graphics.Resource.<init>(Resource.java:120)
+	at org.eclipse.swt.graphics.Font.<init>(Font.java:111)
+	at org.eclipse.ui.internal.ide.dialogs.ResourceFilterGroup.createViewerGroup(ResourceFilterGroup.java:625)
+	at org.eclipse.ui.internal.ide.dialogs.ResourceFilterGroup.createContents(ResourceFilterGroup.java:601)
+	at org.eclipse.ui.internal.ide.dialogs.ResourceFilterPage.createContents(ResourceFilterPage.java:52)
+	at org.eclipse.jface.preference.PreferencePage.createControl(PreferencePage.java:244)
+	at org.eclipse.jface.preference.PreferenceDialog.createPageControl(PreferenceDialog.java:1433)
+	at org.eclipse.jface.preference.PreferenceDialog$8.run(PreferenceDialog.java:1196)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.eclipse.jface.preference.PreferenceDialog.showPage(PreferenceDialog.java:1188)
+	at org.eclipse.ui.internal.dialogs.FilteredPreferenceDialog.showPage(FilteredPreferenceDialog.java:630)
+	at org.eclipse.jface.preference.PreferenceDialog$5.lambda$0(PreferenceDialog.java:660)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:74)
+	at org.eclipse.jface.preference.PreferenceDialog$5.selectionChanged(PreferenceDialog.java:657)
+	at org.eclipse.jface.viewers.StructuredViewer$3.run(StructuredViewer.java:823)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.eclipse.jface.viewers.StructuredViewer.firePostSelectionChanged(StructuredViewer.java:820)
+	at org.eclipse.jface.viewers.StructuredViewer.handlePostSelect(StructuredViewer.java:1193)
+	at org.eclipse.swt.events.SelectionListener$1.widgetSelected(SelectionListener.java:84)
+	at org.eclipse.jface.util.OpenStrategy.firePostSelectionEvent(OpenStrategy.java:263)
+	at org.eclipse.jface.util.OpenStrategy.access$5(OpenStrategy.java:258)
+	at org.eclipse.jface.util.OpenStrategy$1.lambda$1(OpenStrategy.java:428)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4001)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3629)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:823)
+	at org.eclipse.jface.window.Window.open(Window.java:799)
+	at org.eclipse.ui.dialogs.PropertyDialogAction.run(PropertyDialogAction.java:153)
+	at org.eclipse.jface.action.Action.runWithEvent(Action.java:474)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:580)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$4(ActionContributionItem.java:414)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4209)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1043)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4026)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3626)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1157)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:644)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:551)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:156)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1461)
+
+!ENTRY org.eclipse.core.resources 4 2 2021-06-19 14:23:24.433
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 1
+org.eclipse.core.runtime.CoreException: Variable references empty selection: ${project_loc}
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.abort(ResourceResolver.java:111)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.getSelectedResource(ResourceResolver.java:132)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.resolveValue(ResourceResolver.java:47)
+	at org.eclipse.core.internal.variables.DynamicVariable.getValue(DynamicVariable.java:56)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.resolve(StringSubstitutionEngine.java:273)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.substitute(StringSubstitutionEngine.java:196)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.performStringSubstitution(StringSubstitutionEngine.java:91)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:547)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:347)
+	at org.eclipse.core.externaltools.internal.launchConfigurations.ExternalToolsCoreUtil.getLocation(ExternalToolsCoreUtil.java:76)
+	at org.eclipse.ant.internal.launching.launchConfigurations.AntLaunchDelegate.launch(AntLaunchDelegate.java:164)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:711)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.launchBuild(ExternalToolBuilder.java:183)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.doBuildBasedOnScope(ExternalToolBuilder.java:171)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.build(ExternalToolBuilder.java:90)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:846)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:229)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:277)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:330)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:333)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:385)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:406)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-06-19 14:23:24.433
+!MESSAGE Variable references empty selection: ${project_loc}
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-06-19 14:23:24.433
+!MESSAGE Variable references empty selection: ${project_loc}
+
+!ENTRY org.eclipse.core.resources 4 75 2021-06-19 14:23:24.438
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 org.eclipse.core.externaltools 4 75 2021-06-19 14:23:24.438
+!MESSAGE Errors running builder 'Integrated External Tool Builder' on project '4WMC-Plugin'.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Variable references empty selection: ${project_loc}
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.abort(ResourceResolver.java:111)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.getSelectedResource(ResourceResolver.java:132)
+	at org.eclipse.debug.internal.core.variables.ResourceResolver.resolveValue(ResourceResolver.java:47)
+	at org.eclipse.core.internal.variables.DynamicVariable.getValue(DynamicVariable.java:56)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.resolve(StringSubstitutionEngine.java:273)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.substitute(StringSubstitutionEngine.java:196)
+	at org.eclipse.core.internal.variables.StringSubstitutionEngine.performStringSubstitution(StringSubstitutionEngine.java:91)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:547)
+	at org.eclipse.core.internal.variables.StringVariableManager.performStringSubstitution(StringVariableManager.java:347)
+	at org.eclipse.core.externaltools.internal.launchConfigurations.ExternalToolsCoreUtil.getLocation(ExternalToolsCoreUtil.java:76)
+	at org.eclipse.ant.internal.launching.launchConfigurations.AntLaunchDelegate.launch(AntLaunchDelegate.java:164)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:711)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.launchBuild(ExternalToolBuilder.java:183)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.doBuildBasedOnScope(ExternalToolBuilder.java:171)
+	at org.eclipse.core.externaltools.internal.model.ExternalToolBuilder.build(ExternalToolBuilder.java:90)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:846)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:229)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:277)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:330)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:333)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:385)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:406)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 2 org.eclipse.debug.core 4 120 2021-06-19 14:23:24.438
+!MESSAGE Variable references empty selection: ${project_loc}
+!SUBENTRY 1 org.eclipse.debug.core 4 120 2021-06-19 14:23:24.438
+!MESSAGE Variable references empty selection: ${project_loc}

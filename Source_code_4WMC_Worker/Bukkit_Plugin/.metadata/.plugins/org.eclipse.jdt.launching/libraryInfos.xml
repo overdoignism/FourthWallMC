@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <libraryInfos>
+    <libraryInfo home="C:\Program Files\AdoptOpenJDK\jdk-16.0.1.9-hotspot\bin" version="16.0.1"/>
     <libraryInfo home="C:\Program Files\AdoptOpenJDK\jdk-11.0.11.9-hotspot" version="11.0.11"/>
     <libraryInfo home="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64" version="1.8.0_51">
         <bootpath>
@@ -20,5 +21,6 @@
             <entry path="C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\lib\endorsed"/>
         </endorsedDirs>
     </libraryInfo>
+    <libraryInfo home="C:\Program Files\AdoptOpenJDK\jdk-16.0.1.9-hotspot" version="16.0.1"/>
     <libraryInfo home="C:\Program Files\AdoptOpenJDK\jdk-16.0.0.36-hotspot" version="16"/>
 </libraryInfos>

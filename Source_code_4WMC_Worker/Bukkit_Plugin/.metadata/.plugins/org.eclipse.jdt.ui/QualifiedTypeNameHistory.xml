@@ -8,4 +8,8 @@
     <fullyQualifiedTypeName name="org.bukkit.command.RemoteConsoleCommandSender"/>
     <fullyQualifiedTypeName name="org.bukkit.block.Biome"/>
     <fullyQualifiedTypeName name="org.bukkit.TreeType"/>
+    <fullyQualifiedTypeName name="com.sun.org.apache.xml.internal.security.utils.Base64"/>
+    <fullyQualifiedTypeName name="java.nio.charset.Charset"/>
+    <fullyQualifiedTypeName name="org.bukkit.entity.Player.Spigot"/>
+    <fullyQualifiedTypeName name="org.bukkit.entity.Player"/>
 </qualifiedTypeNameHistroy>
