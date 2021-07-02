@@ -21,21 +21,23 @@ If need help, please read Wiki.
 If you don't want compile by yourself, go BIN\ to download the exe file.
 
 ----------------------------------------------------
+**FourthWallMC v1.21 / 4WMC-Worker v1.21**  
+[Read here](https://github.com/overdoignism/FourthWallMC/blob/main/history/1.21.md)
 
-**v1.2**  
-[Read here.](https://github.com/overdoignism/FourthWallMC/blob/main/history/1.2.md)
+**FourthWallMC v1.2 / 4WMC-Worker v1.2**  
+[Read here](https://github.com/overdoignism/FourthWallMC/blob/main/history/1.2.md)
 
-**v1.11**  
-[Read here.](https://github.com/overdoignism/FourthWallMC/blob/main/history/1.11.md)
+**FourthWallMC v1.11 / 4WMC-Worker v1.11**  
+[Read here](https://github.com/overdoignism/FourthWallMC/blob/main/history/1.11.md)
 
-**v1.10**  
+**FourthWallMC v1.10 / 4WMC-Worker v1.10**  
 UI modified and performance improved / Some bug fix.  
 
-**v1.0**  
+**FourthWallMC v1.0 / 4WMC-Worker v1.0**  
 Add 4WMC Worker plugin for support and API extension. The formal publishing version.  
 
-**v0.94**  
+**FourthWallMC v0.94**  
 Sending command prefix change from "@" to "%".  
 
-**v0.93**  
+**FourthWallMC v0.93**  
 First public release.
