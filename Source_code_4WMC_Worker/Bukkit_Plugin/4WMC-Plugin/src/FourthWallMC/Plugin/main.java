@@ -1,6 +1,7 @@
 package FourthWallMC.Plugin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.HeightMap;
 import org.bukkit.Location;
 import org.bukkit.TreeType;
@@ -16,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.minecart.CommandMinecart;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.Runtime.Version;
 import java.nio.charset.Charset;
 import java.util.List;
 
@@ -23,7 +25,7 @@ import java.util.List;
 
 public class main extends JavaPlugin {
 	
-	String ver = "1.2"; 
+	String ver = "1.21"; 
 
     @Override
     public void onEnable() {
@@ -40,9 +42,7 @@ public class main extends JavaPlugin {
                              String label,
                              String[] args) {
     	
-    	
-    	if (args.length == 0) { return false; }
-    	
+    	   	
         String TrueSenderStr = ""; 
 
         if (sender instanceof BlockCommandSender) {
@@ -78,6 +78,8 @@ public class main extends JavaPlugin {
         
         if (command.getName().equalsIgnoreCase("fwts")) {
 
+        	if (args.length == 0) { return false; }
+        	
             String str = "";
             
             for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
@@ -106,6 +108,8 @@ public class main extends JavaPlugin {
         }
 
         if (command.getName().equalsIgnoreCase("fwra")) {
+        	
+        	if (args.length == 0) { return false; }
         
             String str = "";
         	for(int Theidx1 = 0; Theidx1 < args.length; Theidx1++) {
@@ -116,8 +120,7 @@ public class main extends JavaPlugin {
             }
             return true;
         }
-        
-        
+                
         /*if (command.getName().equalsIgnoreCase("ffff")) {
         	Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "say hi");
         	getLogger().info("ffff");
@@ -129,7 +132,10 @@ public class main extends JavaPlugin {
         
         String Workstr;
 
-        if (command.getName().equalsIgnoreCase("fwsgetinf")) {        	
+        if (command.getName().equalsIgnoreCase("fwsgetinf")) { 
+        	
+        	if (args.length == 0) { return false; }
+        	
         	if (args.length == 1) {
         		
         		String TmpStr = Bukkit.getIp();
@@ -150,7 +156,10 @@ public class main extends JavaPlugin {
     		return true;
         }        
         
-        if (command.getName().equalsIgnoreCase("fwlistw")) {        	
+        if (command.getName().equalsIgnoreCase("fwlistw")) {
+
+        	if (args.length == 0) { return false; }
+        	
         	if (args.length == 1) {
         		Workstr = args[0] + " " + GetWorldList();
         	}
@@ -162,6 +171,9 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwwgetinfs")) {
+        	
+        	if (args.length == 0) { return false; }
+        	
         	if (args.length == 2) {           	
         		Workstr = args[1] + " " + GetWorldInfos(args[0]);
         	}
@@ -173,6 +185,9 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwwgetinfm")) {
+        	
+        	if (args.length == 0) { return false; }
+        	
         	if (args.length == 2) {           	
         		Workstr = args[1] + " " + GetWorldInfom(args[0]);
         	}
@@ -184,6 +199,9 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwwget1h")) {
+        	
+        	if (args.length == 0) { return false; }
+        	
         	if ((args.length == 4) || (args.length == 5)) {           	
         		int TheX;
         		int TheZ;
@@ -219,6 +237,9 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwwgetp")) {
+        	
+        	if (args.length == 0) { return false; }
+        	
         	if (args.length == 5) {           	
         			int TheX;
         			int TheY;
@@ -241,6 +262,8 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwcexpo")) {
+        	
+        	if (args.length == 0) { return false; }
         	
         	if (args.length == 8) {           	
         	
@@ -272,6 +295,8 @@ public class main extends JavaPlugin {
         
         if (command.getName().equalsIgnoreCase("fwctree")) {
         	
+        	if (args.length == 0) { return false; }
+        	
         	if (args.length == 6) {           	
         		Workstr = args[5] + " " + CreateTree(args[0], args[1], args[2], args[3], args[4]);
         	}
@@ -283,6 +308,8 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwsetbio")) {
+        	
+        	if (args.length == 0) { return false; }
         	
         	if (args.length == 6) {           	
         	
@@ -308,6 +335,9 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwpgetpos")) {
+        	
+        	if (args.length == 0) { return false; }
+        	
         	if (args.length == 2) {
         		float TmpFlt;
         		org.bukkit.entity.Player Player;
@@ -337,6 +367,9 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwpgetspa")) {
+        	
+        	if (args.length == 0) { return false; }
+        	
         	if (args.length == 2) {
         		org.bukkit.entity.Player Player;
         		Location loc;
@@ -366,6 +399,9 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwpgetval")) {
+        	
+        	if (args.length == 0) { return false; }
+        	
         	if (args.length == 2) {
         		double TmpDbl;
         		org.bukkit.entity.Player Player;
@@ -389,6 +425,8 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwpset")) {
+        	
+        	if (args.length == 0) { return false; }
         	
         	if (args.length == 4) {
         		
@@ -455,7 +493,8 @@ public class main extends JavaPlugin {
         
         if (command.getName().equalsIgnoreCase("fwsay")) {
         	
-        	if (args.length == 0) {return true;}       	
+        	if (args.length == 0) {return true;}
+        	
         	byte[] decodedBytes = java.util.Base64.getDecoder().decode(args[0].getBytes());
         	String decodedStr = new String(decodedBytes, Charset.forName("UTF-8"));
         	Bukkit.broadcastMessage("[Server] " + decodedStr);
@@ -463,6 +502,8 @@ public class main extends JavaPlugin {
         }
         
         if (command.getName().equalsIgnoreCase("fwwh")) {
+        	
+        	if (args.length == 0) { return false; }
         	        	
         	if (!(args.length <= 1))
         	{        	        	
@@ -478,7 +519,31 @@ public class main extends JavaPlugin {
     			getLogger().info("The Player " + args[0] +" is not found.");	
     			return true;
         	}
-        }        
+        }
+        
+        if (command.getName().equalsIgnoreCase("fwheap")) {
+        	
+        	if (args.length == 0) { return false; }
+        	
+        	if (args.length == 1) {
+            	long heapSize = Runtime.getRuntime().totalMemory(); 
+            	long heapMaxSize = Runtime.getRuntime().maxMemory();
+            	long heapFreeSize = Runtime.getRuntime().freeMemory(); 
+            	
+               	Workstr = args[0] + " " + Long.toString(heapSize)+";"+ Long.toString(heapMaxSize)+";" +Long.toString(heapFreeSize);
+        	}
+        	else {
+   				Workstr = args[args.length-1] + " #Er3";
+        	}
+        	        	
+        	getLogger().info("<rtn> " + Workstr);
+        	return true;
+
+        }
+        if (command.getName().equalsIgnoreCase("fwgc")) {
+        	System.gc();
+        	return true;
+        }
         
         return false;
     }
@@ -551,7 +616,15 @@ public class main extends JavaPlugin {
         	if (element.getName().equals(Worldname)) {
         		
         		try {
+        			        			
+        			Chunk theCh;
+        			Location loc = new Location(element, Double.valueOf(X), 60, Double.valueOf(Z));         			
+        			theCh= element.getChunkAt(loc);
         			
+        			if (theCh.isLoaded() != true)
+        			{
+        				theCh.load();
+        			}
        			
         			if ((TheType == 0) || (TheType == 1))
         			{
