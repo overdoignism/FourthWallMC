@@ -961,6 +961,8 @@ Public Class Form1
                                 Return 1
                             'Case "fwpsetpit"
                             'Case "fwpsetyaw"
+                            Case "fwheap"
+                                'Get JRE heap info. Total/max/free
                             Case "fwztest"
                             Case Else
                                 WrongFmt = 1

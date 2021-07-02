@@ -8,7 +8,7 @@ Imports System.Management
 
 Module Module1
 
-    Public Const FwmcVer As String = "1.2"
+    Public Const FwmcVer As String = "1.21"
 
     Public Const CM_Type_W As String = "#"
     Public Const CM_Type_W2 As String = "%"
@@ -797,7 +797,7 @@ Module Module1
             Return TrueOrFalse
         End If
 
-        For Each TestOP_List As String In Man_Who_CanWorkList
+        For Each TestOP_List As String In Man_Who_CanSendList
             If TMP(0) = TestOP_List Then
                 If TrueOrFalse Then
                     Man_Who_LastSending = TMP(0)
