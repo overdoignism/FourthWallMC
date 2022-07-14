@@ -1,7 +1,7 @@
 ﻿#
-# 2021-03-22
+# 2022-07-14
 #
-# For 4WMC ver 0.80 or newer
+# For 4WMC ver 1.20 or newer
 #
 # 這是一個範例程式，用於 FourthWallMC，可以廣播、停止、備份、重啟伺服器。
 # It's a sample code for FourthWallMC, use to Broadcast, then stop server, backup server, and restart server. 
@@ -36,16 +36,38 @@ $GCMC_PWD = 'password'
 
 
 #
-# 語法:   ConnectServer -port (port) -server (IP或域名) -password(密碼) -message (見說明)
+# 語法:   ConnectServer -port (port) 
 #
-#         -waitsec (等待Busy的時間，0=永遠等待) -err2stop (如果發生錯誤就停下) -showResult (顯示伺服器回傳的實際值)
+#         -server (IP或域名)
 #
+#         -password(密碼)
 #
-# Syntax: ConnectServer -port (port) -server (IP or Domainname) -password(Password) -message (See command document) 
+#         -message (見指令文件，在專案wiki)
 #
-#        -waitsec (Wait seconds for Busy, 0=forever) -err2stop (If error happend stop) -showResult (Show the return form server)
+#         -execTimes (如果不成功，最大總執行次數。1=1次，0=永遠重試)(每秒重試一次)
 #
-
+#		  -err2stop ($true = 如果發生 'FAIL' 或 'NEED-SETUP' 錯誤就立即停止。)
+#
+#		  -showDebug ($true = 顯示除錯用訊息)
+#
+#         -useThrow ($true = 意外狀況使用錯誤擲回(否則用return擲回))
+#
+# Syntax: ConnectServer -port (port) 
+#
+#        -server (IP or Domainname)
+#
+#        -password(Password)
+#
+#        -message (See command document in project wiki)
+#
+#        -execTimes (Max execute times if unsuccessful. 1=once, 0=unlimited.)(Retry in every second.)
+#
+#        -err2stop ($true = stop immediately if 'FAIL' or 'NEED-SETUP' happend.)
+#
+#        -showDebug ($true = Show the debug message)
+#
+#        -useThrow ($true = Use error throw when unexpected (Else use value return))
+#
 #
 # 程式開始
 # Program begin.
@@ -53,73 +75,74 @@ $GCMC_PWD = 'password'
 
 Write-Host "Backup task started."
 
-#
-# 測試 Minecraft server 是否為啟動。
-# Test for if Minecraft server is on.
-#
 
-$result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;info1' -waitsec 20 -err2stop $true -showResult $true
-
-if ($result -eq "ON") 
-{
+try {
+    
     #
-    # 在 Minecraft 伺服器內用 say 指令進行數次廣播
-    # Broadcast servial times in Minecraft server with say command
+    # 測試 Minecraft server 是否為啟動。
+    # Test for if Minecraft server is on.
     #
 
-    Write-Host "Countdown 5 min."
-    $result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We will shutdown server in 5 min.' -waitsec 0 -err2stop $true -showResult $true
-    Start-Sleep -second 12
+    $result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;info1' -execTimes 20 -err2stop $true -showDebug $true
 
-    Write-Host "Countdown 3 min."
-    $result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We will shutdown server in 3 min.' -waitsec 0 -err2stop $true -showResult $true
-    Start-Sleep -second 12
+    if ($result -eq "ON") 
+    {
+        #
+        # 在 Minecraft 伺服器內用 say 指令進行數次廣播
+        # Broadcast servial times in Minecraft server with say command
+        #
 
-    Write-Host "Countdown 1 min."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We will shutdown server in 1 min.' -waitsec 0 -err2stop $true -showResult $true
-    Start-Sleep -second 6
+        Write-Host "Countdown 10 secs."
+        $result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We will shutdown server in 10 secs.' -execTimes 1 -err2stop $true -showDebug $true
+        Start-Sleep -second 5
 
-    Write-Host "Countdown end, we are shutting down."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We are shutting down the server.' -waitsec 0 -err2stop $true -showResult $true
+        Write-Host "Countdown 5 secs."
+        $result = ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We will shutdown server in 5 secs.' -execTimes 1 -err2stop $true -showDebug $true
+        Start-Sleep -second 5
 
-    #
-    # 在Minecraft伺服器內用 stop 指令進行關機
-    # Shutdown Minecraft server with stop command
-    #
+        Write-Host "Countdown end, we are shutting down."
+        $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;say We are shutting down the server.' -execTimes 1 -err2stop $true -showDebug $true
 
-    Write-Host "Minecraft is Shutdown now."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;stop' -waitsec 0 -err2stop $true -showResult $true
+        #
+        # 在Minecraft伺服器內用 stop 指令進行關機
+        # Shutdown Minecraft server with stop command
+        #
 
-    #
-    # 等待完成關機，讓 FourthWallMC 進行備份動作
-    # Waiting for Shutdown, and let's FourthWallMC Backup Minecraft
-    #
+        Write-Host "Minecraft server is shutdown now."
+        $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'in;stop' -execTimes 0 -err2stop $true -showDebug $true
 
-    Write-Host "Waiting for Shutdown, then Start Backup.."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;backup' -waitsec 120 -err2stop $true -showResult $true
+        #
+        # 等待完成關機，讓 FourthWallMC 進行備份動作
+        # Waiting for Shutdown, and let's FourthWallMC Backup Minecraft
+        #
 
-    #
-    # 等待完成備份，重啟 Minecraft 伺服器
-    # Waiting for Shutdown, and Re-Start Minecraft server
-    #
+        Write-Host "Waiting for Shutdown, then Start Backup.."
+        $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;backup' -execTimes 120 -err2stop $true -showDebug $true
 
-    Write-Host "Waiting backup finish, then Restart Minecraft Server....."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;start' -waitsec 120 -err2stop $true -showResult $true
+        #
+        # 等待完成備份，重啟 Minecraft 伺服器
+        # Waiting for Shutdown, and Re-Start Minecraft server
+        #
+
+        Write-Host "Waiting backup finish, then Restart Minecraft Server....."
+        $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;start' -execTimes 120 -err2stop $true -showDebug $true
+
+    }
+    elseif ($result -eq "OFF")
+    {
+
+        #
+        # 如果 Minecraft 未啟動，就僅進行備份
+        # If Minecraft server is not on, Just backup Minecraft only.
+        #
+
+        Write-Host "Start Backup.."
+        $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;backup' -execTimes 120 -err2stop $true -showDebug $true
+
+    }
 
 }
-elseif ($result -eq "OFF")
-{
-
-    #
-    # 如果 Minecraft 未啟動，就僅進行備份
-    # If Minecraft server is not on, Just backup Minecraft only.
-    #
-
-    Write-Host "Start Backup.."
-    $result =  ConnectServer -port $GCMC_Port -server $GCMC_IP -password $GCMC_PWD -message 'cm;backup' -waitsec 120 -err2stop $true -showResult $true
-
-}
-else
+catch
 {
 
     #
@@ -127,5 +150,6 @@ else
     # If error happend in start, stop the work.
     #
 
-    write-host 'FourthWallMC may not working, or setting/password incorrect!'
+    write-host 'Error happened, please check the message.'
+    Write-Host 'Error throw: '$_
 }
