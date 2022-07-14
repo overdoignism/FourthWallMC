@@ -1,9 +1,9 @@
 ﻿#
 # It's a sample code for FourthWallMC
 #
-# 2021-03-22
+# 2022-07-14
 #
-# For 4WMC ver 0.80 or newer
+# For 4WMC ver 1.20 or newer
 #
 # Please do not modify this if you are not know what are you doing.
 #
@@ -49,78 +49,134 @@ function ServerSocket {
 
 
 function ConnectServer {
-	param ($server, $port, $password, $message, $waitsec, $err2stop = $true, $showResult = $false)
 
-	$WaitCount = 0
+	param ($server, $port, $password, $message, $execTimes, $err2stop = $true, $showDebug = $false, $useThrow = $true)
+
 	$UseString = $password + ";" + $message
-	
-	[bool]$IsNeedWait 
-	$IsNeedWait = $true
+	$explainStr
+	$execCount = 0
 
-	while($IsNeedWait)
+	while($true)
 	{
 
+		$BeTerminate = $false
+		$unexpected = $false
+		$execCount += 1
 
 		try
 		{
 			$ReturnResult = ServerSocket -socket_server $server -socket_port $port -socket_message $UseString
-			if($showResult -eq $true) { Write-Host "Socket reutrn:"$ReturnResult }
-			Start-Sleep -s 1
+			Start-Sleep -Seconds 1
 		}
 		catch
 		{
-			$ReturnResult='FAIL'
+			$ReturnResult = "FAIL"
+			$BeTerminate = $true
 		}
-
-		if($waitsec -gt 0) {$WaitCount += 1}
-
-		if ($WaitCount -gt $waitsec)
-		{
-			Write-Host "The task has timed out: WAIT/BUSY over $waitsec sec."
-			if ($err2stop) {exit 1}
-		}
-		else
+		
+		switch ($ReturnResult)
 		{
 			
-			switch ($ReturnResult)
+			'BAD'
 			{
-				'PASS'
-				{
-					$UseString = $password + ";sy;This task has been cancelled."
-					$NoDisplay = ServerSocket -socket_server $server -socket_port $port -socket_message $UseString
-					Write-Host "PASS: This task has been cancelled."
-                    			exit 2
- 				}
+				$explainStr = "Bad command format or password."
+				$BeTerminate = $true
+				$unexpected = $true
+			}
+			'PASS'
+			{
+				$UseString = $password + ";sy;A task has been cancelled."
+				ServerSocket -socket_server $server -socket_port $port -socket_message $UseString
+				
+				$explainStr = "This task has been cancelled."
+				$BeTerminate = $true
+				$unexpected = $true
+ 			}		
 
-	 			'NOT-ON'
-   			        {
-	        		        Write-Host 'NOT-ON: This operation is need Minecraft server be on-line.'
- 					if ($err2stop) {exit 3}
-                		}
+			'FAIL'
+			{
+				$explainStr = 'Socket error happend during connection.'
+				$unexpected = $true
+				if ($err2stop) {$BeTerminate = $true}
+			}
+			
+			'NEED-SETUP'
+			{
+				$explainStr = 'FourthWallMC has some setting incorrect.'
+				$unexpected = $true
+				if ($err2stop) {$BeTerminate = $true}
+			}
 
-	    			'NOT-OFF'
-				{
-					Write-Host 'NOT-OFF: This operation is need Minecraft server be off-line.'
-					if ($err2stop) {exit 4}
-				}
+	 		'NOT-ON'
+			{
+				$explainStr = 'This operation is need Minecraft server be on-line.'
+				$unexpected = $true
+			}
 
-				'FAIL'
-                		{	
-					Write-Host 'Error happend during connection.'
-					if ($err2stop) {exit 5}
-                		}
+    		'NOT-OFF'
+			{
+				$explainStr = 'This operation is need Minecraft server be off-line.'
+				$unexpected = $true
+			}
 
-				default
-				{
-    				}
+			'BUSY'
+			{
+				$explainStr = 'FourthWallMC is busy.'
+				$unexpected = $true
+			}
+			
+			'WAIT'
+			{
+				$explainStr = 'FourthWallMC asked to wait.'
+				$unexpected = $true
+			}
+			
+			default #normal return
+			{
+				$explainStr = 'A normal return. '
+				$BeTerminate = $true
+			}
+		}
+		
+		if($showDebug -eq $true) 
+		{ 
+			Write-Host "debug: (Execute times)" $execCount"/"$execTimes
+			Write-Host "debug: (Server return) "$ReturnResult 
+			Write-Host "debug: (Explain) "$explainStr
+		}
+	
+		if($execTimes -gt 0) 
+		{
+			if($execCount -ge $execTimes) 
+			{
+				$BeTerminate = $true
 			}
 		}
 
-		$IsNeedWait = ($ReturnResult -eq 'BUSY')
-		$IsNeedWait = $IsNeedWait -or ($ReturnResult -eq 'WAIT')
+		if($BeTerminate)
+		{		
+			if ($showDebug -eq $true)  
+			{
+				if ($unexpected)
+				{
+					Write-Host "debug: (Unexpected happened)"
+				} 
+				else 
+				{
+					Write-Host "debug: (Normal return)"
+				}
+			}
 
+			if ($useThrow)
+			{
+				if ($unexpected)
+				{
+					Throw $ReturnResult + ": " + $explainStr
+				}
+			}
+			
+			return $ReturnResult
+		}
 	}
-
-	return $ReturnResult
-
 }
+
