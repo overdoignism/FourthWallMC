@@ -317,6 +317,7 @@ Public Class Form1
             Command_Mode = ""
             Command_Str = ""
 
+
             If SocketNetworkStream.CanRead Then
 
                 Waiting_Input = True
@@ -730,13 +731,15 @@ Public Class Form1
                     Select Case Command_str.ToLower
                         Case "start"
                             If MC_Server_WorkState <> 0 Then
-                                WorkString = "NOT-OFF"
+                                If MC_Server_WorkState = 1 Then WorkString = "BUSY"
+                                If MC_Server_WorkState = 2 Then WorkString = "NOT-OFF"
                             Else
                                 WorkString = Start_MC_Server_Process(JVM_Launch_Parameter, JVM_JAVA_EXE_Location, MCServer_JAR_BAT_Location, MCServer_Launch_Parameter)
                             End If
                         Case "backup"
                             If MC_Server_WorkState <> 0 Then
-                                WorkString = "NOT-OFF"
+                                If MC_Server_WorkState = 1 Then WorkString = "BUSY"
+                                If MC_Server_WorkState = 2 Then WorkString = "NOT-OFF"
                             Else
                                 WorkString = Start_Server_Backup_Process(ZIP_Launch_Parameter, ZIP_EXE_Location, ZIP_TIME_Format)
                             End If

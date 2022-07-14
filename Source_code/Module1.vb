@@ -8,7 +8,7 @@ Imports System.Management
 
 Module Module1
 
-    Public Const FwmcVer As String = "1.21"
+    Public Const FwmcVer As String = "1.22"
 
     Public Const CM_Type_W As String = "#"
     Public Const CM_Type_W2 As String = "%"
